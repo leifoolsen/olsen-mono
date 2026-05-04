@@ -1,0 +1,18 @@
+# See https://docs.npmjs.com/using-npm/developers.html#keeping-files-out-of-your-package, for more about ignoring files.
+
+# project files
+/public
+/src
+.gitignore
+.npmignore
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# misc
+.idea/
+debug-storybook.log*
+npm-debug.log*

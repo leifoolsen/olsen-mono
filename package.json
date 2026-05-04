@@ -1,0 +1,82 @@
+{
+  "name": "olsen-mono",
+  "version": "0.0.0",
+  "description": "A monorepo for exploring stuff",
+  "private": true,
+  "type": "module",
+  "keywords": [
+    "typescript",
+    "eslint",
+    "pnpm",
+    "monorepo",
+    "hono"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olsen-mono/olsen-mono.git"
+  },
+  "bugs": {
+    "url": "https://github.com/olsen-mono/olsen-mono/issues"
+  },
+  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
+  "author": "Leif Olsen",
+  "license": "ISC",
+  "packageManager": "pnpm@10.32.1",
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": "please-use-pnpm",
+    "yarn": "please-use-pnpm",
+    "pnpm": ">= 10.0.0"
+  },
+  "scripts": {
+    "compile": "pnpm --recursive --if-present compile",
+    "compile-diff": "pnpm --filter \"...[origin/main]\" --recursive --if-present compile",
+    "fix-code-prettier": "prettier . --ignore-path .prettierignore --write",
+    "fix-code-style": "stylelint packages/**/*.css --fix",
+    "fix-code-ts": "eslint . --fix",
+    "lint": "pnpm run \"/^lint:.*/\"",
+    "lint:prettier": "prettier . --check --ignore-path .prettierignore",
+    "lint:style": "stylelint packages/**/*.css --allow-empty-input",
+    "lint:ts": "eslint . --max-warnings 10",
+    "lint-inspect": "pnpm dlx @eslint/config-inspector@latest",
+    "test": "vitest run",
+    "test-watch": "vitest",
+    "changeset": "changeset",
+    "version-packages": "changeset version && pnpm install",
+    "ci": "pnpm lint && pnpm test && pnpm compile",
+    "release": "pnpm ci && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "2.31.0",
+    "@eslint/compat": "2.0.3",
+    "@eslint/js": "10.0.1",
+    "@types/css-modules": "1.0.5",
+    "@types/node": "25.6.0",
+    "eslint": "10.3.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-plugin-import-x": "4.16.2",
+    "eslint-plugin-prettier": "5.5.5",
+    "globals": "16.5.0",
+    "happy-dom": "20.8.9",
+    "jiti": "2.6.1",
+    "prettier": "3.8.3",
+    "rimraf": "6.1.3",
+    "stylelint": "17.9.1",
+    "stylelint-config-css-modules": "4.6.0",
+    "stylelint-config-standard": "40.0.0",
+    "tsup": "8.5.1",
+    "typed-css-modules": "0.9.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.59.1",
+    "vitest": "4.1.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "eslint-plugin-import": "npm:eslint-plugin-import-x@latest"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
