@@ -86,6 +86,13 @@ export const baseConfig = defineConfig(
       '@typescript-eslint/consistent-type-definitions': 'off',
       '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      '@typescript-eslint/restrict-template-expressions': [
+        'error',
+        {
+          allowNumber: true, // Allows numbers and numeric literals like 3000
+          allowBoolean: true, // Optional: allows true/false
+        },
+      ],
       'no-console': ['warn', { allow: ['info', 'error', 'warn'] }],
       'no-warning-comments': 'warn',
     },
