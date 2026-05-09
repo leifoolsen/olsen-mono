@@ -4,6 +4,5 @@ import { defineConfig } from 'tsup';
 export default defineConfig((options) => ({
   ...baseOptions,
   entry: ['src/index.ts'],
-  noExternal: ['@olsen-mono/core-utils'],
   ...options,
 }));

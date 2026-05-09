@@ -12,6 +12,7 @@ export const baseOptions: Options = {
   skipNodeModulesBundle: true,
   sourcemap: true,
   splitting: true,
+  target: 'node26',
   treeshake: true,
 };
 

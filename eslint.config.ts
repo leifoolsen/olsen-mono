@@ -1,4 +1,4 @@
 import { defineConfig } from 'eslint/config';
-import { honoConfig } from './eslint.hono';
+import { baseConfig } from './packages/tooling/eslint.base';
 
-export default defineConfig(...honoConfig);
+export default defineConfig(...baseConfig);

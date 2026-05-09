@@ -26,6 +26,15 @@
     "/lib"
   ],
   "scripts": {
-    "compile": "tsup --silent"
+    "compile": "tsup --silent",
+    "dev": "tsup --watch",
+    "lint": "pnpm run \"/^lint:.*/\"",
+    "lint:prettier": "prettier . --check --ignore-path ../../.prettierignore",
+    "lint:style": "stylelint \"src/**/*.css\" --allow-empty-input",
+    "lint:ts": "eslint .",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@olsen-mono/tooling": "workspace:*"
   }
 }

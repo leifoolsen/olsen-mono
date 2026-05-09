@@ -1,0 +1,34 @@
+{
+  "$schema": "https://turbo.build",
+  "globalDependencies": [".gitignore", ".prettierignore", "tsconfig.json"],
+  "tasks": {
+    "compile": {
+      "dependsOn": ["^compile"],
+      "outputs": ["lib/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["lint:prettier", "lint:style", "lint:ts"]
+    },
+    "lint:prettier": {
+      "cache": true,
+      "inputs": ["src/**/*", "../../.prettierignore"]
+    },
+    "lint:style": {
+      "cache": true,
+      "inputs": ["src/**/*.css", "../../packages/tooling/stylelint*"]
+    },
+    "lint:ts": {
+      "cache": true,
+      "inputs": ["src/**/*.ts", "eslint.config.ts", "../../packages/tooling/eslint*"]
+    },
+    "test": {
+      "dependsOn": ["compile"],
+      "cache": true,
+      "inputs": ["src/**/*.ts", "test/**/*.ts", "../../packages/tooling/vitest*"]
+    }
+  }
+}
