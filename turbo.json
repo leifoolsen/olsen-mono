@@ -1,0 +1,19 @@
+{
+  "$schema": "https://turbo.build",
+  "globalDependencies": [".gitignore", ".prettierignore", "tsconfig.json"],
+  "tasks": {
+    "compile": {
+      "dependsOn": ["^compile"],
+      "outputs": ["lib/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "dependsOn": ["compile"],
+      "cache": true,
+      "inputs": ["src/**/*.ts", "test/**/*.ts", "../../packages/tooling/vitest*"]
+    }
+  }
+}

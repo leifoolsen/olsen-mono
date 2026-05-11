@@ -10,11 +10,12 @@ import globals from 'globals';
 import { configs as tseslintConfigs } from 'typescript-eslint';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const gitIgnore = path.resolve(__dirname, '.gitignore');
+const monorepoRoot = path.resolve(__dirname, '../..');
+const gitIgnore = path.resolve(monorepoRoot, '.gitignore');
 
 type PathGroup = {
   pattern: string;
-  group: 'external' | 'internal' | 'index' | 'sibling' | 'parent';
+  group: 'external' | 'internal' | 'index' | 'sibling' | 'parent' | 'object' | 'unknown';
   position: 'before' | 'after';
 };
 
@@ -43,7 +44,7 @@ export const createImportOrderRule = (extraPathGroups: PathGroup[] = []): Linter
           patternOptions: { matchBase: true },
         },
       ],
-      // pathGroupsExcludedImportTypes: ['builtin', 'type'],
+      pathGroupsExcludedImportTypes: [],
     },
   ],
 });
@@ -65,7 +66,7 @@ export const baseConfig = defineConfig(
       parserOptions: {
         ecmaFeatures: { jsx: true },
         projectService: true,
-        tsconfigRootDir: __dirname,
+        tsconfigRootDir: monorepoRoot,
       },
     },
     settings: {
@@ -81,12 +82,21 @@ export const baseConfig = defineConfig(
   importXConfigs.typescript,
   {
     name: 'base/custom-rules',
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     rules: {
       ...createImportOrderRule(),
       '@typescript-eslint/consistent-type-definitions': 'off',
       '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      '@typescript-eslint/restrict-template-expressions': [
+        'error',
+        {
+          allowNumber: true,
+          allowBoolean: true,
+        },
+      ],
       'no-console': ['warn', { allow: ['info', 'error', 'warn'] }],
+      'no-undef': 'off',
       'no-warning-comments': 'warn',
     },
   },

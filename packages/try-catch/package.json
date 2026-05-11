@@ -1,0 +1,49 @@
+{
+  "name": "@olsen-mono/try-catch",
+  "description": "Functional Try Catch",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
+    "./source": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "keywords": [],
+  "files": [
+    "/src",
+    "/lib"
+  ],
+  "author": "leif.o.olsen@gmail.com",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olsen-mono/olsen-mono.git",
+    "directory": "packages/try-catch"
+  },
+  "bugs": {
+    "url": "https://github.com/olsen-mono/olsen-mono/issues"
+  },
+  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
+  "scripts": {
+    "compile": "tsup --silent",
+    "dev": "tsup --watch",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@olsen-mono/core-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@olsen-mono/tooling": "workspace:*"
+  }
+}
