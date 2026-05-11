@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.3
+
+### Patch Changes
+
+- 0d29483: Trigger version bump for gh actions
+
 ## 0.0.2
 
 ### Patch Changes
