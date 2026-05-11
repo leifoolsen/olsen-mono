@@ -1,5 +1,5 @@
 import { defineConfig } from 'tsup';
-import { baseOptions } from './packages/tooling/tsup.base';
+import { baseOptions } from '@olsen-mono/tooling/tsup';
 
 export default defineConfig((options) => ({
   ...baseOptions,

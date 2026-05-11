@@ -20,6 +20,9 @@ importers:
       '@eslint/js':
         specifier: 10.0.1
         version: 10.0.1(eslint@10.3.0(jiti@2.6.1))
+      '@olsen-mono/tooling':
+        specifier: workspace:*
+        version: link:packages/tooling
       '@types/css-modules':
         specifier: 1.0.5
         version: 1.0.5
