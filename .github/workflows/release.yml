@@ -3,6 +3,9 @@ on:
   push:
     branches: [main]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -12,17 +15,17 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
         with:
-          version: 10
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 26
+          node-version-file: 'package.json'
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
-      - run: pnpm install
-      - run: pnpm ci
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run ci
 
       - name: Create Release PR or Publish
         uses: changesets/action@v1
