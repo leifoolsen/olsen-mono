@@ -2,6 +2,7 @@
   "name": "@olsen-mono/core-utils",
   "description": "Core Utils",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -16,23 +17,27 @@
     "./package.json": "./package.json"
   },
   "keywords": [],
-  "author": "leif.o.olsen@gmail.com",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "files": [
     "/src",
     "/lib"
   ],
+  "author": "leif.o.olsen@gmail.com",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olsen-mono/olsen-mono.git",
+    "directory": "packages/core-utils"
+  },
+  "bugs": {
+    "url": "https://github.com/olsen-mono/olsen-mono/issues"
+  },
+  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "compile": "tsup --silent",
-    "dev": "tsup --watch",
-    "lint": "pnpm run \"/^lint:.*/\"",
-    "lint:prettier": "prettier . --check --ignore-path ../../.prettierignore",
-    "lint:style": "stylelint \"src/**/*.css\" --allow-empty-input",
-    "lint:ts": "eslint .",
-    "test": "vitest run"
+    "dev": "tsup --watch"
   },
   "devDependencies": {
     "@olsen-mono/tooling": "workspace:*"
