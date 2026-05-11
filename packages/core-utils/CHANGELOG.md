@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.4
+
+### Patch Changes
+
+- 0acac6f: Added ci.yml to trigger github pull request actions
+
 ## 0.0.3
 
 ### Patch Changes
