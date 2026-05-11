@@ -43,7 +43,7 @@
     "lint:style": "stylelint packages/**/*.css --allow-empty-input",
     "lint:ts": "eslint . --max-warnings 10",
     "lint-inspect": "pnpm dlx @eslint/config-inspector@latest",
-    "release": "pnpm ci && changeset publish",
+    "release": "changeset publish",
     "test": "turbo test",
     "test-watch": "vitest",
     "version-packages": "changeset version && pnpm install"
