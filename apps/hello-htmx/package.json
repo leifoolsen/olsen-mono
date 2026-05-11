@@ -1,0 +1,16 @@
+{
+  "name": "hello-htmx",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsup src/index.tsx --watch --onSuccess \"node lib/index.js\"",
+    "build": "tsup src/index.ts",
+    "start": "node lib/index.js"
+  },
+  "dependencies": {
+    "hono": "catalog:",
+    "@hono/node-server": "catalog:",
+    "htmx.org": "catalog:"
+  }
+}
