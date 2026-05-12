@@ -3,10 +3,22 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olsen-mono/olsen-mono.git",
+    "directory": "apps/hello-htmx"
+  },
+  "bugs": {
+    "url": "https://github.com/olsen-mono/olsen-mono/issues"
+  },
+  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "dev": "tsup src/index.tsx --watch --onSuccess \"node lib/index.js\"",
-    "build": "tsup src/index.ts",
-    "start": "node lib/index.js"
+    "dev": "tsup src/index.tsx --watch --onSuccess \"node dist/index.js\"",
+    "build": "tsup src/index.tsx",
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "hono": "catalog:",
