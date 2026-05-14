@@ -6,7 +6,7 @@ export const Layout: FC = (props) => {
     <!DOCTYPE html>
     <html lang="no">
       <head>
-        <script src="/node_modules/htmx.org/dist/htmx.min.js"></script>
+        <script src="/js/htmx.min.js"></script>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Hello HTMX</title>

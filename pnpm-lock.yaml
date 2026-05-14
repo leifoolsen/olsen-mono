@@ -110,9 +110,6 @@ importers:
       '@hono/node-server':
         specifier: 'catalog:'
         version: 2.0.1(hono@4.12.16)
-      '@olsen-mono/core-utils':
-        specifier: workspace:*
-        version: link:../../packages/core-utils
       hono:
         specifier: 'catalog:'
         version: 4.12.16

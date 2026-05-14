@@ -48,7 +48,7 @@
     "test-watch": "vitest",
     "version-packages": "changeset version && pnpm install",
     "dev-htmx": "pnpm --filter ./apps/hello-htmx run dev",
-    "build-htmx": "pnpm turbo build --filter=hello-htmx...",
+    "build-htmx": "pnpm turbo build --filter=./apps/hello-htmx...",
     "show-tsconfig": "tsc --showConfig"
   },
   "devDependencies": {

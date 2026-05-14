@@ -1,8 +1,11 @@
+import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import { Layout } from './components/layout';
 import { getFormattedTime, getAppUptime } from './utils';
 
 const app = new Hono();
+
+app.use('/*', serveStatic({ root: './public' }));
 
 // Hovedsiden
 app.get('/', (c) => {
