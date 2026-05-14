@@ -37,7 +37,8 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "compile": "tsup --silent",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@olsen-mono/tooling": "workspace:*"

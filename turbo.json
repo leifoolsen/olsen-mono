@@ -6,6 +6,10 @@
       "dependsOn": ["^compile"],
       "outputs": ["lib/**"]
     },
+    "build": {
+      "dependsOn": ["^compile"],
+      "outputs": ["dist/**"]
+    },
     "dev": {
       "cache": false,
       "persistent": true

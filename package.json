@@ -46,7 +46,10 @@
     "release": "changeset publish",
     "test": "turbo test",
     "test-watch": "vitest",
-    "version-packages": "changeset version && pnpm install"
+    "version-packages": "changeset version && pnpm install",
+    "dev-htmx": "pnpm --filter ./apps/hello-htmx run dev",
+    "build-htmx": "pnpm turbo build --filter=./apps/hello-htmx...",
+    "show-tsconfig": "tsc --showConfig"
   },
   "devDependencies": {
     "@changesets/cli": "2.31.0",

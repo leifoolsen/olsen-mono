@@ -5,10 +5,9 @@
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
-    "ignoreDeprecations": "6.0", // for baseUrl
+    "ignoreDeprecations": "6.0",
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "Bundler",

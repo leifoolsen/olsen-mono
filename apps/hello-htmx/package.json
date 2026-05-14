@@ -1,0 +1,34 @@
+{
+  "name": "hello-htmx",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olsen-mono/olsen-mono.git",
+    "directory": "apps/hello-htmx"
+  },
+  "bugs": {
+    "url": "https://github.com/olsen-mono/olsen-mono/issues"
+  },
+  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
+  "scripts": {
+    "copy-deps": "node scripts/copy-htmx.ts",
+    "dev": "pnpm copy-deps && vite",
+    "build": "pnpm copy-deps && vite build",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "catalog:",
+    "hono": "catalog:",
+    "htmx.org": "catalog:"
+  },
+  "devDependencies": {
+    "@hono/vite-dev-server": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-live-reload": "3.1.0"
+  }
+}
