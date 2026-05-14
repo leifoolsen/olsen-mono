@@ -2,12 +2,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { includeIgnoreFile } from '@eslint/compat';
 import eslint from '@eslint/js';
-import type { Linter } from 'eslint';
 import { defineConfig } from 'eslint/config';
 import prettierConfig from 'eslint-config-prettier';
 import { flatConfigs as importXConfigs } from 'eslint-plugin-import-x';
 import globals from 'globals';
 import { configs as tseslintConfigs } from 'typescript-eslint';
+import type { Linter } from 'eslint';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const monorepoRoot = path.resolve(__dirname, '../..');
@@ -26,13 +26,13 @@ export const createImportOrderRule = (extraPathGroups: PathGroup[] = []): Linter
       'newlines-between': 'never',
       alphabetize: { order: 'asc', caseInsensitive: true },
       groups: [
-        // 'type', // <- TypeScript type imports
         'builtin', // <- Built-in imports (come from Node.js native) go first
         'external', // <- External imports
         'internal', // <- Absolute imports
         'index', // <- index imports
         ['sibling', 'parent'], // Relative imports: sibling: "./", parent: "../"
         'object', // <- Any arcane TypeScript imports
+        'type', // <- TypeScript type imports
         'unknown', // <- Anything that doesn't fit into the above
       ],
       pathGroups: [
@@ -95,6 +95,11 @@ export const baseConfig = defineConfig(
           allowBoolean: true,
         },
       ],
+      // import-x/no-cycle; "This rule is comparatively computationally expensive. If you are pressed for lint time,
+      // or don't think you have an issue with dependency cycles, you may not want this rule enabled."
+      // Tips: Use "maxDepth: 1" when overflowed with cyclic dependencies' error.
+      'import-x/no-cycle': ['error', { maxDepth: Infinity }],
+      'import-x/no-self-import': 'error',
       'no-console': ['warn', { allow: ['info', 'error', 'warn'] }],
       'no-undef': 'off',
       'no-warning-comments': 'warn',
