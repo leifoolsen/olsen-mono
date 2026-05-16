@@ -1,2 +1,15 @@
+export { isAtomic } from './is-atomic';
 export { isEmpty } from './is-empty';
+export { isEqual } from './is-equal';
+export { isError } from './is-error';
+export { isFunction } from './is-function';
+export { isInt } from './is-int';
+export { isNullOrUndefined } from './is-null-or-undefined';
+export { isNumeric } from './is-numeric';
+export { isPlainObject } from './is-plain-object';
+export { isPrimitive } from './is-primitive';
 export { isPromiseLike } from './is-promise-like';
+export { isProxy } from './is-proxy';
+export { isRecord } from './is-record';
+export { isTemporal } from './is-temporal';
+export { isValidObjectKey } from './is-valid-object-key';

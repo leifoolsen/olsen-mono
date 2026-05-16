@@ -5,6 +5,7 @@ packages:
 catalog:
   "@hono/node-server": ^2.0.1
   "@hono/vite-dev-server": ^0.25.3
+  "@types/node": ^25.6.0
   "hono": ^4.12.16
   "htmx.org": ^1.9.10
   "vite": ^8.0.10

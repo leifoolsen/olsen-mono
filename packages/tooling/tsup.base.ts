@@ -3,15 +3,14 @@ import { type Options, defineConfig } from 'tsup';
 export const baseOptions: Options = {
   bundle: true,
   dts: true,
-  entry: ['src/index.ts'],
-  external: [/\.css$/],
+  entry: ['./src/index.ts'],
+  external: [/\.css$/, 'node:util'],
   format: ['esm'],
   minify: false,
   outDir: 'lib',
   silent: false,
   skipNodeModulesBundle: true,
   sourcemap: true,
-  splitting: true,
   target: 'node26',
   treeshake: true,
 };
