@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.6
+
+### Patch Changes
+
+- c0dc0e5: Added is- functions to core-utils. Improved build config.
+
 ## 0.0.5
 
 ### Patch Changes
