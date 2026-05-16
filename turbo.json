@@ -6,6 +6,11 @@
       "dependsOn": ["^compile"],
       "outputs": ["lib/**"]
     },
+    "typecheck": {
+      "dependsOn": ["^compile"],
+      "cache": true,
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"]
+    },
     "build": {
       "dependsOn": ["^compile"],
       "outputs": ["dist/**"]
@@ -15,9 +20,9 @@
       "persistent": true
     },
     "test": {
-      "dependsOn": ["compile"],
+      "dependsOn": ["^compile"],
       "cache": true,
-      "inputs": ["src/**/*.ts", "test/**/*.ts", "../../packages/tooling/vitest*"]
+      "inputs": ["src/**/*.ts", "test/**/*.ts"]
     }
   }
 }

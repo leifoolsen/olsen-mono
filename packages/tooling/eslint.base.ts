@@ -65,7 +65,10 @@ export const baseConfig = defineConfig(
       },
       parserOptions: {
         ecmaFeatures: { jsx: true },
-        projectService: true,
+        projectService: {
+          allowDefaultProject: ['.prettierrc.ts'],
+          defaultProject: 'tsconfig.json',
+        },
         tsconfigRootDir: monorepoRoot,
       },
     },

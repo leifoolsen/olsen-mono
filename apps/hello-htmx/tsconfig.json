@@ -1,7 +1,10 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsxImportSource": "hono/jsx"
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "types": ["node"]
   },
   "include": ["./src"]
 }
