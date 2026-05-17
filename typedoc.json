@@ -1,0 +1,17 @@
+{
+  "$schema": "https://typedoc.org",
+  "entryPoints": ["packages/core-utils/src/index.ts", "packages/try-catch/src/index.ts"],
+  "plugin": ["typedoc-plugin-markdown"],
+  "entryPointStrategy": "Resolve",
+  "out": "packages",
+  "outputFileStrategy": "modules",
+  "entryFileName": "README.md",
+  "cleanOutputDir": false,
+  "readme": "none",
+  "hideBreadcrumbs": true,
+  "hidePageTitle": true,
+  "skipErrorChecking": true,
+  "validation": {
+    "notExported": false
+  }
+}
