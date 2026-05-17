@@ -79,3 +79,67 @@ To achieve 100% self-contained, air-gapped deployments without external CDN runt
   ```html
   <script src="/js/htmx.min.js"></script>
   ```
+
+## 📝 Automated API Documentation
+
+This monorepo automatically generates and syncs API documentation directly from TypeScript source code source-of-truth via [TypeDoc](https://typedoc.org) and [typedoc-plugin-markdown](https://typedoc-plugin-markdown.org).
+
+### 🏛️ Architecture & Philosophy
+
+To keep package overhead at a absolute minimum, we utilize an **anemic package philosophy**:
+
+- Individual packages (`packages/*`) contain **zero** local documentation configuration or scripts.
+- All orchestration is centralized in the monorepo root.
+- Hand-written package overviews live inside `README.md`, while auto-generated technical specifications are isolated cleanly inside `src.md`.
+
+---
+
+### ⚙️ Centralized Configuration (`/typedoc.json`)
+
+Managed entirely from the monorepo root, this file defines how TypeScript 6 type signatures are extracted and mapped out to individual packages without triggering build failures in React/HTMX apps:
+
+```json
+{
+  "\$schema": "https://typedoc.orgschema.json",
+  "entryPoints": ["packages/core-utils/src/index.ts", "packages/try-catch/src/index.ts"],
+  "plugin": ["typedoc-plugin-markdown"],
+  "entryPointStrategy": "Resolve",
+  "out": "packages",
+  "outputFileStrategy": "modules",
+  "entryFileName": "src.md",
+  "cleanOutputDir": false,
+  "readme": "none",
+  "hideBreadcrumbs": true,
+  "hidePageTitle": true,
+  "skipErrorChecking": true,
+  "validation": {
+    "notExported": false
+  }
+}
+```
+
+---
+
+### 🔄 Build Integration & Formatting
+
+Documentation generation is hooked directly into the root build cycle. Because TypeDoc's raw output can deviate from the repository's strict formatting standards, an automated Prettier pass formats the generated markdown files inline instantly.
+
+Stored in the root `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "pnpm lint && turbo typecheck test compile",
+    "postbuild": "typedoc && prettier \"packages/*/*.md\" \"packages/*/**/*.md\" --ignore-path .prettierignore --write"
+  }
+}
+```
+
+### 🚀 Scaling the Monorepo
+
+When creating a brand new utility library inside `packages/`:
+
+1. **No file setup required** inside the package itself.
+2. Add a basic description link inside the new package's `README.md` pointing to `[TSDoc](./src.md)`.
+3. Append the new entry point file path directly to the root `typedoc.json` `"entryPoints"` array.
+4. Run `pnpm build`, and everything generates, formats, and seals automatically.
