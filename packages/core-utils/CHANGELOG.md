@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.7
+
+### Patch Changes
+
+- f3fa465: Added typedoc for automated API documentation
+
 ## 0.0.6
 
 ### Patch Changes
