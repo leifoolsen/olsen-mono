@@ -3,6 +3,6 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig((options) => ({
   ...baseOptions,
-  noExternal: ['@olsen-mono/core-utils'],
   ...options,
+  noExternal: ['@olsen-mono/core-utils'],
 }));

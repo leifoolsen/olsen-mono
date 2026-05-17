@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
@@ -9,7 +8,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "@olsen-mono/*": ["./packages/*/src"]
+      "@olsen-mono/*": ["./packages/*/src/index.ts"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

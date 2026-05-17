@@ -143,3 +143,103 @@ When creating a brand new utility library inside `packages/`:
 2. Add a basic description link inside the new package's `README.md` pointing to `[TSDoc](./src.md)`.
 3. Append the new entry point file path directly to the root `typedoc.json` `"entryPoints"` array.
 4. Run `pnpm build`, and everything generates, formats, and seals automatically.
+
+# TODOS
+
+## Configure turbo.generator.ts
+
+See: [Generating code](https://turborepo.dev/docs/guides/generating-code)
+
+### turbo.generator.ts
+
+```ts
+import type { PlopTypes } from '@turbo/gen';
+
+export default function generator(plop: PlopTypes.NodePlopAPI): void {
+  // Definerer en generator for nye pakker
+  plop.setGenerator('package', {
+    description: 'Generer en ny minimal pakke for monorepoet',
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Hva skal pakken hete? (f.eks. "math-utils")',
+      },
+      {
+        type: 'input',
+        name: 'description',
+        message: 'Skriv en kort beskrivelse av pakken:',
+      },
+    ],
+    actions: [
+      {
+        type: 'addMany',
+        destination: 'packages/{{dashCase name}}', // Lager mappen automatisk
+        base: 'turbo/generators/templates/package', // Hvor mal-filene ligger
+        templateFiles: 'turbo/generators/templates/package/**', // Kopier alt internt
+      },
+    ],
+  });
+}
+```
+
+### turbo/generators/templates/package/package.json
+
+```json
+{
+  "name": "@olsen-mono/{{dashCase name}}",
+  "description": "{{description}}",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": ["lib"],
+  "scripts": {
+    "compile": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
+  }
+}
+```
+
+### turbo/generators/templates/package/tsconfig.json
+
+```json
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["src/**/*"]
+}
+```
+
+### turbo/generators/templates/package/src/index.ts
+
+```ts
+export const hello = (): string => 'Hello from {{dashCase name}}!';
+```
+
+### run `pnpm turbo gen package`
+
+```bash
+pnpm turbo gen package
+```
+
+## Syncpack
+
+Evaluate the following packages:
+
+- https://www.npmjs.com/package/syncpack
+- https://www.npmjs.com/package/syncpack-config-hocon

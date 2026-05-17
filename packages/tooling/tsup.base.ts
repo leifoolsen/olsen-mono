@@ -2,6 +2,7 @@ import { type Options, defineConfig } from 'tsup';
 
 export const baseOptions: Options = {
   bundle: true,
+  clean: true,
   dts: true,
   entry: ['./src/index.ts'],
   external: [/\.css$/, 'node:util'],
@@ -11,7 +12,7 @@ export const baseOptions: Options = {
   silent: false,
   skipNodeModulesBundle: true,
   sourcemap: true,
-  target: 'node26',
+  target: 'esnext', // 'node26' for Node.js 26+
   treeshake: true,
 };
 
