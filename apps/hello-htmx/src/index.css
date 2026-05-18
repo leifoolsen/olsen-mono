@@ -1,0 +1,33 @@
+@layer base, components;
+
+@import '@olsen-mono/css-foundation/reset.css' layer(base);
+@import '@olsen-mono/css-foundation/typesetting.css' layer(base);
+
+/* App-spesifikke stiler under */
+@layer components {
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .box {
+    border: 1px solid #cccccc;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: #0056b3;
+    }
+  }
+}

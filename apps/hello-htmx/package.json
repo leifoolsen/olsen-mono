@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@hono/node-server": "catalog:",
+    "@olsen-mono/css-foundation": "workspace:*",
     "hono": "catalog:",
     "htmx.org": "catalog:"
   },

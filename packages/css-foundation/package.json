@@ -1,0 +1,51 @@
+{
+  "name": "@olsen-mono/css-foundation",
+  "description": "CSS Foundation",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./lib/reset.css",
+  "style": "./lib/reset.css",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    "./reset.css": {
+      "types": "./lib/reset.css.d.ts",
+      "default": "./lib/reset.css"
+    },
+    "./typesetting.css": {
+      "types": "./lib/typesetting.css.d.ts",
+      "default": "./lib/typesetting.css"
+    },
+    "./package.json": "./package.json"
+  },
+  "keywords": [],
+  "author": "leif.o.olsen@gmail.com",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olsen-mono/olsen-mono.git",
+    "directory": "packages/css-foundation"
+  },
+  "bugs": {
+    "url": "https://github.com/olsen-mono/olsen-mono/issues"
+  },
+  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
+  "copyFiles": [
+    {
+      "from": "./src/*.css",
+      "to": "./lib"
+    }
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "precompile": "pnpm run clean",
+    "compile": "copy-files-from-to --when-file-exists overwrite --silent && touch ./lib/reset.css.d.ts ./lib/typesetting.css.d.ts"
+  }
+}

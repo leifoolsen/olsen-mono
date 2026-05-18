@@ -1,0 +1,274 @@
+/**
+ * https://www.stefanjudis.com/blog/load-the-default-os-font-with-css/
+ * https://www.designsystemscollective.com/why-system-fonts-are-your-websites-secret-performance-weapon-c0b7b04e8d76
+ * https://www.webtng.com/using-a-preinstalled-font-stack/
+ * https://thevalleyofcode.com/css-system-fonts/
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/font-family
+ * https://www.webtng.com/using-a-preinstalled-font-stack/
+ * https://github.com/system-fonts/modern-font-stacks?tab=readme-ov-file
+ * https://www.sitepoint.com/eight-definitive-font-stacks/
+ * https://modernfontstacks.com/
+ * https://clampgenerator.com/
+ * https://www.fluid-type-scale.com/
+ * https://design.dev/tools/clamp-generator/
+ * https://utopia.fyi/type/calculator/
+ * https://utopia.fyi/space/calculator/
+ * https://www.mcneece.com/clamp-generator/
+ * https://codepen.io/gabydevdev/full/dyLqXVp
+ * https://sizematters.netlify.app/
+ * https://fluidtypography.com/
+ * https://cloudfour.com/thinks/responsive-letter-spacing/
+ * https://blog.damato.design/posts/relearning-line-height/
+ * https://benjamincrozat.com/css-lh-rlh
+ * https://codepen.io/jensimmons/pen/YPKZgvX
+ * https://codepen.io/simoncoudeville/pen/RwezGOW
+ * https://codepen.io/psylok/pen/mOVGeZ
+ */
+
+:root {
+  /* Font Families */
+  --emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --geometric-humanist: avenir, montserrat, corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  --handwriting: 'Segoe Print', 'Bradley Hand', chilanka, tscu_comic, casual, cursive;
+  --industrial:
+    bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
+  --monospace: ui-monospace, 'Cascadia Code', 'Source Code Pro', menlo, consolas, 'DejaVu Sans Mono', monospace;
+  --neo-grotesque: inter, roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', arial, sans-serif;
+  --system-ui: system-ui, sans-serif;
+  --transitional: charter, 'Bitstream Charter', 'Sitka Text', cambria, serif;
+
+  /*
+   * Font Sizes
+   * Note: There is a lot of calculation going on to achieve a fluid font,
+   * so the best approach here is to use a clamp generator.
+   */
+  --min-vw: 37.5;
+  --max-vw: 80;
+  --min-fs-scale: 1.125;
+  --max-fs-scale: 1.2;
+  --run: calc(var(--max-vw) - var(--min-vw));
+  --intersection: calc(100vw - var(--min-vw) * 1rem);
+
+  /* Base font size scales from  min to max unitless font size */
+  --min-fs-base: 1;
+  --max-fs-base: 1.125;
+  --rise-base: calc(var(--max-fs-base) - var(--min-fs-base));
+  --slope-base: calc(var(--rise-base) / var(--run));
+  --font-size-base: clamp(
+    var(--min-fs-base) * 1rem,
+    var(--slope-base) * var(--intersection) + var(--min-fs-base) * 1rem,
+    var(--max-fs-base) * 1rem
+  );
+
+  /* Smaller font size */
+  --min-fs-sm: calc(var(--min-fs-base) / var(--max-fs-scale));
+  --max-fs-sm: calc(var(--max-fs-base) / var(--min-fs-scale));
+  --rise-sm: calc(var(--max-fs-sm) - var(--min-fs-sm));
+  --slope-sm: calc(var(--rise-sm) / var(--run));
+  --font-size-sm: clamp(
+    calc(var(--min-fs-sm) * 1rem),
+    var(--slope-sm) * var(--intersection) + var(--min-fs-sm) * 1rem,
+    calc(var(--max-fs-sm) * 1rem)
+  );
+
+  /* Smallest font size */
+  --min-fs-xs: calc(var(--min-fs-sm) / var(--max-fs-scale));
+  --max-fs-xs: calc(var(--max-fs-sm) / var(--min-fs-scale));
+  --rise-xs: calc(var(--max-fs-xs) - var(--min-fs-xs));
+  --slope-xs: calc(var(--rise-xs) / var(--run));
+  --font-size-xs: clamp(
+    var(--min-fs-xs) * 1rem,
+    var(--slope-xs) * var(--intersection) + var(--min-fs-xs) * 1rem,
+    var(--max-fs-xs) * 1rem
+  );
+
+  /* Medium font size */
+  --min-fs-md: calc(var(--min-fs-base) * var(--min-fs-scale));
+  --max-fs-md: calc(var(--max-fs-base) * var(--max-fs-scale));
+  --rise-md: calc(var(--max-fs-md) - var(--min-fs-md));
+  --slope-md: calc(var(--rise-md) / var(--run));
+  --font-size-md: clamp(
+    var(--min-fs-md) * 1rem,
+    var(--slope-md) * var(--intersection) + var(--min-fs-md) * 1rem,
+    var(--max-fs-md) * 1rem
+  );
+
+  /* Large font size */
+  --min-fs-lg: calc(var(--min-fs-md) * var(--min-fs-scale));
+  --max-fs-lg: calc(var(--max-fs-md) * var(--max-fs-scale));
+  --rise-lg: calc(var(--max-fs-lg) - var(--min-fs-lg));
+  --slope-lg: calc(var(--rise-lg) / var(--run));
+  --font-size-lg: clamp(
+    var(--min-fs-lg) * 1rem,
+    var(--slope-lg) * var(--intersection) + var(--min-fs-lg) * 1rem,
+    var(--max-fs-lg) * 1rem
+  );
+
+  /* Extra Large font size */
+  --min-fs-xl: calc(var(--min-fs-lg) * var(--min-fs-scale));
+  --max-fs-xl: calc(var(--max-fs-lg) * var(--max-fs-scale));
+  --rise-xl: calc(var(--max-fs-xl) - var(--min-fs-xl));
+  --slope-xl: calc(var(--rise-xl) / var(--run));
+  --font-size-xl: clamp(
+    var(--min-fs-xl) * 1rem,
+    var(--slope-xl) * var(--intersection) + var(--min-fs-xl) * 1rem,
+    var(--max-fs-xl) * 1rem
+  );
+
+  /* 2x large font size */
+  --min-fs-2xl: calc(var(--min-fs-xl) * var(--min-fs-scale));
+  --max-fs-2xl: calc(var(--max-fs-xl) * var(--max-fs-scale));
+  --rise-2xl: calc(var(--max-fs-2xl) - var(--min-fs-2xl));
+  --slope-2xl: calc(var(--rise-2xl) / var(--run));
+  --font-size-2xl: clamp(
+    var(--min-fs-2xl) * 1rem,
+    calc(var(--slope-2xl) * var(--intersection) + var(--min-fs-2xl) * 1rem),
+    var(--max-fs-2xl) * 1rem
+  );
+
+  /* 3x large font size */
+  --min-fs-3xl: calc(var(--min-fs-2xl) * var(--min-fs-scale));
+  --max-fs-3xl: calc(var(--max-fs-2xl) * var(--max-fs-scale));
+  --rise-3xl: calc(var(--max-fs-3xl) - var(--min-fs-3xl));
+  --slope-3xl: calc(var(--rise-3xl) / var(--run));
+  --font-size-3xl: clamp(
+    var(--min-fs-3xl) * 1rem,
+    var(--slope-3xl) * var(--intersection) + var(--min-fs-3xl) * 1rem,
+    var(--max-fs-3xl) * 1rem
+  );
+
+  /* -- */
+  --base-font-family: var(--neo-grotesque), var(--emoji);
+  --heading-font-family: var(--industrial);
+
+  font-family: var(--base-font-family), sans-serif;
+}
+
+body {
+  min-block-size: 100svb;
+  min-inline-size: 300px;
+  text-rendering: optimizespeed;
+}
+
+address,
+article,
+aside,
+blockquote,
+canvas,
+dd,
+div,
+dl,
+dt,
+fieldset,
+figcaption,
+figure,
+footer,
+form,
+header,
+hr,
+li,
+main,
+nav,
+noscript,
+ol,
+p,
+pre,
+section,
+table,
+tfoot,
+ul,
+video {
+  font-size: var(--font-size-base);
+}
+
+h1 {
+  font-size: var(--font-size-2xl);
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+}
+
+h3 {
+  font-size: var(--font-size-lg);
+}
+
+h4 {
+  font-size: var(--font-size-md);
+}
+
+h5 {
+  font-size: var(--font-size-base);
+}
+
+h6 {
+  font-size: var(--font-size-sm);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--heading-font-family), sans-serif;
+  font-weight: 800;
+  letter-spacing: clamp(-0.03em, calc((1em - 1rem) / -10), 0em);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+}
+
+pre,
+code,
+kbd,
+samp,
+output {
+  font-family: var(--monospace), monospace;
+}
+
+figcaption,
+small {
+  font-size: var(--font-size-sm);
+}
+
+sub,
+sup {
+  font-size: var(--font-size-xs);
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  text-underline-offset: 2px;
+}
+
+/* Fill available space in inputs (but not buttons) */
+input:not(:where([type='submit'], [type='checkbox'], [type='radio'], [type='button'], [type='reset'])) {
+  inline-size: 100%;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block-start: 2rlh;
+}
+
+/* Focus management for accessibility */
+:focus-visible {
+  outline-offset: 1px;
+}
+
+/* Remove focus outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Create a root stacking context.
+ * The isolation property allows us to create a new stacking context without needing to set a z-index
+ */
+#root {
+  isolation: isolate;
+}
