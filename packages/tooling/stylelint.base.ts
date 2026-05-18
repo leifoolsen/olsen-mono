@@ -11,6 +11,7 @@ const config: Config = {
     ],
     'color-hex-length': 'long',
     'color-no-invalid-hex': true,
+    'import-notation': 'string',
     'number-max-precision': 14,
     'selector-class-pattern': [
       '^[a-z][a-zA-Z0-9]+|[a-z][a-z0-9-]+$',

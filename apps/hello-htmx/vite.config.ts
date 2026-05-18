@@ -9,6 +9,11 @@ export default defineConfig(({ command }) => ({
     }),
     command === 'serve' ? liveReload(['src/**/*.{ts,tsx}']) : [],
   ],
+  server: {
+    fs: {
+      allow: ['.', '../../'],
+    },
+  },
   build: {
     ssr: true,
     target: 'node26',

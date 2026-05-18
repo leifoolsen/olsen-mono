@@ -52,6 +52,10 @@ export const createImportOrderRule = (extraPathGroups: PathGroup[] = []): Linter
 export const baseConfig = defineConfig(
   includeIgnoreFile(gitIgnore, 'Imported .gitignore patterns'),
   {
+    // Fortell ESLint at disse filene ikke skal lintes i det hele tatt
+    ignores: ['**/lib', '**/dist', '.prettierrc.ts', 'turbo.json'],
+  },
+  {
     ignores: ['**/lib'],
   },
   {
@@ -65,10 +69,11 @@ export const baseConfig = defineConfig(
       },
       parserOptions: {
         ecmaFeatures: { jsx: true },
-        projectService: {
-          allowDefaultProject: ['.prettierrc.ts'],
-          defaultProject: 'tsconfig.json',
-        },
+        projectService: true,
+        // projectService: {
+        //   allowDefaultProject: ['.prettierrc.ts'],
+        //   defaultProject: 'tsconfig.json',
+        // },
         tsconfigRootDir: monorepoRoot,
       },
     },
@@ -90,6 +95,7 @@ export const baseConfig = defineConfig(
       ...createImportOrderRule(),
       '@typescript-eslint/consistent-type-definitions': 'off',
       '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+      '@typescript-eslint/no-deprecated': 'warn',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       '@typescript-eslint/restrict-template-expressions': [
         'error',

@@ -1,0 +1,352 @@
+/**
+ * @see https://git.dbushell.com/dbushell/patchwork/src/branch/main/static/css/base/reset.css
+ * @see https://useaxentix.com/blog/css/css-reset-complete-guide/
+ * @see https://frontendmasters.com/blog/the-coyier-css-starter/
+ * @see https://fokus.dev/tools/uaplus/
+ * @see https://www.joshwcomeau.com/css/custom-css-reset/
+ * @see https://piccalil.li/blog/a-more-modern-css-reset/
+ */
+
+/* Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* Set consistent font-family, font size and font-weight across browsers. */
+  font-family: system-ui, sans-serif;
+  font-weight: 400;
+  font-feature-settings: 'kern';
+  font-kerning: normal;
+  font-size: 100%;
+
+  /* Nicer looking hanging punctuation. */
+  hanging-punctuation: first allow-end last;
+
+  /* Prevent the page from “jumping” when switching from a long to a short page. */
+  scrollbar-gutter: stable;
+
+  /* Change tab size from 8 to 2 spaces */
+  tab-size: 2;
+
+  /* Prevent text-rescaling on device orientation changes. */
+  text-size-adjust: none;
+
+  /* Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  /* Add accessible line-height */
+  line-height: 1.5;
+}
+
+/* Motion-safe defaults */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  html {
+    interpolate-size: allow-keywords;
+
+    &:focus-within {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd,
+pre {
+  margin-block-end: 0;
+}
+
+/* Set consistent `h1` sizing across browsers. */
+h1 {
+  font-size: 2em;
+}
+
+/* Avoid text overflows */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+dd {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Improve line wrapping */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+h5,
+h6,
+p,
+li,
+dd {
+  text-wrap: pretty;
+}
+
+/* Avoid overflow caused by embedded content. */
+audio,
+iframe,
+img,
+picture,
+svg,
+video {
+  max-block-size: 100%;
+  max-inline-size: 100%;
+  vertical-align: middle;
+}
+
+/* Opinionated but helpful `img` ergonomics. */
+img {
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  shape-margin: 0;
+}
+
+/* Improve media defaults */
+svg {
+  fill: currentcolor;
+}
+
+figure {
+  inline-size: fit-content;
+  margin-inline: auto;
+}
+
+figcaption {
+  container-type: inline-size;
+  font-size: 90%;
+}
+
+/* Prevent fieldsets from causing overflow */
+fieldset {
+  min-inline-size: 0;
+}
+
+/* Click affordances. */
+label[for] {
+  user-select: none;
+}
+
+/* Turn labels into block elements */
+label[for]:has(+ :where(input:not([type='radio'], [type='checkbox']), select, textarea)) {
+  display: block;
+}
+
+/* Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  hanging-punctuation: none;
+}
+
+::placeholder {
+  color: inherit;
+  opacity: 0.85;
+}
+
+/**
+ * Normalize search input styles
+ *
+ * Remove the rounded corners of search inputs on macOS and IOS
+ * and normalize the background color
+ */
+[type='search'] {
+  appearance: textfield;
+}
+
+/* iOS only */
+@supports (-webkit-touch-callout: none) {
+  [type='search'] {
+    border: 1px solid;
+    background-color: canvas;
+  }
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea {
+  field-sizing: content;
+  min-block-size: 5lh;
+  inline-size: 100%;
+  max-inline-size: 100%;
+}
+
+/* Disabled elements */
+[aria-disabled='true' i],
+[disabled],
+label[for]:has(~ [disabled]) {
+  opacity: 0.7;
+  pointer-events: none;
+
+  [disabled] {
+    opacity: 1;
+  }
+}
+
+/* More comfortable table defaults. */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums;
+
+  th,
+  td {
+    vertical-align: top;
+  }
+}
+
+/* More predictable styling for code-like elements. */
+pre,
+code,
+kbd,
+samp,
+output {
+  font-family: monospace, monospace; /* stylelint-disable-line font-family-no-duplicate-names */
+  font-size: inherit;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+/* Prevent `sub` and `sup` elements from affecting the line height in all browsers. */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  inset-block-end: -0.25em;
+}
+
+sup {
+  inset-block-start: -0.5em;
+}
+
+/* Ensure `u` and `ins` don’t look like links. */
+u,
+ins {
+  text-decoration: none;
+}
+
+/* Set consistent bolding across browsers. */
+b,
+strong {
+  font-weight: bold;
+}
+
+/* Default lists */
+ul,
+ol,
+dl {
+  margin-inline: 0;
+  padding-inline: 0;
+  list-style-position: inside;
+
+  & ul,
+  & ol,
+  & dl {
+    padding-inline-start: 2ch;
+  }
+}
+
+blockquote,
+dd {
+  margin-inline-start: 2ch;
+}
+
+/* Remove list styles on ul, ol elements with a list role */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Improve abbreviations with titles */
+abbr[title] {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+}
+
+/* Change the cursor of the summary element */
+summary {
+  cursor: default;
+}
+
+/* Optimize mark element in Forced Colors Mode */
+@media (forced-colors: active) {
+  mark {
+    color: HighlightText;
+    background-color: Highlight;
+  }
+}
+
+/* Increase specificity of [hidden] */
+[hidden]:not([hidden='until-found']) {
+  display: none !important;
+}
+
+/* Cursor styling. */
+@media (hover: hover) {
+  :is(
+    button,
+    label[for],
+    select,
+    input:where(
+      [type='submit'],
+      [type='button'],
+      [type='file'],
+      [type='image'],
+      [type='reset'],
+      [type='checkbox'],
+      [type='radio']
+    )
+  ):not([disabled]) {
+    cursor: pointer;
+  }
+
+  [aria-disabled='true' i],
+  [disabled],
+  label[for]:has(~ [disabled]) {
+    cursor: not-allowed;
+  }
+
+  abbr[title],
+  dfn[title] {
+    cursor: help;
+  }
+}

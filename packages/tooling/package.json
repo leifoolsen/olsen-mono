@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     "./eslint": "./eslint.base.ts",
+    "./eslintHono": "./eslint.hono.ts",
     "./prettier": "./prettier.base.ts",
     "./stylelint": "./stylelint.base.ts",
     "./tsup": "./tsup.base.ts",

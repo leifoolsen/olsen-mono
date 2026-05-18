@@ -1,5 +1,5 @@
 import { defineConfig } from 'eslint/config';
-import { baseConfig, createImportOrderRule } from './eslint.base.ts';
+import { baseConfig, createImportOrderRule } from './eslint.base';
 
 export const honoConfig = defineConfig(...baseConfig, {
   name: 'preset/hono',

@@ -4,25 +4,21 @@
   "tasks": {
     "compile": {
       "dependsOn": ["^compile"],
-      "outputs": ["lib/**"]
+      "outputs": ["lib/**", "dist/**"]
     },
     "typecheck": {
       "dependsOn": ["^compile"],
       "cache": true,
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"]
     },
-    "build": {
-      "dependsOn": ["^compile"],
-      "outputs": ["dist/**"]
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
     "test": {
       "dependsOn": ["^compile"],
       "cache": true,
       "inputs": ["src/**/*.ts", "test/**/*.ts"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
     }
   }
 }
