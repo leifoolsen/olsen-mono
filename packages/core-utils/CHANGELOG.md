@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.8
+
+### Patch Changes
+
+- 01679c3: Added initial CSS foundation package
+
 ## 0.0.7
 
 ### Patch Changes

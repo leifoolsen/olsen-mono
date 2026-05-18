@@ -1,5 +1,13 @@
 # @olsen-mono/try-catch
 
+## 0.0.8
+
+### Patch Changes
+
+- 01679c3: Added initial CSS foundation package
+- Updated dependencies [01679c3]
+  - @olsen-mono/core-utils@0.0.8
+
 ## 0.0.7
 
 ### Patch Changes
