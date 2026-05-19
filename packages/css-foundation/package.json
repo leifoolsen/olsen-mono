@@ -46,6 +46,6 @@
   "scripts": {
     "clean": "rimraf lib",
     "precompile": "pnpm run clean",
-    "compile": "copy-files-from-to --when-file-exists overwrite --silent && touch ./lib/reset.css.d.ts ./lib/typesetting.css.d.ts"
+    "compile": "copy-files-from-to --when-file-exists overwrite --silent"
   }
 }

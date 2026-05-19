@@ -1,10 +1,8 @@
 import type { FC, PropsWithChildren } from 'hono/jsx';
 
-type LayoutProps = PropsWithChildren<{
-  cssUrl?: string;
-}>;
+const isProd = process.env.NODE_ENV === 'production';
 
-export const Layout: FC<LayoutProps> = ({ children, cssUrl = '/static/css/main.css' }) => {
+export const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="no">
       <head>
@@ -12,7 +10,16 @@ export const Layout: FC<LayoutProps> = ({ children, cssUrl = '/static/css/main.c
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Hello HTMX</title>
-        <link rel="stylesheet" href={cssUrl} />
+        {isProd ? (
+          <link rel="stylesheet" href="/assets/client.css" />
+        ) : (
+          <>
+            {/* 1. Fortell nettleseren at den skal koble seg til Vites dev-motor */}
+            <script type="module" src="/@vite/client"></script>
+            {/* 2. Last klient-ts som en modul. Vite transformerer CSS-importen inni den automatisk! */}
+            <script type="module" src="/src/client.ts"></script>
+          </>
+        )}
       </head>
       <body>
         <div class="container">

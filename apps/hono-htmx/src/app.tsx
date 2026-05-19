@@ -1,17 +1,18 @@
+// src/app.tsx
 import { Hono } from 'hono';
 import { serveStatic } from '@hono/node-server/serve-static';
-import { Layout } from './components/layout';
-import mainCssUrl from './index.css?url';
+import { Layout } from './components/layout'; // Juster filstien om nødvendig
 import { getFormattedTime, getAppUptime } from './utils';
 
 const app = new Hono();
 
-app.use('/*', serveStatic({ root: './public' }));
+// Gjør serving av public sikrere i dev-modus
+app.use('/*', serveStatic({ root: process.env.NODE_ENV === 'production' ? './public' : './' }));
 
 // Hovedsiden
 app.get('/', (c) => {
   return c.html(
-    <Layout cssUrl={mainCssUrl}>
+    <Layout>
       <div class="box">
         <p>Dette innholdet er statisk ved første last.</p>
 
@@ -27,7 +28,7 @@ app.get('/', (c) => {
   );
 });
 
-// En rute som bare returnerer et fragment (ingen Layout her!)
+// En rute som bare returnerer et fragment
 app.get('/api/fragment', (c) => {
   const tid = getFormattedTime();
   const oppetid = getAppUptime();
