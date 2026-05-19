@@ -1,9 +1,9 @@
-import { defineConfig } from 'eslint/config';
-import { baseConfig, createImportOrderRule } from './eslint.base';
+import { baseConfig, createImportOrderRule } from '@olsen-mono/tooling/eslint';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
-export const honoConfig = defineConfig(...baseConfig, {
+export default defineConfig(...baseConfig, globalIgnores(['public/**']), {
   name: 'preset/hono',
-  files: ['**/backend/**/*.ts'],
+  files: [['**/*.{ts,tsx}']],
   rules: {
     ...createImportOrderRule([
       {

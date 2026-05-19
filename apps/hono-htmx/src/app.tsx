@@ -1,5 +1,5 @@
-import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
+import { serveStatic } from '@hono/node-server/serve-static';
 import { Layout } from './components/layout';
 import mainCssUrl from './index.css?url';
 import { getFormattedTime, getAppUptime } from './utils';

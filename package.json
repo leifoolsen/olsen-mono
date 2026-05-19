@@ -50,7 +50,7 @@
     "typecheck": "turbo typecheck",
     "typedoc": "typedoc && prettier \"./packages/README.md\" \"./packages/**/src.md\" --ignore-path .prettierignore --write",
     "version-packages": "changeset version && pnpm install",
-    "dev-htmx": "pnpm --filter ./apps/hello-htmx run dev",
+    "dev-htmx": "pnpm --filter apps/hono-htmx run dev",
     "build-htmx": "pnpm turbo build --filter=./apps/hello-htmx...",
     "show-tsconfig": "tsc --showConfig"
   },

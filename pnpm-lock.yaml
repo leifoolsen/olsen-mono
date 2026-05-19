@@ -6,9 +6,24 @@ settings:
 
 catalogs:
   default:
+    '@hono/node-server':
+      specifier: ^2.0.1
+      version: 2.0.1
+    '@hono/vite-dev-server':
+      specifier: ^0.25.3
+      version: 0.25.3
     '@types/node':
       specifier: ^25.6.0
       version: 25.6.0
+    hono:
+      specifier: ^4.12.16
+      version: 4.12.16
+    htmx.org:
+      specifier: ^1.9.10
+      version: 1.9.12
+    vite:
+      specifier: ^8.0.10
+      version: 8.0.10
 
 overrides:
   eslint-plugin-import: npm:eslint-plugin-import-x@latest
