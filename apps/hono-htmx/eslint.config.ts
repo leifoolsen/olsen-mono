@@ -3,7 +3,7 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig(...baseConfig, globalIgnores(['public/**']), {
   name: 'preset/hono',
-  files: [['**/*.{ts,tsx}']],
+  files: ['**/*.{ts,tsx}'],
   rules: {
     ...createImportOrderRule([
       {
