@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.10
+
+### Patch Changes
+
+- 382debe: Migrated from tsup to tsdown
+
 ## 0.0.9
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/try-catch",
   "description": "Functional Try Catch",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": true,
   "type": "module",
   "main": "./dist/index.js",

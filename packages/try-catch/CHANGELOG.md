@@ -1,5 +1,13 @@
 # @olsen-mono/try-catch
 
+## 0.0.10
+
+### Patch Changes
+
+- 382debe: Migrated from tsup to tsdown
+- Updated dependencies [382debe]
+  - @olsen-mono/core-utils@0.0.10
+
 ## 0.0.9
 
 ### Patch Changes
