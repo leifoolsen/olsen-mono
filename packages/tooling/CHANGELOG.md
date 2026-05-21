@@ -1,5 +1,11 @@
 # @olsen-mono/tooling
 
+## 0.0.5
+
+### Patch Changes
+
+- 3860b50: Renamed hello-htmx to hono-htmx
+
 ## 0.0.4
 
 ### Patch Changes

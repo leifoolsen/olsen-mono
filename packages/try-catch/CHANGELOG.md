@@ -1,5 +1,12 @@
 # @olsen-mono/try-catch
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [3860b50]
+  - @olsen-mono/core-utils@0.0.9
+
 ## 0.0.8
 
 ### Patch Changes
