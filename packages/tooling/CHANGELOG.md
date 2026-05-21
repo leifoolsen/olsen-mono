@@ -1,5 +1,11 @@
 # @olsen-mono/tooling
 
+## 0.0.6
+
+### Patch Changes
+
+- 382debe: Migrated from tsup to tsdown
+
 ## 0.0.5
 
 ### Patch Changes
