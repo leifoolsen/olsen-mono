@@ -1,7 +1,8 @@
 // src/app.tsx
 import { Hono } from 'hono';
 import { serveStatic } from '@hono/node-server/serve-static';
-import { Layout } from './components/layout'; // Juster filstien om nødvendig
+import { Button } from './components/button';
+import { Layout } from './components/layout';
 import { getFormattedTime, getAppUptime } from './utils';
 
 const app = new Hono();
@@ -16,9 +17,7 @@ app.get('/', (c) => {
       <div class="box">
         <p>Dette innholdet er statisk ved første last.</p>
 
-        <button hx-get="/api/fragment" hx-target="#fragment-target" hx-swap="innerHTML">
-          Hent magisk innhold
-        </button>
+        <Button />
 
         <div id="fragment-target" class="box">
           Venter på data...

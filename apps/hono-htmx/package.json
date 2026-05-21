@@ -17,6 +17,7 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "copy-deps": "node scripts/copy-htmx.ts",
+    "css-to-dts": "node -e \"import('@olsen-mono/tooling/css-to-dts')\" \"css-to-dts\" src",
     "dev": "pnpm copy-deps && vite",
     "build": "pnpm copy-deps && vite build",
     "start": "node dist/index.js"

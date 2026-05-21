@@ -37,15 +37,10 @@
     "url": "https://github.com/olsen-mono/olsen-mono/issues"
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
-  "copyFiles": [
-    {
-      "from": "./src/*.css",
-      "to": "./lib"
-    }
-  ],
   "scripts": {
     "clean": "rimraf lib",
+    "css-to-dts": "node -e \"import('@olsen-mono/tooling/css-to-dts')\" \"css-to-dts\" src",
     "precompile": "pnpm run clean",
-    "compile": "copy-files-from-to --when-file-exists overwrite --silent"
+    "compile": "cpy \"**/*.{css,css.d.ts}\" ../lib --cwd=src --parents"
   }
 }
