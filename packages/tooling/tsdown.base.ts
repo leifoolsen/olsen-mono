@@ -1,4 +1,3 @@
-// tsdown.base.ts
 import { defineConfig, type UserConfig } from 'tsdown';
 
 export const baseOptions: UserConfig = {
