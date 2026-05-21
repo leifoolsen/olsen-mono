@@ -2,8 +2,13 @@
   "$schema": "https://turbo.build",
   "globalDependencies": [".gitignore", ".prettierignore", "tsconfig.json"],
   "tasks": {
+    "css-to-dts": {
+      "cache": true,
+      "inputs": ["src/**/*.css"],
+      "outputs": ["src/**/*.css.d.ts", "lib/**/*.css.d.ts"]
+    },
     "compile": {
-      "dependsOn": ["^compile"],
+      "dependsOn": ["^compile", "css-to-dts"],
       "outputs": ["lib/**", "dist/**"]
     },
     "typecheck": {
