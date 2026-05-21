@@ -1,5 +1,13 @@
 # hello-htmx
 
+## 0.0.4
+
+### Patch Changes
+
+- 3860b50: Renamed hello-htmx to hono-htmx
+- Updated dependencies [3860b50]
+  - @olsen-mono/css-foundation@0.0.2
+
 ## 0.0.3
 
 ### Patch Changes
