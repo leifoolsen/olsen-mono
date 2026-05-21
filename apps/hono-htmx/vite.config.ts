@@ -5,21 +5,19 @@ import { liveReload } from 'vite-plugin-live-reload';
 export default defineConfig(({ command }) => ({
   plugins: [
     devServer({
-      entry: 'src/app.tsx',
+      entry: 'src/index.tsx',
     }),
     command === 'serve' ? liveReload(['src/**/*.{ts,tsx}']) : [],
   ],
-  server: {
-    fs: {
-      allow: ['.', '../../'],
-    },
-  },
   build: {
     ssr: true,
     target: 'node26',
     outDir: 'dist',
     rollupOptions: {
-      input: 'src/index.tsx',
+      input: {
+        server: 'src/index.tsx',
+        client: 'src/client.ts',
+      },
     },
   },
 }));
