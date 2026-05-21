@@ -3,19 +3,19 @@
   "description": "CSS Foundation",
   "version": "0.0.2",
   "private": true,
-  "main": "./lib/reset.css",
-  "style": "./lib/reset.css",
+  "main": "./dist/reset.css",
+  "style": "./dist/reset.css",
   "sideEffects": [
     "**/*.css"
   ],
   "exports": {
     "./reset.css": {
-      "types": "./lib/reset.css.d.ts",
-      "default": "./lib/reset.css"
+      "types": "./dist/reset.css.d.ts",
+      "default": "./dist/reset.css"
     },
     "./typesetting.css": {
-      "types": "./lib/typesetting.css.d.ts",
-      "default": "./lib/typesetting.css"
+      "types": "./dist/typesetting.css.d.ts",
+      "default": "./dist/typesetting.css"
     },
     "./package.json": "./package.json"
   },
@@ -26,7 +26,7 @@
     "access": "public"
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -41,6 +41,6 @@
     "clean": "rimraf lib",
     "css-to-dts": "node -e \"import('@olsen-mono/tooling/css-to-dts')\" \"css-to-dts\" src",
     "precompile": "pnpm run clean",
-    "compile": "cpy \"**/*.{css,css.d.ts}\" ../lib --cwd=src --parents"
+    "compile": "cpy \"**/*.{css,css.d.ts}\" ../dist --cwd=src --parents"
   }
 }

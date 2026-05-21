@@ -4,18 +4,18 @@
   "version": "0.0.9",
   "private": true,
   "type": "module",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
   "keywords": [],
   "files": [
-    "lib"
+    "dist"
   ],
   "author": "leif.o.olsen@gmail.com",
   "license": "ISC",
@@ -32,8 +32,8 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "compile": "tsup",
-    "dev": "tsup --watch",
+    "compile": "tsdown",
+    "dev": "tsdown --watch",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
