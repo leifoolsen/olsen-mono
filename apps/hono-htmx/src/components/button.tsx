@@ -11,12 +11,7 @@ export const Button = () => {
       {/* Vites ferdigkompilerte CSS dyttes rett inn i en inline style-tag */}
       <style dangerouslySetInnerHTML={{ __html: styles }} />
 
-      <button
-        class={cn('myButton', 'myButton_test')}
-        hx-get="/api/fragment"
-        hx-target="#fragment-target"
-        hx-swap="innerHTML"
-      >
+      <button class={cn('myButton')} hx-get="/api/fragment" hx-target="#fragment-target" hx-swap="innerHTML">
         Hent magisk innhold
       </button>
     </div>

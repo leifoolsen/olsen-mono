@@ -8,7 +8,7 @@
     "./eslint": "./eslint.base.ts",
     "./prettier": "./prettier.base.ts",
     "./stylelint": "./stylelint.base.ts",
-    "./tsup": "./tsup.base.ts",
+    "./tsdown": "./tsdown.base.ts",
     "./vitest": "./vitest.base.ts"
   }
 }

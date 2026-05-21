@@ -35,11 +35,13 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm run ci
+        env:
+          TURBO_CACHE_DIR: .turbo
 
       - name: Create Release PR or Publish
         uses: changesets/action@v1
         with:
-          publish: pnpm release
+          publish: pnpm release -- --cache-dir=".turbo"
           version: pnpm version-packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

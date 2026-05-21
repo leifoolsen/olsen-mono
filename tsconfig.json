@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "isolatedModules": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "noEmit": true,
@@ -8,12 +7,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
+      "@olsen-mono/tooling/*": ["./packages/tooling/*"],
       "@olsen-mono/*": ["./packages/*/src/index.ts"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "ignoreDeprecations": "6.0" // tsup is not quite ready for TS6 yet. Generates "packages/*/src" instead of "./packages/*/src"
+    "verbatimModuleSyntax": true
   }
 }

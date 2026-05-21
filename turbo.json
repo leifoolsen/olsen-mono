@@ -5,11 +5,11 @@
     "css-to-dts": {
       "cache": true,
       "inputs": ["src/**/*.css"],
-      "outputs": ["src/**/*.css.d.ts", "lib/**/*.css.d.ts"]
+      "outputs": ["src/**/*.css.d.ts", "dist/**/*.css.d.ts"]
     },
     "compile": {
       "dependsOn": ["^compile", "css-to-dts"],
-      "outputs": ["lib/**", "dist/**"]
+      "outputs": ["dist/**"]
     },
     "typecheck": {
       "dependsOn": ["^compile"],

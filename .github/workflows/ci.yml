@@ -29,3 +29,5 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm run ci
+        env:
+          TURBO_CACHE_DIR: .turbo

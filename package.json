@@ -76,7 +76,7 @@
     "stylelint": "17.10.0",
     "stylelint-config-css-modules": "4.6.0",
     "stylelint-config-standard": "40.0.0",
-    "tsup": "8.5.1",
+    "tsdown": "^0.22.0",
     "turbo": "2.9.12",
     "typedoc": "0.28.19",
     "typedoc-plugin-markdown": "4.11.0",
