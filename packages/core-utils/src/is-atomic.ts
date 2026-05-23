@@ -1,5 +1,24 @@
 import { type TemporalObject, isTemporal } from './is-temporal';
 
+/**
+ * Represents a composite type that encapsulates various unique "atomic" objects within JavaScript or TypeScript.
+ * These objects are either intrinsic to JavaScript or part of newer specifications, each serving specialized purposes.
+ * The `AtomicObject` type is a union of several foundational structures and utilities often used for handling complex data,
+ * time management, and memory-sensitive constructs.
+ *
+ * The supported types include:
+ * - Date: Used for handling date and time.
+ * - Error: Represents runtime errors.
+ * - RegExp: Provides functionality for regular expression pattern matching.
+ * - ArrayBuffer: Represents a generic, fixed-length raw binary data buffer.
+ * - DataView: Provides a low-level interface for reading and writing multiple number types in an `ArrayBuffer` irrespective of the platform's endianness.
+ * - Set: A collection of unique values of any type.
+ * - Map: Represents a collection of key-value pairs where keys can be any type.
+ * - WeakSet: A collection of objects with weak references.
+ * - WeakMap: A collection of key-value pairs where keys are objects with weak references.
+ * - ArrayBufferView: A type representing views (`TypedArray` and `DataView`) over an `ArrayBuffer`.
+ * - TemporalObject: A placeholder for objects introduced as part of the `Temporal` API, such as `Temporal.Instant`, `Temporal.ZonedDateTime`, etc.
+ */
 type AtomicObject =
   | Date
   | Error
@@ -30,15 +49,15 @@ export const isAtomic = (val: unknown): val is AtomicObject | string | number | 
   }
 
   return (
+    Error.isError(val) ||
     val instanceof Date ||
-    val instanceof Error ||
+    isTemporal(val) ||
     val instanceof RegExp ||
     val instanceof ArrayBuffer ||
     val instanceof Set ||
     val instanceof Map ||
     val instanceof WeakSet ||
     val instanceof WeakMap ||
-    ArrayBuffer.isView(val) ||
-    isTemporal(val)
+    ArrayBuffer.isView(val)
   );
 };
