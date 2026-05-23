@@ -1,6 +1,22 @@
 import { isPlainObject } from './is-plain-object';
 import { isTemporal } from './is-temporal';
 
+/**
+ * Represents an "empty" type which encompasses various values and structures that are considered empty.
+ *
+ * This type union includes:
+ * - An empty string (`''`).
+ * - A readonly array with no elements.
+ * - A `null` value.
+ * - An `undefined` value.
+ * - An empty `Map`.
+ * - An empty `Set`.
+ * - An empty `WeakMap`.
+ * - An empty `WeakSet`.
+ * - An object with no properties (e.g., `{}` or `Record<PropertyKey, never>`).
+ *
+ * It is commonly used to define a type that accepts values that are conceptually empty across different data structures.
+ */
 type Empty =
   | ''
   | readonly unknown[]
