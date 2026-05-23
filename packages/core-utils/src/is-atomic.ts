@@ -19,7 +19,7 @@ import { type TemporalObject, isTemporal } from './is-temporal';
  * - ArrayBufferView: A type representing views (`TypedArray` and `DataView`) over an `ArrayBuffer`.
  * - TemporalObject: A placeholder for objects introduced as part of the `Temporal` API, such as `Temporal.Instant`, `Temporal.ZonedDateTime`, etc.
  */
-type AtomicObject =
+export type AtomicObject =
   | Date
   | Error
   | RegExp
