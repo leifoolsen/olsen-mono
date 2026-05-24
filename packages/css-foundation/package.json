@@ -39,7 +39,7 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "clean": "rimraf lib",
-    "precompile": "pnpm run clean & pnpm run css-to-dts",
+    "precompile": "pnpm run clean && pnpm run css-to-dts",
     "compile": "cpy \"**/*.{css,css.d.ts}\" ../dist --cwd=src --parents",
     "css-to-dts": "css-to-dts src"
   },
