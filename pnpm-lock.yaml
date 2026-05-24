@@ -135,9 +135,9 @@ importers:
       '@hono/vite-dev-server':
         specifier: 'catalog:'
         version: 0.25.3(hono@4.12.16)
-      '@olsen-mono/tooling':
+      '@olsen-mono/css-to-dts':
         specifier: workspace:*
-        version: link:../../packages/tooling
+        version: link:../../packages/css-to-dts
       '@types/node':
         specifier: 'catalog:'
         version: 25.6.0
@@ -154,16 +154,25 @@ importers:
         specifier: 'catalog:'
         version: 25.6.0
 
-  packages/css-foundation: {}
+  packages/css-foundation:
+    devDependencies:
+      '@olsen-mono/css-to-dts':
+        specifier: workspace:*
+        version: link:../css-to-dts
+
+  packages/css-to-dts:
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.6.0
 
   packages/tooling: {}
 
   packages/try-catch:
-    dependencies:
+    devDependencies:
       '@olsen-mono/core-utils':
         specifier: workspace:*
         version: link:../core-utils
-    devDependencies:
       '@types/node':
         specifier: 'catalog:'
         version: 25.6.0
