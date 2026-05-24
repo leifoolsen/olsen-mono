@@ -38,9 +38,8 @@ describe('css-to-dts blackbox-test', () => {
     const cssFilePath = path.join(TEST_DIR, 'styles.css');
     await fs.writeFile(cssFilePath, mockCss, 'utf-8');
 
-    // 3. Run your CLI script synchronously via Node
-    // We use the source code directly (or the dist file if you prefer)
-    // and pass the test folder as an argument
+    // 3. Run CLI script synchronously via Node
+    // Use the source code directly and pass the test folder as an argument
     const scriptPath = path.resolve(__dirname, '..', './css-to-dts.ts');
 
     execSync(`node --experimental-strip-types ${scriptPath} "${TEST_DIR}"`, { stdio: 'pipe' });
