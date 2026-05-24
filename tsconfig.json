@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "noEmit": true,
@@ -7,6 +8,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
+      "@olsen-mono/tooling": ["./packages/tooling/*"],
       "@olsen-mono/tooling/*": ["./packages/tooling/*"],
       "@olsen-mono/*": ["./packages/*/src/index.ts"]
     },
