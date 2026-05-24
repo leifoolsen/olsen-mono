@@ -36,7 +36,7 @@ Update your local `package.json`:
 {
   "scripts": {
     "clean": "rimraf lib",
-    "css-to-dts": "css-to-dts src",
+    "css-to-dts": "node --experimental-strip-types ../css-to-dts/css-to-dts.ts src",
     "precompile": "pnpm run clean && pnpm run css-to-dts",
     "compile": "tsdown && cpy \"**/*.{css,css.d.ts}\" ../dist --cwd=src --parents"
   }
@@ -49,7 +49,7 @@ Update your local `package.json`:
 {
   "scripts": {
     "clean": "rimraf lib",
-    "css-to-dts": "css-to-dts src",
+    "css-to-dts": "node --experimental-strip-types ../css-to-dts/css-to-dts.ts src",
     "precompile": "pnpm run clean && pnpm run css-to-dts",
     "compile": "cpy \"**/*.{css,css.d.ts}\" ../dist --cwd=src --parents"
   }
