@@ -34,7 +34,12 @@ jobs:
             ${{ runner.os }}-turbo-
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run ci
+
+      - name: Bootstrap CSS Tools CLI
+        run: pnpm run prepare
+
+      - name: Run CI tasks
+        run: pnpm run ci
         env:
           TURBO_CACHE_DIR: .turbo
 
