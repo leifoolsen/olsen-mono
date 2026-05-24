@@ -124,4 +124,7 @@ async function run() {
   }
 }
 
-await run();
+// Sjekker om filen som kjøres er denne filen
+if (process.argv[1] === import.meta.filename || process.argv[1]?.endsWith('css-to-dts.ts')) {
+  await run();
+}

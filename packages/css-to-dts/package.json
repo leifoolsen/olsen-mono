@@ -11,7 +11,8 @@
     "css-to-dts": "./dist/css-to-dts.mjs"
   },
   "scripts": {
-    "compile": "tsdown"
+    "compile": "tsdown",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@types/node": "catalog:"
