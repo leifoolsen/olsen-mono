@@ -8,7 +8,7 @@
       "outputs": ["src/**/*.css.d.ts", "dist/**/*.css.d.ts"]
     },
     "compile": {
-      "dependsOn": ["^compile", "css-to-dts"],
+      "dependsOn": ["^compile"],
       "outputs": ["dist/**"]
     },
     "typecheck": {
