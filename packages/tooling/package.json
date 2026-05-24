@@ -1,10 +1,9 @@
 {
   "name": "@olsen-mono/tooling",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": true,
   "type": "module",
   "exports": {
-    "./css-to-dts": "./css-to-dts.ts",
     "./eslint": "./eslint.base.ts",
     "./prettier": "./prettier.base.ts",
     "./stylelint": "./stylelint.base.ts",

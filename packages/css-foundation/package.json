@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/css-foundation",
   "description": "CSS Foundation",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "main": "./dist/reset.css",
   "style": "./dist/reset.css",
@@ -39,8 +39,11 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "clean": "rimraf lib",
-    "css-to-dts": "node -e \"import('@olsen-mono/tooling/css-to-dts')\" \"css-to-dts\" src",
-    "precompile": "pnpm run clean",
-    "compile": "cpy \"**/*.{css,css.d.ts}\" ../dist --cwd=src --parents"
+    "precompile": "pnpm run clean && pnpm run css-to-dts",
+    "compile": "cpy \"**/*.{css,css.d.ts}\" ../dist --cwd=src --parents",
+    "css-to-dts": "node --experimental-strip-types ../css-to-dts/css-to-dts.ts src"
+  },
+  "devDependencies": {
+    "@olsen-mono/css-to-dts": "workspace:*"
   }
 }

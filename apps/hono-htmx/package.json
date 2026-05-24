@@ -1,6 +1,6 @@
 {
   "name": "hono-htmx",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "type": "module",
   "publishConfig": {
@@ -16,10 +16,10 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "copy-deps": "node scripts/copy-htmx.ts",
-    "css-to-dts": "node -e \"import('@olsen-mono/tooling/css-to-dts')\" \"css-to-dts\" src",
-    "dev": "pnpm copy-deps && vite",
     "build": "pnpm copy-deps && vite build",
+    "copy-deps": "node scripts/copy-htmx.ts",
+    "css-to-dts": "css-to-dts src",
+    "dev": "pnpm copy-deps && vite",
     "start": "node dist/index.js"
   },
   "dependencies": {
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@hono/vite-dev-server": "catalog:",
-    "@olsen-mono/tooling": "workspace:*",
+    "@olsen-mono/css-to-dts": "workspace:*",
     "@types/node": "catalog:",
     "vite": "catalog:",
     "vite-plugin-live-reload": "3.1.0"

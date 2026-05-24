@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -72,7 +74,7 @@ async function run() {
       }
     }
 
-    console.info(`ℹ️ Fant ${cssFiles.size} CSS-fil(er) og ${dtsFiles.length} eksisterende .d.ts-fil(er)`);
+    console.info(`ℹ️ Found ${cssFiles.size} CSS-fils(s) and ${dtsFiles.length} existing .d.ts-file(s)`);
 
     // 1. Slett utdaterte .css.d.ts-filer (Sjekker mot det absolutte Set-et)
     let deletedCount = 0;
@@ -122,4 +124,7 @@ async function run() {
   }
 }
 
-await run();
+// Sjekker om filen som kjøres er denne filen
+if (process.argv[1] === import.meta.filename || process.argv[1]?.endsWith('css-to-dts.ts')) {
+  await run();
+}

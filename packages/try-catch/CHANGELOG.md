@@ -1,5 +1,11 @@
 # @olsen-mono/try-catch
 
+## 0.0.11
+
+### Patch Changes
+
+- 86b166f: Added turbo gen and css-to-dts cli
+
 ## 0.0.10
 
 ### Patch Changes
