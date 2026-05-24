@@ -5,7 +5,8 @@
   "private": true,
   "type": "module",
   "keywords": [
-    "typescript",
+    "typescript 6",
+    "node 26",
     "eslint",
     "pnpm",
     "monorepo",
