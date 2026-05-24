@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/css-foundation",
   "description": "CSS Foundation",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "main": "./dist/reset.css",
   "style": "./dist/reset.css",
