@@ -37,10 +37,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "@olsen-mono/core-utils": "workspace:*"
-  },
   "devDependencies": {
+    "@olsen-mono/core-utils": "workspace:*",
     "@types/node": "catalog:"
   }
 }
