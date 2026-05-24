@@ -41,7 +41,7 @@
     "clean": "rimraf lib",
     "precompile": "pnpm run clean && pnpm run css-to-dts",
     "compile": "cpy \"**/*.{css,css.d.ts}\" ../dist --cwd=src --parents",
-    "css-to-dts": "css-to-dts src"
+    "css-to-dts": "pnpm exec css-to-dts src"
   },
   "devDependencies": {
     "@olsen-mono/css-to-dts": "workspace:*"
