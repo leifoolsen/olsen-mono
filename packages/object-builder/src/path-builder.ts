@@ -1,4 +1,6 @@
-import { isAtomic, type AtomicObject } from '@olsen-mono/core-utils';
+import { isAtomic, isRecord, type AtomicObject } from '@olsen-mono/core-utils';
+import { deepMerge } from './utils';
+import type { DeepPartial } from './types';
 
 /**
  * Represents a type used to calculate the maximum depth of nested structures in TypeScript.
@@ -60,36 +62,6 @@ type NonNullableStructure<T> = Exclude<T, undefined | null>;
 type KeyWithoutReadonly<T> = {
   -readonly [K in keyof T]: T[K];
 };
-
-/**
- * A utility type that recursively makes all properties of a given type `T` optional.
- * This is particularly useful for scenarios where partial updates of deeply nested structures
- * are needed.
- *
- * The type handles several specific cases:
- * - Atomic types and primitive values (e.g., `string`, `number`, `boolean`) remain unchanged.
- * - `Map` and `Set` entries are recursively wrapped in `DeepPartial`.
- * - Arrays and tuples are differentiated:
- *   - For regular arrays, the type applies `DeepPartial` to the array's element type.
- *   - For fixed tuples (where length is a specific number), each member of the tuple
- *     is individually wrapped in `DeepPartial`.
- * - Plain objects are transformed such that each property is optional and recursively processed.
- *
- * @template T The type to be recursively wrapped in `DeepPartial`.
- */
-export type DeepPartial<T> = T extends AtomicObject
-  ? T
-  : T extends Map<infer K, infer V>
-    ? Map<K, DeepPartial<V>>
-    : T extends Set<infer U>
-      ? Set<DeepPartial<U>>
-      : T extends readonly any[] // eslint-disable-line @typescript-eslint/no-explicit-any
-        ? number extends T['length']
-          ? DeepPartial<T[number]>[]
-          : { [K in keyof T]: DeepPartial<T[K]> }
-        : T extends object
-          ? { [K in keyof T]?: DeepPartial<T[K]> }
-          : T;
 
 /**
  * Represents a recursive TypeScript type that generates key paths for a given structure `T`
@@ -170,34 +142,6 @@ export type PathValue<T, P extends string> = P extends `${infer Key}.${infer Res
       ? U | null | undefined
       : never;
 
-// TODO: Replace with @olsen-mono/core-utils/is-record
-function isObject(item: unknown): item is Record<PropertyKey, unknown> {
-  return item !== null && typeof item === 'object' && !Array.isArray(item);
-}
-
-/**
- * Deep merges two objects together.
- * @param target
- * @param source
- */
-function deepMerge(target: Record<string, unknown>, source: Record<string, unknown>): void {
-  for (const key of Object.keys(source)) {
-    const sourceValue = source[key];
-
-    if (isObject(sourceValue) && !isAtomic(sourceValue)) {
-      const targetValue = target[key];
-
-      if (!isObject(targetValue)) {
-        target[key] = {};
-      }
-
-      deepMerge(target[key] as Record<string, unknown>, sourceValue);
-    } else {
-      target[key] = sourceValue;
-    }
-  }
-}
-
 /**
  * A utility type that represents a builder for constructing and modifying deeply nested objects.
  * This type allows for setting, merging, removing, and resetting values at specific paths in an object.
@@ -269,10 +213,10 @@ export function createPathBuilder<T extends object>(initialState: T): PathBuilde
       if (lastKey !== undefined) {
         const clonedSource = structuredClone(partialValue);
 
-        if (isObject(clonedSource) && !isAtomic(clonedSource)) {
+        if (isRecord(clonedSource) && !isAtomic(clonedSource)) {
           const currentTarget = current[lastKey];
 
-          if (!isObject(currentTarget)) {
+          if (!isRecord(currentTarget)) {
             current[lastKey] = {};
           }
 

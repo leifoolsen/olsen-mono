@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { createPathBuilder, type DeepPartial, type PathBuilder } from '../path-builder';
+import { createPathBuilder, type PathBuilder } from '../path-builder';
+import type { DeepPartial } from '../types.ts';
 
 describe('path-builder', () => {
   type TestState = {

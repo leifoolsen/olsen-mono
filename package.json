@@ -8,11 +8,17 @@
     "typescript 6",
     "node 26",
     "eslint",
+    "stylelint",
+    "prettier",
     "pnpm",
     "monorepo",
     "tsdown",
     "turborepo",
-    "css-to-dts"
+    "css-to-dts",
+    "vitest",
+    "vite",
+    "hono",
+    "htmx"
   ],
   "packageManager": "pnpm@10.32.1",
   "engines": {
