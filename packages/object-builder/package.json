@@ -1,0 +1,39 @@
+{
+  "name": "@olsen-mono/object-builder",
+  "description": "Typesafe builder",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "leif.o.olsen@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olsen-mono/olsen-mono.git",
+    "directory": "packages/object-builder"
+  },
+  "bugs": {
+    "url": "https://github.com/olsen-mono/olsen-mono/issues"
+  },
+  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
+  "scripts": {
+    "compile": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@olsen-mono/core-utils": "workspace:*",
+    "@types/node": "catalog:"
+  }
+}

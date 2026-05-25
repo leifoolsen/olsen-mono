@@ -1,6 +1,17 @@
 import { isAtomic, type AtomicObject } from '@olsen-mono/core-utils';
 
 /**
+ * Represents a type used to calculate the maximum depth of nested structures in TypeScript.
+ *
+ * The `MaxDepth` type is defined as a tuple where each subsequent index increments the depth level.
+ * This type is often used for managing recursion limits when working with deeply nested types or data structures.
+ *
+ * The tuple starts with `never` at the 0th position, followed by numeric indices representing depth levels
+ * (e.g., 0, 1, 2, 3, 4, 5, etc.) with further levels extending as needed.
+ */
+type MaxDepth = [never, 0, 1, 2, 3, 4, 5, ...never[]];
+
+/**
  * Helper to escape dot characters ('.') within a string type.
  * Useful for maintaining literal dots in keys during path generation.
  *
@@ -30,20 +41,41 @@ type EscapeDots<S extends string | number> = S extends string
 type UnescapeDots<S extends string> = S extends `${infer T}\\.${infer U}` ? `${T}.${UnescapeDots<U>}` : S;
 
 /**
+ * A utility type that excludes `null` and `undefined` from a given type `T`.
+ *
+ * The `NonNullableStructure` type ensures that the resulting type will not
+ * contain nullability, making it safer for scenarios where values must be
+ * non-null and non-undefined.
+ *
+ * @template T - The type from which `null` and `undefined` are excluded.
+ */
+type NonNullableStructure<T> = Exclude<T, undefined | null>;
+
+/**
+ * Represents a mapped type that removes the `readonly` modifier from all properties
+ * of an object type `T`.
+ *
+ * @template T - The object type from which the `readonly` modifier will be removed.
+ */
+type KeyWithoutReadonly<T> = {
+  -readonly [K in keyof T]: T[K];
+};
+
+/**
  * A utility type that recursively makes all properties of a given type `T` optional.
- * This type is particularly useful when working with deeply nested objects where
- * partial updates or optional properties are required.
+ * This is particularly useful for scenarios where partial updates of deeply nested structures
+ * are needed.
  *
- * If `T` matches:
- * - `AtomicType` (e.g., string, number, boolean, etc.), it returns `T` as-is.
- * - `Map<K, V>`, it recursively applies `DeepPartial` to the values `V` while preserving the map structure.
- * - `Set<U>`, it recursively applies `DeepPartial` to the set values `U`.
- * - Arrays of type `U[]`, it recursively applies `DeepPartial` to the array elements.
- * - Objects (`T extends object`), it makes each property of the object optional and applies `DeepPartial` recursively.
+ * The type handles several specific cases:
+ * - Atomic types and primitive values (e.g., `string`, `number`, `boolean`) remain unchanged.
+ * - `Map` and `Set` entries are recursively wrapped in `DeepPartial`.
+ * - Arrays and tuples are differentiated:
+ *   - For regular arrays, the type applies `DeepPartial` to the array's element type.
+ *   - For fixed tuples (where length is a specific number), each member of the tuple
+ *     is individually wrapped in `DeepPartial`.
+ * - Plain objects are transformed such that each property is optional and recursively processed.
  *
- * For other types, it returns `T` unchanged.
- *
- * @template T - The type to be processed for deep partial transformation.
+ * @template T The type to be recursively wrapped in `DeepPartial`.
  */
 export type DeepPartial<T> = T extends AtomicObject
   ? T
@@ -51,77 +83,103 @@ export type DeepPartial<T> = T extends AtomicObject
     ? Map<K, DeepPartial<V>>
     : T extends Set<infer U>
       ? Set<DeepPartial<U>>
-      : T extends (infer U)[]
-        ? DeepPartial<U>[]
+      : T extends readonly any[] // eslint-disable-line @typescript-eslint/no-explicit-any
+        ? number extends T['length']
+          ? DeepPartial<T[number]>[]
+          : { [K in keyof T]: DeepPartial<T[K]> }
         : T extends object
           ? { [K in keyof T]?: DeepPartial<T[K]> }
           : T;
 
 /**
- * Represents a type that generates a string-based path for accessing properties of a given structure.
+ * Represents a recursive TypeScript type that generates key paths for a given structure `T`
+ * up to a specified depth `D`. This is particularly useful when working with deeply nested objects
+ * or arrays, and you need the paths in string format.
  *
- * @template K The key type, which can be a string or number, representing the root key of the path.
- * @template V The value type associated with the key `K`, which determines the structure of the path.
+ * @template T - The type of the object or structure for which key paths will be generated.
+ * @template D - The maximum depth of the key paths to generate. Defaults to 5.
  *
- * PathImpl constructs different string path patterns based on the structure of `V`:
- * - If `V` is an atomic type, a string path is returned with escaped dots in key `K`.
- * - If `V` is an array, the path includes indices and further nested paths for the array elements.
- * - If `V` is an object, the path includes nested keys and further resolution of sub-paths.
- * - Otherwise, `V` defaults to the path of the key `K` with escaped dots.
+ * Key Characteristics of `KeyPathImpl`:
+ * - Leverages type recursion to traverse nested structures and produce valid key paths.
+ * - Supports objects, arrays, and structures that may combine these types.
+ * - Avoids key paths for "atomic" objects that do not have further nested properties (e.g., strings, numbers, etc.).
+ * - Provides additional logic to handle arrays with numeric indices and maps their corresponding key paths.
+ *
+ * - The following constraints are observed:
+ *   - If `T` is atomic or non-nested, the result is `never`.
+ *   - If `T` is an array, the key paths include numeric indices and paths to nested elements.
+ *   - If `T` is an object, the key paths include property names and nested paths.
+ *   - The traversal respects the specified maximum depth `D` to avoid excessive recursion.
+ *
+ * This utility type is often used in scenarios where dynamic key path definitions are required,
+ * such as building query engines, validation schemas, or dynamic access to deeply nested structures.
  */
-type PathImpl<K extends string | number, V> = V extends AtomicObject
-  ? `${EscapeDots<K>}`
-  : V extends readonly (infer U)[]
-    ? `${EscapeDots<K>}` | `${EscapeDots<K>}.${number}` | `${EscapeDots<K>}.${number}.${KeyPath<U>}`
-    : V extends object
-      ? `${EscapeDots<K>}` | `${EscapeDots<K>}.${KeyPath<V>}`
-      : `${EscapeDots<K>}`;
+type KeyPathImpl<T, D extends number = 5> = [D] extends [never]
+  ? never
+  : NonNullableStructure<T> extends AtomicObject
+    ? never
+    : NonNullableStructure<T> extends readonly any[] // eslint-disable-line @typescript-eslint/no-explicit-any
+      ? number extends NonNullableStructure<T>['length']
+        ? `${number}` | `${number}.${KeyPathImpl<NonNullableStructure<T>[number], MaxDepth[D]>}`
+        : {
+            [K in keyof NonNullableStructure<T> & string]:
+              | K
+              | `${K}.${KeyPathImpl<NonNullableStructure<T>[K], MaxDepth[D]>}`;
+          }[keyof NonNullableStructure<T> & string]
+      : NonNullableStructure<T> extends object
+        ? {
+            [K in keyof NonNullableStructure<T> & string]: EscapeDots<K> extends string
+              ? EscapeDots<K> | `${EscapeDots<K>}.${KeyPathImpl<NonNullableStructure<T>[K], MaxDepth[D]>}`
+              : never;
+          }[keyof NonNullableStructure<T> & string]
+        : never;
 
 /**
- * Represents the type for a key path that can be used to index into
- * nested structures. This type is recursively evaluated based on the
- * given generic parameter `T`, forming path structures for traversing
- * arrays or objects.
+ * Represents a type that computes all possible key paths (dot-separated string keys)
+ * for an object, including nested properties.
  *
- * For array types, it determines whether the array has a fixed or dynamic
- * length, generating appropriate path structures for numbered or indexed access.
- *
- * For object types, it recursively constructs path structures for each key,
- * enabling navigation through the object's hierarchy.
- *
- * @template T - The type of the structure to generate key paths for.
+ * @template T - The object type for which key paths are generated.
  */
-type KeyPath<T> = T extends readonly (infer V)[]
-  ? number extends T['length']
-    ? PathImpl<number, V>
-    : { [K in keyof T & string]: PathImpl<K, T[K]> }[keyof T & string]
-  : { [K in keyof T & string]: PathImpl<K, T[K]> }[keyof T & string];
+export type KeyPath<T extends object> = KeyPathImpl<T>;
 
-type PathValue<T, P extends string> = P extends `${infer Key}.${infer Rest}`
-  ? UnescapeDots<Key> extends keyof T
-    ? PathValue<Exclude<T[UnescapeDots<Key>], undefined | null>, Rest>
-    : T extends readonly (infer U)[]
-      ? PathValue<U, Rest>
+/**
+ * Represents the value at a specific path in an object structure, where paths are defined
+ * as dot-separated strings. Supports nested properties and array elements.
+ *
+ * @template T - The base object type to extract the value from.
+ * @template P - A string representing the path to the desired value. Path keys are separated by dots.
+ *
+ * The path string `P` can:
+ * - Locate nested properties in `T` by using dot notation, such as "key1.key2".
+ * - Traverse arrays when the structure contains array elements.
+ *
+ * The type resolves to:
+ * - A specific value type if the path exists in the structure and is valid.
+ * - `null` or `undefined` if the path leads to a nullable entity.
+ * - `never` if the path is invalid for the provided structure.
+ */
+export type PathValue<T, P extends string> = P extends `${infer Key}.${infer Rest}`
+  ? UnescapeDots<Key> extends keyof NonNullableStructure<T>
+    ? PathValue<NonNullableStructure<NonNullableStructure<T>[UnescapeDots<Key>]>, Rest>
+    : NonNullableStructure<T> extends readonly (infer U)[]
+      ? PathValue<NonNullableStructure<U>, Rest>
       : never
-  : UnescapeDots<P> extends keyof T
-    ? T[UnescapeDots<P>]
-    : T extends readonly (infer U)[]
-      ? U
+  : UnescapeDots<P> extends keyof KeyWithoutReadonly<NonNullableStructure<T>>
+    ? NonNullableStructure<T>[UnescapeDots<P>] | null | undefined
+    : NonNullableStructure<T> extends readonly (infer U)[]
+      ? U | null | undefined
       : never;
 
-export type PathBuilder<T extends object> = {
-  set<P extends KeyPath<T> & string>(path: P, value: PathValue<T, P>): PathBuilder<T>;
-  merge<P extends KeyPath<T> & string>(path: P, value: DeepPartial<PathValue<T, P>>): PathBuilder<T>;
-  remove(path: KeyPath<T> & string): PathBuilder<T>;
-  reset(newInitial: T): PathBuilder<T>;
-  peek(): T;
-  build(): T;
-};
-
+// TODO: Replace with @olsen-mono/core-utils/is-record
 function isObject(item: unknown): item is Record<PropertyKey, unknown> {
   return item !== null && typeof item === 'object' && !Array.isArray(item);
 }
 
+/**
+ * Deep merges two objects together.
+ * @param target
+ * @param source
+ */
 function deepMerge(target: Record<string, unknown>, source: Record<string, unknown>): void {
   for (const key of Object.keys(source)) {
     const sourceValue = source[key];
@@ -140,6 +198,28 @@ function deepMerge(target: Record<string, unknown>, source: Record<string, unkno
   }
 }
 
+/**
+ * A utility type that represents a builder for constructing and modifying deeply nested objects.
+ * This type allows for setting, merging, removing, and resetting values at specific paths in an object.
+ *
+ * @template T - The type of the object being built or modified.
+ */
+export type PathBuilder<T extends object> = {
+  set<P extends KeyPath<T> & string>(path: P, value: PathValue<T, P>): PathBuilder<T>;
+  merge<P extends KeyPath<T> & string>(path: P, value: DeepPartial<PathValue<T, P>>): PathBuilder<T>;
+  remove(path: KeyPath<T> & string): PathBuilder<T>;
+  reset(newInitial: T): PathBuilder<T>;
+  peek(): T;
+  build(): T;
+};
+
+/**
+ * Creates a `PathBuilder` for managing and manipulating a nested object structure.
+ *
+ * @template T - The type of the object to be manipulated by the `PathBuilder`.
+ * @param {T} initialState - The initial state of the object to be manipulated by the `PathBuilder`.
+ * @return {PathBuilder<T>} An object with methods to set, merge, remove, reset, peek, and build the state.
+ */
 export function createPathBuilder<T extends object>(initialState: T): PathBuilder<T> {
   let state = structuredClone(initialState);
 

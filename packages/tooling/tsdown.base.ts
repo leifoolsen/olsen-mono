@@ -3,7 +3,7 @@ import { defineConfig, type UserConfig } from 'tsdown';
 export const baseOptions: UserConfig = {
   entry: ['./src/index.ts'],
   format: ['esm'],
-  dts: true,
+  dts: !process.argv.includes('--watch'),
   clean: true,
   sourcemap: true,
   platform: 'node',
