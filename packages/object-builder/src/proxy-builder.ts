@@ -16,7 +16,6 @@ import type { DeepPartial } from './types.ts';
  *
  * @template T The type to be transformed into a deeply required, non-nullable type.
  */
-// Oppdatert i packages/object-builder/src/proxy-builder.ts
 export type DeepRequired<T> = T extends AtomicObject
   ? Exclude<T, null | undefined>
   : T extends readonly unknown[]
@@ -44,7 +43,6 @@ function unwrap(val: unknown): unknown {
     return val;
   }
 
-  // Hent ut rå tilstand hvis det er en proxy, bruk trygg casting for symbol-sjekk
   const raw = (val as Record<PropertyKey, unknown>)[RAW_STATE] ?? val;
 
   if (Array.isArray(raw)) {
@@ -86,7 +84,6 @@ export type ProxyBuilder<T extends object> = DeepRequired<T> & {
  *
  */
 export function createProxyBuilder<T extends object>(initialObj: DeepPartial<T>): ProxyBuilder<T> {
-  // Castes til en trygg, muterbar ukjent ordbok i stedet for 'any'
   const state = structuredClone(initialObj) as Record<PropertyKey, unknown>;
 
   const createVirtualProxy = (target: Record<PropertyKey, unknown>, path: PropertyKey[]): unknown => {
