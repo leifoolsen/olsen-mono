@@ -39,18 +39,14 @@ export const isTemporal = (val: unknown): val is TemporalObject => {
     return false;
   }
 
-  if (typeof globalThis.Temporal !== 'undefined') {
-    return (
-      val instanceof Temporal.PlainDate ||
-      val instanceof Temporal.PlainTime ||
-      val instanceof Temporal.PlainDateTime ||
-      val instanceof Temporal.ZonedDateTime ||
-      val instanceof Temporal.Duration ||
-      val instanceof Temporal.Instant ||
-      val instanceof Temporal.PlainYearMonth ||
-      val instanceof Temporal.PlainMonthDay
-    );
-  }
-
-  return Object.prototype.toString.call(val).startsWith('[object Temporal.');
+  return (
+    val instanceof Temporal.PlainDate ||
+    val instanceof Temporal.PlainTime ||
+    val instanceof Temporal.PlainDateTime ||
+    val instanceof Temporal.ZonedDateTime ||
+    val instanceof Temporal.Duration ||
+    val instanceof Temporal.Instant ||
+    val instanceof Temporal.PlainYearMonth ||
+    val instanceof Temporal.PlainMonthDay
+  );
 };
