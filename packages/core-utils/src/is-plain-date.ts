@@ -7,6 +7,5 @@
  * @param val - The value to check.
  * @returns A boolean indicating if the value is a `Temporal.PlainDate` instance.
  */
-export const isPlainDate = (val: unknown): val is Temporal.PlainDate => {
-  return val != null && typeof val === 'object' && val instanceof Temporal.PlainDate;
-};
+export const isPlainDate = (val: unknown): val is Temporal.PlainDate =>
+  val != null && typeof val === 'object' && val instanceof Temporal.PlainDate;

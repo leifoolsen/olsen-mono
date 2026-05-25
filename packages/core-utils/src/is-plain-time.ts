@@ -7,6 +7,5 @@
  * @param {unknown} val - The value to test for being a `Temporal.PlainTime` instance.
  * @returns {val is Temporal.PlainTime} `true` if the value is an instance of `Temporal.PlainTime`; otherwise, `false`.
  */
-export const isPlainTime = (val: unknown): val is Temporal.PlainTime => {
-  return val != null && typeof val === 'object' && val instanceof Temporal.PlainTime;
-};
+export const isPlainTime = (val: unknown): val is Temporal.PlainTime =>
+  val != null && typeof val === 'object' && val instanceof Temporal.PlainTime;
