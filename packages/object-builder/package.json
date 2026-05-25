@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/object-builder",
   "description": "Typesafe builder",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "main": "./dist/index.mjs",
