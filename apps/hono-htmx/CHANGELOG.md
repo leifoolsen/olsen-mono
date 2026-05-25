@@ -1,5 +1,14 @@
 # hello-htmx
 
+## 0.0.7
+
+### Patch Changes
+
+- 893b607: Typesafe path builder and proxy builder
+- Updated dependencies [893b607]
+  - @olsen-mono/core-utils@0.0.12
+  - @olsen-mono/css-foundation@0.0.4
+
 ## 0.0.6
 
 ### Patch Changes
