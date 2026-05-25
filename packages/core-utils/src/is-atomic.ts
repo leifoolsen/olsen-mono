@@ -16,7 +16,7 @@ import { type TemporalObject, isTemporal } from './is-temporal';
  * - Map: Represents a collection of key-value pairs where keys can be any type.
  * - WeakSet: A collection of objects with weak references.
  * - WeakMap: A collection of key-value pairs where keys are objects with weak references.
- * - ArrayBufferView: A type representing views (`TypedArray` and `DataView`) over an `ArrayBuffer`.
+ * - ArrayBufferView: A type representing views (`TypedArray` and `DataView`) over an `ArrayBuffer` (including `Uint8Array`, `Int32Array`, `DataView`, etc.).
  * - TemporalObject: A placeholder for objects introduced as part of the `Temporal` API, such as `Temporal.Instant`, `Temporal.ZonedDateTime`, etc.
  */
 export type AtomicObject =

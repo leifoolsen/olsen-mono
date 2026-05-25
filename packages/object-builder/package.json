@@ -1,11 +1,11 @@
 {
-  "name": "@olsen-mono/core-utils",
-  "description": "Core Utils",
-  "version": "0.0.11",
+  "name": "@olsen-mono/object-builder",
+  "description": "Typesafe builder",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
-  "main": "./dist/index.mts",
-  "types": "./dist/index.d.mjs",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
@@ -13,19 +13,14 @@
     },
     "./package.json": "./package.json"
   },
-  "keywords": [],
   "files": [
     "dist"
   ],
   "author": "leif.o.olsen@gmail.com",
-  "license": "ISC",
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/olsen-mono/olsen-mono.git",
-    "directory": "packages/core-utils"
+    "directory": "packages/object-builder"
   },
   "bugs": {
     "url": "https://github.com/olsen-mono/olsen-mono/issues"
@@ -38,6 +33,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@olsen-mono/core-utils": "workspace:*",
     "@types/node": "catalog:"
   }
 }

@@ -10,18 +10,14 @@ if (!inputPath) {
   process.exit(1);
 }
 
-// Sikrer at vi alltid har en absolutt sti uansett hvor vi kjører fra
 const absoluteTargetDir = path.resolve(process.cwd(), inputPath);
 console.info(`🔍 Scanning folder: ${absoluteTargetDir}`);
 
 function extractCssTokens(cssContent: string) {
-  // 1. Fjern alle CSS-kommentarer så de ikke forstyrrer
-  let cleanContent = cssContent.replace(/\/\*[\s\S]*?\*\//g, '');
+  const cleanContent = cssContent //
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/@import\s+[^;]+;/g, '');
 
-  // 2. Fjern alle @import-linjer (inkludert de som går over flere linjer eller slutter med layer)
-  cleanContent = cleanContent.replace(/@import\s+[^;]+;/g, '');
-
-  // 3. Finn alle CSS-variabler
   const variableRegex = /(--[a-zA-Z0-9_-]+)/g;
   const variables = new Set<string>();
   let varMatch;
@@ -29,16 +25,11 @@ function extractCssTokens(cssContent: string) {
     variables.add(varMatch[1]);
   }
 
-  // 4. Finn gyldige klassenavn
-  // En gyldig CSS-klasse må starte med en bokstav eller understrek etter punktum,
-  // ELLER den kan følge rett etter &. (f.eks. &.highlight)
   const classRegex = /(?:\.([a-zA-Z_][a-zA-Z0-9_-]*)|&\.([a-zA-Z0-9_-]+))/g;
   const classNames = new Set<string>();
   let classMatch;
 
   while ((classMatch = classRegex.exec(cleanContent)) !== null) {
-    // Siden vi bruker to ulike fangstgrupper (en for vanlig . og en for &.),
-    // henter vi den som faktisk matchet
     const className = classMatch[1] || classMatch[2];
     if (className) {
       classNames.add(className);
@@ -55,7 +46,6 @@ async function run() {
   try {
     await fs.access(absoluteTargetDir);
 
-    // Henter alt rekursivt fra mappen
     const relativeEntries = await fs.readdir(absoluteTargetDir, { recursive: true });
 
     const cssFiles = new Set<string>();
@@ -76,7 +66,6 @@ async function run() {
 
     console.info(`ℹ️ Found ${cssFiles.size} CSS-fils(s) and ${dtsFiles.length} existing .d.ts-file(s)`);
 
-    // 1. Slett utdaterte .css.d.ts-filer (Sjekker mot det absolutte Set-et)
     let deletedCount = 0;
     for (const dtsFile of dtsFiles) {
       const expectedCssFile = dtsFile.slice(0, -5); // Fjerner ".d.ts"
@@ -88,7 +77,6 @@ async function run() {
       }
     }
 
-    // 2. Generer eller oppdater typedefinisjoner
     let generatedCount = 0;
     for (const cssFile of cssFiles) {
       const cssContent = await fs.readFile(cssFile, 'utf-8');
@@ -124,7 +112,6 @@ async function run() {
   }
 }
 
-// Sjekker om filen som kjøres er denne filen
 if (process.argv[1] === import.meta.filename || process.argv[1]?.endsWith('css-to-dts.ts')) {
   await run();
 }

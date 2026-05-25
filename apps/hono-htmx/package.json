@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@hono/node-server": "catalog:",
+    "@olsen-mono/core-utils": "workspace:*",
     "@olsen-mono/css-foundation": "workspace:*",
     "hono": "catalog:",
     "htmx.org": "catalog:"

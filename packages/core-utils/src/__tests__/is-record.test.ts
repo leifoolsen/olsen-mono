@@ -10,5 +10,7 @@ describe('isRecord', () => {
   it('should NOT be an instance a Record<string, unknown>', () => {
     const foo = [1, 2, 3];
     expect(isRecord(foo)).toBeFalsy();
+    expect(isRecord(null)).toBeFalsy();
+    expect(isRecord(undefined)).toBeFalsy();
   });
 });
