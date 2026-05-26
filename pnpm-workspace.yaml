@@ -9,3 +9,11 @@ catalog:
   "hono": ^4.12.16
   "htmx.org": ^1.9.10
   "vite": ^8.0.10
+overrides:
+  eslint-plugin-import: npm:eslint-plugin-import-x@latest
+saveExact: true
+preferOffline: true
+engineStrict: true
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
