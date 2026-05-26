@@ -178,6 +178,12 @@ importers:
         specifier: 'catalog:'
         version: 25.6.0
 
+  packages/reactive-state:
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.6.0
+
   packages/tooling: {}
 
   packages/try-catch:
