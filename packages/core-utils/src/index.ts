@@ -1,3 +1,4 @@
+export { createSafeRegex } from './create-safe-regex.js';
 export { isAtomic, type AtomicObject } from './is-atomic.js';
 export { isEmpty } from './is-empty.js';
 export { isEqual } from './is-equal.js';
