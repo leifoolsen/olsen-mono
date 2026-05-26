@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.13
+
+### Patch Changes
+
+- 1a3e32f: Created utility function createSafeRegex for creating safe regular expressions with placeholders.
+
 ## 0.0.12
 
 ### Patch Changes
