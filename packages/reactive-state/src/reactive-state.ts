@@ -1,24 +1,56 @@
 import { type DeepPartial, isAtomic, isRecord } from '@olsen-mono/core-utils';
 
+/**
+ * Represents a callback function that will be invoked with no arguments when an event, action, or condition occurs.
+ *
+ * Typically used to handle events or execute specific logic in response to triggers.
+ */
 type Listener = () => void;
 
-export type Binding<V> = {
+/**
+ * Defines a binding object that connects a value of a generic type `V` with a name and a change handler.
+ *
+ * @template V - The type of the value being bound.
+ * @property {V} value - The current value of the binding.
+ * @property {string} name - The name associated with the binding.
+ * @property {(newValue: V) => void} onChange - A callback function invoked when the value changes. Receives the new value as an argument.
+ */
+type Binding<V> = {
   value: V;
   name: string;
   onChange: (newValue: V) => void;
 };
 
-// packages/object-builder/src/reactive-state.ts
-
-export type ServerStore<T extends object> = {
-  state: T; // Helt ren og stabil type uten rekursiv støy
+/**
+ * Represents a typed store that manages state and provides mechanisms
+ * for subscribing to changes, taking snapshots, and binding state paths for updates.
+ *
+ * @template T Extends object type. Represents the shape of the managed state.
+ *
+ * @property {T} state - The current state managed by the store.
+ * @property {(listener: Listener) => () => void} subscribe - Registers a listener for state changes. Returns an unsubscribe function.
+ * @property {() => T} snapshot - Provides a static snapshot of the current state.
+ * @property {<V>(path: string) => Binding<V>} bind - Binds a specific path within the state and returns a binding object for that path.
+ */
+type ReactiveState<T extends object> = {
+  state: T;
   subscribe: (listener: Listener) => () => void;
   snapshot: () => T;
   bind: <V>(path: string) => Binding<V>;
 };
 
-export function createReactiveState<T extends object>(initial: DeepPartial<T>): ServerStore<T> {
-  const _internalState = structuredClone(initial);
+/**
+ * Creates a reactive state object that allows for fine-grained observation and management
+ * of nested properties with reactive updates.
+ *
+ * @template T Extends object type. Represents the shape of the managed state.
+ * @param {DeepPartial<T>} initialState - The initial state to be cloned and used as the base
+ * reactive state.
+ * @return {ReactiveState<T>} An object containing the reactive `state`, subscription management
+ * methods, and utility functions for interacting with deeply nested properties.
+ */
+export function createReactiveState<T extends object>(initialState: DeepPartial<T>): ReactiveState<T> {
+  const internalState = structuredClone(initialState);
   const listeners = new Set<Listener>();
   let isBatching = false;
 
@@ -33,7 +65,6 @@ export function createReactiveState<T extends object>(initial: DeepPartial<T>): 
     });
   };
 
-  // Hjelper for å hente eller opprette dype stier synkront
   const getDeepValue = (obj: unknown, parts: string[]): unknown => {
     let curr = obj;
     for (const part of parts) {
@@ -46,7 +77,6 @@ export function createReactiveState<T extends object>(initial: DeepPartial<T>): 
     return curr;
   };
 
-  // Hjelper for å opprette og sette dype stier typesikkert uten 'any'
   const setDeepValue = (obj: Record<PropertyKey, unknown>, parts: string[], value: unknown) => {
     let curr = obj;
     for (let i = 0; i < parts.length - 1; i++) {
@@ -62,6 +92,7 @@ export function createReactiveState<T extends object>(initial: DeepPartial<T>): 
         curr = nextNode;
       }
     }
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const lastPart = parts[parts.length - 1]!;
     curr[lastPart] = value;
@@ -77,7 +108,6 @@ export function createReactiveState<T extends object>(initial: DeepPartial<T>): 
 
         const value = Reflect.get(obj, prop, receiver);
 
-        // Hvis det er et Map, pakker vi metodene fullstendig uten 'any'
         if (value instanceof Map) {
           return new Proxy(value, {
             get(mapTarget, mapProp) {
@@ -131,21 +161,21 @@ export function createReactiveState<T extends object>(initial: DeepPartial<T>): 
   };
 
   return {
-    state: createProxy(_internalState as Record<PropertyKey, unknown>) as T,
+    state: createProxy(internalState as Record<PropertyKey, unknown>) as T,
     subscribe: (l) => {
       listeners.add(l);
       return () => listeners.delete(l);
     },
-    snapshot: () => structuredClone(_internalState) as unknown as T,
+    snapshot: () => structuredClone(internalState) as unknown as T,
     bind: <V>(path: string): Binding<V> => {
       const parts = path.split('.');
       return {
         get value() {
-          return getDeepValue(_internalState, parts) as V;
+          return getDeepValue(internalState, parts) as V;
         },
         name: path,
         onChange: (newValue: V) => {
-          setDeepValue(_internalState as Record<string, unknown>, parts, newValue);
+          setDeepValue(internalState as Record<string, unknown>, parts, newValue);
         },
       };
     },
