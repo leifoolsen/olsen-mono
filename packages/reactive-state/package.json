@@ -33,6 +33,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@olsen-mono/core-utils": "workspace:*",
     "@types/node": "catalog:"
   }
 }

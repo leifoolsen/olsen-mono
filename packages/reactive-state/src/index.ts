@@ -1,1 +1,1 @@
-export const hello = (): string => 'Hello from reactive-state!';
+export { createReactiveState } from './reactive-state.js';
