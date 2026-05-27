@@ -99,3 +99,9 @@ To compile the TypeScript source file into executable ESM code (`dist/css-to-dts
 ```bash
 pnpm --filter @olsen-mono/css-to-dts compile
 ```
+
+---
+
+## License
+
+MIT

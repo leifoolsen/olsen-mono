@@ -129,3 +129,9 @@ const result = builder.build();
 
 This library is engineered to represent the ideal **Builder Step** in a unidirectional
 data architecture:
+
+---
+
+## License
+
+MIT

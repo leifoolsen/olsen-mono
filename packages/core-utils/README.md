@@ -1,5 +1,9 @@
 # @olsen-mono/core-utils
 
-Core utility functions for modern Node.js and browser environments.
+> Core utility functions for modern Node.js and browser environments.
 
-[TSDoc](./src.md)
+---
+
+## License
+
+MIT
