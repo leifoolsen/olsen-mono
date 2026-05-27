@@ -1,13 +1,13 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { includeIgnoreFile } from '@eslint/compat';
+import { includeIgnoreFile } from '@eslint/config-helpers';
 import eslint from '@eslint/js';
+import type { Linter } from 'eslint';
 import { defineConfig } from 'eslint/config';
 import prettierConfig from 'eslint-config-prettier';
 import { flatConfigs as importXConfigs } from 'eslint-plugin-import-x';
 import globals from 'globals';
 import { configs as tseslintConfigs } from 'typescript-eslint';
-import type { Linter } from 'eslint';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const monorepoRoot = path.resolve(__dirname, '../..');
@@ -26,15 +26,17 @@ export const createImportOrderRule = (extraPathGroups: PathGroup[] = []): Linter
       'newlines-between': 'never',
       alphabetize: { order: 'asc', caseInsensitive: true },
       groups: [
+        // 'type', // <- TypeScript type imports
         'builtin', // <- Built-in imports (come from Node.js native) go first
         'external', // <- External imports
         'internal', // <- Absolute imports
+        'parent', // <- Relative imports, ../
+        'sibling', // <- Relative imports, ./
         'index', // <- index imports
-        ['sibling', 'parent'], // Relative imports: sibling: "./", parent: "../"
         'object', // <- Any arcane TypeScript imports
-        'type', // <- TypeScript type imports
-        'unknown', // <- Anything that doesn't fit into the above
+        'unknown',
       ],
+      distinctGroup: false,
       pathGroups: [
         ...extraPathGroups,
         {
