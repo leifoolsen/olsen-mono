@@ -1,22 +1,29 @@
-# Olsen-Mono - WIP
+# Olsen-Mono
 
-A modern, high-performance monorepo architecture built with **TypeScript 6**, **pnpm workspaces**,
-**Turborepo**, **Vite**, **Hono**, and **HTMX**, optimized for **Node.js 26**.
+A modern, high-performance monorepo architecture built with **TypeScript 6**, **tsdown**,
+**pnpm workspaces**, **Turborepo** and **Vite**, optimized for **Node.js 26**.
 
 ## 🏗 Architecture & Workspace Structure
 
-The project uses a hybrid-minimalist setup. Shared configuration logic lives in a dedicated internal tooling package, keeping individual workspace definitions extremely thin and maintainable.
+The project uses a hybrid-minimalist setup. Shared configuration logic lives in a dedicated
+internal tooling package, keeping individual workspace definitions extremely thin and maintainable.
 
 ```text
 olsen-mono/
 ├── apps/
-│   └── hello-htmx/          # Hono + HTMX web application (Vite-powered SSR)
+│   └── hono-htmx/          # Hono + HTMX web application (Vite-powered SSR)
 ├── packages/
-│   ├── core-utils/          # Shared utility functions (Node 26 native Temporal)
-│   ├── try-catch/           # Functional error handling utilities (Private)
-│   └── tooling/             # Centralized configuration presets (ESLint, Vitest, tsup)
+│   ├── core-utils/          # Shared utility functions
+│   ├── css-foundation/      # Modern css reset and type setting utilizing the W3C Design Tokens Standard via Open Props
+│   ├── css-to-dts/          # CLI tool tailored for `pnpm` monorepos to automatically generate TypeScript definitions (`*.css.d.ts`) from CSS files
+│   ├── object-builder/      # Typesafe builder pattern for object literals
+│   ├── reactive-state/      # Reactive state factory
+│   ├── tooling/             # Centralized configuration presets (ESLint, Vitest, tsup)
+│   └── try-catch/           # Functional error handling
 ├── .changeset/              # Automated versioning and changelog management
 ├── .github/workflows/       # GitHub Actions (CI & CD Release Pipelines)
+├── turbo/                   # Monorepo package templates
+├── .pretterrc.ts.           # Prettier configuration
 ├── eslint.config.ts         # Global ESLint entrypoint (Cascading rules)
 ├── vitest.config.ts         # Global Vitest entrypoint (Auto package mapping)
 ├── tsup.config.ts           # Global build presets for shared libraries
@@ -25,12 +32,32 @@ olsen-mono/
 
 ---
 
+## BFF
+
+The repository is also set up to evaluate different Backend for Frontend, architectures.
+
+### Architectural Evaluation Matrix
+
+| Criteria                         | Hono + htmx                                                     | Fastify + Datastar                                                  | Astro + htmx (+ Lit)                                                                 |
+| :------------------------------- | :-------------------------------------------------------------- | :------------------------------------------------------------------ | :----------------------------------------------------------------------------------- |
+| **Core Focus**                   | Ultra-lightweight, Edge-ready API/BFF                           | Robust, plugin-rich enterprise backend                              | Content-driven frontend, SSG/SSR hybrid                                              |
+| **Client Updates**               | AJAX / HTML fragments                                           | SSE (Server-Sent Events) & Signals                                  | AJAX / HTML fragments & UI Islands                                                   |
+| **Component Model**              | JSX (native via Hono)                                           | HTML string literals or JSX                                         | `.astro` files + Web Components                                                      |
+| **Optimal For**                  | Low-latency, Edge/Cloudflare deployments                        | Complex real-time enterprise backends                               | SEO, documentation, hybrid content apps                                              |
+| **Build Step**                   | Minimal / Optional                                              | Minimal / Standard Node compilation                                 | Required (Astro compiler & Vite optimization)                                        |
+| **`@olsen-mon/core-css`**        | Injected globally or via component class strings                | Injected globally or via component class strings                    | Imported directly in `.astro` layouts or scoped inside Lit components                |
+| **`@olsen-mono/object-builder`** | Used in Hono handlers to strictly initialize BFF domain objects | Used in Fastify hooks/routes to construct safe data payloads        | Used in server-side frontmatter to instantiate props safely before rendering         |
+| **`@olsen-mono/reactive-state`** | Bridges with htmx via server-side state mutations               | Synchronizes perfectly with Datastar's client-side reactive signals | Powers local client-side state inside Lit islands, isolated from Astro's static HTML |
+| **`@olsen-mono/pipe`**           | Processes data pipelines and HTML transformations sequentially  | Transforms data streams feeding into Server-Sent Events (SSE)       | Chains server-side data fetching and formatting before rendering the page            |
+
+---
+
 ## 🛠 Tech Stack Core
 
-- **Package Manager:** `pnpm@10` with absolute single-source-of-truth configuration (`packageManager` engine locks).
+- **Package Manager:** `pnpm >= 11.0.0` with absolute single-source-of-truth configuration (`packageManager` engine locks).
 - **Orchestration:** `Turborepo v2` maximizing compiler efficiency using parallel execution graphs and cryptographic caching.
-- **Backend Runtime:** `Node.js >= 26.0.0` allowing frictionless execution of native, non-polyfilled `Temporal` date-time engines.
-- **Bundling & Compiling:** `tsup` for standard library compilation (ESM) and `Vite` for localized application server-side building.
+- **Backend Runtime:** `Node.js >= 26.0.0` allowing frictionless execution of native, non-polyfilled APIs like `Temporal` date-time engines.
+- **Bundling & Compiling:** `tsdown` for standard library compilation (ESM) and `Vite` for localized application server-side building.
 - **Quality Control:** `ESLint 10` (Flat Config) combined with `Prettier` and `Stylelint`, operating directly from the workspace root for macro-repo validation.
 
 ---
@@ -51,7 +78,8 @@ All core processes are optimized to utilize single-command global hot-reloading 
 
 ## 🔄 Release & Lifecycle Operations
 
-The architecture distinguishes between Pre-Merge Validation (**CI**) and Post-Merge Automation (**Release**), safeguarded via GitHub Classic Branch Protection rules on `main`.
+The architecture distinguishes between Pre-Merge Validation (**CI**) and Post-Merge Automation
+(**Release**), safeguarded via GitHub Classic Branch Protection rules on `main`.
 
 ### 1. Feature Lifecycle
 
@@ -93,62 +121,3 @@ To keep package overhead at a absolute minimum, we utilize an **anemic package p
 - Hand-written package overviews live inside `README.md`, while auto-generated technical specifications are isolated cleanly inside `src.md`.
 
 ---
-
-### ⚙️ Centralized Configuration (`/typedoc.json`)
-
-Managed entirely from the monorepo root, this file defines how TypeScript 6 type signatures are extracted and mapped out to individual packages without triggering build failures in React/HTMX apps:
-
-```json
-{
-  "\$schema": "https://typedoc.orgschema.json",
-  "entryPoints": ["packages/core-utils/src/index.ts", "packages/try-catch/src/index.ts"],
-  "plugin": ["typedoc-plugin-markdown"],
-  "entryPointStrategy": "Resolve",
-  "out": "packages",
-  "outputFileStrategy": "modules",
-  "entryFileName": "src.md",
-  "cleanOutputDir": false,
-  "readme": "none",
-  "hideBreadcrumbs": true,
-  "hidePageTitle": true,
-  "skipErrorChecking": true,
-  "validation": {
-    "notExported": false
-  }
-}
-```
-
----
-
-### 🔄 Build Integration & Formatting
-
-Documentation generation is hooked directly into the root build cycle. Because TypeDoc's raw output can deviate from the repository's strict formatting standards, an automated Prettier pass formats the generated markdown files inline instantly.
-
-Stored in the root `package.json`:
-
-```json
-{
-  "scripts": {
-    "build": "pnpm lint && turbo typecheck test compile",
-    "postbuild": "typedoc && prettier \"packages/*/*.md\" \"packages/*/**/*.md\" --ignore-path .prettierignore --write"
-  }
-}
-```
-
-### 🚀 Scaling the Monorepo
-
-When creating a brand new utility library inside `packages/`:
-
-1. **No file setup required** inside the package itself.
-2. Add a basic description link inside the new package's `README.md` pointing to `[TSDoc](./src.md)`.
-3. Append the new entry point file path directly to the root `typedoc.json` `"entryPoints"` array.
-4. Run `pnpm build`, and everything generates, formats, and seals automatically.
-
-# TODOS
-
-## Syncpack
-
-Evaluate the following packages:
-
-- https://www.npmjs.com/package/syncpack
-- https://www.npmjs.com/package/syncpack-config-hocon
