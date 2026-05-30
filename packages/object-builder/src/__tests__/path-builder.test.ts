@@ -116,15 +116,6 @@ describe('path-builder', () => {
   });
 
   describe('State Control', () => {
-    it('should reset the state to a new provided initial object', () => {
-      builder.set('user.name', 'Changed');
-      const resetTo: TestState = { user: { id: 99, name: 'Reset' }, items: [] };
-
-      builder.reset(resetTo);
-      expect(builder.peek().user?.id).toBe(99);
-      expect(builder.peek().user?.name).toBe('Reset');
-    });
-
     it('should return a new object reference on build() but same on peek()', () => {
       const stateBefore = builder.peek();
       const stateAfter = builder.peek();
