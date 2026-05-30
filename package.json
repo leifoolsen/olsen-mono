@@ -52,7 +52,7 @@
     "lint:style": "stylelint packages/**/*.css --allow-empty-input",
     "lint:ts": "eslint . --max-warnings 10",
     "lint-inspect": "pnpm dlx @eslint/config-inspector@latest",
-    "prepare": "turbo run compile --filter=@olsen-mono/css-to-dts",
+    "prepare-disabled": "turbo run compile --filter=@olsen-mono/css-to-dts",
     "release": "changeset publish",
     "test": "turbo test",
     "test-watch": "vitest",
