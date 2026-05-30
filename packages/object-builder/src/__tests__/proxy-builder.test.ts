@@ -381,6 +381,7 @@ describe('proxyBuilder', () => {
 
       // Verifiser at året er oppdatert
       expect(result.event.startDate.getFullYear()).toBe(2025);
+
       // Verifiser at det er en klone (ikke samme referanse som initialDate)
       expect(result.event.startDate).not.toBe(initialDate);
     });
@@ -401,6 +402,31 @@ describe('proxyBuilder', () => {
       const result = builder.build();
       expect(result.event.endDate?.getHours()).toBe(23);
       expect(result.event.endDate).not.toBe(newEndDate);
+    });
+  });
+
+  describe('peek', () => {
+    type TestState = {
+      event: {
+        id: string;
+        startDate: Date;
+        endDate?: Date;
+      };
+    };
+
+    it("'should return a new object reference on build() but same on peek()", () => {
+      const initialDate = new Date('2024-01-01T10:00:00Z');
+      const builder = createProxyBuilder<TestState>({
+        event: { id: '123', startDate: initialDate },
+      });
+
+      builder.event.startDate.setFullYear(2025);
+
+      const peeked = builder.peek();
+      const result = builder.build();
+
+      expect(peeked).toEqual(result);
+      expect(peeked).not.toBe(result);
     });
   });
 });

@@ -63,13 +63,12 @@ function unwrap(val: unknown): unknown {
  *
  * @template T - The type of the object being proxied.
  * @property {function(): T} build - Finalizes and returns the complete object of type `T`.
- * @property {function((state: T) => void): T} peek - Allows inspection of the current state of the proxy object.
- *   Optionally accepts a validator function to perform custom validation or actions on the current state.
+ * @property {function} peek - Returns the current state of the object without finalizing the build.
  * @property {function(DeepPartial<T>): ProxyBuilder<T>} merge - Merges the provided partial object into the proxy's state.
  */
 export type ProxyBuilder<T extends object> = DeepRequired<T> & {
   build(): T;
-  peek(validator?: (state: T) => void): T;
+  peek(): T;
   merge(partial: DeepPartial<T>): ProxyBuilder<T>;
 };
 
@@ -146,9 +145,8 @@ export function createProxyBuilder<T extends object>(initialObj: DeepPartial<T>)
       }
 
       if (prop === 'peek') {
-        return (validator?: (s: T) => void) => {
-          if (validator) validator(state as unknown as T);
-          return state as unknown as T;
+        return () => {
+          return state;
         };
       }
 
@@ -173,7 +171,7 @@ export function createProxyBuilder<T extends object>(initialObj: DeepPartial<T>)
         return createVirtualProxy(obj, [prop]);
       }
 
-      return isRecord(value) || Array.isArray(value)
+      return Array.isArray(value) || isRecord(value)
         ? new Proxy(value as Record<PropertyKey, unknown>, handler)
         : value;
     },
