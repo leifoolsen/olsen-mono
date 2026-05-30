@@ -69,7 +69,6 @@ describe('reactive-state', () => {
       const listener = vi.fn();
       store.subscribe(listener);
 
-      // Siden settings er valgfritt, sikrer vi at det eksisterer, akkurat som i vanlig kode
       if (!store.state.user.settings) store.state.user.settings = { theme: 'light' };
       store.state.user.settings.theme = 'dark';
 

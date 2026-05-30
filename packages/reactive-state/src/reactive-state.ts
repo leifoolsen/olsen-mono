@@ -33,9 +33,49 @@ type Binding<V> = {
  * @property {<V>(path: string) => Binding<V>} bind - Binds a specific path within the state and returns a binding object for that path.
  */
 type ReactiveState<T extends object> = {
+  /**
+   * Represents the current state of a component, system, or application.
+   * The `state` value is intended to hold dynamic data that may change over time
+   * based on user interaction or other external factors.
+   *
+   * @template T Extends object type. Represents the shape of the managed state.
+   * @type {T} The type of the state value.
+   */
   state: T;
+
+  /**
+   * Registers a listener function that will be invoked whenever a specific event or state change occurs.
+   * Returns a function that can be called to unsubscribe the listener.
+   *
+   * @param {Listener} listener - The callback function to be executed when the event occurs.
+   * @returns {function(): void} A function to unsubscribe the listener, preventing further execution.
+   */
   subscribe: (listener: Listener) => () => void;
+
+  /**
+   * Retrieves a snapshot of the current state or value.
+   * This method is typically used to capture and return
+   * an immutable or read-only representation of the underlying data.
+   *
+   * @template T Extends object type. Represents the shape of the managed state.
+   * @returns {T} The current state or value as a snapshot.
+   */
   snapshot: () => T;
+
+  /**
+   * Creates a binding to a specific path. The binding allows reactive access
+   * to the data located at the given path, typically in a state management
+   * or data-binding context.
+   *
+   * For properties with dots in their names, escape with backslash:
+   * @example
+   * store.bind('app\\.config.debug'); // Accesses state['app.config'].debug
+   *
+   * @template V - The type of the value bound to the given path.
+   * @param {string} path - The path to bind to, represented as a string.
+   * @returns {Binding<V>} A binding object that provides reactive capabilities
+   *                       for the specified path.
+   */
   bind: <V>(path: string) => Binding<V>;
 };
 
@@ -82,7 +122,7 @@ export function createReactiveState<T extends object>(initialState: DeepPartial<
     let curr = obj;
     for (let i = 0; i < parts.length - 1; i++) {
       const part = parts[i];
-      if (part === undefined) continue; // Forhindrer udefinerte segmenter i stien
+      if (part === undefined) continue;
 
       const nextNode = curr[part];
 
@@ -205,7 +245,6 @@ export function createReactiveState<T extends object>(initialState: DeepPartial<
     };
 
     const proxyInstance = new Proxy(target, handler);
-    // Lagre den nyopprettede hoved/under-proxyen i cachen
     proxyCache.set(target, proxyInstance);
     return proxyInstance;
   };
