@@ -106,7 +106,7 @@ The architecture distinguishes between Pre-Merge Validation (**CI**) and Post-Me
 
 ---
 
-## 📦 Client Asset Sync (HTMX Automation). WIP: Move to `apps/hello-htmx`
+## 📦 Client Asset Sync (HTMX Automation). WIP: Move to `apps/hono-htmx`
 
 To achieve 100% self-contained, air-gapped deployments without external CDN runtime dependencies, `apps/hello-htmx` automatically bridges backend resources to public nodes:
 
