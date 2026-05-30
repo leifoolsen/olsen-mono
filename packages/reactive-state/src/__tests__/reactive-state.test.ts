@@ -40,6 +40,30 @@ describe('reactive-state', () => {
       expect(store.state.user.name).toBe('Jane Doe');
     });
 
+    it('should stop notifying a subscriber after unsubscribe has been called', async () => {
+      const store = createReactiveState(initial);
+      const listener = vi.fn();
+
+      const unsubscribe = store.subscribe(listener);
+
+      store.state.user.name = 'First Update';
+
+      await new Promise((resolve) => {
+        queueMicrotask(<VoidFunction>resolve);
+      });
+
+      expect(listener).toHaveBeenCalledTimes(1);
+
+      unsubscribe();
+
+      store.state.user.name = 'Second Update';
+      await new Promise((resolve) => {
+        queueMicrotask(<VoidFunction>resolve);
+      });
+
+      expect(listener).toHaveBeenCalledTimes(1);
+    });
+
     it('should handle deep nested updates and notify', async () => {
       const store = createReactiveState(initial);
       const listener = vi.fn();
