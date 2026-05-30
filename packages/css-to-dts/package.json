@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/css-to-dts",
   "description": "CLI tool used to generate TypeScript Declaration files (.d.ts) from CSS files.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "type": "module",
   "exports": {
