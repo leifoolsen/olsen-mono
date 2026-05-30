@@ -122,6 +122,23 @@ describe('reactive-state', () => {
       expect((snapshot as Record<PropertyKey, unknown>).__isProxy).toBeUndefined();
       expect(snapshot).not.toBe(initial); // Deep cloned
     });
+
+    it('use snapshot() for read-heavy operations to bypass proxy overhead', () => {
+      const store = createReactiveState(initial);
+
+      // SCENARIO: You need to send data to a heavy templating engine or external API
+      // ❌ AVOID: Reading directly from the reactive state in heavy operations:
+      // doSomething(store.state.user.items);
+
+      // RECOMMENDED: Retrieve a clean object first
+      const cleanData = store.snapshot();
+
+      // cleanData has 0% proxy overhead and performs optimally in heavy CPU operations
+      expect(cleanData.user.name).toBe('John Doe');
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
+      expect((cleanData as any)[Symbol.for('RAW_STATE')]).toBeUndefined();
+    });
   });
 
   describe('Binding Mechanism', () => {
