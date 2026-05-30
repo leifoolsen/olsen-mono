@@ -80,8 +80,9 @@ export function createReactiveState<T extends object>(initialState: DeepPartial<
   const setDeepValue = (obj: Record<PropertyKey, unknown>, parts: string[], value: unknown) => {
     let curr = obj;
     for (let i = 0; i < parts.length - 1; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const part = parts[i]!;
+      const part = parts[i];
+      if (part === undefined) continue; // Forhindrer udefinerte segmenter i stien
+
       const nextNode = curr[part];
 
       if (!(part in curr) || !isRecord(nextNode)) {
@@ -93,10 +94,17 @@ export function createReactiveState<T extends object>(initialState: DeepPartial<
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const lastPart = parts[parts.length - 1]!;
-    curr[lastPart] = value;
-    notify();
+    const lastPart = parts[parts.length - 1];
+    if (lastPart !== undefined) {
+      const oldValue = curr[lastPart];
+
+      if (oldValue === value) {
+        return;
+      }
+
+      curr[lastPart] = value;
+      notify();
+    }
   };
 
   const createProxy = (target: Record<PropertyKey, unknown>, path: string[] = []): unknown => {
@@ -116,6 +124,24 @@ export function createReactiveState<T extends object>(initialState: DeepPartial<
                 return (...args: unknown[]) => {
                   const result = (method as (...args: unknown[]) => unknown).apply(mapTarget, args);
                   if (['set', 'delete', 'clear'].includes(mapProp as string)) {
+                    notify();
+                  }
+                  return result;
+                };
+              }
+              return method;
+            },
+          });
+        }
+
+        if (value instanceof Set) {
+          return new Proxy(value, {
+            get(setTarget, setProp) {
+              const method = Reflect.get(setTarget, setProp) as unknown;
+              if (typeof method === 'function') {
+                return (...args: unknown[]) => {
+                  const result = (method as (...args: unknown[]) => unknown).apply(setTarget, args);
+                  if (['add', 'delete', 'clear'].includes(setProp as string)) {
                     notify();
                   }
                   return result;
