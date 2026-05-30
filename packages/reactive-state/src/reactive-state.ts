@@ -93,6 +93,12 @@ export function createReactiveState<T extends object>(initialState: DeepPartial<
   const internalState = structuredClone(initialState);
   const listeners = new Set<Listener>();
   let isBatching = false;
+
+  /**
+   * Cache for created proxies to ensure identity consistency.
+   * Uses WeakMap for automatic garbage collection when objects are no longer referenced.
+   * This prevents unnecessary proxy recreation on repeated property access.
+   */
   const proxyCache = new WeakMap<object, unknown>();
 
   const notify = () => {
