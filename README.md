@@ -6,7 +6,7 @@ A modern, high-performance monorepo architecture built with **TypeScript 6**, **
 ## 🏗 Architecture & Workspace Structure
 
 The project uses a hybrid-minimalist setup. Shared configuration logic lives in a dedicated
-internal tooling package, keeping individual workspace definitions extremely thin and maintainable.
+internal tooling package, keeping individual workspace definitions "anemic" and maintainable.
 
 ```text
 olsen-mono/
@@ -32,13 +32,13 @@ olsen-mono/
 
 ---
 
-## BFF
+## 🔎 Backend For Frontend
 
-The repository is also set up to evaluate different Backend for Frontend, architectures.
+The repository is also set up to evaluate different Backend For Frontend, BFF, architectures.
 
-### Architectural Evaluation Matrix
+### Architectural Evaluation Matrix (planned so far)
 
-| Criteria                         | Hono + htmx                                                     | Fastify + Datastar                                                  | Astro + htmx (+ Lit)                                                                 |
+| Criteria                         | Hono + htmx (in progress)                                       | Fastify + Datastar                                                  | Astro + htmx (+ Lit)                                                                 |
 | :------------------------------- | :-------------------------------------------------------------- | :------------------------------------------------------------------ | :----------------------------------------------------------------------------------- |
 | **Core Focus**                   | Ultra-lightweight, Edge-ready API/BFF                           | Robust, plugin-rich enterprise backend                              | Content-driven frontend, SSG/SSR hybrid                                              |
 | **Client Updates**               | AJAX / HTML fragments                                           | SSE (Server-Sent Events) & Signals                                  | AJAX / HTML fragments & UI Islands                                                   |
@@ -84,7 +84,7 @@ The architecture distinguishes between Pre-Merge Validation (**CI**) and Post-Me
 ### 1. Feature Lifecycle
 
 1. Create a workspace feature branch.
-2. Introduce logic (e.g., inside `packages/core-utils`).
+2. Introduce logic (e.g., inside `packages/my package`).
 3. Execute `pnpm changeset` locally to declare version increment intent (`patch`/`minor`/`major`).
 4. Commit both local logic and the `.changeset/*.md` artifact to your branch.
 5. Create a GitHub PR. **`ci.yml`** triggers automated global validation tests.
@@ -97,7 +97,16 @@ The architecture distinguishes between Pre-Merge Validation (**CI**) and Post-Me
 
 ---
 
-## 📦 Client Asset Sync (HTMX Automation)
+## 📦 Create a new workspace package
+
+1. Create a new workspace package using the `turbo` template: `pnpm turbo`.
+2. Follow the prompts to configure the new package.
+3. Inspect the generated `package.json` and `tsconfig.json` files for further configuration.
+4. Then follow the Feature Lifecycle steps above.
+
+---
+
+## 📦 Client Asset Sync (HTMX Automation). WIP: Move to `apps/hello-htmx`
 
 To achieve 100% self-contained, air-gapped deployments without external CDN runtime dependencies, `apps/hello-htmx` automatically bridges backend resources to public nodes:
 
@@ -115,9 +124,5 @@ This monorepo automatically generates and syncs API documentation directly from 
 ### 🏛️ Architecture & Philosophy
 
 To keep package overhead at a absolute minimum, we utilize an **anemic package philosophy**:
-
-- Individual packages (`packages/*`) contain **zero** local documentation configuration or scripts.
-- All orchestration is centralized in the monorepo root.
-- Hand-written package overviews live inside `README.md`, while auto-generated technical specifications are isolated cleanly inside `src.md`.
 
 ---
