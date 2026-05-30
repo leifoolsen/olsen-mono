@@ -1,6 +1,5 @@
-import { isAtomic, isRecord, type AtomicObject } from '@olsen-mono/core-utils';
-import { deepMerge } from './utils';
-import type { DeepPartial } from './types';
+import type { AtomicObject, DeepPartial } from '@olsen-mono/core-utils';
+import { deepMerge, isAtomic, isRecord } from '@olsen-mono/core-utils';
 
 /**
  * Represents a type used to calculate the maximum depth of nested structures in TypeScript.
@@ -143,29 +142,56 @@ export type PathValue<T, P extends string> = P extends `${infer Key}.${infer Res
       : never;
 
 /**
- * A utility type that represents a builder for constructing and modifying deeply nested objects.
- * This type allows for setting, merging, removing, and resetting values at specific paths in an object.
+ * A utility type for constructing and manipulating deeply nested object paths in an immutable manner.
+ * PathBuilder allows chaining operations to set, merge, remove, reset, and build an object.
  *
- * @template T - The type of the object being built or modified.
+ * @template T - The type of the object being constructed and manipulated.
+ *
+ * @property {function} set - Sets a value at the specified path within the object.
+ * @template P - The key path within the object, extending from the KeyPath of T.
+ * @param {P} path - The string representation of the path to the value being set.
+ * @param {PathValue<T, P>} value - The value to set at the specified path.
+ * @returns {PathBuilder<T>} A new PathBuilder instance with the updated object.
+ *
+ * @property {function} merge - Merges a partial value into the object at the specified path.
+ * @template P - The key path within the object, extending from the KeyPath of T.
+ * @param {P} path - The string representation of the path where the merge occurs.
+ * @param {DeepPartial<PathValue<T, P>>} value - The partial value to merge into the object.
+ * @returns {PathBuilder<T>} A new PathBuilder instance with the updated object.
+ *
+ * @property {function} remove - Removes a value at the specified path from the object.
+ * @param {KeyPath<T> & string} path - The string representation of the path to the value being removed.
+ * @returns {PathBuilder<T>} A new PathBuilder instance with the value at the specified path removed.
+ *
+ * @property {function} reset - Resets the builder to a new initial object.
+ * @param {T} newInitial - The new initial object for the PathBuilder.
+ * @returns {PathBuilder<T>} A new PathBuilder instance with the reset object.
+ *
+ * @property {function} snapshot - Returns the current state of the object without finalizing the build.
+ * @returns {T} The current state of the object.
+ *
+ * @property {function} build - Finalizes the building process and returns the constructed object.
+ * @returns {T} The finalized object constructed by the PathBuilder.
  */
 export type PathBuilder<T extends object> = {
   set<P extends KeyPath<T> & string>(path: P, value: PathValue<T, P>): PathBuilder<T>;
   merge<P extends KeyPath<T> & string>(path: P, value: DeepPartial<PathValue<T, P>>): PathBuilder<T>;
   remove(path: KeyPath<T> & string): PathBuilder<T>;
-  reset(newInitial: T): PathBuilder<T>;
-  peek(): T;
+  snapshot(): T;
   build(): T;
 };
 
 /**
- * Creates a `PathBuilder` for managing and manipulating a nested object structure.
+ * Creates a PathBuilder object that provides methods for manipulating nested properties
+ * of an initial state object by specifying paths.
  *
- * @template T - The type of the object to be manipulated by the `PathBuilder`.
+ * @template T - The type of the object to be manipulated by the PathBuilder.
  * @param {T} initialState - The initial state of the object to be manipulated by the `PathBuilder`.
- * @return {PathBuilder<T>} An object with methods to set, merge, remove, reset, peek, and build the state.
+ * @return {PathBuilder<T>} A PathBuilder object with methods to set, merge, remove,
+ *                          reset, snapshot, and build the state.
  */
 export function createPathBuilder<T extends object>(initialState: T): PathBuilder<T> {
-  let state = structuredClone(initialState);
+  const state = structuredClone(initialState);
 
   const builder: PathBuilder<T> = {
     set(path, value) {
@@ -254,12 +280,7 @@ export function createPathBuilder<T extends object>(initialState: T): PathBuilde
       return builder;
     },
 
-    reset(newInitial: T) {
-      state = structuredClone(newInitial);
-      return builder;
-    },
-
-    peek() {
+    snapshot() {
       return state;
     },
 

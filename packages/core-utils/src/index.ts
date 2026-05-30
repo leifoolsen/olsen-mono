@@ -1,5 +1,7 @@
+export type { AtomicObject, DeepPartial, TemporalObject } from './types.js';
 export { createSafeRegex } from './create-safe-regex.js';
-export { isAtomic, type AtomicObject } from './is-atomic.js';
+export { deepMerge } from './deep-merge.js';
+export { isAtomic } from './is-atomic.js';
 export { isEmpty } from './is-empty.js';
 export { isEqual } from './is-equal.js';
 export { isError } from './is-error.js';
@@ -15,6 +17,6 @@ export { isPrimitive } from './is-primitive.js';
 export { isPromiseLike } from './is-promise-like.js';
 export { isProxy } from './is-proxy.js';
 export { isRecord } from './is-record.js';
-export { isTemporal, type TemporalObject } from './is-temporal.js';
+export { isTemporal } from './is-temporal.js';
 export { isValidObjectKey } from './is-valid-object-key.js';
 export { isZonedDateTime } from './is-zoned-date-time.js';

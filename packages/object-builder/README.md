@@ -2,26 +2,18 @@
 
 A lightweight, high-performance, and TypeScript 6-native utility package for creating
 type-safe deep object mutations and test fixtures. It provides two distinct strategies
-to build, alter, and prepare deeply nested state structures without reactive side effects.
+to build, alter, and prepare deeply nested state structures.
 
-This package is architected specifically to act as the perfect **Sandbox/Builder**
-layer in modern architectures before data is validated (e.g., via Zod) and pushed into @
-a **Reactive State** store.
+This package is architected specifically to act as a **Sandbox/Builder**
+layer in modern architectures before data is validated (e.g., via Zod) and pushed
+into a **Reactive State** store.
 
 ## Features
 
 - ⚡ **TypeScript 6 & Node 26 Native**: Built from the ground up to support strict type narrowing, `noUncheckedIndexedAccess`, and `PropertyKey` dynamic resolutions.
 - 🎯 **Zero-Stye IntelliSense**: No more endless optional chaining (`?.`) or defensive `if`-guards in your test setups.
-- 🔀 **Two Power Patterns**: Choose between flat string-path mutations (`pathBuilder`) or natural object-graph traversals (`proxyBuilder`).
-- 🛑 **Zero Reactive Noise**: Pure mutable sandboxes that perform isolated in-memory operations on clones, preventing mutation leakages across tests.
-
----
-
-## Installation
-
-```bash
-npm install @olsen-mono/object-builder
-```
+- 🔀 **Two Patterns**: Choose between flat string-path mutations (`pathBuilder`) or natural object-graph traversals (`proxyBuilder`).
+- 🛑 **Zero Cross-Test Leakage**: Operates strictly on isolated deep clones (`structuredClone`), preventing dirty mutations from leaking across test suites or client requests.
 
 ---
 
@@ -37,9 +29,10 @@ seamlessly initializes empty objects/arrays on-the-fly.
 ### Usage Example
 
 ```typescript
+import type { DeepPartial } from '@olsen-mono/core-utils';
 import { createProxyBuilder } from '@olsen-mono/object-builder';
 
-interface UserFixture {
+type UserFixture = {
   id: string;
   profile?: {
     name: string;
@@ -47,15 +40,15 @@ interface UserFixture {
       email: string;
     };
   };
-  coordinates: [number, number]; // Tuple support
+  coordinates: [number, number];
   tags: string[];
-}
+};
 
 const baseUser: DeepPartial<UserFixture> = { id: '123' };
 
 const builder = createProxyBuilder<UserFixture>(baseUser);
 
-// Perfect IDE auto-complete! No 'if' checks or optional chaining needed
+// IDE auto-complete! No 'if' checks or optional chaining needed
 builder.profile.contact.email = 'dev@olsen-mono.no';
 builder.coordinates[0] = 58.46; // Strict index validation
 builder.tags.push('typescript-6');
@@ -82,8 +75,8 @@ Reflect.deleteProperty(builder.profile, 'contact');
 
 ## 2. Path Builder (`createPathBuilder`)
 
-The `pathBuilder` is an alternative utility designed for workflows where data pathways a
-rrive as dot-notated strings (e.g., handling dynamic form payloads or specific multi-step
+The `pathBuilder` is an alternative utility designed for workflows where data pathways
+a rrive as dot-notated strings (e.g., handling dynamic form payloads or specific multi-step
 state procedures).
 
 It features type-safe deep key path matching, full auto-complete for nested pathways,
@@ -129,3 +122,28 @@ const result = builder.build();
 
 This library is engineered to represent the ideal **Builder Step** in a unidirectional
 data architecture:
+
+---
+
+## A note about dependencies
+
+This package has "zero" dependencies. It uses functions and types from the `core-utilis` package,
+but dependent functions and types are injected into this bundle.
+
+```typescript
+import { baseOptions } from '@olsen-mono/tooling/tsdown';
+import { defineConfig } from 'tsdown';
+
+export default defineConfig({
+  ...baseOptions,
+  deps: {
+    alwaysBundle: ['@olsen-mono/core-utils'],
+  },
+});
+```
+
+---
+
+## License
+
+MIT

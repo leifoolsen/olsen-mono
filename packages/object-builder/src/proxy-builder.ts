@@ -1,6 +1,5 @@
-import { type AtomicObject, isAtomic, isRecord } from '@olsen-mono/core-utils';
-import { deepMerge } from './utils.ts';
-import type { DeepPartial } from './types.ts';
+import type { AtomicObject, DeepPartial } from '@olsen-mono/core-utils';
+import { deepMerge, isAtomic, isRecord } from '@olsen-mono/core-utils';
 
 /**
  * A utility type that recursively makes all properties of a type non-optional
@@ -16,7 +15,6 @@ import type { DeepPartial } from './types.ts';
  *
  * @template T The type to be transformed into a deeply required, non-nullable type.
  */
-// Oppdatert i packages/object-builder/src/proxy-builder.ts
 export type DeepRequired<T> = T extends AtomicObject
   ? Exclude<T, null | undefined>
   : T extends readonly unknown[]
@@ -44,7 +42,6 @@ function unwrap(val: unknown): unknown {
     return val;
   }
 
-  // Hent ut rå tilstand hvis det er en proxy, bruk trygg casting for symbol-sjekk
   const raw = (val as Record<PropertyKey, unknown>)[RAW_STATE] ?? val;
 
   if (Array.isArray(raw)) {
@@ -66,13 +63,12 @@ function unwrap(val: unknown): unknown {
  *
  * @template T - The type of the object being proxied.
  * @property {function(): T} build - Finalizes and returns the complete object of type `T`.
- * @property {function((state: T) => void): T} peek - Allows inspection of the current state of the proxy object.
- *   Optionally accepts a validator function to perform custom validation or actions on the current state.
+ * @property {function} snapshot - Returns the current state of the object without finalizing the build.
  * @property {function(DeepPartial<T>): ProxyBuilder<T>} merge - Merges the provided partial object into the proxy's state.
  */
 export type ProxyBuilder<T extends object> = DeepRequired<T> & {
   build(): T;
-  peek(validator?: (state: T) => void): T;
+  snapshot(): T;
   merge(partial: DeepPartial<T>): ProxyBuilder<T>;
 };
 
@@ -81,12 +77,11 @@ export type ProxyBuilder<T extends object> = DeepRequired<T> & {
  *
  * @template T - The type of the object being proxied.
  * @param {DeepPartial<T>} initialObj - The initial partial object to serve as the base for the proxy builder.
- * @return {ProxyBuilder<T>} A proxy object providing functionality to build, peek, and merge state while
+ * @return {ProxyBuilder<T>} A proxy object providing functionality to build, snapshot, and merge state while
  *   maintaining immutability guarantees.
  *
  */
 export function createProxyBuilder<T extends object>(initialObj: DeepPartial<T>): ProxyBuilder<T> {
-  // Castes til en trygg, muterbar ukjent ordbok i stedet for 'any'
   const state = structuredClone(initialObj) as Record<PropertyKey, unknown>;
 
   const createVirtualProxy = (target: Record<PropertyKey, unknown>, path: PropertyKey[]): unknown => {
@@ -149,10 +144,9 @@ export function createProxyBuilder<T extends object>(initialObj: DeepPartial<T>)
         return () => structuredClone(unwrap(state)) as T;
       }
 
-      if (prop === 'peek') {
-        return (validator?: (s: T) => void) => {
-          if (validator) validator(state as unknown as T);
-          return state as unknown as T;
+      if (prop === 'snapshot') {
+        return () => {
+          return state;
         };
       }
 
@@ -177,7 +171,7 @@ export function createProxyBuilder<T extends object>(initialObj: DeepPartial<T>)
         return createVirtualProxy(obj, [prop]);
       }
 
-      return isRecord(value) || Array.isArray(value)
+      return Array.isArray(value) || isRecord(value)
         ? new Proxy(value as Record<PropertyKey, unknown>, handler)
         : value;
     },

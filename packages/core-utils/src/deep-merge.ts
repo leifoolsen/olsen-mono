@@ -1,4 +1,5 @@
-import { isAtomic, isRecord } from '@olsen-mono/core-utils';
+import { isAtomic } from './is-atomic';
+import { isRecord } from './is-record';
 
 /**
  * Deep merges two objects.
@@ -6,7 +7,7 @@ import { isAtomic, isRecord } from '@olsen-mono/core-utils';
  * @param target
  * @param source
  */
-export function deepMerge(target: Record<string, unknown>, source: Record<string, unknown>): void {
+export function deepMerge(target: Record<PropertyKey, unknown>, source: Record<PropertyKey, unknown>): void {
   for (const key of Object.keys(source)) {
     const sourceValue = source[key];
 
@@ -17,7 +18,7 @@ export function deepMerge(target: Record<string, unknown>, source: Record<string
         target[key] = {};
       }
 
-      deepMerge(target[key] as Record<string, unknown>, sourceValue);
+      deepMerge(target[key] as Record<PropertyKey, unknown>, sourceValue);
     } else {
       target[key] = sourceValue;
     }

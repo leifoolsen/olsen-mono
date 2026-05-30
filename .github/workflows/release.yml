@@ -35,8 +35,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Bootstrap CSS Tools CLI
-        run: pnpm run prepare
+      #      - name: Bootstrap CSS Tools CLI
+      #        run: pnpm run prepare
 
       - name: Run CI tasks
         run: pnpm run ci
