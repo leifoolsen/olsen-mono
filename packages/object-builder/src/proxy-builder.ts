@@ -63,12 +63,12 @@ function unwrap(val: unknown): unknown {
  *
  * @template T - The type of the object being proxied.
  * @property {function(): T} build - Finalizes and returns the complete object of type `T`.
- * @property {function} peek - Returns the current state of the object without finalizing the build.
+ * @property {function} snapshot - Returns the current state of the object without finalizing the build.
  * @property {function(DeepPartial<T>): ProxyBuilder<T>} merge - Merges the provided partial object into the proxy's state.
  */
 export type ProxyBuilder<T extends object> = DeepRequired<T> & {
   build(): T;
-  peek(): T;
+  snapshot(): T;
   merge(partial: DeepPartial<T>): ProxyBuilder<T>;
 };
 
@@ -77,7 +77,7 @@ export type ProxyBuilder<T extends object> = DeepRequired<T> & {
  *
  * @template T - The type of the object being proxied.
  * @param {DeepPartial<T>} initialObj - The initial partial object to serve as the base for the proxy builder.
- * @return {ProxyBuilder<T>} A proxy object providing functionality to build, peek, and merge state while
+ * @return {ProxyBuilder<T>} A proxy object providing functionality to build, snapshot, and merge state while
  *   maintaining immutability guarantees.
  *
  */
@@ -144,7 +144,7 @@ export function createProxyBuilder<T extends object>(initialObj: DeepPartial<T>)
         return () => structuredClone(unwrap(state)) as T;
       }
 
-      if (prop === 'peek') {
+      if (prop === 'snapshot') {
         return () => {
           return state;
         };

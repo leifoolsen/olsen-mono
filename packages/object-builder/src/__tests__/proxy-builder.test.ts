@@ -405,7 +405,7 @@ describe('proxyBuilder', () => {
     });
   });
 
-  describe('peek', () => {
+  describe('snapshot', () => {
     type TestState = {
       event: {
         id: string;
@@ -414,7 +414,7 @@ describe('proxyBuilder', () => {
       };
     };
 
-    it("'should return a new object reference on build() but same on peek()", () => {
+    it("'should return a new object reference on build() but same on snapshot()", () => {
       const initialDate = new Date('2024-01-01T10:00:00Z');
       const builder = createProxyBuilder<TestState>({
         event: { id: '123', startDate: initialDate },
@@ -422,11 +422,11 @@ describe('proxyBuilder', () => {
 
       builder.event.startDate.setFullYear(2025);
 
-      const peeked = builder.peek();
+      const snapshoted = builder.snapshot();
       const result = builder.build();
 
-      expect(peeked).toEqual(result);
-      expect(peeked).not.toBe(result);
+      expect(snapshoted).toEqual(result);
+      expect(snapshoted).not.toBe(result);
     });
   });
 });

@@ -33,27 +33,27 @@ describe('path-builder', () => {
   describe('Basic Operations & Navigation', () => {
     it('should update a top-level property', () => {
       builder.set('user.name', 'Jane Doe');
-      expect(builder.peek().user?.name).toBe('Jane Doe');
+      expect(builder.snapshot().user?.name).toBe('Jane Doe');
     });
 
     it('should create nested structures on the fly', () => {
       // app.config is undefined in initial
       builder.set('app\\.config.debug', true as never);
-      expect(builder.peek()['app.config']?.debug).toBe(true);
+      expect(builder.snapshot()['app.config']?.debug).toBe(true);
     });
 
     it('should update array elements by index', () => {
       builder.set('items.0.value', 99);
-      expect(builder.peek().items?.[0]?.value).toBe(99);
+      expect(builder.snapshot().items?.[0]?.value).toBe(99);
     });
 
     it('should remove elements from arrays and shift remaining items', () => {
       builder.set('items.1.id', 'b').set('items.1.value', 20);
-      expect(builder.peek().items).toHaveLength(2);
+      expect(builder.snapshot().items).toHaveLength(2);
 
       builder.remove('items.0');
-      expect(builder.peek().items).toHaveLength(1);
-      expect(builder.peek().items?.[0]?.id).toBe('b');
+      expect(builder.snapshot().items).toHaveLength(1);
+      expect(builder.snapshot().items?.[0]?.id).toBe('b');
     });
   });
 
@@ -62,9 +62,9 @@ describe('path-builder', () => {
       const date = new Date('2024-01-01');
       builder.set('user.details.lastLogin', date);
 
-      const peekedDate = builder.peek().user?.details?.lastLogin;
-      expect(peekedDate).toBeInstanceOf(Date);
-      expect(peekedDate?.getFullYear()).toBe(2024);
+      const snapshotedDate = builder.snapshot().user?.details?.lastLogin;
+      expect(snapshotedDate).toBeInstanceOf(Date);
+      expect(snapshotedDate?.getFullYear()).toBe(2024);
     });
 
     it('should handle Set and Map as atomic units', () => {
@@ -73,7 +73,7 @@ describe('path-builder', () => {
 
       builder.set('user.details.tags', tags).set('user.details.settings', settings);
 
-      const state = builder.peek();
+      const state = builder.snapshot();
       expect(state.user?.details?.tags).toBeInstanceOf(Set);
       expect(state.user?.details?.tags?.has('admin')).toBe(true);
       expect(state.user?.details?.settings?.get('notifications')).toBe(true);
@@ -98,7 +98,7 @@ describe('path-builder', () => {
       // Merging into 'user' should keep 'id' and 'details.lastLogin'
       builder.merge('user', { name: 'New Name' });
 
-      const state = builder.peek();
+      const state = builder.snapshot();
       expect(state.user?.name).toBe('New Name');
       expect(state.user?.id).toBe(1);
       expect(state.user?.details?.lastLogin).toBeInstanceOf(Date);
@@ -111,14 +111,14 @@ describe('path-builder', () => {
       const newDate = new Date('2025-01-01');
       builder.merge('user.details', { lastLogin: newDate });
 
-      expect(builder.peek().user?.details?.lastLogin?.getFullYear()).toBe(2025);
+      expect(builder.snapshot().user?.details?.lastLogin?.getFullYear()).toBe(2025);
     });
   });
 
   describe('State Control', () => {
-    it('should return a new object reference on build() but same on peek()', () => {
-      const stateBefore = builder.peek();
-      const stateAfter = builder.peek();
+    it('should return a new object reference on build() but same on snapshot()', () => {
+      const stateBefore = builder.snapshot();
+      const stateAfter = builder.snapshot();
       const builtState = builder.build();
 
       expect(stateBefore).toBe(stateAfter); // Reference equality

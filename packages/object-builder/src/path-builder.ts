@@ -167,7 +167,7 @@ export type PathValue<T, P extends string> = P extends `${infer Key}.${infer Res
  * @param {T} newInitial - The new initial object for the PathBuilder.
  * @returns {PathBuilder<T>} A new PathBuilder instance with the reset object.
  *
- * @property {function} peek - Returns the current state of the object without finalizing the build.
+ * @property {function} snapshot - Returns the current state of the object without finalizing the build.
  * @returns {T} The current state of the object.
  *
  * @property {function} build - Finalizes the building process and returns the constructed object.
@@ -177,7 +177,7 @@ export type PathBuilder<T extends object> = {
   set<P extends KeyPath<T> & string>(path: P, value: PathValue<T, P>): PathBuilder<T>;
   merge<P extends KeyPath<T> & string>(path: P, value: DeepPartial<PathValue<T, P>>): PathBuilder<T>;
   remove(path: KeyPath<T> & string): PathBuilder<T>;
-  peek(): T;
+  snapshot(): T;
   build(): T;
 };
 
@@ -187,8 +187,8 @@ export type PathBuilder<T extends object> = {
  *
  * @template T - The type of the object to be manipulated by the PathBuilder.
  * @param {T} initialState - The initial state of the object to be manipulated by the `PathBuilder`.
- * @return {PathBuilder<T>} A PathBuilder object with methods to set, merge, remove, reset,
- *                          peek, and build the state.
+ * @return {PathBuilder<T>} A PathBuilder object with methods to set, merge, remove,
+ *                          reset, snapshot, and build the state.
  */
 export function createPathBuilder<T extends object>(initialState: T): PathBuilder<T> {
   const state = structuredClone(initialState);
@@ -280,7 +280,7 @@ export function createPathBuilder<T extends object>(initialState: T): PathBuilde
       return builder;
     },
 
-    peek() {
+    snapshot() {
       return state;
     },
 
