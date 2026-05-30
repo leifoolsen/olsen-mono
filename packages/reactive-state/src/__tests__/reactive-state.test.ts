@@ -187,6 +187,65 @@ describe('reactive-state', () => {
     });
   });
 
+  describe('Native Collections (Set & Map) Mutations', () => {
+    type CollectionState = {
+      roles: Set<string>;
+      settings: Map<string, boolean>;
+    };
+
+    let initialCollections: CollectionState;
+
+    beforeEach(() => {
+      initialCollections = {
+        roles: new Set(['user']),
+        settings: new Map([['notifications', true]]),
+      };
+    });
+
+    it('should notify subscribers when items are added, deleted, or cleared from a Set', async () => {
+      const store = createReactiveState<CollectionState>(initialCollections);
+      const listener = vi.fn();
+      store.subscribe(listener);
+
+      // 1. Test Set.add()
+      store.state.roles.add('admin');
+      await new Promise((resolve) => {
+        queueMicrotask(<VoidFunction>resolve);
+      });
+      expect(listener).toHaveBeenCalledTimes(1);
+      expect(store.state.roles.has('admin')).toBe(true);
+
+      // 2. Test Set.delete()
+      store.state.roles.delete('user');
+      await new Promise((resolve) => {
+        queueMicrotask(<VoidFunction>resolve);
+      });
+      expect(listener).toHaveBeenCalledTimes(2);
+      expect(store.state.roles.has('user')).toBe(false);
+
+      // 3. Test Set.clear()
+      store.state.roles.clear();
+      await new Promise((resolve) => {
+        queueMicrotask(<VoidFunction>resolve);
+      });
+      expect(listener).toHaveBeenCalledTimes(3);
+      expect(store.state.roles.size).toBe(0);
+    });
+
+    it('should maintain native method chaining and returns for Set/Map proxies', () => {
+      const store = createReactiveState<CollectionState>(initialCollections);
+
+      // Set.add skal returnere Set-instansen selv (for chaining: .add().add())
+      const addResult = store.state.roles.add('manager');
+
+      expect(addResult).toBe(store.state.roles);
+
+      // Map.delete skal returnere en boolean (om slettingen var vellykket)
+      const deleteResult = store.state.settings.delete('non-existent');
+      expect(deleteResult).toBe(false);
+    });
+  });
+
   describe('Object overwrite', () => {
     type TestState = {
       user: {

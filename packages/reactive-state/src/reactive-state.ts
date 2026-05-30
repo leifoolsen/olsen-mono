@@ -53,6 +53,7 @@ export function createReactiveState<T extends object>(initialState: DeepPartial<
   const internalState = structuredClone(initialState);
   const listeners = new Set<Listener>();
   let isBatching = false;
+  const proxyCache = new WeakMap<object, unknown>();
 
   const notify = () => {
     if (isBatching) return;
@@ -108,7 +109,11 @@ export function createReactiveState<T extends object>(initialState: DeepPartial<
   };
 
   const createProxy = (target: Record<PropertyKey, unknown>, path: string[] = []): unknown => {
-    return new Proxy(target, {
+    if (proxyCache.has(target)) {
+      return proxyCache.get(target);
+    }
+
+    const handler: ProxyHandler<Record<PropertyKey, unknown>> = {
       get(obj, prop, receiver) {
         if (typeof prop !== 'string') {
           return Reflect.get(obj, prop, receiver);
@@ -117,39 +122,53 @@ export function createReactiveState<T extends object>(initialState: DeepPartial<
         const value = Reflect.get(obj, prop, receiver);
 
         if (value instanceof Map) {
-          return new Proxy(value, {
+          if (proxyCache.has(value)) return proxyCache.get(value);
+
+          const mapProxy = new Proxy(value, {
             get(mapTarget, mapProp) {
               const method = Reflect.get(mapTarget, mapProp) as unknown;
               if (typeof method === 'function') {
                 return (...args: unknown[]) => {
                   const result = (method as (...args: unknown[]) => unknown).apply(mapTarget, args);
+
                   if (['set', 'delete', 'clear'].includes(mapProp as string)) {
                     notify();
                   }
-                  return result;
+
+                  return result === mapTarget ? mapProxy : result;
                 };
               }
               return method;
             },
           });
+
+          proxyCache.set(value, mapProxy);
+          return mapProxy;
         }
 
         if (value instanceof Set) {
-          return new Proxy(value, {
+          if (proxyCache.has(value)) return proxyCache.get(value);
+
+          const setProxy = new Proxy(value, {
             get(setTarget, setProp) {
               const method = Reflect.get(setTarget, setProp) as unknown;
               if (typeof method === 'function') {
                 return (...args: unknown[]) => {
                   const result = (method as (...args: unknown[]) => unknown).apply(setTarget, args);
+
                   if (['add', 'delete', 'clear'].includes(setProp as string)) {
                     notify();
                   }
-                  return result;
+
+                  return result === setTarget ? setProxy : result;
                 };
               }
               return method;
             },
           });
+
+          proxyCache.set(value, setProxy);
+          return setProxy;
         }
 
         if (value == null || isAtomic(value) || typeof value !== 'object') {
@@ -183,7 +202,12 @@ export function createReactiveState<T extends object>(initialState: DeepPartial<
         }
         return true;
       },
-    });
+    };
+
+    const proxyInstance = new Proxy(target, handler);
+    // Lagre den nyopprettede hoved/under-proxyen i cachen
+    proxyCache.set(target, proxyInstance);
+    return proxyInstance;
   };
 
   return {
