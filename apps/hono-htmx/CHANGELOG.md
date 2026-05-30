@@ -1,5 +1,13 @@
 # hello-htmx
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [ccb70cd]
+  - @olsen-mono/core-utils@0.0.14
+  - @olsen-mono/css-foundation@0.0.4
+
 ## 0.0.8
 
 ### Patch Changes
