@@ -4,7 +4,6 @@ export { deepMerge } from './deep-merge.js';
 export { isAtomic } from './is-atomic.js';
 export { isEmpty } from './is-empty.js';
 export { isEqual } from './is-equal.js';
-export { isError } from './is-error.js';
 export { isFunction } from './is-function.js';
 export { isInt } from './is-int.js';
 export { isNullOrUndefined } from './is-null-or-undefined.js';
