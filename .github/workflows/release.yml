@@ -33,10 +33,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
 
-      - run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      #      - name: Bootstrap CSS Tools CLI
-      #        run: pnpm run prepare
+      - name: Bootstrap CSS Tools CLI
+        run: pnpm run prepare
 
       - name: Run CI tasks
         run: pnpm run ci
