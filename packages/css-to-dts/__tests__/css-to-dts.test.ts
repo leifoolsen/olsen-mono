@@ -5,7 +5,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 
 const TEST_DIR = path.resolve(__dirname, './__fixtures__');
 
-describe('css-to-dts blackbox-test', () => {
+describe('css-to-dts', () => {
   beforeEach(async () => {
     await fs.mkdir(TEST_DIR, { recursive: true });
   });
@@ -27,10 +27,10 @@ describe('css-to-dts blackbox-test', () => {
 
       .btn-primary {
         color: var(--primary-color);
-      }
 
-      &.is-active {
-        display: block;
+        &.is-active {
+          display: block;
+        }
       }
     `;
 

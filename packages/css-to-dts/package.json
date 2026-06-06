@@ -4,8 +4,9 @@
   "version": "0.0.3",
   "private": true,
   "type": "module",
+  "main": "./dist/css-to-dts.mjs",
   "exports": {
-    "./css-to-dts": "./css-to-dts.ts"
+    ".": "./dist/css-to-dts.mjs"
   },
   "bin": {
     "css-to-dts": "./dist/css-to-dts.mjs"
