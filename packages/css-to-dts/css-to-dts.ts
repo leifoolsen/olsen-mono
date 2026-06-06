@@ -22,7 +22,7 @@ function extractCssTokens(cssContent: string) {
   const variables = new Set<string>();
   let varMatch;
   while ((varMatch = variableRegex.exec(cleanContent)) !== null) {
-    variables.add(varMatch[1]);
+    if (varMatch[1]) variables.add(varMatch[1]);
   }
 
   const classRegex = /(?:\.([a-zA-Z_][a-zA-Z0-9_-]*)|&\.([a-zA-Z0-9_-]+))/g;
