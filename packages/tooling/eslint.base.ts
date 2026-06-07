@@ -40,8 +40,13 @@ export const createImportOrderRule = (extraPathGroups: PathGroup[] = []): Linter
       pathGroups: [
         ...extraPathGroups,
         {
+          pattern: '@olsen-mono/**/*.css',
+          group: 'index',
+          position: 'after',
+        },
+        {
           pattern: '*.css',
-          group: 'unknown',
+          group: 'index',
           position: 'after',
           patternOptions: { matchBase: true },
         },
