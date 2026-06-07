@@ -7,7 +7,7 @@ const args = process.argv.slice(2).filter((arg) => !arg.startsWith('-'));
 const [inputPath, outputPath] = args;
 
 if (!inputPath) {
-  console.error('❌ Missing argument! Usage: css-to-dts <source-mappe> [target-mappe]');
+  console.error('❌ Missing argument! Usage: css-to-dts <source-dir> [target-dir]');
   process.exit(1);
 }
 
