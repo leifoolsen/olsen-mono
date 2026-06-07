@@ -69,6 +69,8 @@ All core processes are optimized to utilize single-command global hot-reloading 
 ### Everyday Commands (Root Level)
 
 - **`pnpm dev`**: Automatically builds out dependent workspaces, triggers internal asset sync, and hooks up Vite's HMR server alongside `vite-plugin-live-reload` on port `3000`.
+- **`pnpm dev-package`**: Starts a single workspace package in development mode, e.g., `pnpm watch-pkg @olsen-mono/core-utils`.
+- **`pnpm dev-htmx`**: Starts the `apps/hono-htmx` application in development mode.
 - **`pnpm lint`**: Triggers immediate macro-analysis across all packages, configurations, and core root files (`--max-warnings 10`).
 - **`pnpm test`**: Parallel test runner utilizing `Vitest` scoped natively inside isolated directories using internal workspace aliases.
 - **`pnpm test-watch`**: Global live-updating testing environment capturing code state modifications continuously.
