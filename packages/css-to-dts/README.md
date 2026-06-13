@@ -16,17 +16,19 @@
 
 ## Installation
 
-This package is intended to be used as a development tool within the monorepo workspace.
+This package is intended to be used as a development tool within the monorepo workspace. Add it
+to your compile or dev script.
 
 ```bash
-pnpm --filter @olsen-mono/your-app add -D @olsen-mono/css-to-dts
+npx css-to-dts src dist
 ```
 
 ## Usage
 
 ### Local Package Configuration
 
-To use the tool inside an application or a package, add a `precompile` hook to trigger the CLI automatically before building your application.
+To use the tool inside an application or a package, add a `css-to-dts` script to trigger the
+CLI automatically before building your application.
 
 Update your local `package.json`:
 
@@ -35,10 +37,11 @@ Update your local `package.json`:
 ```json
 {
   "scripts": {
-    "clean": "rimraf lib",
-    "css-to-dts": "node --experimental-strip-types ../css-to-dts/css-to-dts.ts src",
-    "precompile": "pnpm run clean && pnpm run css-to-dts",
-    "compile": "tsdown && cpy \"**/*.{css,css.d.ts}\" ../dist --cwd=src --parents"
+    "clean": "rimraf dist",
+    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run compile-css",
+    "compile-css": "lightningcss --sourcemap --output-dir ./dist ./src/*.css",
+    "css-to-dts": "npx css-to-dts src dist",
+    "dev": "tsdown && pnpm run css-to-dts && pnpm run compile-css"
   }
 }
 ```
@@ -48,10 +51,11 @@ Update your local `package.json`:
 ```json
 {
   "scripts": {
-    "clean": "rimraf lib",
-    "css-to-dts": "node --experimental-strip-types ../css-to-dts/css-to-dts.ts src",
-    "precompile": "pnpm run clean && pnpm run css-to-dts",
-    "compile": "cpy \"**/*.{css,css.d.ts}\" ../dist --cwd=src --parents"
+    "clean": "rimraf dist",
+    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run compile-css",
+    "compile-css": "lightningcss --sourcemap --output-dir ./dist ./src/*.css",
+    "css-to-dts": "npx css-to-dts src dist",
+    "dev": "pnpm run css-to-dts && pnpm run compile-css"
   }
 }
 ```
