@@ -9,6 +9,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
+      "development": "./src/index.ts",
       "import": "./dist/index.mjs"
     },
     "./package.json": "./package.json"
@@ -28,7 +29,6 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "compile": "tsdown",
-    "dev": "tsdown --watch",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
