@@ -128,10 +128,14 @@ async function run() {
     }
 
     console.info(`🚀 Completed! Generated: ${generatedCount} | Removed: ${deletedCount}`);
+    process.exit(0);
   } catch (error) {
     console.error(`❌ Error:`, error instanceof Error ? error.message : error);
     process.exit(1);
   }
 }
 
-await run();
+run().catch((err: unknown) => {
+  console.error('❌ Fatal:', err);
+  process.exit(1);
+});
