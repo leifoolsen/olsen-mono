@@ -6,7 +6,6 @@
   "globalDependencies": [".gitignore", ".prettierignore", "tsconfig.json"],
   "tasks": {
     "css-to-dts": {
-      "dependsOn": ["^compile"],
       "cache": true,
       "inputs": ["src/**/*.css"],
       "outputs": ["src/**/*.css.d.ts", "dist/**/*.css.d.ts"]
@@ -16,7 +15,7 @@
       "outputs": ["dist/**"]
     },
     "typecheck": {
-      "dependsOn": ["css-to-dts", "^compile"],
+      "dependsOn": ["^compile"],
       "cache": true,
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"]
     },
@@ -28,7 +27,7 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "inputs": []
+      "interruptible": true
     }
   }
 }
