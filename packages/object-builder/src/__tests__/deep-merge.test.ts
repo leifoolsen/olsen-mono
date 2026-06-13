@@ -1,6 +1,6 @@
+import { type DeepPartial } from '@olsen-mono/core-utils';
 import { describe, expect, it } from 'vitest';
 import { deepMerge } from '../deep-merge';
-import type { DeepPartial } from '../types';
 
 describe('deepMerge', () => {
   type User = {

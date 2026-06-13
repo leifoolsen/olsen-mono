@@ -1,5 +1,4 @@
-import { isAtomic } from './is-atomic';
-import { isRecord } from './is-record';
+import { isAtomic, isRecord } from '@olsen-mono/core-utils';
 
 /**
  * Deep merges two objects.

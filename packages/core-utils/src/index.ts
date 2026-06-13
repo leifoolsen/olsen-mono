@@ -1,7 +1,6 @@
 export type { AtomicObject, DeepPartial, TemporalObject } from './types.js';
 export { assertNonNullish } from './assert-non-nullish.js';
 export { createSafeRegex } from './create-safe-regex.js';
-export { deepMerge } from './deep-merge.js';
 export { isAtomic } from './is-atomic.js';
 export { isEmpty } from './is-empty.js';
 export { isEqual } from './is-equal.js';

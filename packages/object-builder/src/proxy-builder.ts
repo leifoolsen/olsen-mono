@@ -1,5 +1,6 @@
 import type { AtomicObject, DeepPartial } from '@olsen-mono/core-utils';
-import { deepMerge, isAtomic, isRecord } from '@olsen-mono/core-utils';
+import { isAtomic, isRecord } from '@olsen-mono/core-utils';
+import { deepMerge } from './deep-merge';
 
 /**
  * A utility type that recursively makes all properties of a type non-optional
