@@ -59,7 +59,7 @@
     "test": "turbo run test",
     "test-watch": "vitest",
     "typecheck": "turbo run typecheck",
-    "version-packages": "changeset version && pnpm install",
+    "version-packages": "changeset version && pnpm install --ignore-scripts",
     "dev-htmx": "turbo run copy-deps css-to-dts && pnpm --filter=./apps/hono-htmx... dev",
     "build-htmx": "turbo run compile --filter=./apps/hono-htmx..."
   },
