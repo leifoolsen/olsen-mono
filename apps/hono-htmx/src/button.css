@@ -1,0 +1,41 @@
+/* button.css */
+@layer components {
+  button {
+    /* Vi inkluderer de registrerte egenskapene i overgangen */
+    --_transition:
+      var(--ease-out-2) 0.25s, --color-variant-base 0.25s ease, --color-variant-border 0.25s ease,
+      --color-variant-text 0.25s ease;
+
+    border: 1px solid var(--color-variant-border);
+    background-color: var(--color-variant-base);
+    color: var(--color-text-normal-on-base);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--size-2);
+    padding: var(--size-2) var(--size-4);
+    font-weight: var(--font-weight-6);
+    border-radius: var(--radius-2);
+    cursor: pointer;
+
+    /* Aktiverer den utvidede overgangen */
+    transition: var(--_transition);
+
+    &:hover {
+      /* Siden --color-variant-hover ikke er registrert i transition over (for å unngå loop),
+         lar vi bakgrunnen skifte til hover-tokenet lineært, eller vi kan animere basen: */
+      background-color: var(--color-variant-hover);
+    }
+
+    &:active {
+      transform: scale(0.98);
+      transition: transform 0.05s ease; /* Kjappere respons ved klikk */
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+}

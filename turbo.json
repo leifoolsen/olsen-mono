@@ -1,12 +1,10 @@
 {
   "$schema": "https://turbo.build",
+  "futureFlags": {
+    "watchUsingTaskInputs": true
+  },
   "globalDependencies": [".gitignore", ".prettierignore", "tsconfig.json"],
   "tasks": {
-    "css-to-dts": {
-      "cache": true,
-      "inputs": ["src/**/*.css"],
-      "outputs": ["src/**/*.css.d.ts", "dist/**/*.css.d.ts"]
-    },
     "compile": {
       "dependsOn": ["^compile"],
       "outputs": ["dist/**"]
@@ -23,7 +21,8 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "interruptible": true
     }
   }
 }

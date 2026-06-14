@@ -3,18 +3,26 @@
   "description": "CSS Foundation",
   "version": "0.0.4",
   "private": true,
-  "main": "./dist/reset.css",
-  "style": "./dist/reset.css",
+  "type": "module",
+  "main": "./dist/tokens.css",
+  "style": "./src/tokens.css",
   "sideEffects": [
     "**/*.css"
   ],
   "exports": {
+    "./tokens.css": {
+      "development": "./src/tokens.css",
+      "types": "./src/tokens.css.d.ts",
+      "default": "./dist/tokens.css"
+    },
     "./reset.css": {
-      "types": "./dist/reset.css.d.ts",
+      "development": "./src/reset.css",
+      "types": "./src/reset.css.d.ts",
       "default": "./dist/reset.css"
     },
     "./typesetting.css": {
-      "types": "./dist/typesetting.css.d.ts",
+      "development": "./src/typesetting.css",
+      "types": "./src/typesetting.css.d.ts",
       "default": "./dist/typesetting.css"
     },
     "./package.json": "./package.json"
@@ -38,10 +46,10 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "clean": "rimraf lib",
-    "precompile": "pnpm run clean && pnpm run css-to-dts",
-    "compile": "cpy \"**/*.{css,css.d.ts}\" ../dist --cwd=src --parents",
-    "css-to-dts": "node --experimental-strip-types ../css-to-dts/css-to-dts.ts src"
+    "clean": "shx rm -rf dist",
+    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-css-to-dist",
+    "copy-css-to-dist": "copyfiles -u 1 \"src/**/*.{css,d.ts}\" dist",
+    "css-to-dts": "node ../css-to-dts/dist/css-to-dts.mjs src"
   },
   "devDependencies": {
     "@olsen-mono/css-to-dts": "workspace:*"

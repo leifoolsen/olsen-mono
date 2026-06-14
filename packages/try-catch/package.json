@@ -8,6 +8,7 @@
   "types": "./dist/index.d.mts",
   "exports": {
     ".": {
+      "development": "./src/index.ts",
       "types": "./dist/index.d.mts",
       "import": "./dist/index.mjs"
     },
@@ -33,7 +34,6 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "compile": "tsdown",
-    "dev": "tsdown --watch",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

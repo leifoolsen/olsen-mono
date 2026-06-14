@@ -1,5 +1,6 @@
 import type { AtomicObject, DeepPartial } from '@olsen-mono/core-utils';
-import { deepMerge, isAtomic, isRecord } from '@olsen-mono/core-utils';
+import { isAtomic, isRecord } from '@olsen-mono/core-utils';
+import { deepMerge } from './deep-merge';
 
 /**
  * Represents a type used to calculate the maximum depth of nested structures in TypeScript.

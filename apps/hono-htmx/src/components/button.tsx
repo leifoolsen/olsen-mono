@@ -8,11 +8,10 @@ function cn(...classes: Css[]): string {
 export const Button = () => {
   return (
     <div>
-      {/* Vites ferdigkompilerte CSS dyttes rett inn i en inline style-tag */}
       <style dangerouslySetInnerHTML={{ __html: styles }} />
 
       <button class={cn('myButton')} hx-get="/api/fragment" hx-target="#fragment-target" hx-swap="innerHTML">
-        Hent magisk innhold
+        Server info
       </button>
     </div>
   );

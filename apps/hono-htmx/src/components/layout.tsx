@@ -1,22 +1,30 @@
+// Layout.tsx
 import type { FC, PropsWithChildren } from 'hono/jsx';
+
+type LayoutProps = PropsWithChildren & {
+  theme?: string;
+};
 
 const isProd = process.env.NODE_ENV === 'production';
 
-export const Layout: FC<PropsWithChildren> = ({ children }) => {
+export const Layout: FC<LayoutProps> = ({ children, theme = 'auto' }) => {
   return (
-    <html lang="no">
+    <html lang="no" data-theme={theme}>
       <head>
         <script src="/js/htmx.min.js"></script>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Hello HTMX</title>
+        <title>Hono + HTMX</title>
+
         {isProd ? (
-          <link rel="stylesheet" href="/assets/client.css" />
+          <>
+            <link rel="stylesheet" href="/style.css" />
+            <script type="module" src="/client.mjs"></script>
+          </>
         ) : (
           <>
-            {/* 1. Fortell nettleseren at den skal koble seg til Vites dev-motor */}
             <script type="module" src="/@vite/client"></script>
-            {/* 2. Last klient-ts som en modul. Vite transformerer CSS-importen inni den automatisk! */}
+            <link rel="stylesheet" href="/src/style.css" />
             <script type="module" src="/src/client.ts"></script>
           </>
         )}
@@ -24,7 +32,12 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
       <body>
         <div class="container">
           <header>
-            <h1>Hono + HTMX Utforskning</h1>
+            <nav hx-boost="true" hx-target="body" style="display: flex; gap: 1rem; margin-block-end: var(--size-4);">
+              <a href="/">Hjem</a>
+              <a href="/html5-test-page">HTML5 Testside</a>
+              <a href="/color-swatch">Color Swatch</a>
+            </nav>
+            <h1>Hono + HTMX</h1>
           </header>
           <main>{children}</main>
         </div>

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowImportingTsExtensions": true,
-    // "lib": ["ESNext", "DOM", "ESNext.Temporal"], // Do I need this??
+    "lib": ["ESNext", "DOM", "ESNext.Temporal"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "noEmit": true,

@@ -69,6 +69,8 @@ All core processes are optimized to utilize single-command global hot-reloading 
 ### Everyday Commands (Root Level)
 
 - **`pnpm dev`**: Automatically builds out dependent workspaces, triggers internal asset sync, and hooks up Vite's HMR server alongside `vite-plugin-live-reload` on port `3000`.
+- **`pnpm dev-package`**: Starts a single workspace package in development mode, e.g., `pnpm watch-pkg @olsen-mono/core-utils`.
+- **`pnpm dev-htmx`**: Starts the `apps/hono-htmx` application in development mode.
 - **`pnpm lint`**: Triggers immediate macro-analysis across all packages, configurations, and core root files (`--max-warnings 10`).
 - **`pnpm test`**: Parallel test runner utilizing `Vitest` scoped natively inside isolated directories using internal workspace aliases.
 - **`pnpm test-watch`**: Global live-updating testing environment capturing code state modifications continuously.
@@ -106,7 +108,7 @@ The architecture distinguishes between Pre-Merge Validation (**CI**) and Post-Me
 
 ---
 
-## 📦 Client Asset Sync (HTMX Automation). WIP: Move to `apps/hello-htmx`
+## 📦 Client Asset Sync (HTMX Automation). WIP: Move to `apps/hono-htmx`
 
 To achieve 100% self-contained, air-gapped deployments without external CDN runtime dependencies, `apps/hello-htmx` automatically bridges backend resources to public nodes:
 
@@ -124,5 +126,28 @@ This monorepo automatically generates and syncs API documentation directly from 
 ### 🏛️ Architecture & Philosophy
 
 To keep package overhead at a absolute minimum, we utilize an **anemic package philosophy**:
+
+---
+
+## Cleaning up turborepo
+
+To drop all node_modules and completely reinstall everything across the monorepo, delete the workspace
+root `node_modules`, all package-level `node_modules`, and the local pnpm stores before running a fresh install.
+
+Run the following commands in the root directory:
+
+```bash
+# 1. Delete all node_modules recursively across the workspace
+pnpm -r exec shx rm -rf node_modules
+
+# 2. Delete the root node_modules and lockfile (optional but recommended for a total reset)
+shx rm -rf node_modules pnpm-lock.yaml
+
+# 3. Clear the local pnpm store cache to ensure fresh downloads
+pnpm store prune
+
+# 4. Perform a completely fresh installation
+pnpm install
+```
 
 ---

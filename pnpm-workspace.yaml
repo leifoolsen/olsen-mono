@@ -16,4 +16,5 @@ preferOffline: true
 engineStrict: true
 allowBuilds:
   esbuild: true
+  lightningcss-cli: true
   unrs-resolver: true

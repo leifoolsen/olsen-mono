@@ -1,29 +1,57 @@
-import 'hono';
+// apps/hono-htmx/types.d.ts
+import 'hono/jsx';
 
 declare module 'hono/jsx' {
   namespace JSX {
     interface HTMLAttributes {
-      [key: `hx-${string}`]: string | boolean;
+      /* ==========================================================================
+         CUSTOM ATTRIBUTES
+         ========================================================================== */
+      'data-variant'?: 'primary' | 'secondary' | 'accent' | 'danger' | 'success' | 'warning' | 'subtle';
+      'data-state'?: 'idle' | 'loading' | 'success' | 'error';
+      'data-theme'?: 'light' | 'dark' | 'auto' | (string & {});
+
+      /* ==========================================================================
+         2. HTMX ATTRIBUTES
+         ========================================================================== */
+      'hx-get'?: string;
+      'hx-post'?: string;
+      'hx-put'?: string;
+      'hx-delete'?: string;
+      'hx-patch'?: string;
+      'hx-target'?: string;
+      'hx-swap'?: 'innerHTML' | 'outerHTML' | 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend' | 'delete' | 'none' | (string & {});
+      'hx-boost'?: 'true' | 'false' | (string & {});
+      'hx-trigger'?: string;
+      'hx-indicator'?: string;
+      'hx-push-url'?: string | boolean;
+      'hx-include'?: string;
+      'hx-headers'?: string;
+      'hx-vals'?: string;
+      'hx-confirm'?: string;
+      'hx-disable'?: boolean;
+      'hx-disabled-elt'?: string;
+      'hx-ext'?: string;
+
+      [key: `hx-on:${string}`]: string;
+      [key: `hx-on-${string}`]: string;
+
+      /* ==========================================================================
+         HTMX FALLBACK
+         ========================================================================== */
+      [key: `hx-${string}`]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
     }
   }
 }
 
-declare module '*.css';
+declare module '*.html?raw' {
+  const content: string;
+  export default content;
+}
 
-// import 'hono';
-//
-// declare module 'hono/jsx' {
-//   interface HTMLAttributes {
-//     'hx-get'?: string;
-//     'hx-post'?: string;
-//     'hx-put'?: string;
-//     'hx-delete'?: string;
-//     'hx-target'?: string;
-//     'hx-swap'?: string;
-//     'hx-trigger'?: string;
-//     'hx-indicator'?: string;
-//     'hx-push-url'?: string | boolean;
-//     'hx-confirm'?: string;
-//     'hx-vals'?: string;
-//   }
-// }
+declare module '*.css' {
+  export type Css = string;
+  export type CssVariables = `--${string}`;
+  const styles: string;
+  export default styles;
+}

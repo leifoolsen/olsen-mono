@@ -6,18 +6,32 @@ const config: Config = {
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['at-root', 'define-mixin', 'mixin'],
+        ignoreAtRules: ['property', 'function', 'mixin'],
       },
     ],
+    'property-no-unknown': [
+      true,
+      {
+        ignoreProperties: ['result'],
+      },
+    ],
+    'at-rule-descriptor-no-unknown': null,
+    'no-invalid-position-at-import-rule': null,
     'color-hex-length': 'long',
     'color-no-invalid-hex': true,
     'import-notation': 'string',
     'number-max-precision': 14,
     'selector-class-pattern': [
-      '^[a-z][a-zA-Z0-9]+|[a-z][a-z0-9-]+$',
+      '^[a-z]+([A-Z][a-z0-9]+)*$|^[a-z][a-z0-9]*(-[a-z0-9]+)*$',
       {
         severity: 'warning',
         message: 'It is recommended to use camelCase or kebab-case',
+      },
+    ],
+    'custom-property-pattern': [
+      '^_?[a-z][a-z0-9]*(-[a-z0-9]+)*$',
+      {
+        message: 'Expected custom property name to be kebab-case or start with an underscore',
       },
     ],
   },

@@ -16,11 +16,14 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "build": "pnpm copy-deps && vite build",
-    "copy-deps": "node scripts/copy-htmx.ts",
-    "css-to-dts": "css-to-dts src",
-    "dev": "pnpm copy-deps && vite",
-    "start": "node dist/index.js"
+    "build": "vite build && tsdown && pnpm run copy-deps-prod",
+    "compile": "pnpm run build",
+    "copy-css": "copyfiles -f \"src/index.css\" dist/public/",
+    "copy-deps": "copyfiles -f \"$(pnpm root)/htmx.org/dist/htmx.min.js\" public/js/",
+    "copy-deps-prod": "copyfiles -f \"$(pnpm root)/htmx.org/dist/htmx.min.js\" dist/public/js/",
+    "css-to-dts": "npx css-to-dts src",
+    "dev": "vite",
+    "start": "cross-env NODE_ENV=production node dist/server.js"
   },
   "dependencies": {
     "@hono/node-server": "catalog:",
@@ -34,6 +37,7 @@
     "@olsen-mono/css-to-dts": "workspace:*",
     "@types/node": "catalog:",
     "vite": "catalog:",
+    "vite-plugin-full-reload": "1.2.0",
     "vite-plugin-live-reload": "3.1.0"
   }
 }
