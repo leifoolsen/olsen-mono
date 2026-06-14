@@ -1,0 +1,204 @@
+@import 'open-props/style';
+
+/* Regner ut Lightness lineært basert på vekt (50 - 900)... */
+@function --get-lightness(--weight) {
+  result: calc(0.97 - ((var(--weight) - 50) / 850) * (0.97 - 0.24));
+}
+
+/* Regner ut Chroma i en kurve med en minimumsverdi (floor) for å sikre fargestikk */
+@function --get-chroma(--weight) {
+  --progress: calc((var(--weight) - 50) / 1000);
+  --base-curve: calc(0.18 * (1 - 4 * (var(--progress) - 0.5) * (var(--progress) - 0.5)));
+  --floor: calc(0.025 + (1 - var(--progress)) * 0.01 + var(--progress) * 0.02);
+
+  result: max(var(--base-curve), var(--floor));
+}
+
+/* Genererer Accent-skalaen (A100-A700) med forsterket og intens Chroma */
+@function --get-accent-color(--hue, --weight) {
+  --l: --get-lightness(var(--weight));
+  --c: calc(--get-chroma(var(--weight)) * 1.55);
+
+  result: oklch(var(--l) var(--c) var(--hue));
+}
+
+/* Genererer levende, tinted gråskala med lav, konstant Chroma */
+@function --get-neutral(--weight) {
+  result: oklch(--get-lightness(var(--weight)) 0.01 var(--hue-neutral));
+}
+
+/* --- 2. UNIVERSELLE TEKSTKONTRAST-FUNKSJONER --- */
+@function --text-normal(--surface) {
+  result: oklch(from contrast-color(var(--surface)) l c h / 100%);
+}
+
+@function --text-subtle(--surface) {
+  result: oklch(from contrast-color(var(--surface)) l c h / 75%);
+}
+
+@function --text-muted(--surface) {
+  result: oklch(from contrast-color(var(--surface)) l c h / 55%);
+}
+
+/* Genererer en ferdig standard OKLCH-farge ut fra hue og vekt */
+@function --get-color(--hue, --weight) {
+  result: oklch(--get-lightness(var(--weight)) --get-chroma(var(--weight)) var(--hue));
+}
+
+/* Henter automatisk kontrasten til en standard get-color trinnfarge */
+@function --get-color-contrast(--hue, --weight) {
+  --surface: --get-color(var(--hue), var(--weight));
+
+  result: contrast-color(var(--surface));
+}
+
+/* Henter automatisk kontrasten til en accent-color trinnfarge */
+@function --get-accent-contrast(--hue, --weight) {
+  --surface: --get-accent-color(var(--hue), var(--weight));
+
+  result: contrast-color(var(--surface));
+}
+
+:root {
+  color-scheme: light dark;
+
+  /* Typografi (Open Props bridge) */
+  --font-main: var(--font-sans);
+  --lh-body: var(--font-lineheight-3);
+  --lh-heading: var(--font-lineheight-1);
+  --fs-base: var(--font-size-1);
+  --fs-h1: var(--font-size-fluid-3);
+  --fs-h2: var(--font-size-fluid-2);
+  --fs-h3: var(--font-size-fluid-1);
+
+  /* Fargetoner (Hues) */
+  --hue-primary: 240;
+  --hue-secondary: 290;
+  --hue-success: 145;
+  --hue-error: 29;
+  --hue-warning: 80;
+  --hue-info: 210;
+  --hue-neutral: 240;
+  --color-variant-surface: light-dark(--get-neutral(50), --get-neutral(900));
+  --color-variant-base: light-dark(--get-neutral(600), --get-neutral(400));
+  --color-variant-hover: light-dark(--get-neutral(700), --get-neutral(300));
+  --color-variant-border: light-dark(--get-neutral(200), --get-neutral(700));
+  --color-text-normal-on-base: --text-normal(var(--color-variant-surface));
+  --color-text-subtle-on-base: --text-subtle(var(--color-variant-surface));
+  --color-text-muted-on-base: --text-muted(var(--color-variant-surface));
+}
+
+[data-variant='neutral'] {
+  --color-variant-surface: light-dark(--get-neutral(50), --get-neutral(900));
+  --color-variant-base: light-dark(--get-neutral(600), --get-neutral(400));
+  --color-variant-hover: light-dark(--get-neutral(700), --get-neutral(300));
+  --color-variant-border: light-dark(--get-neutral(200), --get-neutral(700));
+  --color-text-normal-on-base: --text-normal(var(--color-variant-base));
+  --color-text-subtle-on-base: --text-subtle(var(--color-variant-base));
+  --color-text-muted-on-base: --text-muted(var(--color-variant-base));
+}
+
+[data-variant='primary'] {
+  --color-variant-surface: light-dark(--get-color(var(--hue-primary), 50), --get-color(var(--hue-primary), 900));
+  --color-variant-base: light-dark(--get-color(var(--hue-primary), 600), --get-color(var(--hue-primary), 400));
+  --color-variant-hover: light-dark(--get-color(var(--hue-primary), 700), --get-color(var(--hue-primary), 300));
+  --color-variant-border: light-dark(--get-color(var(--hue-primary), 200), --get-color(var(--hue-primary), 700));
+  --color-text-normal-on-base: --text-normal(var(--color-variant-base));
+  --color-text-subtle-on-base: --text-subtle(var(--color-variant-base));
+  --color-text-muted-on-base: --text-muted(var(--color-variant-base));
+}
+
+[data-variant='secondary'] {
+  --color-variant-surface: light-dark(--get-color(var(--hue-secondary), 50), --get-color(var(--hue-secondary), 900));
+  --color-variant-base: light-dark(--get-color(var(--hue-secondary), 600), --get-color(var(--hue-secondary), 400));
+  --color-variant-hover: light-dark(--get-color(var(--hue-secondary), 700), --get-color(var(--hue-secondary), 300));
+  --color-variant-border: light-dark(--get-color(var(--hue-secondary), 200), --get-color(var(--hue-secondary), 700));
+  --color-text-normal-on-base: --text-normal(var(--color-variant-base));
+  --color-text-subtle-on-base: --text-subtle(var(--color-variant-base));
+  --color-text-muted-on-base: --text-muted(var(--color-variant-base));
+}
+
+[data-variant='success'] {
+  --color-variant-surface: light-dark(--get-color(var(--hue-success), 50), --get-color(var(--hue-success), 900));
+  --color-variant-base: light-dark(--get-color(var(--hue-success), 600), --get-color(var(--hue-success), 400));
+  --color-variant-hover: light-dark(--get-color(var(--hue-success), 700), --get-color(var(--hue-success), 300));
+  --color-variant-border: light-dark(--get-color(var(--hue-success), 200), --get-color(var(--hue-success), 700));
+  --color-text-normal-on-base: --text-normal(var(--color-variant-base));
+  --color-text-subtle-on-base: --text-subtle(var(--color-variant-base));
+  --color-text-muted-on-base: --text-muted(var(--color-variant-base));
+}
+
+[data-variant='error'],
+[data-variant='danger'] {
+  --color-variant-surface: light-dark(--get-color(var(--hue-error), 50), --get-color(var(--hue-error), 900));
+  --color-variant-base: light-dark(--get-color(var(--hue-error), 600), --get-color(var(--hue-error), 400));
+  --color-variant-hover: light-dark(--get-color(var(--hue-error), 700), --get-color(var(--hue-error), 300));
+  --color-variant-border: light-dark(--get-color(var(--hue-error), 200), --get-color(var(--hue-error), 700));
+  --color-text-normal-on-base: --text-normal(var(--color-variant-base));
+  --color-text-subtle-on-base: --text-subtle(var(--color-variant-base));
+  --color-text-muted-on-base: --text-muted(var(--color-variant-base));
+}
+
+[data-variant='warning'] {
+  --color-variant-surface: light-dark(--get-color(var(--hue-warning), 50), --get-color(var(--hue-warning), 900));
+  --color-variant-base: light-dark(--get-color(var(--hue-warning), 600), --get-color(var(--hue-warning), 400));
+  --color-variant-hover: light-dark(--get-color(var(--hue-warning), 700), --get-color(var(--hue-warning), 300));
+  --color-variant-border: light-dark(--get-color(var(--hue-warning), 200), --get-color(var(--hue-warning), 700));
+  --color-text-normal-on-base: --text-normal(var(--color-variant-base));
+  --color-text-subtle-on-base: --text-subtle(var(--color-variant-base));
+  --color-text-muted-on-base: --text-muted(var(--color-variant-base));
+}
+
+[data-variant='info'] {
+  --color-variant-surface: light-dark(--get-color(var(--hue-info), 50), --get-color(var(--hue-info), 900));
+  --color-variant-base: light-dark(--get-color(var(--hue-info), 600), --get-color(var(--hue-info), 400));
+  --color-variant-hover: light-dark(--get-color(var(--hue-info), 700), --get-color(var(--hue-info), 300));
+  --color-variant-border: light-dark(--get-color(var(--hue-info), 200), --get-color(var(--hue-info), 700));
+  --color-text-normal-on-base: --text-normal(var(--color-variant-base));
+  --color-text-subtle-on-base: --text-subtle(var(--color-variant-base));
+  --color-text-muted-on-base: --text-muted(var(--color-variant-base));
+}
+
+[data-text-contrast='normal'] {
+  color: var(--color-text-normal-on-base);
+}
+
+[data-text-contrast='subtle'] {
+  color: var(--color-text-subtle-on-base);
+}
+
+[data-text-contrast='muted'] {
+  color: var(--color-text-muted-on-base);
+}
+
+[data-text-contrast='primary'] {
+  color: light-dark(--get-color(var(--hue-primary), 600), --get-color(var(--hue-primary), 400));
+}
+
+[data-text-contrast='secondary'] {
+  color: light-dark(--get-color(var(--hue-secondary), 600), --get-color(var(--hue-secondary), 400));
+}
+
+[data-text-contrast='success'] {
+  color: light-dark(--get-color(var(--hue-success), 600), --get-color(var(--hue-success), 400));
+}
+
+[data-text-contrast='error'] {
+  color: light-dark(--get-color(var(--hue-error), 600), --get-color(var(--hue-error), 400));
+}
+
+[data-text-contrast='warning'] {
+  color: light-dark(--get-color(var(--hue-warning), 600), --get-color(var(--hue-warning), 400));
+}
+
+[data-text-contrast='info'] {
+  color: light-dark(--get-color(var(--hue-info), 600), --get-color(var(--hue-info), 400));
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}

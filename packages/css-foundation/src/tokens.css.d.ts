@@ -1,0 +1,4 @@
+export type Css = never;
+export type CssVariables = '--base-curve' | '--c' | '--color-text-muted-on-base' | '--color-text-normal-on-base' | '--color-text-subtle-on-base' | '--color-variant-base' | '--color-variant-border' | '--color-variant-hover' | '--color-variant-surface' | '--floor' | '--font-lineheight-1' | '--font-lineheight-3' | '--font-main' | '--font-sans' | '--font-size-1' | '--font-size-fluid-1' | '--font-size-fluid-2' | '--font-size-fluid-3' | '--fs-base' | '--fs-h1' | '--fs-h2' | '--fs-h3' | '--get-accent-color' | '--get-accent-contrast' | '--get-chroma' | '--get-color' | '--get-color-contrast' | '--get-lightness' | '--get-neutral' | '--hue' | '--hue-error' | '--hue-info' | '--hue-neutral' | '--hue-primary' | '--hue-secondary' | '--hue-success' | '--hue-warning' | '--l' | '--lh-body' | '--lh-heading' | '--progress' | '--surface' | '--text-muted' | '--text-normal' | '--text-subtle' | '--weight';
+declare const styles: string;
+export default styles;

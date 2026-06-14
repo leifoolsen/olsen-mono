@@ -47,9 +47,9 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "clean": "shx rm -rf dist",
-    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-deps",
-    "copy-deps": "copyfiles -u 1 \"src/**/*.css\" \"src/**/*.d.ts\" dist",
-    "css-to-dts": "npx css-to-dts src"
+    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-css-to-dist",
+    "copy-css-to-dist": "copyfiles -u 1 \"src/**/*.{css,d.ts}\" dist",
+    "css-to-dts": "node ../css-to-dts/dist/css-to-dts.mjs src"
   },
   "devDependencies": {
     "@olsen-mono/css-to-dts": "workspace:*"
