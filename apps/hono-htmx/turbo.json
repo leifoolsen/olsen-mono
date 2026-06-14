@@ -1,0 +1,23 @@
+{
+  "$schema": "https://turbo.build",
+  "extends": ["//"],
+  "tasks": {
+    "css-to-dts": {
+      "cache": false,
+      "dependsOn": ["^compile"]
+    },
+    "copy-deps": {
+      "cache": true,
+      "inputs": ["package.json"],
+      "outputs": ["public/js/htmx.min.js"]
+    },
+    "compile": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^compile", "copy-deps"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

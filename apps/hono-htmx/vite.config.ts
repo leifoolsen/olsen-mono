@@ -30,8 +30,11 @@ export default defineConfig(({ command }) => ({
   ],
   server: {
     watch: {
-      ignored: ['!**/src/**/*.html', '!**/public/**/*.html'],
+      ignored: ['!**/src/**/*.html', '!**/public/**/*.html', '!**/packages/**/src/**'],
     },
+  },
+  ssr: {
+    noExternal: command === 'serve' ? [/^@olsen-mono\//] : [],
   },
   build:
     command === 'serve'
@@ -43,7 +46,10 @@ export default defineConfig(({ command }) => ({
           rollupOptions: {
             input: {
               server: 'src/index.tsx',
-              client: 'src/client.ts',
+            },
+            output: {
+              format: 'esm',
+              entryFileNames: '[name].js',
             },
           },
         },

@@ -1,0 +1,912 @@
+<style>
+  .swatch-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-8);
+  }
+
+  .color-swatch {
+    display: grid;
+    align-items: center;
+    text-align: center;
+    aspect-ratio: 1 / 1;
+    border-radius: calc(infinity * 1px);
+  }
+
+  .color-swatches {
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    gap: 0.5rem;
+    height: 4rem;
+  }
+
+  .theme-section {
+    border-radius: var(--radius-3);
+
+    /*
+    background-color: var(--color-neutral-surface);
+    border: 1px solid var(--color-neutral-border);
+    */
+  }
+
+  .color-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--size-4);
+    margin-top: var(--size-4);
+  }
+
+  .color-card {
+    border: 1px solid var(--color-variant-border);
+    background-color: var(--color-variant-base);
+    color: var(--color-text-normal-on-base);
+    border-radius: var(--radius-2);
+    padding: var(--size-4);
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--size-1) var(--size-2);
+    transition: background-color 0.2s ease;
+  }
+
+  .color-card:hover {
+    background-color: var(--color-variant-hover);
+  }
+
+  .color-title {
+    font-weight: var(--font-weight-7);
+    font-size: var(--font-size-2);
+    margin: 0;
+  }
+</style>
+
+<div class="swatch-container">
+  <section class="theme-section">
+    <h2>Tekstkontraster</h2>
+    <p style="font-weight: bold">Text color normal</p>
+    <p data-text-contrast="subtle" style="font-weight: bold">Text color subtle</p>
+    <p data-text-contrast="muted" style="font-weight: bold">Text color muted</p>
+    <p data-text-contrast="primary" style="font-weight: bold">Primary text on base</p>
+    <p data-text-contrast="secondary" style="font-weight: bold">Secondary text on base</p>
+    <p data-text-contrast="success" style="font-weight: bold">Success text on base</p>
+    <p data-text-contrast="warning" style="font-weight: bold">Warning text on base</p>
+    <p data-text-contrast="error" style="font-weight: bold">Error text on base</p>
+    <p data-text-contrast="info" style="font-weight: bold">Info text on base</p>
+  </section>
+
+  <section class="theme-section" style="display: flex; flex-direction: column; gap: var(--size-2)">
+    <h2>Swatches</h2>
+    <div class="color-swatches" role="grid">
+      <div class="color-swatch" style="background-color: --get-neutral(50); color: --text-normal(--get-neutral(50))">
+        50
+      </div>
+      <div class="color-swatch" style="background-color: --get-neutral(100); color: --text-normal(--get-neutral(100))">
+        100
+      </div>
+      <div class="color-swatch" style="background-color: --get-neutral(200); color: --text-normal(--get-neutral(200))">
+        200
+      </div>
+      <div class="color-swatch" style="background-color: --get-neutral(300); color: --text-normal(--get-neutral(300))">
+        300
+      </div>
+      <div class="color-swatch" style="background-color: --get-neutral(400); color: --text-normal(--get-neutral(400))">
+        400
+      </div>
+      <div class="color-swatch" style="background-color: --get-neutral(500); color: --text-normal(--get-neutral(500))">
+        500
+      </div>
+      <div class="color-swatch" style="background-color: --get-neutral(600); color: --text-normal(--get-neutral(600))">
+        600
+      </div>
+      <div class="color-swatch" style="background-color: --get-neutral(700); color: --text-normal(--get-neutral(700))">
+        700
+      </div>
+      <div class="color-swatch" style="background-color: --get-neutral(800); color: --text-normal(--get-neutral(800))">
+        800
+      </div>
+      <div class="color-swatch" style="background-color: --get-neutral(900); color: --text-normal(--get-neutral(900))">
+        900
+      </div>
+    </div>
+
+    <div class="color-swatches" role="grid">
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-primary), 50);
+          color: --get-color-contrast(var(--hue-primary), 50);
+        "
+      >
+        50
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-primary), 100);
+          color: --get-color-contrast(var(--hue-primary), 100);
+        "
+      >
+        100
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-primary), 200);
+          color: --get-color-contrast(var(--hue-primary), 200);
+        "
+      >
+        200
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-primary), 300);
+          color: --get-color-contrast(var(--hue-primary), 300);
+        "
+      >
+        300
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-primary), 400);
+          color: --get-color-contrast(var(--hue-primary), 400);
+        "
+      >
+        400
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-primary), 500);
+          color: --get-color-contrast(var(--hue-primary), 500);
+        "
+      >
+        500
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-primary), 550);
+          color: --get-color-contrast(var(--hue-primary), 550);
+        "
+      >
+        600
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-primary), 650);
+          color: --get-color-contrast(var(--hue-primary), 650);
+        "
+      >
+        700
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-primary), 750);
+          color: --get-color-contrast(var(--hue-primary), 750);
+        "
+      >
+        800
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-primary), 800);
+          color: --get-color-contrast(var(--hue-primary), 800);
+        "
+      >
+        900
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-primary), 100);
+          color: --get-accent-contrast(var(--hue-primary), 100);
+        "
+      >
+        A100
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-primary), 200);
+          color: --get-accent-contrast(var(--hue-primary), 200);
+        "
+      >
+        A200
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-primary), 400);
+          color: --get-accent-contrast(var(--hue-primary), 400);
+        "
+      >
+        A400
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-primary), 700);
+          color: --get-accent-contrast(var(--hue-primary), 700);
+        "
+      >
+        A700
+      </div>
+    </div>
+
+    <div class="color-swatches" role="grid">
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-secondary), 50);
+          color: --get-color-contrast(var(--hue-secondary), 50);
+        "
+      >
+        50
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-secondary), 100);
+          color: --get-color-contrast(var(--hue-secondary), 100);
+        "
+      >
+        100
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-secondary), 200);
+          color: --get-color-contrast(var(--hue-secondary), 200);
+        "
+      >
+        200
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-secondary), 300);
+          color: --get-color-contrast(var(--hue-secondary), 300);
+        "
+      >
+        30+
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-secondary), 400);
+          color: --get-color-contrast(var(--hue-secondary), 400);
+        "
+      >
+        400
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-secondary), 500);
+          color: --get-color-contrast(var(--hue-secondary), 500);
+        "
+      >
+        500
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-secondary), 550);
+          color: --get-color-contrast(var(--hue-secondary), 550);
+        "
+      >
+        600
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-secondary), 650);
+          color: --get-color-contrast(var(--hue-secondary), 650);
+        "
+      >
+        700
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-secondary), 750);
+          color: --get-color-contrast(var(--hue-secondary), 750);
+        "
+      >
+        800
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-secondary), 850);
+          color: --get-color-contrast(var(--hue-secondary), 850);
+        "
+      >
+        900
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-secondary), 100);
+          color: --get-accent-contrast(var(--hue-secondary), 100);
+        "
+      >
+        A100
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-secondary), 200);
+          color: --get-accent-contrast(var(--hue-secondary), 200);
+        "
+      >
+        A200
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-secondary), 400);
+          color: --get-accent-contrast(var(--hue-secondary), 400);
+        "
+      >
+        A400
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-secondary), 700);
+          color: --get-accent-contrast(var(--hue-secondary), 700);
+        "
+      >
+        A700
+      </div>
+    </div>
+
+    <div class="color-swatches" role="grid">
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-success), 50);
+          color: --get-color-contrast(var(--hue-success), 50);
+        "
+      >
+        50
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-success), 100);
+          color: --get-color-contrast(var(--hue-success), 100);
+        "
+      >
+        100
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-success), 200);
+          color: --get-color-contrast(var(--hue-success), 200);
+        "
+      >
+        200
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-success), 300);
+          color: --get-color-contrast(var(--hue-success), 300);
+        "
+      >
+        300
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-success), 400);
+          color: --get-color-contrast(var(--hue-success), 400);
+        "
+      >
+        400
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-success), 500);
+          color: --get-color-contrast(var(--hue-success), 500);
+        "
+      >
+        500
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-success), 550);
+          color: --get-color-contrast(var(--hue-success), 550);
+        "
+      >
+        600
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-success), 650);
+          color: --get-color-contrast(var(--hue-success), 650);
+        "
+      >
+        700
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-success), 750);
+          color: --get-color-contrast(var(--hue-success), 750);
+        "
+      >
+        800
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-success), 850);
+          color: --get-color-contrast(var(--hue-success), 850);
+        "
+      >
+        900
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-success), 100);
+          color: --get-accent-contrast(var(--hue-success), 100);
+        "
+      >
+        A100
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-success), 200);
+          color: --get-accent-contrast(var(--hue-success), 200);
+        "
+      >
+        A200
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-success), 400);
+          color: --get-accent-contrast(var(--hue-succes), 400);
+        "
+      >
+        A400
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-success), 700);
+          color: --get-accent-contrast(var(--hue-succes), 700);
+        "
+      >
+        A700
+      </div>
+    </div>
+
+    <div class="color-swatches" role="grid">
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-error), 50); color: --get-color-contrast(var(--hue-error), 50)"
+      >
+        50
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-error), 100); color: --get-color-contrast(var(--hue-error), 100)"
+      >
+        100
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-error), 200); color: --get-color-contrast(var(--hue-error), 200)"
+      >
+        200
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-error), 300); color: --get-color-contrast(var(--hue-error), 300)"
+      >
+        300
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-error), 400); color: --get-color-contrast(var(--hue-error), 400)"
+      >
+        400
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-error), 500); color: --get-color-contrast(var(--hue-error), 500)"
+      >
+        500
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-error), 600); color: --get-color-contrast(var(--hue-error), 600)"
+      >
+        600
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-error), 700); color: --get-color-contrast(var(--hue-error), 700)"
+      >
+        700
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-error), 800); color: --get-color-contrast(var(--hue-error), 800)"
+      >
+        800
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-error), 900); color: --get-color-contrast(var(--hue-error), 900)"
+      >
+        900
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-error), 100);
+          color: --get-accent-contrast(var(--hue-error), 100);
+        "
+      >
+        A100
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-error), 200);
+          color: --get-accent-contrast(var(--hue-error), 200);
+        "
+      >
+        A200
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-error), 400);
+          color: --get-accent-contrast(var(--hue-error), 400);
+        "
+      >
+        A400
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-error), 700);
+          color: --get-accent-contrast(var(--hue-error), 700);
+        "
+      >
+        A700
+      </div>
+    </div>
+
+    <div class="color-swatches" role="grid">
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-warning), 50);
+          color: --get-color-contrast(var(--hue-warning), 50);
+        "
+      >
+        50
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-warning), 100);
+          color: --get-color-contrast(var(--hue-warning), 100);
+        "
+      >
+        100
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-warning), 200);
+          color: --get-color-contrast(var(--hue-warning), 200);
+        "
+      >
+        200
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-warning), 300);
+          color: --get-color-contrast(var(--hue-warning), 300);
+        "
+      >
+        300
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-warning), 400);
+          color: --get-color-contrast(var(--hue-warning), 400);
+        "
+      >
+        400
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-warning), 500);
+          color: --get-color-contrast(var(--hue-warning), 500);
+        "
+      >
+        500
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-warning), 600);
+          color: --get-color-contrast(var(--hue-warning), 600);
+        "
+      >
+        600
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-warning), 700);
+          color: --get-color-contrast(var(--hue-warning), 700);
+        "
+      >
+        700
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-warning), 800);
+          color: --get-color-contrast(var(--hue-warning), 800);
+        "
+      >
+        800
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-color(var(--hue-warning), 900);
+          color: --get-color-contrast(var(--hue-warning), 900);
+        "
+      >
+        900
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-warning), 100);
+          color: --get-accent-contrast(var(--hue-warning), 100);
+        "
+      >
+        A100
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-warning), 200);
+          color: --get-accent-contrast(var(--hue-warning), 200);
+        "
+      >
+        A200
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-warning), 400);
+          color: --get-accent-contrast(var(--hue-warning), 400);
+        "
+      >
+        A400
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-warning), 700);
+          color: --get-accent-contrast(var(--hue-warning), 700);
+        "
+      >
+        A700
+      </div>
+    </div>
+
+    <div class="color-swatches" role="grid">
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-info), 50); color: --get-color-contrast(var(--hue-info), 50)"
+      >
+        50
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-info), 100); color: --get-color-contrast(var(--hue-info), 100)"
+      >
+        100
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-info), 200); color: --get-color-contrast(var(--hue-info), 200)"
+      >
+        200
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-info), 300); color: --get-color-contrast(var(--hue-info), 300)"
+      >
+        300
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-info), 400); color: --get-color-contrast(var(--hue-info), 400)"
+      >
+        400
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-info), 500); color: --get-color-contrast(var(--hue-info), 500)"
+      >
+        500
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-info), 600); color: --get-color-contrast(var(--hue-info), 600)"
+      >
+        600
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-info), 700); color: --get-color-contrast(var(--hue-info), 700)"
+      >
+        700
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-info), 800); color: --get-color-contrast(var(--hue-info), 800)"
+      >
+        800
+      </div>
+      <div
+        class="color-swatch"
+        style="background-color: --get-color(var(--hue-info), 900); color: --get-color-contrast(var(--hue-info), 900)"
+      >
+        900
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-info), 100);
+          color: --get-accent-contrast(var(--hue-info), 100);
+        "
+      >
+        A100
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-info), 200);
+          color: --get-accent-contrast(var(--hue-info), 200);
+        "
+      >
+        A200
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-info), 400);
+          color: --get-accent-contrast(var(--hue-info), 400);
+        "
+      >
+        A400
+      </div>
+      <div
+        class="color-swatch"
+        style="
+          background-color: --get-accent-color(var(--hue-info), 700);
+          color: --get-accent-contrast(var(--hue-info), 700);
+        "
+      >
+        A700
+      </div>
+    </div>
+  </section>
+
+  <section class="theme-section">
+    <h2>Komponent- og Kontrastoverflater</h2>
+    <p>Hold musen over kortene for å teste <code>--hover</code>-styrken. Teksten inni bruker <code>--on-base</code>.</p>
+
+    <div class="color-card-grid">
+      <div class="color-card" data-variant="primary">
+        <p class="color-title">Primary</p>
+        <span data-text-contrast="subtle">Text color subtle</span>
+        <span data-text-contrast="muted">Text color muted</span>
+        <span data-text-contrast="primary">Primary text</span>
+        <span data-text-contrast="secondary">Secondary text</span>
+        <span data-text-contrast="success">Success text</span>
+        <span data-text-contrast="warning">Warning text</span>
+        <span data-text-contrast="error">Error text</span>
+        <span data-text-contrast="info">Info text</span>
+      </div>
+      <div class="color-card" data-variant="secondary">
+        <p class="color-title">Secondary</p>
+        <span data-text-contrast="subtle">Text color subtle</span>
+        <span data-text-contrast="muted">Text color muted</span>
+        <span data-text-contrast="primary">Primary text</span>
+        <span data-text-contrast="secondary">Secondary text</span>
+        <span data-text-contrast="success">Success text</span>
+        <span data-text-contrast="warning">Warning text</span>
+        <span data-text-contrast="error">Error text</span>
+        <span data-text-contrast="info">Info text</span>
+      </div>
+      <div class="color-card" data-variant="success">
+        <p class="color-title">Success</p>
+        <span data-text-contrast="subtle">Text color subtle</span>
+        <span data-text-contrast="muted">Text color muted</span>
+        <span data-text-contrast="primary">Primary text</span>
+        <span data-text-contrast="secondary">Secondary text</span>
+        <span data-text-contrast="success">Success text</span>
+        <span data-text-contrast="warning">Warning text</span>
+        <span data-text-contrast="error">Error text</span>
+        <span data-text-contrast="info">Info text</span>
+      </div>
+      <div class="color-card" data-variant="warning">
+        <p class="color-title">Warning</p>
+        <span data-text-contrast="subtle">Text color subtle</span>
+        <span data-text-contrast="muted">Text color muted</span>
+        <span data-text-contrast="primary">Primary text</span>
+        <span data-text-contrast="secondary">Secondary text</span>
+        <span data-text-contrast="success">Success text</span>
+        <span data-text-contrast="warning">Warning text</span>
+        <span data-text-contrast="error">Error text</span>
+        <span data-text-contrast="info">Info text</span>
+      </div>
+      <div class="color-card" data-variant="error">
+        <p class="color-title">Error</p>
+        <span data-text-contrast="subtle">Text color subtle</span>
+        <span data-text-contrast="muted">Text color muted</span>
+        <span data-text-contrast="primary">Primary text</span>
+        <span data-text-contrast="secondary">Secondary text</span>
+        <span data-text-contrast="success">Success text</span>
+        <span data-text-contrast="warning">Warning text</span>
+        <span data-text-contrast="error">Error text</span>
+        <span data-text-contrast="info">Info text</span>
+      </div>
+      <div class="color-card" data-variant="info">
+        <p class="color-title">Info</p>
+        <span data-text-contrast="subtle">Text color subtle</span>
+        <span data-text-contrast="muted">Text color muted</span>
+        <span data-text-contrast="primary">Primary text</span>
+        <span data-text-contrast="secondary">Secondary text</span>
+        <span data-text-contrast="success">Success text</span>
+        <span data-text-contrast="warning">Warning text</span>
+        <span data-text-contrast="error">Error text</span>
+        <span data-text-contrast="info">Info text</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="theme-section">
+    <h2>Buttons</h2>
+    <div class="color-card-grid">
+      <button data-variant="primary">Default</button>
+      <button data-variant="secondary">Secondary</button>
+      <button data-variant="success">Success</button>
+      <button data-variant="warning">Warning</button>
+      <button data-variant="danger">Danger</button>
+      <button data-variant="info">Info</button>
+    </div>
+  </section>
+</div>
