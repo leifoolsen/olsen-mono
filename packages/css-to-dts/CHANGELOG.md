@@ -1,5 +1,12 @@
 # @olsen-mono/css-to-dts
 
+## 0.0.4
+
+### Patch Changes
+
+- f02cf72: Updated version-packages script
+- c30fd31: Added CSS tokens to css-foundation package and updated hono-htmx application with a test bed to experiment with function based, data driven CSS
+
 ## 0.0.3
 
 ### Patch Changes

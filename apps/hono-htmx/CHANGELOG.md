@@ -1,5 +1,14 @@
 # hello-htmx
 
+## 0.0.10
+
+### Patch Changes
+
+- c30fd31: Added CSS tokens to css-foundation package and updated hono-htmx application with a test bed to experiment with function based, data driven CSS
+- Updated dependencies [c30fd31]
+  - @olsen-mono/css-foundation@0.0.5
+  - @olsen-mono/core-utils@0.0.15
+
 ## 0.0.9
 
 ### Patch Changes
