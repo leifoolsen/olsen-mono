@@ -131,7 +131,7 @@ To keep package overhead at a absolute minimum, we utilize an **anemic package p
 
 ## Cleaning up turborepo
 
-To drop all node_modules and completely reinstall everything across the monorepo, you need to delete the workspace
+To drop all node_modules and completely reinstall everything across the monorepo, delete the workspace
 root `node_modules`, all package-level `node_modules`, and the local pnpm stores before running a fresh install.
 
 Run the following commands in the root directory:
