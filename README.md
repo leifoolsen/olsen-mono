@@ -128,3 +128,26 @@ This monorepo automatically generates and syncs API documentation directly from 
 To keep package overhead at a absolute minimum, we utilize an **anemic package philosophy**:
 
 ---
+
+## Cleaning up turborepo
+
+To drop all node_modules and completely reinstall everything across the monorepo, you need to delete the workspace
+root `node_modules`, all package-level `node_modules`, and the local pnpm stores before running a fresh install.
+
+Run the following commands in the root directory:
+
+```bash
+# 1. Delete all node_modules recursively across the workspace
+pnpm -r exec shx rm -rf node_modules
+
+# 2. Delete the root node_modules and lockfile (optional but recommended for a total reset)
+shx rm -rf node_modules pnpm-lock.yaml
+
+# 3. Clear the local pnpm store cache to ensure fresh downloads
+pnpm store prune
+
+# 4. Perform a completely fresh installation
+pnpm install
+```
+
+---
