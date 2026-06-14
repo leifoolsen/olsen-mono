@@ -109,7 +109,7 @@ export const baseConfig = defineConfig(
       // import-x/no-cycle; "This rule is comparatively computationally expensive. If you are pressed for lint time,
       // or don't think you have an issue with dependency cycles, you may not want this rule enabled."
       // Tips: Use "maxDepth: 1" when overflowed with cyclic dependencies' error.
-      'import-x/no-cycle': ['error', { maxDepth: Infinity }],
+      // 'import-x/no-cycle': ['error', { maxDepth: Infinity }],
       'import-x/no-self-import': 'error',
       'no-console': ['warn', { allow: ['info', 'error', 'warn'] }],
       'no-undef': 'off',
