@@ -4,7 +4,7 @@ export const baseOptions: UserConfig = {
   entry: ['./src/index.ts'],
   format: ['esm'],
   dts: true,
-  clean: true,
+  clean: false,
   sourcemap: true,
   platform: 'node',
   minify: false,
