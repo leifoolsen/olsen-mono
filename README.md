@@ -87,9 +87,10 @@ The architecture distinguishes between Pre-Merge Validation (**CI**) and Post-Me
 
 1. Create a workspace feature branch.
 2. Introduce logic (e.g., inside `packages/my package`).
-3. Execute `pnpm changeset` locally to declare version increment intent (`patch`/`minor`/`major`).
-4. Commit both local logic and the `.changeset/*.md` artifact to your branch.
-5. Create a GitHub PR. **`ci.yml`** triggers automated global validation tests.
+3. Run `pnpm build` to validate and build your changes.
+4. Execute `pnpm changeset` locally to declare version increment intent (`patch`/`minor`/`major`).
+5. Commit both local logic and the `.changeset/*.md` artifact to your branch.
+6. Create a GitHub PR. **`ci.yml`** triggers automated global validation tests.
 
 ### 2. Post-Merge Version Automation
 
