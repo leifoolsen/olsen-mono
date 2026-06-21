@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/core-utils",
   "description": "Core Utils",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "private": true,
   "type": "module",
   "main": "./dist/index.mjs",

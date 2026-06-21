@@ -1,5 +1,13 @@
 # @olsen-mono/css-to-dts
 
+## 0.0.4
+
+### Patch Changes
+
+- 1e2257e: Reactive, formula based, data driven color engine
+- f02cf72: Updated version-packages script
+- c30fd31: Added CSS tokens to css-foundation package and updated hono-htmx application with a test bed to experiment with function based, data driven CSS
+
 ## 0.0.3
 
 ### Patch Changes
