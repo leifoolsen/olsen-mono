@@ -11,16 +11,12 @@
     max-width: 1024px;
     margin: 0 auto;
     padding-inline: var(--size-4, 1rem); /* Hindrer teksten i å treffe skjermkanten på mobil */
+    padding-block-start: var(--size-4, 1rem);
   }
 
   .box {
     padding: var(--size-4, 1rem);
     margin-block-start: var(--size-4, 1rem);
     border-radius: var(--radius-2, 4px);
-
-    /*
-    border: 1px solid var(--color-neutral-border);
-    background-color: var(--color-neutral-surface); // Gir en fin kontrast mot body-bg
-    */
   }
 }

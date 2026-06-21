@@ -16,6 +16,7 @@
   .color-swatches {
     display: grid;
     grid-template-columns: repeat(15, 1fr);
+    background-color: transparent;
   }
 
   .theme-section {
@@ -55,7 +56,7 @@
 
 <div class="swatch-container">
   <section class="theme-section">
-    <h2>Tekstkontraster</h2>
+    <h2>Text contrasts</h2>
     <h3 data-text-contrast="brand">Brand Text Color</h3>
     <p style="font-weight: bold">Text color normal</p>
     <p data-text-contrast="subtle" style="font-weight: bold">Text color subtle</p>
@@ -64,6 +65,64 @@
 
   <section class="theme-section" style="display: flex; flex-direction: column">
     <h2>Swatches</h2>
+
+    <div data-variant="surface" class="color-swatches" role="grid">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text-contrast="subtle">50</span>
+        <span data-text-contrast="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text-contrast="subtle">100</span>
+        <span data-text-contrast="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text-contrast="subtle">200</span>
+        <span data-text-contrast="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text-contrast="subtle">300</span>
+        <span data-text-contrast="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text-contrast="subtle">400</span>
+        <span data-text-contrast="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text-contrast="subtle">500</span>
+        <span data-text-contrast="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text-contrast="subtle">600</span>
+        <span data-text-contrast="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text-contrast="subtle">700</span>
+        <span data-text-contrast="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text-contrast="subtle">800</span>
+        <span data-text-contrast="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text-contrast="subtle">900</span>
+        <span data-text-contrast="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text-contrast="subtle">950</span>
+        <span data-text-contrast="muted">950</span>
+      </div>
+    </div>
 
     <div data-variant="neutral" class="color-swatches" role="grid">
       <div data-color="50" class="color-swatch">
@@ -681,6 +740,39 @@
           <a href="#" onclick="arguments[0].preventDefault()">Link</a>
         </p>
       </div>
+
+      <div class="color-card" data-variant="neutral">
+        <p data-text-contrast="brand" class="color-title">Neutral</p>
+        <div>Normal text color</div>
+        <div data-text-contrast="subtle">Subtle text color</div>
+        <div data-text-contrast="muted">Muted text color</div>
+        <p>
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>&nbsp;
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="surface-1">
+        <p data-text-contrast="brand" class="color-title">Surface 1</p>
+        <div>Normal text color</div>
+        <div data-text-contrast="subtle">Subtle text color</div>
+        <div data-text-contrast="muted">Muted text color</div>
+        <p>
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>&nbsp;
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="surface-2">
+        <p data-text-contrast="brand" class="color-title">Surface 2</p>
+        <div>Normal text color</div>
+        <div data-text-contrast="subtle">Subtle text color</div>
+        <div data-text-contrast="muted">Muted text color</div>
+        <p>
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>&nbsp;
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>
+        </p>
+      </div>
     </div>
   </section>
 
@@ -693,6 +785,9 @@
       <button data-variant="warning">Warning</button>
       <button data-variant="danger">Danger</button>
       <button data-variant="info">Info</button>
+      <button data-variant="neutral">Neutral</button>
+      <button data-variant="surface-1">Surface-1</button>
+      <button data-variant="surface-2">Surface-2</button>
     </div>
   </section>
 </div>
