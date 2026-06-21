@@ -9,15 +9,13 @@
     display: grid;
     align-items: center;
     text-align: center;
-    aspect-ratio: 1 / 1;
-    border-radius: calc(infinity * 1px);
+    font-size: var(--font-size-0);
+    padding-block: var(--size-1);
   }
 
   .color-swatches {
     display: grid;
-    grid-template-columns: repeat(14, 1fr);
-    gap: 0.5rem;
-    height: 4rem;
+    grid-template-columns: repeat(15, 1fr);
   }
 
   .theme-section {
@@ -37,9 +35,8 @@
   }
 
   .color-card {
-    border: 1px solid var(--color-variant-border);
-    background-color: var(--color-variant-base);
-    color: var(--color-text-normal-on-base);
+    border-width: 1px;
+    border-style: solid;
     border-radius: var(--radius-2);
     padding: var(--size-4);
     flex-direction: row;
@@ -47,10 +44,6 @@
     align-items: baseline;
     gap: var(--size-1) var(--size-2);
     transition: background-color 0.2s ease;
-  }
-
-  .color-card:hover {
-    background-color: var(--color-variant-hover);
   }
 
   .color-title {
@@ -63,837 +56,630 @@
 <div class="swatch-container">
   <section class="theme-section">
     <h2>Tekstkontraster</h2>
+    <h3 data-text-contrast="brand">Brand Text Color</h3>
     <p style="font-weight: bold">Text color normal</p>
     <p data-text-contrast="subtle" style="font-weight: bold">Text color subtle</p>
     <p data-text-contrast="muted" style="font-weight: bold">Text color muted</p>
-    <p data-text-contrast="primary" style="font-weight: bold">Primary text on base</p>
-    <p data-text-contrast="secondary" style="font-weight: bold">Secondary text on base</p>
-    <p data-text-contrast="success" style="font-weight: bold">Success text on base</p>
-    <p data-text-contrast="warning" style="font-weight: bold">Warning text on base</p>
-    <p data-text-contrast="error" style="font-weight: bold">Error text on base</p>
-    <p data-text-contrast="info" style="font-weight: bold">Info text on base</p>
   </section>
 
-  <section class="theme-section" style="display: flex; flex-direction: column; gap: var(--size-2)">
+  <section class="theme-section" style="display: flex; flex-direction: column">
     <h2>Swatches</h2>
-    <div class="color-swatches" role="grid">
-      <div class="color-swatch" style="background-color: --get-neutral(50); color: --text-normal(--get-neutral(50))">
-        50
+
+    <div data-variant="neutral" class="color-swatches" role="grid">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text-contrast="subtle">50</span>
+        <span data-text-contrast="muted">50</span>
       </div>
-      <div class="color-swatch" style="background-color: --get-neutral(100); color: --text-normal(--get-neutral(100))">
-        100
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text-contrast="subtle">100</span>
+        <span data-text-contrast="muted">100</span>
       </div>
-      <div class="color-swatch" style="background-color: --get-neutral(200); color: --text-normal(--get-neutral(200))">
-        200
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text-contrast="subtle">200</span>
+        <span data-text-contrast="muted">200</span>
       </div>
-      <div class="color-swatch" style="background-color: --get-neutral(300); color: --text-normal(--get-neutral(300))">
-        300
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text-contrast="subtle">300</span>
+        <span data-text-contrast="muted">300</span>
       </div>
-      <div class="color-swatch" style="background-color: --get-neutral(400); color: --text-normal(--get-neutral(400))">
-        400
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text-contrast="subtle">400</span>
+        <span data-text-contrast="muted">400</span>
       </div>
-      <div class="color-swatch" style="background-color: --get-neutral(500); color: --text-normal(--get-neutral(500))">
-        500
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text-contrast="subtle">500</span>
+        <span data-text-contrast="muted">500</span>
       </div>
-      <div class="color-swatch" style="background-color: --get-neutral(600); color: --text-normal(--get-neutral(600))">
-        600
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text-contrast="subtle">600</span>
+        <span data-text-contrast="muted">600</span>
       </div>
-      <div class="color-swatch" style="background-color: --get-neutral(700); color: --text-normal(--get-neutral(700))">
-        700
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text-contrast="subtle">700</span>
+        <span data-text-contrast="muted">700</span>
       </div>
-      <div class="color-swatch" style="background-color: --get-neutral(800); color: --text-normal(--get-neutral(800))">
-        800
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text-contrast="subtle">800</span>
+        <span data-text-contrast="muted">800</span>
       </div>
-      <div class="color-swatch" style="background-color: --get-neutral(900); color: --text-normal(--get-neutral(900))">
-        900
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text-contrast="subtle">900</span>
+        <span data-text-contrast="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text-contrast="subtle">950</span>
+        <span data-text-contrast="muted">950</span>
+      </div>
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text-contrast="subtle">A100</span>
+        <span data-text-contrast="muted">A100</span>
+      </div>
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text-contrast="subtle">A200</span>
+        <span data-text-contrast="muted">A200</span>
+      </div>
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text-contrast="subtle">A400</span>
+        <span data-text-contrast="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text-contrast="subtle">A700</span>
+        <span data-text-contrast="muted">A700</span>
       </div>
     </div>
 
-    <div class="color-swatches" role="grid">
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-primary), 50);
-          color: --get-color-contrast(var(--hue-primary), 50);
-        "
-      >
-        50
+    <div data-variant="primary" class="color-swatches" role="grid">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text-contrast="subtle">50</span>
+        <span data-text-contrast="muted">50</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-primary), 100);
-          color: --get-color-contrast(var(--hue-primary), 100);
-        "
-      >
-        100
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text-contrast="subtle">100</span>
+        <span data-text-contrast="muted">100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-primary), 200);
-          color: --get-color-contrast(var(--hue-primary), 200);
-        "
-      >
-        200
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text-contrast="subtle">200</span>
+        <span data-text-contrast="muted">200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-primary), 300);
-          color: --get-color-contrast(var(--hue-primary), 300);
-        "
-      >
-        300
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text-contrast="subtle">300</span>
+        <span data-text-contrast="muted">300</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-primary), 400);
-          color: --get-color-contrast(var(--hue-primary), 400);
-        "
-      >
-        400
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text-contrast="subtle">400</span>
+        <span data-text-contrast="muted">400</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-primary), 500);
-          color: --get-color-contrast(var(--hue-primary), 500);
-        "
-      >
-        500
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text-contrast="subtle">500</span>
+        <span data-text-contrast="muted">500</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-primary), 550);
-          color: --get-color-contrast(var(--hue-primary), 550);
-        "
-      >
-        600
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text-contrast="subtle">600</span>
+        <span data-text-contrast="muted">600</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-primary), 650);
-          color: --get-color-contrast(var(--hue-primary), 650);
-        "
-      >
-        700
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text-contrast="subtle">700</span>
+        <span data-text-contrast="muted">700</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-primary), 750);
-          color: --get-color-contrast(var(--hue-primary), 750);
-        "
-      >
-        800
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text-contrast="subtle">800</span>
+        <span data-text-contrast="muted">800</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-primary), 800);
-          color: --get-color-contrast(var(--hue-primary), 800);
-        "
-      >
-        900
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text-contrast="subtle">900</span>
+        <span data-text-contrast="muted">900</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-primary), 100);
-          color: --get-accent-contrast(var(--hue-primary), 100);
-        "
-      >
-        A100
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text-contrast="subtle">950</span>
+        <span data-text-contrast="muted">950</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-primary), 200);
-          color: --get-accent-contrast(var(--hue-primary), 200);
-        "
-      >
-        A200
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text-contrast="subtle">A100</span>
+        <span data-text-contrast="muted">A100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-primary), 400);
-          color: --get-accent-contrast(var(--hue-primary), 400);
-        "
-      >
-        A400
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text-contrast="subtle">A200</span>
+        <span data-text-contrast="muted">A200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-primary), 700);
-          color: --get-accent-contrast(var(--hue-primary), 700);
-        "
-      >
-        A700
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text-contrast="subtle">A400</span>
+        <span data-text-contrast="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text-contrast="subtle">A700</span>
+        <span data-text-contrast="muted">A700</span>
       </div>
     </div>
 
-    <div class="color-swatches" role="grid">
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-secondary), 50);
-          color: --get-color-contrast(var(--hue-secondary), 50);
-        "
-      >
-        50
+    <div data-variant="secondary" class="color-swatches" role="grid">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text-contrast="subtle">50</span>
+        <span data-text-contrast="muted">50</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-secondary), 100);
-          color: --get-color-contrast(var(--hue-secondary), 100);
-        "
-      >
-        100
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text-contrast="subtle">100</span>
+        <span data-text-contrast="muted">100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-secondary), 200);
-          color: --get-color-contrast(var(--hue-secondary), 200);
-        "
-      >
-        200
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text-contrast="subtle">200</span>
+        <span data-text-contrast="muted">200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-secondary), 300);
-          color: --get-color-contrast(var(--hue-secondary), 300);
-        "
-      >
-        30+
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text-contrast="subtle">300</span>
+        <span data-text-contrast="muted">300</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-secondary), 400);
-          color: --get-color-contrast(var(--hue-secondary), 400);
-        "
-      >
-        400
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text-contrast="subtle">400</span>
+        <span data-text-contrast="muted">400</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-secondary), 500);
-          color: --get-color-contrast(var(--hue-secondary), 500);
-        "
-      >
-        500
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text-contrast="subtle">500</span>
+        <span data-text-contrast="muted">500</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-secondary), 550);
-          color: --get-color-contrast(var(--hue-secondary), 550);
-        "
-      >
-        600
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text-contrast="subtle">600</span>
+        <span data-text-contrast="muted">600</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-secondary), 650);
-          color: --get-color-contrast(var(--hue-secondary), 650);
-        "
-      >
-        700
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text-contrast="subtle">700</span>
+        <span data-text-contrast="muted">700</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-secondary), 750);
-          color: --get-color-contrast(var(--hue-secondary), 750);
-        "
-      >
-        800
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text-contrast="subtle">800</span>
+        <span data-text-contrast="muted">800</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-secondary), 850);
-          color: --get-color-contrast(var(--hue-secondary), 850);
-        "
-      >
-        900
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text-contrast="subtle">900</span>
+        <span data-text-contrast="muted">900</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-secondary), 100);
-          color: --get-accent-contrast(var(--hue-secondary), 100);
-        "
-      >
-        A100
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text-contrast="subtle">950</span>
+        <span data-text-contrast="muted">950</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-secondary), 200);
-          color: --get-accent-contrast(var(--hue-secondary), 200);
-        "
-      >
-        A200
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text-contrast="subtle">A100</span>
+        <span data-text-contrast="muted">A100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-secondary), 400);
-          color: --get-accent-contrast(var(--hue-secondary), 400);
-        "
-      >
-        A400
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text-contrast="subtle">A200</span>
+        <span data-text-contrast="muted">A200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-secondary), 700);
-          color: --get-accent-contrast(var(--hue-secondary), 700);
-        "
-      >
-        A700
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text-contrast="subtle">A400</span>
+        <span data-text-contrast="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text-contrast="subtle">A700</span>
+        <span data-text-contrast="muted">A700</span>
       </div>
     </div>
 
-    <div class="color-swatches" role="grid">
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-success), 50);
-          color: --get-color-contrast(var(--hue-success), 50);
-        "
-      >
-        50
+    <div data-variant="success" class="color-swatches" role="grid">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text-contrast="subtle">50</span>
+        <span data-text-contrast="muted">50</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-success), 100);
-          color: --get-color-contrast(var(--hue-success), 100);
-        "
-      >
-        100
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text-contrast="subtle">100</span>
+        <span data-text-contrast="muted">100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-success), 200);
-          color: --get-color-contrast(var(--hue-success), 200);
-        "
-      >
-        200
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text-contrast="subtle">200</span>
+        <span data-text-contrast="muted">200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-success), 300);
-          color: --get-color-contrast(var(--hue-success), 300);
-        "
-      >
-        300
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text-contrast="subtle">300</span>
+        <span data-text-contrast="muted">300</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-success), 400);
-          color: --get-color-contrast(var(--hue-success), 400);
-        "
-      >
-        400
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text-contrast="subtle">400</span>
+        <span data-text-contrast="muted">400</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-success), 500);
-          color: --get-color-contrast(var(--hue-success), 500);
-        "
-      >
-        500
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text-contrast="subtle">500</span>
+        <span data-text-contrast="muted">500</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-success), 550);
-          color: --get-color-contrast(var(--hue-success), 550);
-        "
-      >
-        600
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text-contrast="subtle">600</span>
+        <span data-text-contrast="muted">600</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-success), 650);
-          color: --get-color-contrast(var(--hue-success), 650);
-        "
-      >
-        700
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text-contrast="subtle">700</span>
+        <span data-text-contrast="muted">700</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-success), 750);
-          color: --get-color-contrast(var(--hue-success), 750);
-        "
-      >
-        800
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text-contrast="subtle">800</span>
+        <span data-text-contrast="muted">800</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-success), 850);
-          color: --get-color-contrast(var(--hue-success), 850);
-        "
-      >
-        900
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text-contrast="subtle">900</span>
+        <span data-text-contrast="muted">900</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-success), 100);
-          color: --get-accent-contrast(var(--hue-success), 100);
-        "
-      >
-        A100
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text-contrast="subtle">950</span>
+        <span data-text-contrast="muted">950</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-success), 200);
-          color: --get-accent-contrast(var(--hue-success), 200);
-        "
-      >
-        A200
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text-contrast="subtle">A100</span>
+        <span data-text-contrast="muted">A100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-success), 400);
-          color: --get-accent-contrast(var(--hue-succes), 400);
-        "
-      >
-        A400
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text-contrast="subtle">A200</span>
+        <span data-text-contrast="muted">A200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-success), 700);
-          color: --get-accent-contrast(var(--hue-succes), 700);
-        "
-      >
-        A700
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text-contrast="subtle">A400</span>
+        <span data-text-contrast="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text-contrast="subtle">A700</span>
+        <span data-text-contrast="muted">A700</span>
       </div>
     </div>
 
-    <div class="color-swatches" role="grid">
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-error), 50); color: --get-color-contrast(var(--hue-error), 50)"
-      >
-        50
+    <div data-variant="error" class="color-swatches" role="grid">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text-contrast="subtle">50</span>
+        <span data-text-contrast="muted">50</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-error), 100); color: --get-color-contrast(var(--hue-error), 100)"
-      >
-        100
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text-contrast="subtle">100</span>
+        <span data-text-contrast="muted">100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-error), 200); color: --get-color-contrast(var(--hue-error), 200)"
-      >
-        200
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text-contrast="subtle">200</span>
+        <span data-text-contrast="muted">200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-error), 300); color: --get-color-contrast(var(--hue-error), 300)"
-      >
-        300
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text-contrast="subtle">300</span>
+        <span data-text-contrast="muted">300</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-error), 400); color: --get-color-contrast(var(--hue-error), 400)"
-      >
-        400
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text-contrast="subtle">400</span>
+        <span data-text-contrast="muted">400</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-error), 500); color: --get-color-contrast(var(--hue-error), 500)"
-      >
-        500
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text-contrast="subtle">500</span>
+        <span data-text-contrast="muted">500</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-error), 600); color: --get-color-contrast(var(--hue-error), 600)"
-      >
-        600
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text-contrast="subtle">600</span>
+        <span data-text-contrast="muted">600</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-error), 700); color: --get-color-contrast(var(--hue-error), 700)"
-      >
-        700
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text-contrast="subtle">700</span>
+        <span data-text-contrast="muted">700</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-error), 800); color: --get-color-contrast(var(--hue-error), 800)"
-      >
-        800
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text-contrast="subtle">800</span>
+        <span data-text-contrast="muted">800</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-error), 900); color: --get-color-contrast(var(--hue-error), 900)"
-      >
-        900
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text-contrast="subtle">900</span>
+        <span data-text-contrast="muted">900</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-error), 100);
-          color: --get-accent-contrast(var(--hue-error), 100);
-        "
-      >
-        A100
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text-contrast="subtle">950</span>
+        <span data-text-contrast="muted">950</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-error), 200);
-          color: --get-accent-contrast(var(--hue-error), 200);
-        "
-      >
-        A200
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text-contrast="subtle">A100</span>
+        <span data-text-contrast="muted">A100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-error), 400);
-          color: --get-accent-contrast(var(--hue-error), 400);
-        "
-      >
-        A400
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text-contrast="subtle">A200</span>
+        <span data-text-contrast="muted">A200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-error), 700);
-          color: --get-accent-contrast(var(--hue-error), 700);
-        "
-      >
-        A700
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text-contrast="subtle">A400</span>
+        <span data-text-contrast="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text-contrast="subtle">A700</span>
+        <span data-text-contrast="muted">A700</span>
       </div>
     </div>
 
-    <div class="color-swatches" role="grid">
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-warning), 50);
-          color: --get-color-contrast(var(--hue-warning), 50);
-        "
-      >
-        50
+    <div data-variant="warning" class="color-swatches" role="grid">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text-contrast="subtle">50</span>
+        <span data-text-contrast="muted">50</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-warning), 100);
-          color: --get-color-contrast(var(--hue-warning), 100);
-        "
-      >
-        100
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text-contrast="subtle">100</span>
+        <span data-text-contrast="muted">100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-warning), 200);
-          color: --get-color-contrast(var(--hue-warning), 200);
-        "
-      >
-        200
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text-contrast="subtle">200</span>
+        <span data-text-contrast="muted">200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-warning), 300);
-          color: --get-color-contrast(var(--hue-warning), 300);
-        "
-      >
-        300
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text-contrast="subtle">300</span>
+        <span data-text-contrast="muted">300</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-warning), 400);
-          color: --get-color-contrast(var(--hue-warning), 400);
-        "
-      >
-        400
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text-contrast="subtle">400</span>
+        <span data-text-contrast="muted">400</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-warning), 500);
-          color: --get-color-contrast(var(--hue-warning), 500);
-        "
-      >
-        500
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text-contrast="subtle">500</span>
+        <span data-text-contrast="muted">500</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-warning), 600);
-          color: --get-color-contrast(var(--hue-warning), 600);
-        "
-      >
-        600
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text-contrast="subtle">600</span>
+        <span data-text-contrast="muted">600</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-warning), 700);
-          color: --get-color-contrast(var(--hue-warning), 700);
-        "
-      >
-        700
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text-contrast="subtle">700</span>
+        <span data-text-contrast="muted">700</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-warning), 800);
-          color: --get-color-contrast(var(--hue-warning), 800);
-        "
-      >
-        800
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text-contrast="subtle">800</span>
+        <span data-text-contrast="muted">800</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-color(var(--hue-warning), 900);
-          color: --get-color-contrast(var(--hue-warning), 900);
-        "
-      >
-        900
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text-contrast="subtle">900</span>
+        <span data-text-contrast="muted">900</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-warning), 100);
-          color: --get-accent-contrast(var(--hue-warning), 100);
-        "
-      >
-        A100
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text-contrast="subtle">950</span>
+        <span data-text-contrast="muted">950</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-warning), 200);
-          color: --get-accent-contrast(var(--hue-warning), 200);
-        "
-      >
-        A200
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text-contrast="subtle">A100</span>
+        <span data-text-contrast="muted">A100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-warning), 400);
-          color: --get-accent-contrast(var(--hue-warning), 400);
-        "
-      >
-        A400
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text-contrast="subtle">A200</span>
+        <span data-text-contrast="muted">A200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-warning), 700);
-          color: --get-accent-contrast(var(--hue-warning), 700);
-        "
-      >
-        A700
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text-contrast="subtle">A400</span>
+        <span data-text-contrast="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text-contrast="subtle">A700</span>
+        <span data-text-contrast="muted">A700</span>
       </div>
     </div>
 
-    <div class="color-swatches" role="grid">
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-info), 50); color: --get-color-contrast(var(--hue-info), 50)"
-      >
-        50
+    <div data-variant="info" class="color-swatches" role="grid">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text-contrast="subtle">50</span>
+        <span data-text-contrast="muted">50</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-info), 100); color: --get-color-contrast(var(--hue-info), 100)"
-      >
-        100
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text-contrast="subtle">100</span>
+        <span data-text-contrast="muted">100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-info), 200); color: --get-color-contrast(var(--hue-info), 200)"
-      >
-        200
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text-contrast="subtle">200</span>
+        <span data-text-contrast="muted">200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-info), 300); color: --get-color-contrast(var(--hue-info), 300)"
-      >
-        300
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text-contrast="subtle">300</span>
+        <span data-text-contrast="muted">300</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-info), 400); color: --get-color-contrast(var(--hue-info), 400)"
-      >
-        400
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text-contrast="subtle">400</span>
+        <span data-text-contrast="muted">400</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-info), 500); color: --get-color-contrast(var(--hue-info), 500)"
-      >
-        500
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text-contrast="subtle">500</span>
+        <span data-text-contrast="muted">500</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-info), 600); color: --get-color-contrast(var(--hue-info), 600)"
-      >
-        600
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text-contrast="subtle">600</span>
+        <span data-text-contrast="muted">600</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-info), 700); color: --get-color-contrast(var(--hue-info), 700)"
-      >
-        700
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text-contrast="subtle">700</span>
+        <span data-text-contrast="muted">700</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-info), 800); color: --get-color-contrast(var(--hue-info), 800)"
-      >
-        800
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text-contrast="subtle">800</span>
+        <span data-text-contrast="muted">800</span>
       </div>
-      <div
-        class="color-swatch"
-        style="background-color: --get-color(var(--hue-info), 900); color: --get-color-contrast(var(--hue-info), 900)"
-      >
-        900
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text-contrast="subtle">900</span>
+        <span data-text-contrast="muted">900</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-info), 100);
-          color: --get-accent-contrast(var(--hue-info), 100);
-        "
-      >
-        A100
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text-contrast="subtle">950</span>
+        <span data-text-contrast="muted">950</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-info), 200);
-          color: --get-accent-contrast(var(--hue-info), 200);
-        "
-      >
-        A200
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text-contrast="subtle">A100</span>
+        <span data-text-contrast="muted">A100</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-info), 400);
-          color: --get-accent-contrast(var(--hue-info), 400);
-        "
-      >
-        A400
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text-contrast="subtle">A200</span>
+        <span data-text-contrast="muted">A200</span>
       </div>
-      <div
-        class="color-swatch"
-        style="
-          background-color: --get-accent-color(var(--hue-info), 700);
-          color: --get-accent-contrast(var(--hue-info), 700);
-        "
-      >
-        A700
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text-contrast="subtle">A400</span>
+        <span data-text-contrast="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text-contrast="subtle">A700</span>
+        <span data-text-contrast="muted">A700</span>
       </div>
     </div>
   </section>
 
   <section class="theme-section">
-    <h2>Komponent- og Kontrastoverflater</h2>
-    <p>Hold musen over kortene for å teste <code>--hover</code>-styrken. Teksten inni bruker <code>--on-base</code>.</p>
+    <h2>Component and Contrast Surfaces</h2>
 
     <div class="color-card-grid">
       <div class="color-card" data-variant="primary">
-        <p class="color-title">Primary</p>
-        <span data-text-contrast="subtle">Text color subtle</span>
-        <span data-text-contrast="muted">Text color muted</span>
-        <span data-text-contrast="primary">Primary text</span>
-        <span data-text-contrast="secondary">Secondary text</span>
-        <span data-text-contrast="success">Success text</span>
-        <span data-text-contrast="warning">Warning text</span>
-        <span data-text-contrast="error">Error text</span>
-        <span data-text-contrast="info">Info text</span>
+        <p data-text-contrast="brand" class="color-title">Primary</p>
+        <div>Normal text color</div>
+        <div data-text-contrast="subtle">Subtle text color</div>
+        <div data-text-contrast="muted">Muted text color</div>
+        <p>
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>&nbsp;
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>
+        </p>
       </div>
+
       <div class="color-card" data-variant="secondary">
-        <p class="color-title">Secondary</p>
-        <span data-text-contrast="subtle">Text color subtle</span>
-        <span data-text-contrast="muted">Text color muted</span>
-        <span data-text-contrast="primary">Primary text</span>
-        <span data-text-contrast="secondary">Secondary text</span>
-        <span data-text-contrast="success">Success text</span>
-        <span data-text-contrast="warning">Warning text</span>
-        <span data-text-contrast="error">Error text</span>
-        <span data-text-contrast="info">Info text</span>
+        <p data-text-contrast="brand" class="color-title">Secondary</p>
+        <div>Normal text color</div>
+        <div data-text-contrast="subtle">Subtle text color</div>
+        <div data-text-contrast="muted">Muted text color</div>
+        <p>
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>&nbsp;
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>
+        </p>
       </div>
+
       <div class="color-card" data-variant="success">
-        <p class="color-title">Success</p>
-        <span data-text-contrast="subtle">Text color subtle</span>
-        <span data-text-contrast="muted">Text color muted</span>
-        <span data-text-contrast="primary">Primary text</span>
-        <span data-text-contrast="secondary">Secondary text</span>
-        <span data-text-contrast="success">Success text</span>
-        <span data-text-contrast="warning">Warning text</span>
-        <span data-text-contrast="error">Error text</span>
-        <span data-text-contrast="info">Info text</span>
+        <p data-text-contrast="brand" class="color-title">Success</p>
+        <div>Normal text color</div>
+        <div data-text-contrast="subtle">Subtle text color</div>
+        <div data-text-contrast="muted">Muted text color</div>
+        <p>
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>&nbsp;
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>
+        </p>
       </div>
+
       <div class="color-card" data-variant="warning">
-        <p class="color-title">Warning</p>
-        <span data-text-contrast="subtle">Text color subtle</span>
-        <span data-text-contrast="muted">Text color muted</span>
-        <span data-text-contrast="primary">Primary text</span>
-        <span data-text-contrast="secondary">Secondary text</span>
-        <span data-text-contrast="success">Success text</span>
-        <span data-text-contrast="warning">Warning text</span>
-        <span data-text-contrast="error">Error text</span>
-        <span data-text-contrast="info">Info text</span>
+        <p data-text-contrast="brand" class="color-title">Warning</p>
+        <div>Normal text color</div>
+        <div data-text-contrast="subtle">Subtle text color</div>
+        <div data-text-contrast="muted">Muted text color</div>
+        <p>
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>&nbsp;
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>
+        </p>
       </div>
+
       <div class="color-card" data-variant="error">
-        <p class="color-title">Error</p>
-        <span data-text-contrast="subtle">Text color subtle</span>
-        <span data-text-contrast="muted">Text color muted</span>
-        <span data-text-contrast="primary">Primary text</span>
-        <span data-text-contrast="secondary">Secondary text</span>
-        <span data-text-contrast="success">Success text</span>
-        <span data-text-contrast="warning">Warning text</span>
-        <span data-text-contrast="error">Error text</span>
-        <span data-text-contrast="info">Info text</span>
+        <p data-text-contrast="brand" class="color-title">Error</p>
+        <div>Normal text color</div>
+        <div data-text-contrast="subtle">Subtle text color</div>
+        <div data-text-contrast="muted">Muted text color</div>
+        <p>
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>&nbsp;
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>
+        </p>
       </div>
+
       <div class="color-card" data-variant="info">
-        <p class="color-title">Info</p>
-        <span data-text-contrast="subtle">Text color subtle</span>
-        <span data-text-contrast="muted">Text color muted</span>
-        <span data-text-contrast="primary">Primary text</span>
-        <span data-text-contrast="secondary">Secondary text</span>
-        <span data-text-contrast="success">Success text</span>
-        <span data-text-contrast="warning">Warning text</span>
-        <span data-text-contrast="error">Error text</span>
-        <span data-text-contrast="info">Info text</span>
+        <p data-text-contrast="brand" class="color-title">Info</p>
+        <div>Normal text color</div>
+        <div data-text-contrast="subtle">Subtle text color</div>
+        <div data-text-contrast="muted">Muted text color</div>
+        <p>
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>&nbsp;
+          <a href="#" onclick="arguments[0].preventDefault()">Link</a>
+        </p>
       </div>
     </div>
   </section>
