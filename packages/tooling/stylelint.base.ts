@@ -29,7 +29,7 @@ const config: Config = {
       },
     ],
     'custom-property-pattern': [
-      '^_?[a-z][a-z0-9]*(-[a-z0-9]+)*$',
+      '^_?[a-z][a-z0-9]*(-[A-Z]?[a-z0-9]+)*$',
       {
         message: 'Expected custom property name to be kebab-case or start with an underscore',
       },

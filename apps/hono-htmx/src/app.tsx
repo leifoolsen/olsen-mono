@@ -8,6 +8,7 @@ import { Button } from './components/button';
 import { Layout } from './components/layout';
 import colorSwatch from './html/color-swatch.html?raw';
 import html5TestData from './html/html5-test-page.html?raw';
+import { browserGuard } from './middleware/browser-guard.ts';
 import { getFormattedTime, getAppUptime } from './utils';
 
 type AppTheme = 'light' | 'dark' | 'auto';
@@ -17,8 +18,8 @@ const app = new Hono();
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const staticRoot = process.env.NODE_ENV === 'production' ? path.join(__dirname, 'public') : './';
 
-// Gjør serving av public sikrere i dev-modus
-// app.use('/*', serveStatic({ root: process.env.NODE_ENV === 'production' ? './public' : './' }));
+app.use('*', browserGuard);
+
 app.use('/*', serveStatic({ root: staticRoot }));
 
 // 1. ENDEPUNKT FOR TEMA-BYTTE
