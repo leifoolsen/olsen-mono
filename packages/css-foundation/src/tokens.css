@@ -13,7 +13,7 @@
   --fs-h3: var(--font-size-fluid-1);
 
   /* --- Base Colors --- */
-  --hue-neutral: 250; /* grey */
+  --hue-neutral: 250; /* grey with blue chroma */
   --chroma-neutral: 0.02;
   --hue-primary: 250; /* blue */
   --chroma-primary: 0.19;
@@ -33,33 +33,126 @@
   --base-c: var(--chroma-neutral);
   --base-h: var(--hue-neutral);
 
-  /* System Brand Color */
+  /* Brand Color */
   --system-brand-color: light-dark(oklch(50% 0.25 var(--hue-primary)), oklch(60% 0.2 var(--hue-primary)));
-
-  /* System Brand Text */
-  --system-brand-text: light-dark(
+  --global-brand-text: light-dark(
     oklch(40% var(--chroma-primary) var(--hue-primary)),
     oklch(80% var(--chroma-primary) var(--hue-primary))
   );
+  --brand-text-color: var(--global-brand-text);
 
-  /* Activates Text Brand Color */
-  --brand-text: var(--system-brand-text);
-
-  /* Activates Page Background Color */
-  --swatch-color: light-dark(oklch(90% 0 0deg), oklch(20% 0 0deg));
-
-  /* -- -- */
-  --system-border-color: light-dark(oklch(30% 0 0deg), oklch(50% 0 0deg));
-  --border-color: var(--system-border-color);
-
+  /* -- Caret Color -- */
   caret-color: var(--system-brand-color);
 }
 
+/* --- Default / Fallback --- */
+body {
+  --swatch-color: light-dark(oklch(98% 0 0deg), oklch(11% 0 0deg));
+}
+
+body,
+[data-color],
+[data-variant] {
+  --raw-contrast: contrast-color(var(--swatch-color));
+  --normal-text: color-mix(in oklch, var(--swatch-color) 4%, var(--raw-contrast));
+  --subtle-text: light-dark(
+    color-mix(in oklch, var(--swatch-color) 35%, var(--raw-contrast)),
+    color-mix(in oklch, var(--swatch-color) 20%, var(--raw-contrast))
+  );
+  --muted-text: light-dark(
+    color-mix(in oklch, var(--swatch-color) 50%, var(--raw-contrast)),
+    color-mix(in oklch, var(--swatch-color) 45%, var(--raw-contrast))
+  );
+
+  background-color: var(--swatch-color);
+  border-color: var(--border-color);
+  color: var(--normal-text);
+}
+
+/* -- Generic Color Scheme -- */
+[data-variant] {
+  /* Light */
+  --color-50: oklch(calc(var(--base-l) + 0.32) calc(var(--base-c) * 0.3) var(--base-h));
+  --color-100: oklch(calc(var(--base-l) + 0.24) calc(var(--base-c) * 0.5) var(--base-h));
+  --color-200: oklch(calc(var(--base-l) + 0.16) calc(var(--base-c) * 0.75) var(--base-h));
+  --color-300: oklch(calc(var(--base-l) + 0.08) calc(var(--base-c) * 0.9) var(--base-h));
+  --color-400: oklch(calc(var(--base-l) + 0.04) calc(var(--base-c) * 0.95) var(--base-h));
+
+  /* Base */
+  --color-500: oklch(var(--base-l) var(--base-c) var(--base-h));
+
+  /* Dark */
+  --color-600: oklch(calc(var(--base-l) - 0.04) calc(var(--base-c) * 0.95) var(--base-h));
+  --color-700: oklch(calc(var(--base-l) - 0.1) calc(var(--base-c) * 0.9) var(--base-h));
+  --color-800: oklch(calc(var(--base-l) - 0.15) calc(var(--base-c) * 0.8) var(--base-h));
+  --color-900: oklch(calc(var(--base-l) - 0.21) calc(var(--base-c) * 0.6) var(--base-h));
+  --color-950: oklch(calc(var(--base-l) - 0.27) calc(var(--base-c) * 0.4) var(--base-h));
+
+  /* Accent */
+  --color-A100: oklch(calc(var(--base-l) + 0.15) calc(var(--base-c) * 1.2) var(--base-h));
+  --color-A200: oklch(calc(var(--base-l) + 0.08) calc(var(--base-c) * 1.3) var(--base-h));
+  --color-A400: oklch(var(--base-l) calc(var(--base-c) * 1.4) var(--base-h));
+  --color-A700: oklch(calc(var(--base-l) - 0.1) calc(var(--base-c) * 1.2) var(--base-h));
+
+  /* --- Color Theme --- */
+  --brand-text-color: light-dark(
+    color-mix(in oklch, var(--raw-contrast) 85%, oklch(35% var(--base-c) var(--base-h) / 80%)),
+    color-mix(in oklch, var(--raw-contrast) 85%, oklch(85% var(--base-c) var(--base-h) / 80%))
+  );
+  --swatch-color: light-dark(var(--color-300), var(--color-500));
+  --border-color: light-dark(var(--color-200), var(--color-400));
+
+  accent-color: var(--swatch-color);
+
+  &:is(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]),
+  & :is(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]) {
+    &:hover {
+      --swatch-color: light-dark(var(--color-400), var(--color-600));
+      --border-color: light-dark(var(--color-300), var(--color-700));
+    }
+
+    &:active {
+      --swatch-color: light-dark(var(--color-500), var(--color-700));
+      --border-color: light-dark(var(--color-400), var(--color-800));
+    }
+  }
+}
+
 /* --- Color Themes --- */
+[data-variant='surface'],
+[data-variant='surface-1'],
+[data-variant='surface-2'] {
+  --color-50: oklch(100% 0 0deg);
+  --color-100: oklch(95% 0 0deg);
+  --color-200: oklch(88% 0 0deg);
+  --color-300: oklch(78% 0 0deg);
+  --color-400: oklch(65% 0 0deg);
+  --color-500: oklch(50% 0 0deg);
+  --color-600: oklch(38% 0 0deg);
+  --color-700: oklch(26% 0 0deg);
+  --color-800: oklch(16% 0 0deg);
+  --color-900: oklch(8% 0 0deg);
+  --color-950: oklch(4% 0 0deg);
+  --swatch-color: light-dark(var(--color-200), var(--color-800));
+  --border-color: light-dark(var(--color-700), var(--color-500));
+}
+
+[data-variant='surface-1'] {
+  --swatch-color: light-dark(var(--color-100), var(--color-700));
+  --border-color: light-dark(var(--color-200), var(--color-800));
+}
+
+[data-variant='surface-2'] {
+  --swatch-color: light-dark(var(--color-200), var(--color-800));
+  --border-color: light-dark(var(--color-300), var(--color-900));
+}
+
 [data-variant='neutral'] {
   --base-c: var(--chroma-neutral);
   --base-h: var(--hue-neutral);
-  --base-l: 0.7;
+  --base-l: 0.6;
+  --swatch-color: light-dark(var(--color-100), var(--color-800));
+  --border-color: light-dark(var(--color-200), var(--color-900));
 }
 
 [data-variant='primary'] {
@@ -98,75 +191,7 @@
   --base-l: 0.55;
 }
 
-/* --- Default / Fallback --- */
-body,
-[data-color],
-[data-variant] {
-  --raw-contrast: contrast-color(var(--swatch-color));
-  --text-normal: color-mix(in oklch, var(--swatch-color) 4%, var(--raw-contrast));
-  --text-subtle: light-dark(
-    color-mix(in oklch, var(--swatch-color) 35%, var(--raw-contrast)),
-    color-mix(in oklch, var(--swatch-color) 20%, var(--raw-contrast))
-  );
-  --text-muted: light-dark(
-    color-mix(in oklch, var(--swatch-color) 50%, var(--raw-contrast)),
-    color-mix(in oklch, var(--swatch-color) 45%, var(--raw-contrast))
-  );
-
-  background-color: var(--swatch-color);
-  border-color: var(--border-color);
-  color: var(--text-normal);
-}
-
-/* -- Generic Color Scheme -- */
-[data-variant] {
-  /* Light */
-  --color-50: oklch(calc(var(--base-l) + 0.32) calc(var(--base-c) * 0.3) var(--base-h));
-  --color-100: oklch(calc(var(--base-l) + 0.24) calc(var(--base-c) * 0.5) var(--base-h));
-  --color-200: oklch(calc(var(--base-l) + 0.16) calc(var(--base-c) * 0.75) var(--base-h));
-  --color-300: oklch(calc(var(--base-l) + 0.08) calc(var(--base-c) * 0.9) var(--base-h));
-  --color-400: oklch(calc(var(--base-l) + 0.04) calc(var(--base-c) * 0.95) var(--base-h));
-
-  /* Base */
-  --color-500: oklch(var(--base-l) var(--base-c) var(--base-h));
-
-  /* Dark */
-  --color-600: oklch(calc(var(--base-l) - 0.04) calc(var(--base-c) * 0.95) var(--base-h));
-  --color-700: oklch(calc(var(--base-l) - 0.1) calc(var(--base-c) * 0.9) var(--base-h));
-  --color-800: oklch(calc(var(--base-l) - 0.15) calc(var(--base-c) * 0.8) var(--base-h));
-  --color-900: oklch(calc(var(--base-l) - 0.21) calc(var(--base-c) * 0.6) var(--base-h));
-  --color-950: oklch(calc(var(--base-l) - 0.27) calc(var(--base-c) * 0.4) var(--base-h));
-
-  /* Accent */
-  --color-A100: oklch(calc(var(--base-l) + 0.15) calc(var(--base-c) * 1.2) var(--base-h));
-  --color-A200: oklch(calc(var(--base-l) + 0.08) calc(var(--base-c) * 1.3) var(--base-h));
-  --color-A400: oklch(var(--base-l) calc(var(--base-c) * 1.4) var(--base-h));
-  --color-A700: oklch(calc(var(--base-l) - 0.1) calc(var(--base-c) * 1.2) var(--base-h));
-
-  /* --- Color Theme --- */
-  --brand-text: light-dark(
-    color-mix(in oklch, var(--raw-contrast) 85%, oklch(35% var(--base-c) var(--base-h) / 80%)),
-    color-mix(in oklch, var(--raw-contrast) 85%, oklch(85% var(--base-c) var(--base-h) / 80%))
-  );
-  --swatch-color: light-dark(var(--color-300), var(--color-500));
-  --border-color: light-dark(var(--color-200), var(--color-400));
-
-  accent-color: var(--swatch-color);
-
-  &:where(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]) {
-    &:hover {
-      --swatch-color: light-dark(var(--color-400), var(--color-600));
-      --border-color: light-dark(var(--color-300), var(--color-700));
-    }
-
-    &:active {
-      --swatch-color: light-dark(var(--color-500), var(--color-700));
-      --border-color: light-dark(var(--color-400), var(--color-800));
-    }
-  }
-}
-
-/* --- Color Swatches --- */
+/* --- Swatch Mappings --- */
 [data-color='50'] {
   --swatch-color: var(--color-50);
 }
@@ -229,19 +254,19 @@ body,
 
 /* --- Text contrasts --- */
 [data-text-contrast='brand'] {
-  color: var(--brand-text);
+  color: var(--brand-text-color);
 }
 
 [data-text-contrast='normal'] {
-  color: var(--text-normal);
+  color: var(--normal-text);
 }
 
 [data-text-contrast='subtle'] {
-  color: var(--text-subtle);
+  color: var(--subtle-text);
 }
 
 [data-text-contrast='muted'] {
-  color: var(--text-muted);
+  color: var(--muted-text);
 }
 
 /* --- Theme Switcher --- */

@@ -68,7 +68,7 @@ dd {
    INLINE TEXT ELEMENTS
    ========================================================================== */
 :where(a) {
-  color: var(--brand-text, var(--system-brand-color));
+  color: var(--brand-text-color, var(--system-brand-color));
   text-decoration: underline;
   text-decoration-style: solid;
   text-decoration-thickness: 1.5px;
@@ -129,7 +129,7 @@ ol {
 blockquote {
   border-inline-start: 4px solid var(--border-color);
   padding-inline-start: var(--size-4, 1rem);
-  color: var(--text-muted);
+  color: var(--muted-text);
   font-style: italic;
   margin-block: var(--size-5, 1.5rem);
 }

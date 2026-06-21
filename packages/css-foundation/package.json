@@ -47,10 +47,10 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "clean": "shx rm -rf dist",
-    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-css-to-dist",
+    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run compile-lightningcss",
     "copy-css-to-dist": "copyfiles -u 1 \"src/**/*.{css,d.ts}\" dist",
     "compile-lightningcss": "lightningcss --error-recovery --output-dir ./dist ./src/*.css",
-    "css-to-dts": "node ../css-to-dts/dist/css-to-dts.mjs src"
+    "css-to-dts": "node ../css-to-dts/dist/css-to-dts.mjs src dist"
   },
   "devDependencies": {
     "@olsen-mono/css-to-dts": "workspace:*"
