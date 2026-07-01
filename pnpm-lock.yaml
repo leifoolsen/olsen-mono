@@ -10,8 +10,8 @@ catalogs:
       specifier: ^2.0.1
       version: 2.0.4
     '@hono/vite-dev-server':
-      specifier: ^0.25.3
-      version: 0.25.3
+      specifier: ^0.26.0
+      version: 0.26.0
     '@types/node':
       specifier: ^25.9.3
       version: 25.9.3
@@ -19,8 +19,8 @@ catalogs:
       specifier: ^4.12.16
       version: 4.12.25
     htmx.org:
-      specifier: ^1.9.10
-      version: 1.9.12
+      specifier: ^2.0.10
+      version: 2.0.10
     vite:
       specifier: ^8.0.10
       version: 8.0.16
@@ -145,11 +145,11 @@ importers:
         version: 4.12.25
       htmx.org:
         specifier: 'catalog:'
-        version: 1.9.12
+        version: 2.0.10
     devDependencies:
       '@hono/vite-dev-server':
         specifier: 'catalog:'
-        version: 0.25.3(hono@4.12.25)
+        version: 0.26.0(hono@4.12.25)
       '@olsen-mono/css-to-dts':
         specifier: workspace:*
         version: link:../../packages/css-to-dts
@@ -590,8 +590,8 @@ packages:
     peerDependencies:
       hono: ^4
 
-  '@hono/vite-dev-server@0.25.3':
-    resolution: {integrity: sha512-w3uQ0KQF0i/SDcJ6+d5njEFTr6pbolajrt/GxV0pliYL+4ywiBqiOFRWSpwW3mTuZ80boww7+ZxJTGTBIzyBQg==}
+  '@hono/vite-dev-server@0.26.0':
+    resolution: {integrity: sha512-DYHht1lge/SRGd1dpOgwhS6DpamSaDtxAOlwl2RkcYyLFy769DZPEX6CeRaUzeDNgClO9JAuT83VptxB5mH5jA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: '*'
@@ -1878,8 +1878,8 @@ packages:
     resolution: {integrity: sha512-n6l5uca7/y5joxZ3LUePhzmBFUJ+U2YWzhMa8XUTecSeSlQiZdF5XAd/Q3/WUl0VsXgUwWi8I7CNIwdI5WN1SQ==}
     engines: {node: '>=20.10'}
 
-  htmx.org@1.9.12:
-    resolution: {integrity: sha512-VZAohXyF7xPGS52IM8d1T1283y+X4D+Owf3qY1NZ9RuBypyu9l8cGsxUMAG5fEAb/DhT7rDoJ9Hpu5/HxFD3cw==}
+  htmx.org@2.0.10:
+    resolution: {integrity: sha512-kdeJe7ZVwaS6QMz/ebBIVtZdpwen6L0OQ5GOhPV9MKBb196TCZeZu4yA7ZIQsaLKv7EpXz+So7KSXNuHXhj7Cw==}
 
   human-id@4.2.0:
     resolution: {integrity: sha512-K3GbkIWqyvvlpfhBPlbEvD97TtqBpAYA4kt+cn2lD2x2HuohzZCibcA2nOlnJT6exqvJLggoB5nv2dNf192nEA==}
@@ -3375,7 +3375,7 @@ snapshots:
     dependencies:
       hono: 4.12.25
 
-  '@hono/vite-dev-server@0.25.3(hono@4.12.25)':
+  '@hono/vite-dev-server@0.26.0(hono@4.12.25)':
     dependencies:
       '@hono/node-server': 1.19.14(hono@4.12.25)
       hono: 4.12.25
@@ -4560,7 +4560,7 @@ snapshots:
 
   html-tags@5.1.0: {}
 
-  htmx.org@1.9.12: {}
+  htmx.org@2.0.10: {}
 
   human-id@4.2.0: {}
 
