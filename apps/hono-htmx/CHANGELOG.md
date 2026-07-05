@@ -1,5 +1,13 @@
 # hello-htmx
 
+## 0.0.11
+
+### Patch Changes
+
+- 61f17df: Fluid typography with cqw
+- Updated dependencies [61f17df]
+  - @olsen-mono/css-foundation@0.0.6
+
 ## 0.0.10
 
 ### Patch Changes

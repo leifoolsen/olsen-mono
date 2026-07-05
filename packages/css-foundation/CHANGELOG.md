@@ -1,5 +1,11 @@
 # @olsen-mono/css-foundation
 
+## 0.0.6
+
+### Patch Changes
+
+- 61f17df: Fluid typography with cqw
+
 ## 0.0.5
 
 ### Patch Changes
