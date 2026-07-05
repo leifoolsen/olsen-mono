@@ -3,13 +3,14 @@ import type { FC, PropsWithChildren } from 'hono/jsx';
 
 type LayoutProps = PropsWithChildren & {
   theme?: string;
+  density?: string;
 };
 
 const isProd = process.env.NODE_ENV === 'production';
 
-export const Layout: FC<LayoutProps> = ({ children, theme = 'auto' }) => {
+export const Layout: FC<LayoutProps> = ({ children, theme = 'auto', density = 'normal' }) => {
   return (
-    <html lang="no" data-theme={theme}>
+    <html lang="no" data-theme={theme} data-density={density}>
       <head>
         <script src="/js/htmx.min.js"></script>
         <meta charset="UTF-8" />
@@ -33,9 +34,9 @@ export const Layout: FC<LayoutProps> = ({ children, theme = 'auto' }) => {
         <div class="container">
           <header>
             <nav hx-boost="true" hx-target="body" style="display: flex; gap: 1rem; margin-block-end: var(--size-4);">
-              <a href="/">Hjem</a>
-              <a href="/html5-test-page">HTML5 Testside</a>
-              <a href="/color-swatch">Color Swatch</a>
+              <a href="/">Home</a>
+              <a href="/html5-test-page">HTML5 Test Page</a>
+              <a href="/design-system">Fluid Design</a>
             </nav>
             <h1>Hono + HTMX</h1>
           </header>

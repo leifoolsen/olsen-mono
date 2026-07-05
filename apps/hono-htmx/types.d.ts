@@ -7,9 +7,11 @@ declare module 'hono/jsx' {
       /* ==========================================================================
          CUSTOM ATTRIBUTES
          ========================================================================== */
-      'data-variant'?: 'primary' | 'secondary' | 'accent' | 'danger' | 'success' | 'warning' | 'subtle';
-      'data-state'?: 'idle' | 'loading' | 'success' | 'error';
+      'data-variant'?: 'primary' | 'secondary' | 'tertiary' | 'neutral' | 'danger' | 'success' | 'warning' | 'info' | 'surface' | 'surface-1' | 'surface-2' | (string & {});
+      'data-state'?: 'idle' | 'loading' | 'success' | 'error' | (string & {});
       'data-theme'?: 'light' | 'dark' | 'auto' | (string & {});
+      'data-density'?: 'condensed' | 'normal' | (string & {});
+      'data-text'?: 'brand' | 'normal' | 'subtle' | 'muted' | (string & {});
 
       /* ==========================================================================
          2. HTMX ATTRIBUTES

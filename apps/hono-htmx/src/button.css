@@ -1,30 +1,32 @@
-@layer components {
-  button {
-    --_transition:
-      var(--ease-out-2) 0.25s, --color-variant-base 0.25s ease, --color-variant-border 0.25s ease,
-      --color-variant-text 0.25s ease;
+button {
+  --_transition:
+    var(--ease-out-2) 0.25s, --color-variant-base 0.25s ease, --color-variant-border 0.25s ease,
+    --color-variant-text 0.25s ease;
 
-    border-width: 1px;
-    border-style: solid;
-    border-radius: var(--radius-2);
-    display: inline-flex;
-    align-items: center;
-    gap: var(--size-2);
-    padding: var(--size-2) var(--size-4);
-    font-weight: var(--font-weight-6);
-    cursor: pointer;
-    transition: var(--_transition);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: var(--space-xs);
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-s) var(--space-s);
+  font-weight: var(--weight-500);
+  cursor: pointer;
+  transition: var(--_transition);
+  display: grid;
 
-    &:active {
-      transform: scale(0.98);
-      transition: transform 0.05s ease;
-    }
+  &:hover {
+    box-shadow: var(--shadow-s);
+  }
 
-    &:disabled,
-    &[aria-disabled='true'] {
-      opacity: 0.5;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
+  &:active {
+    transform: scale(0.98);
+    transition: transform 0.05s ease;
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 }

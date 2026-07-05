@@ -1,0 +1,355 @@
+:root {
+  /* --- Font families --- */
+  --font-family-heading: var(--font-geometric-humanist, sans-serif);
+  --font-family-main: var(--font-old-style, sans-serif);
+  --font-familiy-mono: var(--font-monospace-slab-serif, monospace);
+
+  /* Musical Ratios */
+  --minor-second: 1.06666667;
+  --major-second: 1.125;
+  --minor-third: 1.2;
+  --major-third: 1.25;
+  --perfect-fourth: 1.33333333;
+  --augmented-fourth: 1.41421356;
+  --perfect-fifth: 1.5;
+  --major-sixth: 1.66666667;
+  --golden-ratio: 1.61803399;
+
+  /* --- Choose your scale ratio --- */
+  --scale-min: var(--major-third);
+  --scale-max: var(--perfect-fourth);
+  --base-font-size-min: 1; /* rem */
+  --base-font-size-max: 1.25; /* rem */
+  --fluid-width-min: 400; /* px */
+  --fluid-width-max: 1280; /* px */
+
+  /* --- Create the typographic scale --- */
+  --_fluid-range: calc(var(--fluid-width-max) - var(--fluid-width-min));
+  --_fluid-slope: calc(((100vw - calc(var(--fluid-width-min) * 1px)) / var(--_fluid-range)) * 16);
+  --_s-min-xs: calc(var(--base-font-size-min) * pow(var(--scale-min), -0.25));
+  --_s-max-xs: calc(var(--base-font-size-max) * pow(var(--scale-max), -0.25));
+  --_s-min-s: calc(var(--base-font-size-min) * pow(var(--scale-min), -0.125));
+  --_s-max-s: calc(var(--base-font-size-max) * pow(var(--scale-max), -0.125));
+  --_s-min-m: var(--base-font-size-min);
+  --_s-max-m: var(--base-font-size-max);
+  --_s-min-l: calc(var(--base-font-size-min) * pow(var(--scale-min), 1));
+  --_s-max-l: calc(var(--base-font-size-max) * pow(var(--scale-max), 1));
+  --_s-min-xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 2));
+  --_s-max-xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 2));
+  --_s-min-2xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 3));
+  --_s-max-2xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 3));
+  --_s-min-3xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 4));
+  --_s-max-3xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 4));
+  --_s-min-4xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 5));
+  --_s-max-4xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 5));
+
+  /* --- Font Sizes --- */
+  --font-size-xs: clamp(
+    calc(var(--_s-min-xs) * 1rem),
+    calc(calc(var(--_s-min-xs) * 1rem) + (var(--_s-max-xs) - var(--_s-min-xs)) * var(--_fluid-slope)),
+    calc(var(--_s-max-xs) * 1rem)
+  );
+  --font-size-s: clamp(
+    calc(var(--_s-min-s) * 1rem),
+    calc(calc(var(--_s-min-s) * 1rem) + (var(--_s-max-s) - var(--_s-min-s)) * var(--_fluid-slope)),
+    calc(var(--_s-max-s) * 1rem)
+  );
+  --font-size-m: clamp(
+    calc(var(--_s-min-m) * 1rem),
+    calc(calc(var(--_s-min-m) * 1rem) + (var(--_s-max-m) - var(--_s-min-m)) * var(--_fluid-slope)),
+    calc(var(--_s-max-m) * 1rem)
+  );
+  --font-size-l: clamp(
+    calc(var(--_s-min-l) * 1rem),
+    calc(calc(var(--_s-min-l) * 1rem) + (var(--_s-max-l) - var(--_s-min-l)) * var(--_fluid-slope)),
+    calc(var(--_s-max-l) * 1rem)
+  );
+  --font-size-xl: clamp(
+    calc(var(--_s-min-xl) * 1rem),
+    calc(calc(var(--_s-min-xl) * 1rem) + (var(--_s-max-xl) - var(--_s-min-xl)) * var(--_fluid-slope)),
+    calc(var(--_s-max-xl) * 1rem)
+  );
+  --font-size-2xl: clamp(
+    calc(var(--_s-min-2xl) * 1rem),
+    calc(calc(var(--_s-min-2xl) * 1rem) + (var(--_s-max-2xl) - var(--_s-min-2xl)) * var(--_fluid-slope)),
+    calc(var(--_s-max-2xl) * 1rem)
+  );
+  --font-size-3xl: clamp(
+    calc(var(--_s-min-3xl) * 1rem),
+    calc(calc(var(--_s-min-3xl) * 1rem) + (var(--_s-max-3xl) - var(--_s-min-3xl)) * var(--_fluid-slope)),
+    calc(var(--_s-max-3xl) * 1rem)
+  );
+  --font-size-4xl: clamp(
+    calc(var(--_s-min-4xl) * 1rem),
+    calc(calc(var(--_s-min-4xl) * 1rem) + (var(--_s-max-4xl) - var(--_s-min-4xl)) * var(--_fluid-slope)),
+    calc(var(--_s-max-4xl) * 1rem)
+  );
+
+  /* --- Line Heights --- */
+  --line-height-xs: 1.5;
+  --line-height-s: 1.45;
+  --line-height-m: 1.4;
+  --line-height-l: 1.35;
+  --line-height-xl: 1.3;
+  --line-height-2xl: 1.25;
+  --line-height-3xl: 1.2;
+  --line-height-4xl: 1.15;
+
+  /* --- Letter Spacings --- */
+  --letter-spacing-xs: 0.02em;
+  --letter-spacing-s: 0.01em;
+  --letter-spacing-m: 0;
+  --letter-spacing-l: -0.01em;
+  --letter-spacing-xl: -0.015em;
+  --letter-spacing-2xl: -0.02em;
+  --letter-spacing-3xl: -0.025em;
+  --letter-spacing-4xl: -0.03em;
+
+  /* --- Font Weights --- */
+  --weight-xs: 300;
+  --weight-s: 400;
+  --weight-m: 400;
+  --weight-l: 400;
+  --font-weight-xl: 500;
+  --font-weight-2xl: 600;
+  --font-weight-3xl: 700;
+  --font-weight-4xl: 700;
+
+  /* --- Fluid Spacing --- */
+  --_space-scale-ratio: 1.5;
+  --_space-fluid: var(--font-size-m);
+  --space-2xs: calc(max(0.125rem, var(--_space-fluid) * pow(var(--_space-scale-ratio), -3)));
+  --space-xs: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), -2));
+  --space-s: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), -1));
+  --space-m: var(--_space-fluid);
+  --space-l: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), 1));
+  --space-xl: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), 2));
+  --space-2xl: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), 3));
+  --space-3xl: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), 4));
+  --space-4xl: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), 5));
+
+  /* Adaptive Spacing, suitable for e.g. Buttons */
+  --space-xs-m: clamp(var(--space-xs), 100vw, var(--space-m));
+
+  /* Adaptive Spacing, suitable for e.g. Cards */
+  --space-s-l: clamp(var(--space-s), 100vw, var(--space-l));
+
+  /* Adaptive Spacing, suitable for e.g. larger sections */
+  --space-m-3xl: clamp(var(--space-m), 100vw, var(--space-3xl));
+}
+
+/** --- Condensed Font --- */
+html[data-density='condensed'] {
+  --base-font-size-min: 0.875;
+  --base-font-size-max: 1;
+}
+
+/* --- Container Font Scaling --- */
+[data-fluid-viewport] {
+  container-type: inline-size;
+
+  --scale-min: var(--minor-third);
+  --scale-max: var(--major-third);
+  --fluid-width-min: 300;
+  --fluid-width-max: 800;
+  --_fluid-range: calc(var(--fluid-width-max) - var(--fluid-width-min));
+  --_fluid-slope: calc(((100cqw - calc(var(--fluid-width-min) * 1px)) / var(--_fluid-range)) * 16);
+  --_s-min-l: calc(var(--base-font-size-min) * pow(var(--scale-min), 1));
+  --_s-max-l: calc(var(--base-font-size-max) * pow(var(--scale-max), 1));
+  --_s-min-xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 2));
+  --_s-max-xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 2));
+  --_s-min-2xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 3));
+  --_s-max-2xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 3));
+  --_s-min-3xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 4));
+  --_s-max-3xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 4));
+  --_s-min-4xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 5));
+  --_s-max-4xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 5));
+  --font-size-l: clamp(
+    calc(var(--_s-min-l) * 1rem),
+    calc(calc(var(--_s-min-l) * 1rem) + (var(--_s-max-l) - var(--_s-min-l)) * var(--_fluid-slope)),
+    calc(var(--_s-max-l) * 1rem)
+  );
+  --font-size-xl: clamp(
+    calc(var(--_s-min-xl) * 1rem),
+    calc(calc(var(--_s-min-xl) * 1rem) + (var(--_s-max-xl) - var(--_s-min-xl)) * var(--_fluid-slope)),
+    calc(var(--_s-max-xl) * 1rem)
+  );
+  --font-size-2xl: clamp(
+    calc(var(--_s-min-2xl) * 1rem),
+    calc(calc(var(--_s-min-2xl) * 1rem) + (var(--_s-max-2xl) - var(--_s-min-2xl)) * var(--_fluid-slope)),
+    calc(var(--_s-max-2xl) * 1rem)
+  );
+  --font-size-3xl: clamp(
+    calc(var(--_s-min-3xl) * 1rem),
+    calc(calc(var(--_s-min-3xl) * 1rem) + (var(--_s-max-3xl) - var(--_s-min-3xl)) * var(--_fluid-slope)),
+    calc(var(--_s-max-3xl) * 1rem)
+  );
+  --font-size-4xl: clamp(
+    calc(var(--_s-min-4xl) * 1rem),
+    calc(calc(var(--_s-min-4xl) * 1rem) + (var(--_s-max-4xl) - var(--_s-min-4xl)) * var(--_fluid-slope)),
+    calc(var(--_s-max-4xl) * 1rem)
+  );
+}
+
+/* --- Fluid Shadows --- */
+* {
+  /* Get the shadow color from the ancestor element in the DOM tree. */
+  --_current-shadow: var(--_child-shadow-color, oklch(0% 0 0deg));
+  --shadow-xs: 0 1px 2px var(--_current-shadow);
+  --shadow-s:
+    0 0 var(--space-2xs) var(--_current-shadow), 0 0 var(--space-s) oklch(from var(--_current-shadow) l c h / 60%);
+  --shadow-m:
+    0 0 var(--space-xs) var(--_current-shadow), 0 0 var(--space-m) oklch(from var(--_current-shadow) l c h / 60%);
+  --shadow-l:
+    0 4px var(--space-s) oklch(from var(--_current-shadow) l c h / 40%),
+    0 var(--space-m) var(--space-l) oklch(from var(--_current-shadow) l c h / 20%);
+  --shadow-xl:
+    0 8px var(--space-m) oklch(from var(--_current-shadow) l c h / 30%),
+    0 var(--space-l) var(--space-xl) oklch(from var(--_current-shadow) l c h / 25%);
+  --shadow-2xl:
+    0 16px var(--space-l) oklch(from var(--_current-shadow) l c h / 30%),
+    0 var(--space-xl) var(--space-2xl) oklch(from var(--_current-shadow) l c h / 25%);
+  --shadow-none: none;
+}
+
+/* --- Fluid Fonts --- */
+[data-font-size='xs'],
+[data-font-size='s'],
+[data-font-size='m'] {
+  font-family: var(--font-family-main), sans-serif;
+}
+
+[data-font-size='xs'] {
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-xs);
+  font-weight: var(--font-weight-xs);
+  line-height: var(--line-height-xs);
+}
+
+[data-font-size='s'] {
+  font-size: var(--font-size-s);
+  letter-spacing: var(--letter-spacing-s);
+  font-weight: var(--font-weight-s);
+  line-height: var(--line-height-s);
+}
+
+[data-font-size='m'] {
+  font-size: var(--font-size-m);
+  letter-spacing: var(--letter-spacing-m);
+  font-weight: var(--font-weight-m);
+  line-height: var(--line-height-m);
+}
+
+[data-font-size='l'],
+[data-font-size='xl'],
+[data-font-size='2xl'],
+[data-font-size='3xl'],
+[data-font-size='4xl'] {
+  font-family: var(--font-family-heading), sans-serif;
+}
+
+[data-font-size='l'],
+:where(h5):not([data-font-size]) {
+  font-size: var(--font-size-l);
+  letter-spacing: var(--letter-spacing-l);
+  font-weight: var(--font-weight-l);
+  line-height: var(--line-height-l);
+}
+
+[data-font-size='xl'],
+:where(h4):not([data-font-size]) {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-xl);
+  letter-spacing: var(--letter-spacing-xl);
+  font-weight: var(--font-weight-xl);
+}
+
+[data-font-size='2xl'],
+:where(h3):not([data-font-size]) {
+  font-size: var(--font-size-2xl);
+  letter-spacing: var(--letter-spacing-2xl);
+  font-weight: var(--font-weight-2xl);
+  line-height: var(--line-height-2xl);
+}
+
+[data-font-size='3xl'],
+:where(h2):not([data-font-size]) {
+  font-size: var(--font-size-3xl);
+  letter-spacing: var(--letter-spacing-3xl);
+  font-weight: var(--font-weight-3xl);
+  line-height: var(--line-height-3xl);
+}
+
+[data-font-size='4xl'],
+:where(h1):not([data-font-size]) {
+  font-size: var(--font-size-4xl);
+  letter-spacing: var(--letter-spacing-4xl);
+  font-weight: var(--font-weight-4xl);
+  line-height: var(--line-height-4xl);
+}
+
+/* --- Fluid Radius --- */
+[data-border-radius='2xs'] {
+  border-radius: var(--space-2xs);
+}
+
+[data-border-radius='xs'] {
+  border-radius: var(--space-xs);
+}
+
+[data-border-radius='s'] {
+  border-radius: var(--space-s);
+}
+
+[data-border-radius='m'] {
+  border-radius: var(--space-m);
+}
+
+[data-border-radius='l'] {
+  border-radius: var(--space-l);
+}
+
+[data-border-radius='xl'] {
+  border-radius: var(--space-xl);
+}
+
+[data-border-radius='2xl'] {
+  border-radius: var(--space-2xl);
+}
+
+[data-border-radius='3xl'] {
+  border-radius: var(--space-3xl);
+}
+
+[data-border-radius='infinity'] {
+  border-radius: calc(infinity * 1px);
+}
+
+/* --- Fluid elevations --- */
+[data-elevation='none'] {
+  box-shadow: var(--shadow-none);
+}
+
+[data-elevation='xs'] {
+  box-shadow: var(--shadow-xs);
+}
+
+[data-elevation='s'] {
+  box-shadow: var(--shadow-s);
+}
+
+[data-elevation='m'] {
+  box-shadow: var(--shadow-m);
+}
+
+[data-elevation='l'] {
+  box-shadow: var(--shadow-l);
+}
+
+[data-elevation='xl'] {
+  box-shadow: var(--shadow-xl);
+}
+
+[data-elevation='2xl'] {
+  box-shadow: var(--shadow-2xl);
+}

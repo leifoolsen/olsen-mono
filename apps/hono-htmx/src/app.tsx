@@ -6,12 +6,13 @@ import { html, raw } from 'hono/html';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { Button } from './components/button';
 import { Layout } from './components/layout';
-import colorSwatch from './html/color-swatch.html?raw';
-import html5TestData from './html/html5-test-page.html?raw';
+import designSystemPage from './html/design-system.html?raw';
+import html5TestPage from './html/html5-test-page.html?raw';
 import { browserGuard } from './middleware/browser-guard.ts';
 import { getFormattedTime, getAppUptime } from './utils';
 
 type AppTheme = 'light' | 'dark' | 'auto';
+type AppDensity = 'condensed' | 'normal';
 
 const app = new Hono();
 
@@ -22,7 +23,7 @@ app.use('*', browserGuard);
 
 app.use('/*', serveStatic({ root: staticRoot }));
 
-// 1. ENDEPUNKT FOR TEMA-BYTTE
+// ENDEPUNKT FOR TEMA-BYTTE
 app.post('/api/toggle-theme', (c) => {
   const currentTheme = (getCookie(c, 'theme') || 'auto') as AppTheme;
   const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -31,22 +32,44 @@ app.post('/api/toggle-theme', (c) => {
 
   return c.html(
     <button hx-post="/api/toggle-theme" hx-swap="outerHTML" data-variant="danger" hx-on:click="toggleAppTheme()">
-      Bytt til {nextTheme === 'dark' ? 'lyst' : 'mørkt'} tema
+      Change to {nextTheme === 'dark' ? 'light' : 'dark'} theme
     </button>,
   );
 });
 
-// 2. HOVEDSIDE
+app.post('/api/toggle-density', (c) => {
+  const currentTheme = (getCookie(c, 'density') || 'normal') as AppDensity;
+  const nextTheme = currentTheme === 'normal' ? 'condensed' : 'normal';
+
+  setCookie(c, 'density', nextTheme, { maxAge: 31536000, path: '/' });
+
+  return c.html(
+    <button hx-post="/api/toggle-density" hx-swap="outerHTML" data-variant="primary" hx-on:click="toggleAppDensity()">
+      Toggle font size
+    </button>,
+  );
+});
+
+// HOVEDSIDE
 app.get('/', (c) => {
   const theme = getCookie(c, 'theme') || 'auto';
+  const density = getCookie(c, 'density') || 'normal';
+
   return c.html(
-    <Layout theme={theme}>
-      <div class="box">
-        <p>Dette innholdet er statisk ved første last.</p>
+    <Layout theme={theme} density={density}>
+      <div class="box" style="display: flex; gap: 1rem; align-items: center;">
+        <button
+          hx-post="/api/toggle-density"
+          hx-swap="outerHTML"
+          data-variant="secondary"
+          hx-on:click="toggleAppDensity()"
+        >
+          Toggle font size
+        </button>
+
         <Button />
-        <div id="fragment-target" class="box">
-          Venter på data...
-        </div>
+
+        <div id="fragment-target">Waiting for server data...</div>
       </div>
     </Layout>,
   );
@@ -57,34 +80,30 @@ app.get('/html5-test-page', (c) => {
 
   return c.html(
     <Layout theme={theme}>
-      <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-          <h2>HTML5 Typesetting Testside</h2>
-          <p>Lastet dynamisk fra en ren .html-fil via Vite</p>
-        </div>
+      <div class="box" style="display: flex; justify-content: space-between; align-items: baseline;">
+        <h2>HTML5 Test Page</h2>
         <button hx-post="/api/toggle-theme" hx-swap="outerHTML" data-variant="danger" hx-on:click="toggleAppTheme()">
-          Bytt til {theme === 'dark' ? 'lyst' : 'mørkt'} tema
+          Change to {theme === 'dark' ? 'light' : 'dark'} thene
         </button>
       </div>
-      <section class="box">{html`${raw(html5TestData)}`}</section>
+      <section class="box">{html`${raw(html5TestPage)}`}</section>
     </Layout>,
   );
 });
 
-app.get('/color-swatch', (c) => {
+app.get('/design-system', (c) => {
   const theme = getCookie(c, 'theme') || 'auto';
+  const density = getCookie(c, 'density') || 'normal';
 
   return c.html(
-    <Layout theme={theme}>
+    <Layout theme={theme} density={density}>
       <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-          <h2>Colors</h2>
-        </div>
+        <h2>Fluid, Data Driven Design</h2>
         <button hx-post="/api/toggle-theme" hx-swap="outerHTML" data-variant="success" hx-on:click="toggleAppTheme()">
-          Bytt til {theme === 'dark' ? 'lyst' : 'mørkt'} tema
+          Change to {theme === 'dark' ? 'light' : 'dark'} theme
         </button>
       </div>
-      <section class="box">{html`${raw(colorSwatch)}`}</section>
+      <section class="box">{html`${raw(designSystemPage)}`}</section>
     </Layout>,
   );
 });
@@ -96,10 +115,10 @@ app.get('/api/fragment', (c) => {
   return c.html(
     <div>
       <p>
-        ✅ Klokken er nå <strong>{tid}</strong>.
+        ✅ Time is now <strong>{tid}</strong>.
       </p>
       <p>
-        ⏱️ Serveren har kjørt i totalt:{' '}
+        ⏱️ Server Up Time:{' '}
         <span style="color: var(--color-success-base); font-weight: bold; margin-left: 0.5rem;">{oppetid}</span>
       </p>
     </div>,

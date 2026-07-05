@@ -1,22 +1,21 @@
 /* style.css */
-@layer base, components;
+@layer reset, tokens, base;
 
-@import '@olsen-mono/css-foundation/tokens.css' layer(base);
-@import '@olsen-mono/css-foundation/reset.css' layer(base);
+@import '@olsen-mono/css-foundation/reset.css' layer(reset);
+@import '@olsen-mono/css-foundation/colors.css' layer(tokens);
+@import '@olsen-mono/css-foundation/font-stacks.css' layer(tokens);
+@import '@olsen-mono/css-foundation/typography.css' layer(base);
 @import '@olsen-mono/css-foundation/typesetting.css' layer(base);
 @import './button.css';
 
-@layer components {
-  .container {
-    max-width: 1024px;
-    margin: 0 auto;
-    padding-inline: var(--size-4, 1rem); /* Hindrer teksten i å treffe skjermkanten på mobil */
-    padding-block-start: var(--size-4, 1rem);
-  }
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-inline: var(--space-m, 1rem); /* Hindrer teksten i å treffe skjermkanten på mobil */
+  padding-block: var(--space-m, 1rem);
+}
 
-  .box {
-    padding: var(--size-4, 1rem);
-    margin-block-start: var(--size-4, 1rem);
-    border-radius: var(--radius-2, 4px);
-  }
+.box {
+  margin-block-start: var(--space-m, 1rem);
+  border-radius: var(--space-s, 4px);
 }
