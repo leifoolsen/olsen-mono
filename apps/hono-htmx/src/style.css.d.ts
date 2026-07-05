@@ -1,4 +1,4 @@
 export type Css = 'box' | 'container';
-export type CssVariables = '--radius-2' | '--size-4';
+export type CssVariables = '--space-m' | '--space-s';
 declare const styles: string;
 export default styles;

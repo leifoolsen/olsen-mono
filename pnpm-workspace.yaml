@@ -4,10 +4,10 @@ packages:
 
 catalog:
   "@hono/node-server": ^2.0.1
-  "@hono/vite-dev-server": ^0.25.3
-  "@types/node": ^25.9.1
+  "@hono/vite-dev-server": ^0.26.0
+  "@types/node": ^25.9.3
   "hono": ^4.12.16
-  "htmx.org": ^1.9.10
+  "htmx.org": ^2.0.10
   "vite": ^8.0.10
 overrides:
   eslint-plugin-import: npm:eslint-plugin-import-x@latest

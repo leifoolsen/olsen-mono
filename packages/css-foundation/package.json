@@ -4,16 +4,26 @@
   "version": "0.0.5",
   "private": true,
   "type": "module",
-  "main": "./dist/tokens.css",
-  "style": "./src/tokens.css",
+  "main": "./dist/main.css",
+  "style": "./src/main.css",
   "sideEffects": [
     "**/*.css"
   ],
   "exports": {
-    "./tokens.css": {
-      "development": "./src/tokens.css",
-      "types": "./src/tokens.css.d.ts",
-      "default": "./dist/tokens.css"
+    "./main.css": {
+      "development": "./src/main.css",
+      "types": "./src/main.css.d.ts",
+      "default": "./dist/main.css"
+    },
+    "./colors.css": {
+      "development": "./src/colors.css",
+      "types": "./src/colors.css.d.ts",
+      "default": "./dist/colors.css"
+    },
+    "./font-stacks.css": {
+      "development": "./src/font-stacks.css",
+      "types": "./src/font-stacks.css.d.ts",
+      "default": "./dist/font-stacks.css"
     },
     "./reset.css": {
       "development": "./src/reset.css",
@@ -24,6 +34,11 @@
       "development": "./src/typesetting.css",
       "types": "./src/typesetting.css.d.ts",
       "default": "./dist/typesetting.css"
+    },
+    "./typography.css": {
+      "development": "./src/typography.css",
+      "types": "./src/typography.css.d.ts",
+      "default": "./dist/typography.css"
     },
     "./package.json": "./package.json"
   },

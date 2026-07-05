@@ -1,74 +1,176 @@
 /* typesetting.css */
-body {
-  font-family: var(--font-main), sans-serif;
-  font-size: var(--fs-base);
-  line-height: var(--lh-body);
+html {
+  font-size: 100%;
+}
+
+:where(body) {
+  font-family: var(--font-family-main), sans-serif;
+  font-weight: var(--font-weight-m, normal);
+  line-height: var(--line-height-m, 1.5);
+  letter-spacing: var(--letter-spacing-m, normal);
+  min-block-size: 100svb;
+  min-inline-size: 300px;
+  text-rendering: optimizespeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ==========================================================================
-   HEADINGS & PARAGRAPHS
-   ========================================================================== */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-li,
-dt,
-dd {
+/* -- Block Elements -- */
+:where(
+  address,
+  article,
+  aside,
+  blockquote,
+  canvas,
+  dd,
+  div,
+  dl,
+  dt,
+  fieldset,
+  figcaption,
+  figure,
+  footer,
+  form,
+  header,
+  input,
+  hr,
+  li,
+  main,
+  nav,
+  noscript,
+  ol,
+  p,
+  pre,
+  section,
+  table,
+  tfoot,
+  ul,
+  video
+) {
+  font-size: var(--font-size-m, 1rem);
+}
+
+/* --- Fill available space in inputs (but not buttons)
+:where(textarea),
+:where(input:not(:where([type='submit'], [type='checkbox'], [type='radio'], [type='button'], [type='reset']))) {
+  inline-size: 100%;
+}
+--- */
+
+:where(figcaption) {
+  color: var(--text-sublte);
+}
+
+:where(h1, h2, h3, h4, h5, h6, p, li, dt, dd) {
   overflow-wrap: break-word;
   hyphens: auto;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: var(--font-weight-7, bold);
-  margin-block: var(--size-6, 1.5em) var(--size-3, 0.5em);
+:is(h1, h2, h3, h4, h5) {
+  margin-block: var(--space-l, 1.5rem) var(--space-m, 1rem);
+  font-family: var(--font-family-heading), sans-serif;
 }
 
 :is(h1, h2, h3, h4, h5, h6):first-child {
   margin-block-start: 0;
 }
 
-h1,
-h2,
-h3,
-h4 {
+:where(h1, h2, h3, h4) {
   text-wrap: balance;
-  line-height: var(--lh-heading);
 }
 
-h1 {
-  font-size: var(--fs-h1);
+:where(h1) {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-4xl);
+  letter-spacing: var(--letter-spacing-4xl);
+  line-height: var(--line-height-4xl);
 }
 
-h2 {
-  font-size: var(--fs-h2);
+:where(h2) {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-3xl);
+  letter-spacing: var(--letter-spacing-3xl);
+  line-height: var(--line-height-3xl);
 }
 
-h3 {
-  font-size: var(--fs-h3);
+:where(h3) {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-2xl);
+  letter-spacing: var(--letter-spacing-2xl);
+  line-height: var(--line-height-2xl);
 }
 
-p,
-li,
-dd {
+:where(h4) {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-xl);
+  letter-spacing: var(--letter-spacing-xl);
+  line-height: var(--line-height-xl);
+}
+
+:where(h5) {
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-l);
+  letter-spacing: var(--letter-spacing-l);
+  line-height: var(--line-height-l);
+}
+
+:where(h6) {
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-m);
+  letter-spacing: var(--letter-spacing-m);
+  line-height: var(--line-height-m);
+}
+
+:where(p, li, dd) {
   text-wrap: pretty;
 }
 
-/* ==========================================================================
-   INLINE TEXT ELEMENTS
-   ========================================================================== */
-:where(a) {
+:where(ul, ol) {
+  padding-inline-start: var(--space-l, 1.5rem);
+}
+
+:where(ul[role='list'], ol[role='list']) {
+  list-style: none;
+}
+
+:where(blockquote) {
+  border-inline-start: 4px solid var(--border-color);
+  padding-inline-start: var(--space-m, 1rem);
+  color: var(--subtle-text);
+  font-style: italic;
+  margin-block: var(--space-l, 1.5rem);
+}
+
+/* --- Inline Elements --- */
+:where(abbr[title]) {
+  text-decoration: underline dotted;
+}
+
+:where(small) {
+  font-size: 0.9em;
+}
+
+:where(sub, sup) {
+  font-size: 0.8em;
+}
+
+:where(code, pre, kbd, samp, output) {
+  font-family: var(--font-family-mono) monospace;
+}
+
+:where(code, kbd, samp) {
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+}
+
+:where(strong, b) {
+  font-weight: bold;
+}
+
+/* --- A elements that don't have a class get default styles --- */
+:where(a:not([class])) {
   color: var(--brand-text-color, var(--system-brand-color));
+  text-decoration-skip-ink: auto;
   text-decoration: underline;
   text-decoration-style: solid;
   text-decoration-thickness: 1.5px;
@@ -85,9 +187,9 @@ dd {
     text-underline-offset: 4px;
     text-decoration-color: light-dark(oklch(from currentcolor l c h / 60%), oklch(from currentcolor l c h / 70%));
     background-color: oklch(from CanvasText l c h / 10%);
-    padding-inline: var(--size-1, 4px);
-    margin-inline: calc(var(--size-1, 4px) * -1);
-    border-radius: var(--radius-1, 2px);
+    padding-inline: 4px;
+    margin-inline: calc(4px * -1);
+    border-radius: 2px;
   }
 
   &:hover {
@@ -100,66 +202,16 @@ dd {
   }
 }
 
-small {
-  font-size: var(--font-size-0, 0.8em);
-  color: var(--text-sublte);
-}
-
-strong,
-b {
-  font-weight: var(--font-weight-7, bold);
-}
-
-code,
-kbd,
-samp {
-  font-family: var(--font-mono) monospace;
-  font-size: 0.9em;
-  padding: 0.2em 0.4em;
-}
-
-/* ==========================================================================
-   LISTS & BLOCKQUOTES
-   ========================================================================== */
-ul,
-ol {
-  padding-inline-start: var(--size-5, 1.5rem);
-}
-
-blockquote {
-  border-inline-start: 4px solid var(--border-color);
-  padding-inline-start: var(--size-4, 1rem);
-  color: var(--muted-text);
-  font-style: italic;
-  margin-block: var(--size-5, 1.5rem);
-}
-
-/* ==========================================================================
-   NATIVE FORM ELEMENTS & INTERACTION
-   ========================================================================== */
-input,
-textarea,
-select {
-  background-color: inherit;
-  border-inline: 1px solid var(--border-color);
-  border-block: 1px solid var(--border-color);
-  border-radius: var(--radius-1, 4px);
-  padding: var(--size-1, 0.5rem) var(--size-2, 0.75rem);
-  transition: border-color 0.15s;
-}
-
-::selection {
-  background-color: var(--color-primary-surface);
-  color: var(--color-primary-text);
-}
-
-/* ==========================================================================
-   FOCUS OUTLINE
-   ========================================================================== */
+/* --- Focus management for accessibility --- */
 :where(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]) {
   &:focus-visible {
-    outline: 2px solid CanvasText;
-    outline-offset: 2px;
+    outline: 3px solid CanvasText;
+    outline-offset: 3px;
     box-shadow: none;
   }
+}
+
+/* --- Anything that has been anchored to should have extra scroll margin --- */
+:target {
+  scroll-margin-block-start: 2rlh;
 }

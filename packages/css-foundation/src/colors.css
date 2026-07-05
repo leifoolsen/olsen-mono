@@ -1,26 +1,19 @@
-@import 'open-props/style';
-
 :root {
   color-scheme: light dark;
-
-  /* --- Typography (Open Props bridge) --- */
-  --font-main: var(--font-sans);
-  --lh-body: var(--font-lineheight-3);
-  --lh-heading: var(--font-lineheight-1);
-  --fs-base: var(--font-size-1);
-  --fs-h1: var(--font-size-fluid-3);
-  --fs-h2: var(--font-size-fluid-2);
-  --fs-h3: var(--font-size-fluid-1);
 
   /* --- Base Colors --- */
   --hue-neutral: 250; /* grey with blue chroma */
   --chroma-neutral: 0.02;
-  --hue-primary: 250; /* blue */
-  --chroma-primary: 0.19;
-  --hue-secondary: 303.38; /* rebeccapurple */
-  --chroma-secondary: 0.16;
+  --hue-primary: 303.4;
+  --chroma-primary: 0.2;
+  --hue-secondary: 352;
+  --chroma-secondary: 0.15;
+  --hue-tertiary: 132;
+  --chroma-tertiary: 0.15;
+  --hue-quaternary: 158;
+  --chroma-quaternary: 0.13;
   --hue-success: 145; /* green */
-  --chroma-success: 0.2;
+  --chroma-success: 0.25;
   --hue-error: 29; /* red */
   --chroma-error: 0.25;
   --hue-warning: 65; /* orange */
@@ -41,28 +34,32 @@
   );
   --brand-text-color: var(--global-brand-text);
 
+  /* -- Border Color -- */
+  --system-border-color: light-dark(oklch(30% 0 0deg), oklch(50% 0 0deg));
+  --border-color: var(--system-border-color);
+
   /* -- Caret Color -- */
   caret-color: var(--system-brand-color);
 }
 
-/* --- Default / Fallback --- */
 body {
-  --swatch-color: light-dark(oklch(98% 0 0deg), oklch(11% 0 0deg));
+  --swatch-color: light-dark(oklch(90% 0 0deg), oklch(20% 0 0deg));
 }
 
 body,
 [data-color],
 [data-variant] {
   --raw-contrast: contrast-color(var(--swatch-color));
+  --brand-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);
   --normal-text: color-mix(in oklch, var(--swatch-color) 4%, var(--raw-contrast));
-  --subtle-text: light-dark(
-    color-mix(in oklch, var(--swatch-color) 35%, var(--raw-contrast)),
-    color-mix(in oklch, var(--swatch-color) 20%, var(--raw-contrast))
+  --subtle-text: oklch(from var(--normal-text) l c h / 75%);
+  --muted-text: oklch(from var(--normal-text) l c h / 60%);
+  --_is-light-surface: sign(oklch(from var(--swatch-color) l 0 0deg) - 0.3);
+  --_shadow-base-lch: light-dark(
+    oklch(from var(--swatch-color) calc(l * l * 0.25) calc(c * 1.4) h),
+    oklch(from var(--swatch-color) calc(l + 0.08) calc(c * 1.1) h)
   );
-  --muted-text: light-dark(
-    color-mix(in oklch, var(--swatch-color) 50%, var(--raw-contrast)),
-    color-mix(in oklch, var(--swatch-color) 45%, var(--raw-contrast))
-  );
+  --_child-shadow-color: color-mix(in oklch, var(--_shadow-base-lch) 75%, var(--swatch-color) 25%);
 
   background-color: var(--swatch-color);
   border-color: var(--border-color);
@@ -95,12 +92,12 @@ body,
   --color-A700: oklch(calc(var(--base-l) - 0.1) calc(var(--base-c) * 1.2) var(--base-h));
 
   /* --- Color Theme --- */
-  --brand-text-color: light-dark(
-    color-mix(in oklch, var(--raw-contrast) 85%, oklch(35% var(--base-c) var(--base-h) / 80%)),
-    color-mix(in oklch, var(--raw-contrast) 85%, oklch(85% var(--base-c) var(--base-h) / 80%))
-  );
   --swatch-color: light-dark(var(--color-300), var(--color-500));
   --border-color: light-dark(var(--color-200), var(--color-400));
+  --brand-text-color: light-dark(
+    color-mix(in oklch, var(--brand-contrast) 90%, oklch(70% var(--base-c) var(--base-h) / 80%)),
+    color-mix(in oklch, var(--brand-contrast) 85%, oklch(75% var(--base-c) var(--base-h) / 80%))
+  );
 
   accent-color: var(--swatch-color);
 
@@ -133,18 +130,18 @@ body,
   --color-800: oklch(16% 0 0deg);
   --color-900: oklch(8% 0 0deg);
   --color-950: oklch(4% 0 0deg);
-  --swatch-color: light-dark(var(--color-200), var(--color-800));
-  --border-color: light-dark(var(--color-700), var(--color-500));
+  --swatch-color: light-dark(var(--color-50), var(--color-900));
+  --border-color: light-dark(var(--color-100), var(--color-950));
 }
 
 [data-variant='surface-1'] {
-  --swatch-color: light-dark(var(--color-100), var(--color-700));
-  --border-color: light-dark(var(--color-200), var(--color-800));
+  --swatch-color: light-dark(var(--color-100), var(--color-800));
+  --border-color: light-dark(var(--color-200), var(--color-700));
 }
 
 [data-variant='surface-2'] {
-  --swatch-color: light-dark(var(--color-200), var(--color-800));
-  --border-color: light-dark(var(--color-300), var(--color-900));
+  --swatch-color: light-dark(var(--color-200), var(--color-700));
+  --border-color: light-dark(var(--color-300), var(--color-600));
 }
 
 [data-variant='neutral'] {
@@ -158,24 +155,40 @@ body,
 [data-variant='primary'] {
   --base-c: var(--chroma-primary);
   --base-h: var(--hue-primary);
-  --base-l: 0.55;
+  --base-l: 0.51;
 }
 
 [data-variant='secondary'] {
   --base-c: var(--chroma-secondary);
   --base-h: var(--hue-secondary);
-  --base-l: 0.45;
+  --base-l: 0.56;
+}
+
+[data-variant='tertiary'] {
+  --base-c: var(--chroma-tertiary);
+  --base-h: var(--hue-tertiary);
+  --base-l: 0.71;
+  --brand-contrast: white;
+}
+
+[data-variant='quaternary'] {
+  --base-c: var(--chroma-quaternary);
+  --base-h: var(--hue-quaternary);
+  --base-l: 0.69;
+  --brand-contrast: white;
 }
 
 [data-variant='success'] {
   --base-c: var(--chroma-success);
   --base-h: var(--hue-success);
+  --base-l: 0.35;
 }
 
 [data-variant='warning'] {
   --base-c: var(--chroma-warning);
   --base-h: var(--hue-warning);
   --base-l: 0.68;
+  --brand-contrast: white;
 }
 
 [data-variant='info'] {
@@ -253,19 +266,27 @@ body,
 }
 
 /* --- Text contrasts --- */
-[data-text-contrast='brand'] {
+[data-text] {
+  background-color: transparent;
+  color: light-dark(
+    oklch(from var(--swatch-color) calc(l - 0.2) c h),
+    oklch(from var(--swatch-color) calc(l + 0.25) c h)
+  );
+}
+
+[data-text='brand'] {
   color: var(--brand-text-color);
 }
 
-[data-text-contrast='normal'] {
+[data-text='normal'] {
   color: var(--normal-text);
 }
 
-[data-text-contrast='subtle'] {
+[data-text='subtle'] {
   color: var(--subtle-text);
 }
 
-[data-text-contrast='muted'] {
+[data-text='muted'] {
   color: var(--muted-text);
 }
 

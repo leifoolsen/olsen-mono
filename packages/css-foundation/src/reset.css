@@ -1,12 +1,10 @@
 /* reset.css */
-*,
-*::before,
-*::after {
+:where(*, *::before, *::after) {
   box-sizing: border-box;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html {
+  :where(html) {
     scroll-behavior: smooth;
     interpolate-size: allow-keywords;
   }
@@ -16,54 +14,41 @@
   }
 }
 
-html {
+:where(html) {
   scrollbar-gutter: stable;
   text-size-adjust: none;
 }
 
-body {
+:where(body) {
+  line-height: 1.5;
   margin: 0;
   min-block-size: 100svb;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-figure,
-blockquote {
+:where(h1, h2, h3, h4, h5, h6, p, figure, blockquote) {
   margin: 0;
 }
 
-img,
-picture,
-svg,
-video {
+:where(img, picture, svg, video) {
   max-inline-size: 100%;
   block-size: auto;
   display: block;
 }
 
-svg {
+:where(svg) {
   fill: currentcolor;
 }
 
-input,
-button,
-textarea,
-select {
+:where(input, button, textarea, select) {
   font: inherit;
   color: inherit;
 }
 
-textarea {
+:where(textarea) {
   field-sizing: content;
   min-block-size: 4lh;
 }
 
-[hidden]:not([hidden='until-found']) {
+:where([hidden]:not([hidden='until-found'])) {
   display: none !important;
 }
