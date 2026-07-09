@@ -1,5 +1,11 @@
 # @olsen-mono/css-foundation
 
+## 0.0.7
+
+### Patch Changes
+
+- b001832: Added basic layout css module
+
 ## 0.0.6
 
 ### Patch Changes

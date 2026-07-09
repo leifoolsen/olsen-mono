@@ -1,5 +1,13 @@
 # hello-htmx
 
+## 0.0.12
+
+### Patch Changes
+
+- b001832: Added basic layout css module
+- Updated dependencies [b001832]
+  - @olsen-mono/css-foundation@0.0.7
+
 ## 0.0.11
 
 ### Patch Changes
