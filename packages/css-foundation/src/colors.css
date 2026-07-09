@@ -50,11 +50,13 @@ body,
 [data-color],
 [data-variant] {
   --raw-contrast: contrast-color(var(--swatch-color));
+  --is-white-contrast: oklch(from var(--raw-contrast) l 0 0deg);
+  --is-light-surface: sign(oklch(from var(--swatch-color) l 0 0deg) - 0.3);
   --brand-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);
   --normal-text: color-mix(in oklch, var(--swatch-color) 4%, var(--raw-contrast));
   --subtle-text: oklch(from var(--normal-text) l c h / 75%);
   --muted-text: oklch(from var(--normal-text) l c h / 60%);
-  --_is-light-surface: sign(oklch(from var(--swatch-color) l 0 0deg) - 0.3);
+  --border-color: rgba(255, 255, 255, calc(0.2 + (0.7 * var(--is-white-contrast))));
   --_shadow-base-lch: light-dark(
     oklch(from var(--swatch-color) calc(l * l * 0.25) calc(c * 1.4) h),
     oklch(from var(--swatch-color) calc(l + 0.08) calc(c * 1.1) h)
@@ -62,7 +64,6 @@ body,
   --_child-shadow-color: color-mix(in oklch, var(--_shadow-base-lch) 75%, var(--swatch-color) 25%);
 
   background-color: var(--swatch-color);
-  border-color: var(--border-color);
   color: var(--normal-text);
 }
 
@@ -93,13 +94,13 @@ body,
 
   /* --- Color Theme --- */
   --swatch-color: light-dark(var(--color-300), var(--color-500));
-  --border-color: light-dark(var(--color-200), var(--color-400));
   --brand-text-color: light-dark(
     color-mix(in oklch, var(--brand-contrast) 90%, oklch(70% var(--base-c) var(--base-h) / 80%)),
     color-mix(in oklch, var(--brand-contrast) 85%, oklch(75% var(--base-c) var(--base-h) / 80%))
   );
+  --accent-color: light-dark(var(--color-A700), var(--color-A100));
 
-  accent-color: var(--swatch-color);
+  accent-color: var(--accent-color);
 
   &:is(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]),
   & :is(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]) {

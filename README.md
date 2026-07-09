@@ -18,7 +18,7 @@ olsen-mono/
 │   ├── css-to-dts/          # CLI tool tailored for `pnpm` monorepos to automatically generate TypeScript definitions (`*.css.d.ts`) from CSS files
 │   ├── object-builder/      # Typesafe builder pattern for object literals
 │   ├── reactive-state/      # Reactive state factory
-│   ├── tooling/             # Centralized configuration presets (ESLint, Vitest, tsup)
+│   ├── tooling/             # Centralized configuration presets (ESLint, Vitest, tsdown)
 │   └── try-catch/           # Functional error handling
 ├── .changeset/              # Automated versioning and changelog management
 ├── .github/workflows/       # GitHub Actions (CI & CD Release Pipelines)
@@ -26,7 +26,7 @@ olsen-mono/
 ├── .pretterrc.ts.           # Prettier configuration
 ├── eslint.config.ts         # Global ESLint entrypoint (Cascading rules)
 ├── vitest.config.ts         # Global Vitest entrypoint (Auto package mapping)
-├── tsup.config.ts           # Global build presets for shared libraries
+├── tsdown.config.ts         # Global build presets for shared libraries
 └── package.json             # Root orchestrator and global tasks
 ```
 

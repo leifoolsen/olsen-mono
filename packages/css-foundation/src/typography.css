@@ -1,7 +1,7 @@
 :root {
   /* --- Font families --- */
   --font-family-heading: var(--font-geometric-humanist, sans-serif);
-  --font-family-main: var(--font-old-style, sans-serif);
+  --font-family-main: var(--font-classical-humanist, sans-serif);
   --font-familiy-mono: var(--font-monospace-slab-serif, monospace);
 
   /* Musical Ratios */
