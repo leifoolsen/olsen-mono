@@ -3,24 +3,28 @@ button {
     var(--ease-out-2) 0.25s, --color-variant-base 0.25s ease, --color-variant-border 0.25s ease,
     --color-variant-text 0.25s ease;
 
-  border-width: 1px;
-  border-style: solid;
   border-radius: var(--space-xs);
+  border: 0;
   align-items: center;
   gap: var(--space-s);
   padding: var(--space-s) var(--space-s);
-  font-weight: var(--weight-500);
+  font-weight: var(--weight-600);
   cursor: pointer;
   transition: var(--_transition);
   display: grid;
 
   &:hover {
-    box-shadow: var(--shadow-s);
+    box-shadow: var(--shadow-m);
   }
 
   &:active {
     transform: scale(0.98);
     transition: transform 0.05s ease;
+    border-color: transparent;
+  }
+
+  &:focus-visible {
+    border-color: transparent;
   }
 
   &:disabled,
