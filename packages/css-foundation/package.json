@@ -40,6 +40,11 @@
       "types": "./src/typography.css.d.ts",
       "default": "./dist/typography.css"
     },
+    "./layouts.css": {
+      "development": "./src/layouts.css",
+      "types": "./src/layouts.css.d.ts",
+      "default": "./dist/layouts.css"
+    },
     "./package.json": "./package.json"
   },
   "keywords": [],
