@@ -203,12 +203,10 @@ html {
 }
 
 /* --- Focus management for accessibility --- */
-:where(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]) {
-  &:focus-visible {
-    outline: 3px solid CanvasText;
-    outline-offset: 3px;
-    box-shadow: none;
-  }
+:where(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]):focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 0;
+  box-shadow: 0 0 0 5px #000000;
 }
 
 /* --- Anything that has been anchored to should have extra scroll margin --- */
