@@ -1,8 +1,8 @@
 <style>
-  .ds-container {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+  .color-swatches {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    background-color: transparent;
   }
 
   .color-swatch {
@@ -13,21 +13,7 @@
     padding-block: 0.25rem;
   }
 
-  .color-swatches {
-    display: grid;
-    grid-template-columns: repeat(15, 1fr);
-    background-color: transparent;
-  }
-
-  .color-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-m);
-  }
-
   .color-card {
-    border-width: 1px;
-    border-style: solid;
     border-radius: var(--space-xs);
     padding-inline: var(--space-m);
     padding-block: var(--space-m);
@@ -40,11 +26,11 @@
   }
 </style>
 
-<div class="ds-container">
-  <section style="display: flex; flex-direction: column">
+<section data-layout="stack" style="gap: var(--space-xl)">
+  <section data-layout="stack" style="gap: 0">
     <h2>Swatches</h2>
 
-    <div data-variant="surface" class="color-swatches" role="grid">
+    <div data-variant="surface" class="color-swatches">
       <div data-color="50" class="color-swatch">
         <span>50</span>
         <span data-text="subtle">50</span>
@@ -102,85 +88,7 @@
       </div>
     </div>
 
-    <div data-variant="neutral" class="color-swatches" role="grid">
-      <div data-color="50" class="color-swatch">
-        <span>50</span>
-        <span data-text="subtle">50</span>
-        <span data-text="muted">50</span>
-      </div>
-      <div data-color="100" class="color-swatch">
-        <span>100</span>
-        <span data-text="subtle">100</span>
-        <span data-text="muted">100</span>
-      </div>
-      <div data-color="200" class="color-swatch">
-        <span>200</span>
-        <span data-text="subtle">200</span>
-        <span data-text="muted">200</span>
-      </div>
-      <div data-color="300" class="color-swatch">
-        <span>300</span>
-        <span data-text="subtle">300</span>
-        <span data-text="muted">300</span>
-      </div>
-      <div data-color="400" class="color-swatch">
-        <span>400</span>
-        <span data-text="subtle">400</span>
-        <span data-text="muted">400</span>
-      </div>
-      <div data-color="500" class="color-swatch">
-        <span>500</span>
-        <span data-text="subtle">500</span>
-        <span data-text="muted">500</span>
-      </div>
-      <div data-color="600" class="color-swatch">
-        <span>600</span>
-        <span data-text="subtle">600</span>
-        <span data-text="muted">600</span>
-      </div>
-      <div data-color="700" class="color-swatch">
-        <span>700</span>
-        <span data-text="subtle">700</span>
-        <span data-text="muted">700</span>
-      </div>
-      <div data-color="800" class="color-swatch">
-        <span>800</span>
-        <span data-text="subtle">800</span>
-        <span data-text="muted">800</span>
-      </div>
-      <div data-color="900" class="color-swatch">
-        <span>900</span>
-        <span data-text="subtle">900</span>
-        <span data-text="muted">900</span>
-      </div>
-      <div data-color="950" class="color-swatch">
-        <span>950</span>
-        <span data-text="subtle">950</span>
-        <span data-text="muted">950</span>
-      </div>
-      <div data-color="A100" class="color-swatch">
-        <span>A100</span>
-        <span data-text="subtle">A100</span>
-        <span data-text="muted">A100</span>
-      </div>
-      <div data-color="A200" class="color-swatch">
-        <span>A200</span>
-        <span data-text="subtle">A200</span>
-        <span data-text="muted">A200</span>
-      </div>
-      <div data-color="A400" class="color-swatch">
-        <span>A400</span>
-        <span data-text="subtle">A400</span>
-        <span data-text="muted">A400</span>
-      </div>
-      <div data-color="A700" class="color-swatch">
-        <span>A700</span>
-        <span data-text="subtle">A700</span>
-        <span data-text="muted">A700</span>
-      </div>
-    </div>
-
-    <div data-variant="primary" class="color-swatches" role="grid">
+    <div data-variant="neutral" class="color-swatches">
       <div data-color="50" class="color-swatch">
         <span>50</span>
         <span data-text="subtle">50</span>
@@ -258,7 +166,7 @@
       </div>
     </div>
 
-    <div data-variant="secondary" class="color-swatches" role="grid">
+    <div data-variant="primary" class="color-swatches">
       <div data-color="50" class="color-swatch">
         <span>50</span>
         <span data-text="subtle">50</span>
@@ -336,7 +244,7 @@
       </div>
     </div>
 
-    <div data-variant="tertiary" class="color-swatches" role="grid">
+    <div data-variant="secondary" class="color-swatches">
       <div data-color="50" class="color-swatch">
         <span>50</span>
         <span data-text="subtle">50</span>
@@ -414,7 +322,7 @@
       </div>
     </div>
 
-    <div data-variant="quaternary" class="color-swatches" role="grid">
+    <div data-variant="tertiary" class="color-swatches">
       <div data-color="50" class="color-swatch">
         <span>50</span>
         <span data-text="subtle">50</span>
@@ -492,7 +400,7 @@
       </div>
     </div>
 
-    <div data-variant="success" class="color-swatches" role="grid">
+    <div data-variant="quaternary" class="color-swatches">
       <div data-color="50" class="color-swatch">
         <span>50</span>
         <span data-text="subtle">50</span>
@@ -570,7 +478,7 @@
       </div>
     </div>
 
-    <div data-variant="error" class="color-swatches" role="grid">
+    <div data-variant="success" class="color-swatches">
       <div data-color="50" class="color-swatch">
         <span>50</span>
         <span data-text="subtle">50</span>
@@ -648,7 +556,7 @@
       </div>
     </div>
 
-    <div data-variant="warning" class="color-swatches" role="grid">
+    <div data-variant="error" class="color-swatches">
       <div data-color="50" class="color-swatch">
         <span>50</span>
         <span data-text="subtle">50</span>
@@ -726,7 +634,85 @@
       </div>
     </div>
 
-    <div data-variant="info" class="color-swatches" role="grid">
+    <div data-variant="warning" class="color-swatches">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text="subtle">50</span>
+        <span data-text="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text="subtle">100</span>
+        <span data-text="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text="subtle">200</span>
+        <span data-text="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text="subtle">300</span>
+        <span data-text="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text="subtle">400</span>
+        <span data-text="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text="subtle">500</span>
+        <span data-text="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text="subtle">600</span>
+        <span data-text="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text="subtle">700</span>
+        <span data-text="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text="subtle">800</span>
+        <span data-text="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text="subtle">900</span>
+        <span data-text="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text="subtle">950</span>
+        <span data-text="muted">950</span>
+      </div>
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text="subtle">A100</span>
+        <span data-text="muted">A100</span>
+      </div>
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text="subtle">A200</span>
+        <span data-text="muted">A200</span>
+      </div>
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text="subtle">A400</span>
+        <span data-text="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text="subtle">A700</span>
+        <span data-text="muted">A700</span>
+      </div>
+    </div>
+
+    <div data-variant="info" class="color-swatches">
       <div data-color="50" class="color-swatch">
         <span>50</span>
         <span data-text="subtle">50</span>
@@ -807,7 +793,7 @@
 
   <section>
     <h2>Surfaces</h2>
-    <div class="color-card-grid" data-fluid-viewport>
+    <div data-layout="ram" data-fluid-viewport style="--layout-gap: var(--space-m); --layout-grid-item-min: 23rem">
       <div class="color-card" data-variant="primary">
         <div data-text="brand" data-font-size="xl">Primary</div>
         <div>Normal text color</div>
@@ -942,11 +928,11 @@
     </div>
   </section>
 
-  <section style="display: grid; grid-template-columns: max-content 1fr; gap: 2rem 3rem">
+  <div data-layout="ram" data-columns style="--layout-grid-item-min: 0rem">
     <h2 style="margin-block: 0">Viewport Text</h2>
     <h2 style="margin-block: 0">Container Text</h2>
 
-    <section style="margin-top: -1.5rem">
+    <section>
       <p data-font-size="xl" data-text="brand">Brand Text Color</p>
       <p data-font-size="l" data-variant="primary" data-text>Primary Text Color</p>
       <p data-font-size="l" data-variant="secondary" data-text>Secondary Text Color</p>
@@ -961,7 +947,7 @@
       <p data-text="muted">Muted Text Color</p>
     </section>
 
-    <section style="margin-top: -1.5rem" data-fluid-viewport>
+    <section data-fluid-viewport>
       <p data-font-size="xl" data-text="brand">Brand Text Color</p>
       <p data-font-size="l" data-variant="primary" data-text>Primary Text Color</p>
       <p data-font-size="l" data-variant="secondary" data-text>Secondary Text Color</p>
@@ -1017,7 +1003,7 @@
       <h5>Heading H6</h5>
       <p>Paragraph P</p>
     </section>
-  </section>
+  </div>
 
   <section>
     <h2>Spacing</h2>
@@ -1029,7 +1015,7 @@
         align-items: center;
         transform: rotate(-90deg);
         transform-origin: top left;
-        margin-block-start: 9rem;
+        margin-block-start: var(--space-4xl);
       "
     >
       <div style="transform: rotate(90deg); margin-inline: auto">2xs</div>
@@ -1053,15 +1039,10 @@
     </div>
   </section>
 
-  <section style="margin-block-start: -18rem">
+  <section style="margin-block-start: calc(var(--space-4xl) * -3)">
+    <br />
     <h2>Border Radius</h2>
-    <div
-      style="
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: var(--space-m) var(--space-m);
-      "
-    >
+    <div data-layout="ram" style="gap: var(--space-m)">
       <div
         data-variant="primary"
         data-border-radius="2xs"
@@ -1133,7 +1114,7 @@
 
   <section>
     <h2>Elevations</h2>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem">
+    <div data-layout="ram" data-columns style="--layout-grid-item-min: 24rem; --layout-gap: var(--space-3xl)">
       <div data-variant="primary" data-elevation="xl" data-border-radius="m" style="padding: var(--space-xl)">
         <div data-text="brand" data-font-size="xl">Primary</div>
         <div>Normal text color</div>
@@ -1244,11 +1225,9 @@
     </div>
   </section>
 
-  <br />
-  <br />
   <section>
     <h2>Buttons</h2>
-    <div class="color-card-grid">
+    <div data-layout="ram" style="gap: var(--space-m); --layout-grid-item-min: 10ch">
       <button data-variant="primary">Default</button>
       <button data-variant="secondary">Secondary</button>
       <button data-variant="success">Success</button>
@@ -1256,8 +1235,9 @@
       <button data-variant="danger">Danger</button>
       <button data-variant="info">Info</button>
       <button data-variant="neutral">Neutral</button>
+      <button data-variant="surface">Surface-1</button>
       <button data-variant="surface-1">Surface-1</button>
       <button data-variant="surface-2">Surface-2</button>
     </div>
   </section>
-</div>
+</section>
