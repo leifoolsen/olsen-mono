@@ -123,7 +123,7 @@ export function createProxyBuilder<T extends object>(initialObj: DeepPartial<T>)
 
           if (Array.isArray(curr)) {
             const idx = Number(prop);
-            if (!isNaN(idx)) {
+            if (!Number.isNaN(idx)) {
               curr.splice(idx, 1);
               return true;
             }
@@ -188,7 +188,7 @@ export function createProxyBuilder<T extends object>(initialObj: DeepPartial<T>)
 
       if (Array.isArray(obj)) {
         const idx = Number(prop);
-        if (!isNaN(idx)) {
+        if (!Number.isNaN(idx)) {
           obj.splice(idx, 1);
           return true;
         }

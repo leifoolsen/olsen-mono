@@ -11,7 +11,7 @@ export const ThemeToggle: FC<ThemeToggleProps> = ({ currentTheme }) => {
 
   return (
     <>
-      <button hx-post="/api/toggle-theme" hx-swap="outerHTML" data-variant="danger">
+      <button type="button" hx-post="/api/toggle-theme" hx-swap="outerHTML" data-variant="danger">
         {buttonText}
       </button>
 

@@ -18,13 +18,12 @@ olsen-mono/
 │   ├── css-to-dts/          # CLI tool tailored for `pnpm` monorepos to automatically generate TypeScript definitions (`*.css.d.ts`) from CSS files
 │   ├── object-builder/      # Typesafe builder pattern for object literals
 │   ├── reactive-state/      # Reactive state factory
-│   ├── tooling/             # Centralized configuration presets (ESLint, Vitest, tsdown)
+│   ├── tooling/             # Centralized configuration presets (vitest, tsdown)
 │   └── try-catch/           # Functional error handling
 ├── .changeset/              # Automated versioning and changelog management
 ├── .github/workflows/       # GitHub Actions (CI & CD Release Pipelines)
 ├── turbo/                   # Monorepo package templates
-├── .pretterrc.ts.           # Prettier configuration
-├── eslint.config.ts         # Global ESLint entrypoint (Cascading rules)
+├── biome.json               # Biome configuration
 ├── vitest.config.ts         # Global Vitest entrypoint (Auto package mapping)
 ├── tsdown.config.ts         # Global build presets for shared libraries
 └── package.json             # Root orchestrator and global tasks
@@ -58,7 +57,9 @@ The repository is also set up to evaluate different Backend For Frontend, BFF, a
 - **Orchestration:** `Turborepo v2` maximizing compiler efficiency using parallel execution graphs and cryptographic caching.
 - **Backend Runtime:** `Node.js >= 26.0.0` allowing frictionless execution of native, non-polyfilled APIs like `Temporal` date-time engines.
 - **Bundling & Compiling:** `tsdown` for standard library compilation (ESM) and `Vite` for localized application server-side building.
-- **Quality Control:** `ESLint 10` (Flat Config) combined with `Prettier` and `Stylelint`, operating directly from the workspace root for macro-repo validation.
+- **Quality Control:** `Biome` for linting and `Vitest` for testing.
+- **Versioning:** `Changeset` for automated versioning and changelog generation.
+- **Continuous Integration:** `GitHub Actions` for automated testing, linting, and release pipelines. 
 
 ---
 

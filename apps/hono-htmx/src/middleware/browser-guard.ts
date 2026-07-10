@@ -1,5 +1,5 @@
-import { createMiddleware } from 'hono/factory';
 import { isNumeric } from '@olsen-mono/core-utils';
+import { createMiddleware } from 'hono/factory';
 
 export const browserGuard = createMiddleware(async (c, next) => {
   const userAgent = c.req.header('user-agent') || '';

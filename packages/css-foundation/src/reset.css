@@ -49,6 +49,7 @@
   min-block-size: 4lh;
 }
 
-:where([hidden]:not([hidden='until-found'])) {
+:where([hidden]:not([hidden="until-found"])) {
+  /* biome-ignore lint/complexity/noImportantStyles: Should be !important */
   display: none !important;
 }

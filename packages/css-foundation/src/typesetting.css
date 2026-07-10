@@ -129,7 +129,7 @@ html {
   padding-inline-start: var(--space-l, 1.5rem);
 }
 
-:where(ul[role='list'], ol[role='list']) {
+:where(ul[role="list"], ol[role="list"]) {
   list-style: none;
 }
 

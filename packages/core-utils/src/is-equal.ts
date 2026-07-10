@@ -1,7 +1,7 @@
 import { isAtomic } from './is-atomic';
 
 const hasToString = (obj: unknown): obj is { toString(): string } =>
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: any is fine here
   obj != null && typeof (obj as any).toString === 'function';
 
 // const hasValueOf = (obj: unknown): obj is { valueOf(): unknown } => obj != null && typeof (obj as any).valueOf === 'function';
@@ -104,7 +104,7 @@ export const isEqual = (a: unknown, b: unknown): boolean => {
   }
 
   for (const key of keysA) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
+    // biome-ignore lint/suspicious/noExplicitAny: any is fine here
     if (!Reflect.has(b, key) || !isEqual((a as any)[key], (b as any)[key])) {
       return false;
     }

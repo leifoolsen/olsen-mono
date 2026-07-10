@@ -3,9 +3,9 @@
  */
 @layer reset, tokens, base, layout;
 
-@import 'reset.css' layer(reset);
-@import 'colors.css' layer(tokens);
-@import 'font-stacks.css' layer(tokens);
-@import 'typography.css' layer(base);
-@import 'typesetting.css' layer(base);
-@import 'layouts.css' layer(layout);
+@import "reset.css" layer(reset);
+@import "colors.css" layer(tokens);
+@import "font-stacks.css" layer(tokens);
+@import "typography.css" layer(base);
+@import "typesetting.css" layer(base);
+@import "layouts.css" layer(layout);

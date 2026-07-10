@@ -1,5 +1,5 @@
 import * as util from 'node:util';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { isProxy } from '../is-proxy';
 
 // We mock node:util to control the native isProxy behavior in tests
@@ -53,15 +53,13 @@ describe('isProxy', () => {
       vi.mocked(util.types.isProxy).mockReturnValue(false);
 
       const handler = {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // biome-ignore lint/suspicious/noExplicitAny: any is fine here
         get(target: any, prop: string | symbol) {
           if (prop === '__isProxy') return true;
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-member-access
           return target[prop];
         },
       };
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const proxy = new Proxy({ name: 'test' }, handler);
       expect(isProxy(proxy)).toBe(true);
     });

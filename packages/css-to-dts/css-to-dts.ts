@@ -21,21 +21,26 @@ function extractCssTokens(cssContent: string) {
   const variableRegex = /(--[a-zA-Z0-9_-]+)/g;
   const variables = new Set<string>();
 
-  let varMatch;
+  let varMatch: RegExpMatchArray | null = null;
+  // biome-ignore lint/suspicious/noAssignInExpressions:Fix later
   while ((varMatch = variableRegex.exec(cleanContent)) !== null) {
     if (varMatch[1]) variables.add(varMatch[1]);
   }
 
-  const classRegex = /(?:\.([a-zA-Z_][a-zA-Z0-9_-]*)|&\.([a-zA-Z0-9_-]+))/g;
+  const classRegex = /\.([a-zA-Z_][a-zA-Z0-9_-]*)|&\.([a-zA-Z0-9_-]+)/g;
   const classNames = new Set<string>();
-  let classMatch;
+  let classMatch: RegExpMatchArray | null = null;
 
+  // biome-ignore lint/suspicious/noAssignInExpressions: Fix later
   while ((classMatch = classRegex.exec(cleanContent)) !== null) {
     const className = classMatch[1] || classMatch[2];
     if (className) classNames.add(className);
   }
 
-  return { classes: Array.from(classNames).sort(), variables: Array.from(variables).sort() };
+  return {
+    classes: Array.from(classNames).sort(),
+    variables: Array.from(variables).sort(),
+  };
 }
 
 async function processSingleFile(cssFile: string) {
@@ -49,13 +54,12 @@ async function processSingleFile(cssFile: string) {
   const classUnion = classes.length > 0 ? classes.map((c) => `'${c}'`).join(' | ') : 'never';
   const variableUnion = variables.length > 0 ? variables.map((v) => `'${v}'`).join(' | ') : 'never';
 
-  const typeDefinition =
-    [
-      `export type Css = ${classUnion};`,
-      `export type CssVariables = ${variableUnion};`,
-      `declare const styles: string;`,
-      `export default styles;`,
-    ].join('\n') + '\n';
+  const typeDefinition = `${[
+    `export type Css = ${classUnion};`,
+    `export type CssVariables = ${variableUnion};`,
+    `declare const styles: string;`,
+    `export default styles;`,
+  ].join('\n')}\n`;
 
   const sourceDtsFilePath = `${cssFile}.d.ts`;
   await fs.writeFile(sourceDtsFilePath, typeDefinition, 'utf-8');
@@ -94,14 +98,16 @@ async function run() {
       return;
     }
 
-    const relativeEntries = await fs.readdir(absoluteSourceDir, { recursive: true });
+    const relativeEntries = await fs.readdir(absoluteSourceDir, {
+      recursive: true,
+    });
     const cssFiles = new Set<string>();
     const dtsFiles: string[] = [];
 
     for (const relativeEntry of relativeEntries) {
       const entry = path.resolve(absoluteSourceDir, relativeEntry);
       const entryStat = await fs.stat(entry).catch(() => null);
-      if (!entryStat || !entryStat.isFile()) continue;
+      if (!entryStat?.isFile()) continue;
 
       if (entry.endsWith('.css.d.ts')) dtsFiles.push(entry);
       else if (entry.endsWith('.css')) cssFiles.add(entry);

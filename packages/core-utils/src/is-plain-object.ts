@@ -35,16 +35,18 @@ export const isPlainObject = (value: unknown): value is Record<PropertyKey, unkn
     return false;
   }
 
-  const proto = Object.getPrototypeOf(value) as unknown;
+  const proto = Object.getPrototypeOf(value) as
+    | (object & {
+        constructor?: unknown;
+      })
+    | null;
 
   if (proto === null) {
     return true;
   }
 
-  const ctor =
-    Object.prototype.hasOwnProperty.call(proto, 'constructor') && (proto as { constructor?: unknown }).constructor;
+  const ctor = Object.hasOwn(proto, 'constructor') && proto.constructor;
 
-  // Sjekker om objektet ble instansiert av Object-konstruktøren
   const hasObjectCtor =
     typeof ctor === 'function' && Function.prototype.toString.call(ctor) === Function.prototype.toString.call(Object);
 

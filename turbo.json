@@ -3,7 +3,7 @@
   "futureFlags": {
     "watchUsingTaskInputs": true
   },
-  "globalDependencies": [".gitignore", ".prettierignore", "tsconfig.json"],
+  "globalDependencies": [".gitignore", "tsconfig.json", "biome.json"],
   "tasks": {
     "compile": {
       "dependsOn": ["^compile"],
@@ -13,6 +13,10 @@
       "dependsOn": ["^compile"],
       "cache": true,
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"]
+    },
+    "lint": {
+      "cache": true,
+      "inputs": ["src/**/*", "packages/**/*", "biome.json"]
     },
     "test": {
       "dependsOn": ["^compile"],

@@ -1,15 +1,15 @@
 // app.tsx
 import path from 'node:path';
+import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import { getCookie, setCookie } from 'hono/cookie';
 import { html, raw } from 'hono/html';
-import { serveStatic } from '@hono/node-server/serve-static';
 import { Button } from './components/button';
 import { Layout } from './components/layout';
 import designSystemPage from './html/design-system.html?raw';
 import html5TestPage from './html/html5-test-page.html?raw';
 import { browserGuard } from './middleware/browser-guard.ts';
-import { getFormattedTime, getAppUptime } from './utils';
+import { getAppUptime, getFormattedTime } from './utils';
 
 type AppTheme = 'light' | 'dark' | 'auto';
 type AppDensity = 'condensed' | 'normal';
@@ -31,7 +31,13 @@ app.post('/api/toggle-theme', (c) => {
   setCookie(c, 'theme', nextTheme, { maxAge: 31536000, path: '/' });
 
   return c.html(
-    <button hx-post="/api/toggle-theme" hx-swap="outerHTML" data-variant="danger" hx-on:click="toggleAppTheme()">
+    <button
+      type="button"
+      hx-post="/api/toggle-theme"
+      hx-swap="outerHTML"
+      data-variant="danger"
+      hx-on:click="toggleAppTheme()"
+    >
       Change to {nextTheme === 'dark' ? 'light' : 'dark'} theme
     </button>,
   );
@@ -44,7 +50,13 @@ app.post('/api/toggle-density', (c) => {
   setCookie(c, 'density', nextTheme, { maxAge: 31536000, path: '/' });
 
   return c.html(
-    <button hx-post="/api/toggle-density" hx-swap="outerHTML" data-variant="primary" hx-on:click="toggleAppDensity()">
+    <button
+      type="button"
+      hx-post="/api/toggle-density"
+      hx-swap="outerHTML"
+      data-variant="primary"
+      hx-on:click="toggleAppDensity()"
+    >
       Toggle font size
     </button>,
   );
@@ -59,6 +71,7 @@ app.get('/', (c) => {
     <Layout theme={theme} density={density}>
       <div class="box" style="display: flex; gap: 1rem; align-items: center;">
         <button
+          type="button"
           hx-post="/api/toggle-density"
           hx-swap="outerHTML"
           data-variant="secondary"
@@ -82,7 +95,13 @@ app.get('/html5-test-page', (c) => {
     <Layout theme={theme}>
       <div class="box" style="display: flex; justify-content: space-between; align-items: baseline;">
         <h2>HTML5 Test Page</h2>
-        <button hx-post="/api/toggle-theme" hx-swap="outerHTML" data-variant="danger" hx-on:click="toggleAppTheme()">
+        <button
+          type="button"
+          hx-post="/api/toggle-theme"
+          hx-swap="outerHTML"
+          data-variant="danger"
+          hx-on:click="toggleAppTheme()"
+        >
           Change to {theme === 'dark' ? 'light' : 'dark'} thene
         </button>
       </div>
@@ -99,7 +118,13 @@ app.get('/design-system', (c) => {
     <Layout theme={theme} density={density}>
       <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
         <h2>Fluid, Data Driven Design</h2>
-        <button hx-post="/api/toggle-theme" hx-swap="outerHTML" data-variant="success" hx-on:click="toggleAppTheme()">
+        <button
+          type="button"
+          hx-post="/api/toggle-theme"
+          hx-swap="outerHTML"
+          data-variant="success"
+          hx-on:click="toggleAppTheme()"
+        >
           Change to {theme === 'dark' ? 'light' : 'dark'} theme
         </button>
       </div>

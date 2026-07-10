@@ -1,4 +1,3 @@
-export type { AtomicObject, DeepPartial, TemporalObject } from './types.js';
 export { assertNonNullish } from './assert-non-nullish.js';
 export { createSafeRegex } from './create-safe-regex.js';
 export { isAtomic } from './is-atomic.js';
@@ -19,3 +18,4 @@ export { isRecord } from './is-record.js';
 export { isTemporal } from './is-temporal.js';
 export { isValidObjectKey } from './is-valid-object-key.js';
 export { isZonedDateTime } from './is-zoned-date-time.js';
+export type { AtomicObject, DeepPartial, TemporalObject } from './types.js';
