@@ -1,5 +1,11 @@
 # @olsen-mono/css-to-dts
 
+## 0.0.5
+
+### Patch Changes
+
+- 0d12756: Replaced ESLint, Prettier, and Stylelint with Biome.
+
 ## 0.0.4
 
 ### Patch Changes

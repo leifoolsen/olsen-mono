@@ -1,5 +1,11 @@
 # @olsen-mono/reactive-state
 
+## 0.0.3
+
+### Patch Changes
+
+- 0d12756: Replaced ESLint, Prettier, and Stylelint with Biome.
+
 ## 0.0.2
 
 ### Patch Changes

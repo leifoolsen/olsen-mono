@@ -1,5 +1,11 @@
 # @olsen-mono/object-builder
 
+## 0.0.4
+
+### Patch Changes
+
+- 0d12756: Replaced ESLint, Prettier, and Stylelint with Biome.
+
 ## 0.0.3
 
 ### Patch Changes

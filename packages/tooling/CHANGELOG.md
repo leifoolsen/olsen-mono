@@ -1,5 +1,11 @@
 # @olsen-mono/tooling
 
+## 0.0.11
+
+### Patch Changes
+
+- 0d12756: Replaced ESLint, Prettier, and Stylelint with Biome.
+
 ## 0.0.10
 
 ### Patch Changes

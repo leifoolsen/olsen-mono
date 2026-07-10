@@ -1,5 +1,14 @@
 # hello-htmx
 
+## 0.0.13
+
+### Patch Changes
+
+- 0d12756: Replaced ESLint, Prettier, and Stylelint with Biome.
+- Updated dependencies [0d12756]
+  - @olsen-mono/css-foundation@0.0.8
+  - @olsen-mono/core-utils@0.0.16
+
 ## 0.0.12
 
 ### Patch Changes

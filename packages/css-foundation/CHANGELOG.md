@@ -1,5 +1,11 @@
 # @olsen-mono/css-foundation
 
+## 0.0.8
+
+### Patch Changes
+
+- 0d12756: Replaced ESLint, Prettier, and Stylelint with Biome.
+
 ## 0.0.7
 
 ### Patch Changes
