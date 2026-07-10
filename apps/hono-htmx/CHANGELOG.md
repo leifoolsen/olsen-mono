@@ -1,5 +1,11 @@
 # hello-htmx
 
+## 0.0.14
+
+### Patch Changes
+
+- d97de26: Astro: Initial setup
+
 ## 0.0.13
 
 ### Patch Changes
