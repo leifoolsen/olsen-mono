@@ -1,0 +1,11 @@
+{
+  "$schema": "https://turbo.build",
+  "extends": ["//"],
+  "tasks": {
+    "typecheck": {
+      "dependsOn": ["^compile"],
+      "cache": true,
+      "inputs": ["src/**/*.ts", "src/**/*.astro", "tsconfig.json"]
+    }
+  }
+}

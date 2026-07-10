@@ -10,7 +10,8 @@ catalog:
   "htmx.org": ^2.0.10
   "vite": ^8.0.10
 overrides:
-  eslint-plugin-import: npm:eslint-plugin-import-x@latest
+  "@astrojs/check>typescript": "6.0.3"
+  "@astrojs/ts-plugin>typescript": "6.0.3"
 saveExact: true
 preferOffline: true
 engineStrict: true

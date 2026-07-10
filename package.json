@@ -5,6 +5,7 @@
   "private": true,
   "type": "module",
   "keywords": [
+    "astro",
     "biome",
     "css-to-dts",
     "hono",
@@ -49,7 +50,7 @@
     "find-caches": "shx ls -d .turbo \"**/.turbo\" \"**/node_modules/.vite\" \"node_modules/.cache\" \"**/.tsbuildinfo\"",
     "lint": "biome check .",
     "lint-fix": "biome check --write .",
-    "prepare": "turbo run compile --filter=@olsen-mono/css-to-dts",
+    "prepare": "pnpm --filter=@olsen-mono/css-to-dts run compile",
     "release": "changeset publish",
     "show-tsconfig": "tsc --showConfig",
     "test": "turbo run test",
@@ -58,7 +59,7 @@
     "version-packages": "changeset version && pnpm install --ignore-scripts",
     "dev-htmx": "turbo run copy-deps css-to-dts && pnpm --filter=./apps/hono-htmx... dev",
     "build-htmx": "turbo run compile --filter=./apps/hono-htmx...",
-    "start": "pnpm --filter hono-htmx start"
+    "dev-astro": "pnpm --filter=./apps/astro-htmx... dev"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.3",
