@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.16
+
+### Patch Changes
+
+- 0d12756: Replaced ESLint, Prettier, and Stylelint with Biome.
+
 ## 0.0.15
 
 ### Patch Changes
