@@ -6,10 +6,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "author": "Leif Olsen",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/olsen-mono/olsen-mono.git",
-    "directory": "apps/hello-htmx"
+    "directory": "apps/hono-htmx"
   },
   "bugs": {
     "url": "https://github.com/olsen-mono/olsen-mono/issues"

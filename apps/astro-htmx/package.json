@@ -1,0 +1,33 @@
+{
+  "name": "astro-htmx",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Leif Olsen",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olsen-mono/olsen-mono.git",
+    "directory": "apps/astro-htmx"
+  },
+  "bugs": {
+    "url": "https://github.com/olsen-mono/olsen-mono/issues"
+  },
+  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "compile": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.9",
+    "@astrojs/node": "^11.0.2",
+    "astro": "^7.0.7",
+    "typescript": "6.0.3"
+  }
+}
