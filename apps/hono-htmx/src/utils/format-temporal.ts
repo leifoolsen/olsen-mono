@@ -1,4 +1,4 @@
-import { isPlainDate, isPlainTime, isPlainDateTime, isZonedDateTime } from '@olsen-mono/core-utils';
+import { isPlainDate, isPlainDateTime, isPlainTime, isZonedDateTime } from '@olsen-mono/core-utils';
 
 export const formatTemporal = (val: unknown, locale = 'no-NO'): string => {
   // 1. Ren dato (f.eks. "25. mai 2026")

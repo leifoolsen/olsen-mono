@@ -294,8 +294,7 @@ P R E F O R M A T T E D T E X T
   @ A B C D E F G H I J K L M N O
   P Q R S T U V W X Y Z [ \ ] ^ _
   ` a b c d e f g h i j k l m n o
-  p q r s t u v w x y z { | } ~ </pre
-          >
+  p q r s t u v w x y z { | } ~</pre>
         </div>
         <footer>
           <p><a href="#top">[Top]</a></p>
@@ -352,22 +351,22 @@ P R E F O R M A T T E D T E X T
         <header><h2>Images</h2></header>
         <div>
           <h3>Plain <code>&lt;img&gt;</code> element</h3>
-          <p><img src="https://picsum.photos/480/480" alt="Photo" loading="lazy" /></p>
+          <p><img src="https://picsum.photos/480/480" alt="A random img" loading="lazy" /></p>
           <h3><code>&lt;figure&gt;</code> element with <code>&lt;img&gt;</code> element</h3>
-          <figure><img src="https://picsum.photos/420/420" alt="Photo" loading="lazy" /></figure>
+          <figure><img src="https://picsum.photos/420/420" alt="A random img" loading="lazy" /></figure>
           <h3>
             <code>&lt;figure&gt;</code> element with <code>&lt;img&gt;</code> and
             <code>&lt;figcaption&gt;</code> elements
           </h3>
           <figure>
-            <img src="https://picsum.photos/420/420" alt="Photo" loading="lazy" />
+            <img src="https://picsum.photos/420/420" alt="A random img" loading="lazy" />
             <figcaption>Here is a caption for this image.</figcaption>
           </figure>
           <h3><code>&lt;figure&gt;</code> element with a <code>&lt;picture&gt;</code> element</h3>
           <figure>
             <picture>
               <source srcset="https://picsum.photos/800/800" media="(min-width: 800px)" />
-              <img src="https://picsum.photos/420/420" alt="Photo" loading="lazy" />
+              <img src="https://picsum.photos/420/420" alt="A random img" loading="lazy" />
             </picture>
           </figure>
         </div>
@@ -384,13 +383,17 @@ P R E F O R M A T T E D T E X T
       </article>
       <article id="embedded__audio">
         <header><h2>Audio</h2></header>
-        <div><audio controls="">audio</audio></div>
+        <div>
+          <!-- biome-ignore lint/a11y/useMediaCaption: Ok for demo purposes -->
+          <audio controls="">audio</audio>
+        </div>
         <footer>
           <p><a href="#top">[Top]</a></p>
         </footer>
       </article>
       <article id="embedded__video">
         <header><h2>Video</h2></header>
+        <!-- biome-ignore lint/a11y/useMediaCaption: OK for demo purposes -->
         <div><video controls="">video</video></div>
         <footer>
           <p><a href="#top">[Top]</a></p>
@@ -420,7 +423,9 @@ P R E F O R M A T T E D T E X T
       <article id="embedded__svg">
         <header><h2>Inline SVG</h2></header>
         <div>
-          <svg width="100px" height="100px"><circle cx="100" cy="100" r="100" fill="#1fa3ec"></circle></svg>
+          <svg width="100px" height="100px" role="img" aria-label="An img title">
+            <circle cx="100" cy="100" r="100" fill="#1fa3ec"></circle>
+          </svg>
         </div>
         <footer>
           <p><a href="#top">[Top]</a></p>
@@ -428,7 +433,7 @@ P R E F O R M A T T E D T E X T
       </article>
       <article id="embedded__iframe">
         <header><h2>IFrame</h2></header>
-        <div><iframe src="/html5-test-page" height="300" width="100%"></iframe></div>
+        <div><iframe src="/html5-test-page" height="300" width="100%" title="An iframe example"></iframe></div>
         <footer>
           <p><a href="#top">[Top]</a></p>
         </footer>
@@ -442,7 +447,7 @@ P R E F O R M A T T E D T E X T
       </article>
       <article id="embedded__object">
         <header><h2>Object</h2></header>
-        <div><object data="/html5-test-page" height="300" width="100%"></object></div>
+        <div><object data="/html5-test-page" height="300" width="100%" title="An object example"></object></div>
         <footer>
           <p><a href="#top">[Top]</a></p>
         </footer>
@@ -622,3 +627,4 @@ P R E F O R M A T T E D T E X T
     </p>
   </footer>
 </div>
+

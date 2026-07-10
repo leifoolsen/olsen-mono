@@ -117,9 +117,9 @@ body,
 }
 
 /* --- Color Themes --- */
-[data-variant='surface'],
-[data-variant='surface-1'],
-[data-variant='surface-2'] {
+[data-variant="surface"],
+[data-variant="surface-1"],
+[data-variant="surface-2"] {
   --color-50: oklch(100% 0 0deg);
   --color-100: oklch(95% 0 0deg);
   --color-200: oklch(88% 0 0deg);
@@ -135,17 +135,17 @@ body,
   --border-color: light-dark(var(--color-100), var(--color-950));
 }
 
-[data-variant='surface-1'] {
+[data-variant="surface-1"] {
   --swatch-color: light-dark(var(--color-100), var(--color-800));
   --border-color: light-dark(var(--color-200), var(--color-700));
 }
 
-[data-variant='surface-2'] {
+[data-variant="surface-2"] {
   --swatch-color: light-dark(var(--color-200), var(--color-700));
   --border-color: light-dark(var(--color-300), var(--color-600));
 }
 
-[data-variant='neutral'] {
+[data-variant="neutral"] {
   --base-c: var(--chroma-neutral);
   --base-h: var(--hue-neutral);
   --base-l: 0.6;
@@ -153,116 +153,116 @@ body,
   --border-color: light-dark(var(--color-200), var(--color-900));
 }
 
-[data-variant='primary'] {
+[data-variant="primary"] {
   --base-c: var(--chroma-primary);
   --base-h: var(--hue-primary);
   --base-l: 0.51;
 }
 
-[data-variant='secondary'] {
+[data-variant="secondary"] {
   --base-c: var(--chroma-secondary);
   --base-h: var(--hue-secondary);
   --base-l: 0.56;
 }
 
-[data-variant='tertiary'] {
+[data-variant="tertiary"] {
   --base-c: var(--chroma-tertiary);
   --base-h: var(--hue-tertiary);
   --base-l: 0.71;
   --brand-contrast: white;
 }
 
-[data-variant='quaternary'] {
+[data-variant="quaternary"] {
   --base-c: var(--chroma-quaternary);
   --base-h: var(--hue-quaternary);
   --base-l: 0.69;
   --brand-contrast: white;
 }
 
-[data-variant='success'] {
+[data-variant="success"] {
   --base-c: var(--chroma-success);
   --base-h: var(--hue-success);
   --base-l: 0.35;
 }
 
-[data-variant='warning'] {
+[data-variant="warning"] {
   --base-c: var(--chroma-warning);
   --base-h: var(--hue-warning);
   --base-l: 0.68;
   --brand-contrast: white;
 }
 
-[data-variant='info'] {
+[data-variant="info"] {
   --base-c: var(--chroma-info);
   --base-h: var(--hue-info);
   --base-l: 0.61;
 }
 
-[data-variant='danger'],
-[data-variant='error'] {
+[data-variant="danger"],
+[data-variant="error"] {
   --base-c: var(--chroma-error);
   --base-h: var(--hue-error);
   --base-l: 0.55;
 }
 
 /* --- Swatch Mappings --- */
-[data-color='50'] {
+[data-color="50"] {
   --swatch-color: var(--color-50);
 }
 
-[data-color='100'] {
+[data-color="100"] {
   --swatch-color: var(--color-100);
 }
 
-[data-color='200'] {
+[data-color="200"] {
   --swatch-color: var(--color-200);
 }
 
-[data-color='300'] {
+[data-color="300"] {
   --swatch-color: var(--color-300);
 }
 
-[data-color='400'] {
+[data-color="400"] {
   --swatch-color: var(--color-400);
 }
 
-[data-color='500'] {
+[data-color="500"] {
   --swatch-color: var(--color-500);
 }
 
-[data-color='600'] {
+[data-color="600"] {
   --swatch-color: var(--color-600);
 }
 
-[data-color='700'] {
+[data-color="700"] {
   --swatch-color: var(--color-700);
 }
 
-[data-color='800'] {
+[data-color="800"] {
   --swatch-color: var(--color-800);
 }
 
-[data-color='900'] {
+[data-color="900"] {
   --swatch-color: var(--color-900);
 }
 
-[data-color='950'] {
+[data-color="950"] {
   --swatch-color: var(--color-950);
 }
 
-[data-color='A100'] {
+[data-color="A100"] {
   --swatch-color: var(--color-A100);
 }
 
-[data-color='A200'] {
+[data-color="A200"] {
   --swatch-color: var(--color-A200);
 }
 
-[data-color='A400'] {
+[data-color="A400"] {
   --swatch-color: var(--color-A400);
 }
 
-[data-color='A700'] {
+[data-color="A700"] {
   --swatch-color: var(--color-A700);
 }
 
@@ -275,27 +275,27 @@ body,
   );
 }
 
-[data-text='brand'] {
+[data-text="brand"] {
   color: var(--brand-text-color);
 }
 
-[data-text='normal'] {
+[data-text="normal"] {
   color: var(--normal-text);
 }
 
-[data-text='subtle'] {
+[data-text="subtle"] {
   color: var(--subtle-text);
 }
 
-[data-text='muted'] {
+[data-text="muted"] {
   color: var(--muted-text);
 }
 
 /* --- Theme Switcher --- */
-html[data-theme='light'] {
+html[data-theme="light"] {
   color-scheme: light;
 }
 
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   color-scheme: dark;
 }

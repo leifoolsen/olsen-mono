@@ -1,5 +1,5 @@
-import styles from './button.css?inline'; // Node godtar dette som en streng!
 import type { Css } from './button.css';
+import styles from './button.css?inline'; // Node godtar dette som en streng!
 
 function cn(...classes: Css[]): string {
   return classes.join(' ');
@@ -10,42 +10,15 @@ export const Button = () => {
     <div>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
 
-      <button class={cn('myButton')} hx-get="/api/fragment" hx-target="#fragment-target" hx-swap="innerHTML">
+      <button
+        type="button"
+        class={cn('myButton')}
+        hx-get="/api/fragment"
+        hx-target="#fragment-target"
+        hx-swap="innerHTML"
+      >
         Server info
       </button>
     </div>
   );
 };
-
-/*
-import styles from './button.css?inline';
-import type { Css, CssVariables } from './button.css';
-// Du kan også importere globale variabler fra tema-filen din!
-import type { CssVariables as GlobalVars } from '../../styles/theme.css';
-
-interface ButtonProps {
-  color?: 'red' | 'blue';
-}
-
-export const Button = ({ color = 'red' }: ButtonProps) => {
-  // Sørger for at du kun kan sette gyldige variabler definert i CSS-filen (eller globale)
-  const buttonStyle: Record<CssVariables | GlobalVars, string> = {
-    '--btn-color': color, // TypeScript godtar denne fordi den finnes i button.css
-    '--global-margin': '12px' // TypeScript godtar denne om den finnes i theme.css
-  };
-
-  return (
-    <div>
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
-
-      <button
-        class="myButton"
-        style={buttonStyle}
-        hx-get="/api/fragment"
-      >
-        Hent magisk innhold
-      </button>
-    </div>
-  );
-};
- */

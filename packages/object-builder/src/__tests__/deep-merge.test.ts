@@ -1,4 +1,4 @@
-import { type DeepPartial } from '@olsen-mono/core-utils';
+import type { DeepPartial } from '@olsen-mono/core-utils';
 import { describe, expect, it } from 'vitest';
 import { deepMerge } from '../deep-merge';
 

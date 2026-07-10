@@ -88,12 +88,15 @@ describe('proxyBuilder', () => {
 
     it('should modify an existing value in an array', () => {
       const builder = createProxyBuilder(initial);
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      // biome-ignore lint/style/noNonNullAssertion: non null assertion is ok
       builder.items[0]!.value = 20;
 
       const built = builder.build();
       expect(built.items[0]?.value).toBe(20);
-      expect(built).toEqual({ user: { id: 1, name: 'John' }, items: [{ id: 'a', value: 20 }] });
+      expect(built).toEqual({
+        user: { id: 1, name: 'John' },
+        items: [{ id: 'a', value: 20 }],
+      });
     });
 
     it('should push new item to an existing array', () => {
@@ -270,7 +273,7 @@ describe('proxyBuilder', () => {
       const builder = createProxyBuilder<TestState>(initial);
 
       // Hent elementet direkte fra builder-proxyen for å få riktig referanse
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      // biome-ignore lint/style/noNonNullAssertion: non null assertion is ok
       const itemInBuilder = builder.items.values().next().value!;
       builder.items.delete(itemInBuilder);
 

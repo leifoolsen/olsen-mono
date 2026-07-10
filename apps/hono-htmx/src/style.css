@@ -1,13 +1,13 @@
 /* style.css */
 @layer reset, tokens, base, layout;
 
-@import '@olsen-mono/css-foundation/reset.css' layer(reset);
-@import '@olsen-mono/css-foundation/colors.css' layer(tokens);
-@import '@olsen-mono/css-foundation/font-stacks.css' layer(tokens);
-@import '@olsen-mono/css-foundation/typography.css' layer(base);
-@import '@olsen-mono/css-foundation/typesetting.css' layer(base);
-@import '@olsen-mono/css-foundation/layouts.css' layer(layout);
-@import './button.css';
+@import "@olsen-mono/css-foundation/reset.css" layer(reset);
+@import "@olsen-mono/css-foundation/colors.css" layer(tokens);
+@import "@olsen-mono/css-foundation/font-stacks.css" layer(tokens);
+@import "@olsen-mono/css-foundation/typography.css" layer(base);
+@import "@olsen-mono/css-foundation/typesetting.css" layer(base);
+@import "@olsen-mono/css-foundation/layouts.css" layer(layout);
+@import "./button.css";
 
 .container {
   max-width: 1200px;

@@ -7,7 +7,19 @@ declare module 'hono/jsx' {
       /* ==========================================================================
          CUSTOM ATTRIBUTES
          ========================================================================== */
-      'data-variant'?: 'primary' | 'secondary' | 'tertiary' | 'neutral' | 'danger' | 'success' | 'warning' | 'info' | 'surface' | 'surface-1' | 'surface-2' | (string & {});
+      'data-variant'?:
+        | 'primary'
+        | 'secondary'
+        | 'tertiary'
+        | 'neutral'
+        | 'danger'
+        | 'success'
+        | 'warning'
+        | 'info'
+        | 'surface'
+        | 'surface-1'
+        | 'surface-2'
+        | (string & {});
       'data-state'?: 'idle' | 'loading' | 'success' | 'error' | (string & {});
       'data-theme'?: 'light' | 'dark' | 'auto' | (string & {});
       'data-density'?: 'condensed' | 'normal' | (string & {});
@@ -22,7 +34,16 @@ declare module 'hono/jsx' {
       'hx-delete'?: string;
       'hx-patch'?: string;
       'hx-target'?: string;
-      'hx-swap'?: 'innerHTML' | 'outerHTML' | 'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend' | 'delete' | 'none' | (string & {});
+      'hx-swap'?:
+        | 'innerHTML'
+        | 'outerHTML'
+        | 'beforebegin'
+        | 'afterbegin'
+        | 'beforeend'
+        | 'afterend'
+        | 'delete'
+        | 'none'
+        | (string & {});
       'hx-boost'?: 'true' | 'false' | (string & {});
       'hx-trigger'?: string;
       'hx-indicator'?: string;
@@ -41,7 +62,8 @@ declare module 'hono/jsx' {
       /* ==========================================================================
          HTMX FALLBACK
          ========================================================================== */
-      [key: `hx-${string}`]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+      // biome-ignore lint/suspicious/noExplicitAny: any is fine here
+      [key: `hx-${string}`]: any;
     }
   }
 }

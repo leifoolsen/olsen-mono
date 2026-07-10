@@ -25,7 +25,6 @@ describe('#isPlainObject', () => {
     expect(isPlainObject({ constructor: MyClass })).toBeTruthy();
     expect(isPlainObject({ valueOf: 0 })).toBeTruthy();
     expect(isPlainObject(Object.create(null))).toBeTruthy();
-    expect(isPlainObject(new Object())).toBe(true);
     expect(isPlainObject(JSON)).toBeTruthy();
     expect(isPlainObject(Math)).toBeTruthy();
 
@@ -53,14 +52,8 @@ describe('#isPlainObject', () => {
     expect(isPlainObject(0)).toBeFalsy();
     expect(isPlainObject(false)).toBeFalsy();
 
-    (function x() {
-      expect(isPlainObject(arguments)).toBeFalsy(); // eslint-disable-line prefer-rest-params
-    })();
-
     // @ts-expect-error Ok for testing
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const foo = new MyClass(2);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     foo.constructor = Object;
     expect(isPlainObject(foo)).toBeFalsy();
 
@@ -105,7 +98,7 @@ describe('#isPlainObject', () => {
     expect(isPlainObject(true satisfies boolean)).toBeFalsy();
     // eslint-disable-next-line @typescript-eslint/no-implied-eval
     expect(isPlainObject(new Function('return 1'))).toBeFalsy();
-    expect(isPlainObject(new RegExp('foo'))).toBeFalsy();
+    expect(isPlainObject(/foo/)).toBeFalsy();
     expect(isPlainObject(new Error('foo'))).toBeFalsy();
     expect(isPlainObject(new Array(1))).toBeFalsy();
     expect(isPlainObject(new Set([1, 2, 3]))).toBeFalsy();

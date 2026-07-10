@@ -135,7 +135,7 @@ describe('reactive-state', () => {
       // cleanData has 0% proxy overhead and performs optimally in heavy CPU operations
       expect(cleanData.user.name).toBe('John Doe');
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access
+      // biome-ignore lint/suspicious/noExplicitAny: any is fine here
       expect((cleanData as any)[Symbol.for('RAW_STATE')]).toBeUndefined();
     });
   });
@@ -271,7 +271,11 @@ describe('reactive-state', () => {
 
     it('overwriting an object replaces it completely (destructive)', async () => {
       const store = createReactiveState<TestState>({
-        user: { id: 1, name: 'John', profile: { bio: 'Original Bio', avatarUrl: 'old.png' } },
+        user: {
+          id: 1,
+          name: 'John',
+          profile: { bio: 'Original Bio', avatarUrl: 'old.png' },
+        },
         metadata: {},
       });
 
@@ -299,7 +303,11 @@ describe('reactive-state', () => {
 
     it('is the clients responsibility to shallow/deep merge when preserving fields', async () => {
       const store = createReactiveState<TestState>({
-        user: { id: 1, name: 'John', profile: { avatarUrl: 'old.png', bio: 'Keep this bio' } },
+        user: {
+          id: 1,
+          name: 'John',
+          profile: { avatarUrl: 'old.png', bio: 'Keep this bio' },
+        },
         metadata: {},
       });
 
@@ -310,7 +318,7 @@ describe('reactive-state', () => {
       // er det klientens ansvar å hente ut nåværende tilstand og merge (shallow/deep merge)
       const currentProfile = store.state.user.profile;
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      // biome-ignore lint/style/noNonNullAssertion: non null assertion is fine here
       const newProfile = { ...currentProfile!, avatarUrl: 'new.png' };
 
       store.state.user = {

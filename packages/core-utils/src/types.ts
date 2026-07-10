@@ -75,7 +75,8 @@ export type DeepPartial<T> = T extends AtomicObject
     ? Map<K, DeepPartial<V>>
     : T extends Set<infer U>
       ? Set<DeepPartial<U>>
-      : T extends readonly any[] // eslint-disable-line @typescript-eslint/no-explicit-any
+      : // biome-ignore lint/suspicious/noExplicitAny: any is ok here
+        T extends readonly any[]
         ? number extends T['length']
           ? DeepPartial<T[number]>[]
           : { [K in keyof T]: DeepPartial<T[K]> }

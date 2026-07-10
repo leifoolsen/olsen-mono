@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 const TEST_DIR = path.resolve(__dirname, './__fixtures__');
 
@@ -42,7 +42,9 @@ describe('css-to-dts', () => {
     // Use the source code directly and pass the test folder as an argument
     const scriptPath = path.resolve(__dirname, '..', './css-to-dts.ts');
 
-    execSync(`node --experimental-strip-types ${scriptPath} "${TEST_DIR}"`, { stdio: 'pipe' });
+    execSync(`node --experimental-strip-types ${scriptPath} "${TEST_DIR}"`, {
+      stdio: 'pipe',
+    });
 
     // 4. Check if the corresponding .d.ts file was created
     const dtsFilePath = `${cssFilePath}.d.ts`;
@@ -69,7 +71,9 @@ describe('css-to-dts', () => {
 
     const scriptPath = path.resolve(__dirname, '..', './css-to-dts.ts');
 
-    execSync(`node --experimental-strip-types ${scriptPath} "${TEST_DIR}"`, { stdio: 'pipe' });
+    execSync(`node --experimental-strip-types ${scriptPath} "${TEST_DIR}"`, {
+      stdio: 'pipe',
+    });
 
     // Check that the file was deleted by the cleanup logic
     const fileStillExists = await fs

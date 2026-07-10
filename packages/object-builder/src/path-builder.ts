@@ -90,7 +90,8 @@ type KeyPathImpl<T, D extends number = 5> = [D] extends [never]
   ? never
   : NonNullableStructure<T> extends AtomicObject
     ? never
-    : NonNullableStructure<T> extends readonly any[] // eslint-disable-line @typescript-eslint/no-explicit-any
+    : // biome-ignore lint/suspicious/noExplicitAny: any is used here to avoid type errors
+      NonNullableStructure<T> extends readonly any[]
       ? number extends NonNullableStructure<T>['length']
         ? `${number}` | `${number}.${KeyPathImpl<NonNullableStructure<T>[number], MaxDepth[D]>}`
         : {
@@ -208,7 +209,7 @@ export function createPathBuilder<T extends object>(initialState: T): PathBuilde
         }
 
         if (!(part in current) || current[part] == null) {
-          current[part] = !isNaN(Number(nextPart)) ? [] : {};
+          current[part] = !Number.isNaN(Number(nextPart)) ? [] : {};
         }
 
         current = current[part] as Record<string, unknown>;
@@ -231,7 +232,7 @@ export function createPathBuilder<T extends object>(initialState: T): PathBuilde
 
         if (!(part in current) || current[part] == null) {
           const nextPart = parts[i + 1];
-          current[part] = !isNaN(Number(nextPart)) ? [] : {};
+          current[part] = !Number.isNaN(Number(nextPart)) ? [] : {};
         }
         current = current[part] as Record<string, unknown>;
       }
@@ -270,7 +271,7 @@ export function createPathBuilder<T extends object>(initialState: T): PathBuilde
       if (lastPart !== undefined) {
         if (Array.isArray(current)) {
           const index = Number(lastPart);
-          if (!isNaN(index)) {
+          if (!Number.isNaN(index)) {
             current.splice(index, 1);
           }
         } else {

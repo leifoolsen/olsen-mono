@@ -116,7 +116,7 @@ export const createSafeRegex = <P extends string>(config: SafeRegexConfig<P>): R
     return currentPattern.replaceAll(`{{${key}}}`, () => safeValue);
   }, config.pattern);
 
-  if (/\{\{[^}]*\}\}/.test(finalPattern)) {
+  if (/\{\{[^}]*}}/.test(finalPattern)) {
     throw new Error(`Could not create regex. Some placeholders were not replaced: "${finalPattern}"`);
   }
 

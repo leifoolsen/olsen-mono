@@ -22,5 +22,5 @@
   --font-handwritten: segoe print, bradley hand, chilanka, tscu_comic, casual, cursive;
 
   /* --- Looking to add native emojis to your page? Append these fonts at the end of your font stack: --- */
-  --font-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-emoji: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }

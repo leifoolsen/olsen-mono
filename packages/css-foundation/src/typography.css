@@ -139,7 +139,7 @@
 }
 
 /** --- Condensed Font --- */
-html[data-density='condensed'] {
+html[data-density="condensed"] {
   --base-font-size-min: 0.875;
   --base-font-size-max: 1;
 }
@@ -213,42 +213,42 @@ html[data-density='condensed'] {
 }
 
 /* --- Fluid Fonts --- */
-[data-font-size='xs'],
-[data-font-size='s'],
-[data-font-size='m'] {
+[data-font-size="xs"],
+[data-font-size="s"],
+[data-font-size="m"] {
   font-family: var(--font-family-main), sans-serif;
 }
 
-[data-font-size='xs'] {
+[data-font-size="xs"] {
   font-size: var(--font-size-xs);
   letter-spacing: var(--letter-spacing-xs);
   font-weight: var(--font-weight-xs);
   line-height: var(--line-height-xs);
 }
 
-[data-font-size='s'] {
+[data-font-size="s"] {
   font-size: var(--font-size-s);
   letter-spacing: var(--letter-spacing-s);
   font-weight: var(--font-weight-s);
   line-height: var(--line-height-s);
 }
 
-[data-font-size='m'] {
+[data-font-size="m"] {
   font-size: var(--font-size-m);
   letter-spacing: var(--letter-spacing-m);
   font-weight: var(--font-weight-m);
   line-height: var(--line-height-m);
 }
 
-[data-font-size='l'],
-[data-font-size='xl'],
-[data-font-size='2xl'],
-[data-font-size='3xl'],
-[data-font-size='4xl'] {
+[data-font-size="l"],
+[data-font-size="xl"],
+[data-font-size="2xl"],
+[data-font-size="3xl"],
+[data-font-size="4xl"] {
   font-family: var(--font-family-heading), sans-serif;
 }
 
-[data-font-size='l'],
+[data-font-size="l"],
 :where(h5):not([data-font-size]) {
   font-size: var(--font-size-l);
   letter-spacing: var(--letter-spacing-l);
@@ -256,7 +256,7 @@ html[data-density='condensed'] {
   line-height: var(--line-height-l);
 }
 
-[data-font-size='xl'],
+[data-font-size="xl"],
 :where(h4):not([data-font-size]) {
   font-size: var(--font-size-xl);
   line-height: var(--line-height-xl);
@@ -264,7 +264,7 @@ html[data-density='condensed'] {
   font-weight: var(--font-weight-xl);
 }
 
-[data-font-size='2xl'],
+[data-font-size="2xl"],
 :where(h3):not([data-font-size]) {
   font-size: var(--font-size-2xl);
   letter-spacing: var(--letter-spacing-2xl);
@@ -272,7 +272,7 @@ html[data-density='condensed'] {
   line-height: var(--line-height-2xl);
 }
 
-[data-font-size='3xl'],
+[data-font-size="3xl"],
 :where(h2):not([data-font-size]) {
   font-size: var(--font-size-3xl);
   letter-spacing: var(--letter-spacing-3xl);
@@ -280,7 +280,7 @@ html[data-density='condensed'] {
   line-height: var(--line-height-3xl);
 }
 
-[data-font-size='4xl'],
+[data-font-size="4xl"],
 :where(h1):not([data-font-size]) {
   font-size: var(--font-size-4xl);
   letter-spacing: var(--letter-spacing-4xl);
@@ -289,67 +289,67 @@ html[data-density='condensed'] {
 }
 
 /* --- Fluid Radius --- */
-[data-border-radius='2xs'] {
+[data-border-radius="2xs"] {
   border-radius: var(--space-2xs);
 }
 
-[data-border-radius='xs'] {
+[data-border-radius="xs"] {
   border-radius: var(--space-xs);
 }
 
-[data-border-radius='s'] {
+[data-border-radius="s"] {
   border-radius: var(--space-s);
 }
 
-[data-border-radius='m'] {
+[data-border-radius="m"] {
   border-radius: var(--space-m);
 }
 
-[data-border-radius='l'] {
+[data-border-radius="l"] {
   border-radius: var(--space-l);
 }
 
-[data-border-radius='xl'] {
+[data-border-radius="xl"] {
   border-radius: var(--space-xl);
 }
 
-[data-border-radius='2xl'] {
+[data-border-radius="2xl"] {
   border-radius: var(--space-2xl);
 }
 
-[data-border-radius='3xl'] {
+[data-border-radius="3xl"] {
   border-radius: var(--space-3xl);
 }
 
-[data-border-radius='infinity'] {
+[data-border-radius="infinity"] {
   border-radius: calc(infinity * 1px);
 }
 
 /* --- Fluid elevations --- */
-[data-elevation='none'] {
+[data-elevation="none"] {
   box-shadow: var(--shadow-none);
 }
 
-[data-elevation='xs'] {
+[data-elevation="xs"] {
   box-shadow: var(--shadow-xs);
 }
 
-[data-elevation='s'] {
+[data-elevation="s"] {
   box-shadow: var(--shadow-s);
 }
 
-[data-elevation='m'] {
+[data-elevation="m"] {
   box-shadow: var(--shadow-m);
 }
 
-[data-elevation='l'] {
+[data-elevation="l"] {
   box-shadow: var(--shadow-l);
 }
 
-[data-elevation='xl'] {
+[data-elevation="xl"] {
   box-shadow: var(--shadow-xl);
 }
 
-[data-elevation='2xl'] {
+[data-elevation="2xl"] {
   box-shadow: var(--shadow-2xl);
 }

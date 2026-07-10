@@ -8,6 +8,6 @@
  * @returns A boolean indicating whether the value is a function.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const isFunction = (value: unknown): value is (...args: any[]) => unknown => {
+export const isFunction = (value: unknown): value is (...args: unknown[]) => unknown => {
   return typeof value === 'function';
 };
