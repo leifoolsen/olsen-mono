@@ -2,27 +2,36 @@
   color-scheme: light dark;
 
   /* --- Base Colors --- */
-  --hue-neutral: 250; /* grey with blue chroma */
+  --hue-neutral: 250;
+  --lightness-neutral: 0.6;
   --chroma-neutral: 0.02;
   --hue-primary: 303.4;
+  --lightness-primary: 0.51;
   --chroma-primary: 0.2;
   --hue-secondary: 352;
+  --lightness-secondary: 0.56;
   --chroma-secondary: 0.15;
   --hue-tertiary: 132;
+  --lightness-tertiary: 0.71;
   --chroma-tertiary: 0.15;
   --hue-quaternary: 158;
+  --lightness-quaternary: 0.69;
   --chroma-quaternary: 0.13;
   --hue-success: 145; /* green */
   --chroma-success: 0.25;
+  --lightness-success: 0.35;
   --hue-error: 29; /* red */
+  --lightness-error: 0.55;
   --chroma-error: 0.25;
   --hue-warning: 65; /* orange */
+  --lightness-warning: 0.68;
   --chroma-warning: 0.25;
   --hue-info: 210; /* cyan */
+  --lightness-info: 0.61;
   --chroma-info: 0.16;
 
   /* --- Default lch --- */
-  --base-l: 0.6;
+  --base-l: var(--lightness-neutral);
   --base-c: var(--chroma-neutral);
   --base-h: var(--hue-neutral);
 
@@ -146,63 +155,63 @@ body,
 }
 
 [data-variant="neutral"] {
+  --base-l: var(--lightness-neutral);
   --base-c: var(--chroma-neutral);
   --base-h: var(--hue-neutral);
-  --base-l: 0.6;
   --swatch-color: light-dark(var(--color-100), var(--color-800));
   --border-color: light-dark(var(--color-200), var(--color-900));
 }
 
 [data-variant="primary"] {
+  --base-l: var(--lightness-primary);
   --base-c: var(--chroma-primary);
   --base-h: var(--hue-primary);
-  --base-l: 0.51;
 }
 
 [data-variant="secondary"] {
+  --base-l: var(--lightness-secondary);
   --base-c: var(--chroma-secondary);
   --base-h: var(--hue-secondary);
-  --base-l: 0.56;
 }
 
 [data-variant="tertiary"] {
+  --base-l: var(--lightness-tertiary);
   --base-c: var(--chroma-tertiary);
   --base-h: var(--hue-tertiary);
-  --base-l: 0.71;
   --brand-contrast: white;
 }
 
 [data-variant="quaternary"] {
+  --base-l: var(--lightness-quaternary);
   --base-c: var(--chroma-quaternary);
   --base-h: var(--hue-quaternary);
-  --base-l: 0.69;
   --brand-contrast: white;
 }
 
 [data-variant="success"] {
+  --base-l: var(--lightness-success);
   --base-c: var(--chroma-success);
   --base-h: var(--hue-success);
-  --base-l: 0.35;
 }
 
 [data-variant="warning"] {
+  --base-l: var(--lightness-warning);
   --base-c: var(--chroma-warning);
   --base-h: var(--hue-warning);
-  --base-l: 0.68;
   --brand-contrast: white;
 }
 
 [data-variant="info"] {
+  --base-l: var(--lightness-info);
   --base-c: var(--chroma-info);
   --base-h: var(--hue-info);
-  --base-l: 0.61;
 }
 
 [data-variant="danger"],
 [data-variant="error"] {
+  --base-l: var(--lightness-error);
   --base-c: var(--chroma-error);
   --base-h: var(--hue-error);
-  --base-l: 0.55;
 }
 
 /* --- Swatch Mappings --- */
