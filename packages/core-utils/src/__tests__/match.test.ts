@@ -20,7 +20,7 @@ describe('match', () => {
     expect(color).toBe('green');
   });
 
-  it('otherwise', () => {
+  it('defaults when nothing matches', () => {
     const color: Color = match<string, Color>('nothing')
       .on(
         (x) => x === 'warning',
@@ -62,7 +62,18 @@ describe('match', () => {
     expect.assertions(0);
   });
 
-  // eslint-disable-next-line max-lines-per-function
+  it('should throw error if otherwise() is missing', () => {
+    const unclosedChain = match<string, Color>('success').on(
+      (x) => x === 'success',
+      () => 'green',
+    );
+
+    expect(() => {
+      // @ts-expect-error required for testing
+      const _forceStringConversion = `${unclosedChain}`;
+    }).toThrow('Match must be terminated with .otherwise()');
+  });
+
   it('match object', () => {
     type MatchObject = {
       result?: 'error' | 'success' | 'warning';
