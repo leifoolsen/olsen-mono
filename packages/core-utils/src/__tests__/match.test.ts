@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
+
 import { match } from '../match';
 
 describe('match', () => {
   type Color = 'blue' | 'green' | 'red' | 'yellow';
 
   it('match', () => {
-    const color = match<string, Color>('success')
+    const color: Color = match<string, Color>('success')
       .on(
         (x) => x === 'warning',
         () => 'red',
@@ -20,7 +21,7 @@ describe('match', () => {
   });
 
   it('otherwise', () => {
-    const color = match<string, Color>('nothing')
+    const color: Color = match<string, Color>('nothing')
       .on(
         (x) => x === 'warning',
         () => 'red',
@@ -34,13 +35,41 @@ describe('match', () => {
     expect(color).toBe('blue');
   });
 
+  it('throws when nothing matches', () => {
+    expect(() => {
+      match<string, Color>('nothing')
+        .on(
+          (x) => x === 'warning',
+          () => 'red',
+        )
+        .on(
+          (x) => x === 'success',
+          () => 'green',
+        )
+        .otherwise(() => {
+          throw new Error('No Match');
+        });
+    }).toThrow();
+  });
+
+  it('should not compile if match() is missing', () => {
+    // @ts-expect-error - TS Error due to missing otherwise()
+    const _color: Color = match<string, Color>('nothing').on(
+      (x) => x === 'warning',
+      () => 'red',
+    );
+
+    expect.assertions(0);
+  });
+
+  // eslint-disable-next-line max-lines-per-function
   it('match object', () => {
     type MatchObject = {
       result?: 'error' | 'success' | 'warning';
       secondArg?: boolean;
     };
 
-    const color = match<MatchObject, Color>({ result: 'error', secondArg: true })
+    const color: Color = match<MatchObject, Color>({ result: 'error', secondArg: true })
       .on(
         ({ result, secondArg }) => result === 'warning' && secondArg === true,
         () => 'yellow',
@@ -57,7 +86,7 @@ describe('match', () => {
 
     expect(color).toBe('red');
 
-    const color2 = match<MatchObject, Color>({ result: 'error', secondArg: false })
+    const color2: Color = match<MatchObject, Color>({ result: 'error', secondArg: false })
       .on(
         ({ result, secondArg }) => result === 'warning' && secondArg === true,
         () => 'yellow',
@@ -74,7 +103,7 @@ describe('match', () => {
 
     expect(color2).toBe('blue');
 
-    const color3 = match<MatchObject, Color>({ result: 'warning', secondArg: true })
+    const color3: Color = match<MatchObject, Color>({ result: 'warning', secondArg: true })
       .on(
         ({ result, secondArg }) => result === 'warning' && secondArg === true,
         () => 'yellow',
@@ -91,7 +120,7 @@ describe('match', () => {
 
     expect(color3).toBe('yellow');
 
-    const color4 = match<MatchObject, Color>({ result: 'warning' })
+    const color4: Color = match<MatchObject, Color>({ result: 'warning' })
       .on(
         ({ result, secondArg }) => result === 'warning' && secondArg === true,
         () => 'yellow',
@@ -108,7 +137,7 @@ describe('match', () => {
 
     expect(color4).toBe('blue');
 
-    const color5 = match<MatchObject, Color>({ result: 'success' })
+    const color5: Color = match<MatchObject, Color>({ result: 'success' })
       .on(
         ({ result, secondArg }) => result === 'warning' && secondArg === true,
         () => 'yellow',
@@ -125,7 +154,7 @@ describe('match', () => {
 
     expect(color5).toBe('green');
 
-    const color6 = match<MatchObject, Color>({})
+    const color6: Color = match<MatchObject, Color>({})
       .on(
         ({ result, secondArg }) => result === 'warning' && secondArg === true,
         () => 'yellow',
