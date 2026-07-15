@@ -1,3 +1,4 @@
+/* --- colors.css --- */
 :root {
   color-scheme: light dark;
 
@@ -59,13 +60,15 @@ body,
 [data-color],
 [data-variant] {
   --raw-contrast: contrast-color(var(--swatch-color));
-  --is-white-contrast: oklch(from var(--raw-contrast) l 0 0deg);
+
+  /* Extract the lightness (l) directly. White = 1, Black = 0. */
+  --is-white-contrast: double(from var(--raw-contrast) l);
   --is-light-surface: sign(oklch(from var(--swatch-color) l 0 0deg) - 0.3);
   --brand-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);
-  --normal-text: color-mix(in oklch, var(--swatch-color) 4%, var(--raw-contrast));
-  --subtle-text: oklch(from var(--normal-text) l c h / 75%);
-  --muted-text: oklch(from var(--normal-text) l c h / 60%);
-  --border-color: rgba(255, 255, 255, calc(0.2 + (0.7 * var(--is-white-contrast))));
+  --normal-text: oklch(from var(--raw-contrast) l c h / 0.96);
+  --subtle-text: oklch(from var(--raw-contrast) l c h / 0.65);
+  --muted-text: oklch(from var(--raw-contrast) l c h / 0.52);
+  --border-color: oklch(from var(--raw-contrast) l c h / 0.25);
   --_shadow-base-lch: light-dark(
     oklch(from var(--swatch-color) calc(l * l * 0.25) calc(c * 1.4) h),
     oklch(from var(--swatch-color) calc(l + 0.08) calc(c * 1.1) h)
@@ -78,22 +81,24 @@ body,
 
 /* -- Generic Color Scheme -- */
 [data-variant] {
-  /* Light */
-  --color-50: oklch(calc(var(--base-l) + 0.32) calc(var(--base-c) * 0.3) var(--base-h));
-  --color-100: oklch(calc(var(--base-l) + 0.24) calc(var(--base-c) * 0.5) var(--base-h));
-  --color-200: oklch(calc(var(--base-l) + 0.16) calc(var(--base-c) * 0.75) var(--base-h));
-  --color-300: oklch(calc(var(--base-l) + 0.08) calc(var(--base-c) * 0.9) var(--base-h));
-  --color-400: oklch(calc(var(--base-l) + 0.04) calc(var(--base-c) * 0.95) var(--base-h));
-
   /* Base */
   --color-500: oklch(var(--base-l) var(--base-c) var(--base-h));
+  --_white: oklch(99% 0.015 var(--base-h));
+  --_black: oklch(12% 0.02 var(--base-h));
+
+  /* Light */
+  --color-50: color-mix(in oklch, var(--color-500) 40%, var(--_white));
+  --color-100: color-mix(in oklch, var(--color-500) 55%, var(--_white));
+  --color-200: color-mix(in oklch, var(--color-500) 70%, var(--_white));
+  --color-300: color-mix(in oklch, var(--color-500) 80%, var(--_white));
+  --color-400: color-mix(in oklch, var(--color-500) 90%, var(--_white));
 
   /* Dark */
-  --color-600: oklch(calc(var(--base-l) - 0.04) calc(var(--base-c) * 0.95) var(--base-h));
-  --color-700: oklch(calc(var(--base-l) - 0.1) calc(var(--base-c) * 0.9) var(--base-h));
-  --color-800: oklch(calc(var(--base-l) - 0.15) calc(var(--base-c) * 0.8) var(--base-h));
-  --color-900: oklch(calc(var(--base-l) - 0.21) calc(var(--base-c) * 0.6) var(--base-h));
-  --color-950: oklch(calc(var(--base-l) - 0.27) calc(var(--base-c) * 0.4) var(--base-h));
+  --color-600: color-mix(in oklch, var(--color-500) 95%, var(--_black));
+  --color-700: color-mix(in oklch, var(--color-500) 85%, var(--_black));
+  --color-800: color-mix(in oklch, var(--color-500) 75%, var(--_black));
+  --color-900: color-mix(in oklch, var(--color-500) 60%, var(--_black));
+  --color-950: color-mix(in oklch, var(--color-500) 50%, var(--_black));
 
   /* Accent */
   --color-A100: oklch(calc(var(--base-l) + 0.15) calc(var(--base-c) * 1.2) var(--base-h));
@@ -102,7 +107,7 @@ body,
   --color-A700: oklch(calc(var(--base-l) - 0.1) calc(var(--base-c) * 1.2) var(--base-h));
 
   /* --- Color Theme --- */
-  --swatch-color: light-dark(var(--color-300), var(--color-500));
+  --swatch-color: light-dark(var(--color-200), var(--color-500));
   --brand-text-color: light-dark(
     color-mix(in oklch, var(--brand-contrast) 90%, oklch(70% var(--base-c) var(--base-h) / 80%)),
     color-mix(in oklch, var(--brand-contrast) 85%, oklch(75% var(--base-c) var(--base-h) / 80%))
@@ -135,11 +140,11 @@ body,
   --color-300: oklch(78% 0 0deg);
   --color-400: oklch(65% 0 0deg);
   --color-500: oklch(50% 0 0deg);
-  --color-600: oklch(38% 0 0deg);
-  --color-700: oklch(26% 0 0deg);
-  --color-800: oklch(16% 0 0deg);
-  --color-900: oklch(8% 0 0deg);
-  --color-950: oklch(4% 0 0deg);
+  --color-600: oklch(40% 0 0deg);
+  --color-700: oklch(30% 0 0deg);
+  --color-800: oklch(20% 0 0deg);
+  --color-900: oklch(12% 0 0deg);
+  --color-950: oklch(0% 0 0deg);
   --swatch-color: light-dark(var(--color-50), var(--color-900));
   --border-color: light-dark(var(--color-100), var(--color-950));
 }
@@ -279,7 +284,7 @@ body,
 [data-text] {
   background-color: transparent;
   color: light-dark(
-    oklch(from var(--swatch-color) calc(l - 0.2) c h),
+    oklch(from var(--swatch-color) calc(l - 0.4) c h),
     oklch(from var(--swatch-color) calc(l + 0.25) c h)
   );
 }
