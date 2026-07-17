@@ -111,19 +111,6 @@ body,
   --accent-color: light-dark(var(--color-A700), var(--color-A100));
 
   accent-color: var(--accent-color);
-
-  &:is(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]),
-  & :is(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]) {
-    &:hover {
-      --swatch-color: light-dark(var(--color-400), var(--color-600));
-      --border-color: light-dark(var(--color-300), var(--color-700));
-    }
-
-    &:active {
-      --swatch-color: light-dark(var(--color-500), var(--color-700));
-      --border-color: light-dark(var(--color-400), var(--color-800));
-    }
-  }
 }
 
 /* --- Color Themes --- */
