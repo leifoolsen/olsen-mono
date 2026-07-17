@@ -66,8 +66,8 @@ body,
   --is-light-surface: sign(oklch(from var(--swatch-color) l 0 0deg) - 0.3);
   --brand-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);
   --normal-text: oklch(from var(--raw-contrast) l c h / 0.96);
-  --subtle-text: oklch(from var(--raw-contrast) l c h / 0.65);
-  --muted-text: oklch(from var(--raw-contrast) l c h / 0.52);
+  --subtle-text: oklch(from var(--raw-contrast) l c h / 0.67);
+  --muted-text: oklch(from var(--raw-contrast) l c h / 0.54);
   --border-color: oklch(from var(--raw-contrast) l c h / 0.25);
   --_shadow-base-lch: light-dark(
     oklch(from var(--swatch-color) calc(l * l * 0.25) calc(c * 1.4) h),
@@ -146,7 +146,6 @@ body,
   --color-900: oklch(12% 0 0deg);
   --color-950: oklch(0% 0 0deg);
   --swatch-color: light-dark(var(--color-50), var(--color-900));
-  --border-color: light-dark(var(--color-100), var(--color-950));
 }
 
 [data-variant="surface-1"] {
