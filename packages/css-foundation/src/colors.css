@@ -60,10 +60,6 @@ body,
 [data-color],
 [data-variant] {
   --raw-contrast: contrast-color(var(--swatch-color));
-
-  /* Extract the lightness (l) directly. White = 1, Black = 0. */
-  --is-white-contrast: double(from var(--raw-contrast) l);
-  --is-light-surface: sign(oklch(from var(--swatch-color) l 0 0deg) - 0.3);
   --brand-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);
   --normal-text: oklch(from var(--raw-contrast) l c h / 0.96);
   --subtle-text: oklch(from var(--raw-contrast) l c h / 0.67);
