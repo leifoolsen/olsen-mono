@@ -1,0 +1,36 @@
+---
+// src/components/toggle/toggle-switch.astro
+import type { HTMLAttributes } from 'astro/types';
+import './toggle-switch.css';
+
+type Props = HTMLAttributes<'input'> & {
+  id: string;
+  name: string;
+  ariaLabel: string;
+  checked?: boolean;
+}
+
+const {
+  id,
+  name,
+  ariaLabel,
+  checked = false,
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<label class:list={['toggle-switch', className]}>
+  <input
+    type="checkbox"
+    role="switch"
+    id={id}
+    name={name}
+    checked={checked}
+    aria-label={ariaLabel}
+    class="switch"
+    {...rest}
+  />
+  <span class="icon-on"><slot name="on-icon"/></span>
+  <span class="icon-off"><slot name="off-icon" /></span>
+</label>

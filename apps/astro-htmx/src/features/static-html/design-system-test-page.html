@@ -1,0 +1,1244 @@
+<style>
+  .color-swatches {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    background-color: transparent;
+  }
+
+  .color-swatch {
+    display: grid;
+    align-items: center;
+    text-align: center;
+    font-size: var(--font-size-s);
+    padding-block: 0.25rem;
+  }
+
+  .color-card {
+    border-radius: var(--space-xs);
+    padding-inline: var(--space-m);
+    padding-block: var(--space-m);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.5rem;
+    transition: background-color 0.2s ease;
+  }
+</style>
+
+<section id="top" data-layout="stack" style="gap: var(--space-xl)">
+  <section data-layout="stack" style="gap: 0">
+    <h2>Swatches</h2>
+
+    <div data-variant="surface" class="color-swatches">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text="subtle">50</span>
+        <span data-text="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text="subtle">100</span>
+        <span data-text="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text="subtle">200</span>
+        <span data-text="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text="subtle">300</span>
+        <span data-text="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text="subtle">400</span>
+        <span data-text="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text="subtle">500</span>
+        <span data-text="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text="subtle">600</span>
+        <span data-text="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text="subtle">700</span>
+        <span data-text="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text="subtle">800</span>
+        <span data-text="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text="subtle">900</span>
+        <span data-text="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text="subtle">950</span>
+        <span data-text="muted">950</span>
+      </div>
+    </div>
+
+    <div data-variant="neutral" class="color-swatches">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text="subtle">50</span>
+        <span data-text="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text="subtle">100</span>
+        <span data-text="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text="subtle">200</span>
+        <span data-text="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text="subtle">300</span>
+        <span data-text="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text="subtle">400</span>
+        <span data-text="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text="subtle">500</span>
+        <span data-text="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text="subtle">600</span>
+        <span data-text="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text="subtle">700</span>
+        <span data-text="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text="subtle">800</span>
+        <span data-text="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text="subtle">900</span>
+        <span data-text="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text="subtle">950</span>
+        <span data-text="muted">950</span>
+      </div>
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text="subtle">A100</span>
+        <span data-text="muted">A100</span>
+      </div>
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text="subtle">A200</span>
+        <span data-text="muted">A200</span>
+      </div>
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text="subtle">A400</span>
+        <span data-text="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text="subtle">A700</span>
+        <span data-text="muted">A700</span>
+      </div>
+    </div>
+
+    <div data-variant="primary" class="color-swatches">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text="subtle">50</span>
+        <span data-text="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text="subtle">100</span>
+        <span data-text="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text="subtle">200</span>
+        <span data-text="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text="subtle">300</span>
+        <span data-text="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text="subtle">400</span>
+        <span data-text="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text="subtle">500</span>
+        <span data-text="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text="subtle">600</span>
+        <span data-text="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text="subtle">700</span>
+        <span data-text="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text="subtle">800</span>
+        <span data-text="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text="subtle">900</span>
+        <span data-text="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text="subtle">950</span>
+        <span data-text="muted">950</span>
+      </div>
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text="subtle">A100</span>
+        <span data-text="muted">A100</span>
+      </div>
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text="subtle">A200</span>
+        <span data-text="muted">A200</span>
+      </div>
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text="subtle">A400</span>
+        <span data-text="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text="subtle">A700</span>
+        <span data-text="muted">A700</span>
+      </div>
+    </div>
+
+    <div data-variant="secondary" class="color-swatches">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text="subtle">50</span>
+        <span data-text="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text="subtle">100</span>
+        <span data-text="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text="subtle">200</span>
+        <span data-text="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text="subtle">300</span>
+        <span data-text="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text="subtle">400</span>
+        <span data-text="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text="subtle">500</span>
+        <span data-text="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text="subtle">600</span>
+        <span data-text="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text="subtle">700</span>
+        <span data-text="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text="subtle">800</span>
+        <span data-text="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text="subtle">900</span>
+        <span data-text="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text="subtle">950</span>
+        <span data-text="muted">950</span>
+      </div>
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text="subtle">A100</span>
+        <span data-text="muted">A100</span>
+      </div>
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text="subtle">A200</span>
+        <span data-text="muted">A200</span>
+      </div>
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text="subtle">A400</span>
+        <span data-text="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text="subtle">A700</span>
+        <span data-text="muted">A700</span>
+      </div>
+    </div>
+
+    <div data-variant="tertiary" class="color-swatches">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text="subtle">50</span>
+        <span data-text="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text="subtle">100</span>
+        <span data-text="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text="subtle">200</span>
+        <span data-text="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text="subtle">300</span>
+        <span data-text="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text="subtle">400</span>
+        <span data-text="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text="subtle">500</span>
+        <span data-text="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text="subtle">600</span>
+        <span data-text="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text="subtle">700</span>
+        <span data-text="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text="subtle">800</span>
+        <span data-text="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text="subtle">900</span>
+        <span data-text="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text="subtle">950</span>
+        <span data-text="muted">950</span>
+      </div>
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text="subtle">A100</span>
+        <span data-text="muted">A100</span>
+      </div>
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text="subtle">A200</span>
+        <span data-text="muted">A200</span>
+      </div>
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text="subtle">A400</span>
+        <span data-text="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text="subtle">A700</span>
+        <span data-text="muted">A700</span>
+      </div>
+    </div>
+
+    <div data-variant="quaternary" class="color-swatches">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text="subtle">50</span>
+        <span data-text="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text="subtle">100</span>
+        <span data-text="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text="subtle">200</span>
+        <span data-text="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text="subtle">300</span>
+        <span data-text="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text="subtle">400</span>
+        <span data-text="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text="subtle">500</span>
+        <span data-text="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text="subtle">600</span>
+        <span data-text="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text="subtle">700</span>
+        <span data-text="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text="subtle">800</span>
+        <span data-text="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text="subtle">900</span>
+        <span data-text="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text="subtle">950</span>
+        <span data-text="muted">950</span>
+      </div>
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text="subtle">A100</span>
+        <span data-text="muted">A100</span>
+      </div>
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text="subtle">A200</span>
+        <span data-text="muted">A200</span>
+      </div>
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text="subtle">A400</span>
+        <span data-text="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text="subtle">A700</span>
+        <span data-text="muted">A700</span>
+      </div>
+    </div>
+
+    <div data-variant="success" class="color-swatches">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text="subtle">50</span>
+        <span data-text="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text="subtle">100</span>
+        <span data-text="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text="subtle">200</span>
+        <span data-text="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text="subtle">300</span>
+        <span data-text="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text="subtle">400</span>
+        <span data-text="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text="subtle">500</span>
+        <span data-text="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text="subtle">600</span>
+        <span data-text="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text="subtle">700</span>
+        <span data-text="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text="subtle">800</span>
+        <span data-text="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text="subtle">900</span>
+        <span data-text="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text="subtle">950</span>
+        <span data-text="muted">950</span>
+      </div>
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text="subtle">A100</span>
+        <span data-text="muted">A100</span>
+      </div>
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text="subtle">A200</span>
+        <span data-text="muted">A200</span>
+      </div>
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text="subtle">A400</span>
+        <span data-text="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text="subtle">A700</span>
+        <span data-text="muted">A700</span>
+      </div>
+    </div>
+
+    <div data-variant="error" class="color-swatches">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text="subtle">50</span>
+        <span data-text="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text="subtle">100</span>
+        <span data-text="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text="subtle">200</span>
+        <span data-text="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text="subtle">300</span>
+        <span data-text="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text="subtle">400</span>
+        <span data-text="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text="subtle">500</span>
+        <span data-text="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text="subtle">600</span>
+        <span data-text="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text="subtle">700</span>
+        <span data-text="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text="subtle">800</span>
+        <span data-text="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text="subtle">900</span>
+        <span data-text="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text="subtle">950</span>
+        <span data-text="muted">950</span>
+      </div>
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text="subtle">A100</span>
+        <span data-text="muted">A100</span>
+      </div>
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text="subtle">A200</span>
+        <span data-text="muted">A200</span>
+      </div>
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text="subtle">A400</span>
+        <span data-text="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text="subtle">A700</span>
+        <span data-text="muted">A700</span>
+      </div>
+    </div>
+
+    <div data-variant="warning" class="color-swatches">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text="subtle">50</span>
+        <span data-text="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text="subtle">100</span>
+        <span data-text="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text="subtle">200</span>
+        <span data-text="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text="subtle">300</span>
+        <span data-text="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text="subtle">400</span>
+        <span data-text="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text="subtle">500</span>
+        <span data-text="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text="subtle">600</span>
+        <span data-text="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text="subtle">700</span>
+        <span data-text="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text="subtle">800</span>
+        <span data-text="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text="subtle">900</span>
+        <span data-text="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text="subtle">950</span>
+        <span data-text="muted">950</span>
+      </div>
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text="subtle">A100</span>
+        <span data-text="muted">A100</span>
+      </div>
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text="subtle">A200</span>
+        <span data-text="muted">A200</span>
+      </div>
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text="subtle">A400</span>
+        <span data-text="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text="subtle">A700</span>
+        <span data-text="muted">A700</span>
+      </div>
+    </div>
+
+    <div data-variant="info" class="color-swatches">
+      <div data-color="50" class="color-swatch">
+        <span>50</span>
+        <span data-text="subtle">50</span>
+        <span data-text="muted">50</span>
+      </div>
+      <div data-color="100" class="color-swatch">
+        <span>100</span>
+        <span data-text="subtle">100</span>
+        <span data-text="muted">100</span>
+      </div>
+      <div data-color="200" class="color-swatch">
+        <span>200</span>
+        <span data-text="subtle">200</span>
+        <span data-text="muted">200</span>
+      </div>
+      <div data-color="300" class="color-swatch">
+        <span>300</span>
+        <span data-text="subtle">300</span>
+        <span data-text="muted">300</span>
+      </div>
+      <div data-color="400" class="color-swatch">
+        <span>400</span>
+        <span data-text="subtle">400</span>
+        <span data-text="muted">400</span>
+      </div>
+      <div data-color="500" class="color-swatch">
+        <span>500</span>
+        <span data-text="subtle">500</span>
+        <span data-text="muted">500</span>
+      </div>
+      <div data-color="600" class="color-swatch">
+        <span>600</span>
+        <span data-text="subtle">600</span>
+        <span data-text="muted">600</span>
+      </div>
+      <div data-color="700" class="color-swatch">
+        <span>700</span>
+        <span data-text="subtle">700</span>
+        <span data-text="muted">700</span>
+      </div>
+      <div data-color="800" class="color-swatch">
+        <span>800</span>
+        <span data-text="subtle">800</span>
+        <span data-text="muted">800</span>
+      </div>
+      <div data-color="900" class="color-swatch">
+        <span>900</span>
+        <span data-text="subtle">900</span>
+        <span data-text="muted">900</span>
+      </div>
+      <div data-color="950" class="color-swatch">
+        <span>950</span>
+        <span data-text="subtle">950</span>
+        <span data-text="muted">950</span>
+      </div>
+      <div data-color="A100" class="color-swatch">
+        <span>A100</span>
+        <span data-text="subtle">A100</span>
+        <span data-text="muted">A100</span>
+      </div>
+      <div data-color="A200" class="color-swatch">
+        <span>A200</span>
+        <span data-text="subtle">A200</span>
+        <span data-text="muted">A200</span>
+      </div>
+      <div data-color="A400" class="color-swatch">
+        <span>A400</span>
+        <span data-text="subtle">A400</span>
+        <span data-text="muted">A400</span>
+      </div>
+      <div data-color="A700" class="color-swatch">
+        <span>A700</span>
+        <span data-text="subtle">A700</span>
+        <span data-text="muted">A700</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Surfaces</h2>
+    <div data-layout="ram" data-fluid-viewport style="--layout-gap: var(--space-m); --layout-grid-item-min: 23rem">
+      <div class="color-card" data-variant="primary">
+        <div data-text="brand" data-font-size="xl">Primary</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="secondary">
+        <div data-text="brand" data-font-size="xl">Secondary</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="tertiary">
+        <div data-text="brand" data-font-size="xl">Tertiary</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="quaternary">
+        <div data-text="brand" data-font-size="xl">Quaternary</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+        <br />
+      </div>
+
+      <div class="color-card" data-variant="success">
+        <div data-text="brand" data-font-size="xl">Success</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="warning">
+        <div data-text="brand" data-font-size="xl">Warning</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="error">
+        <div data-text="brand" data-font-size="xl">Error</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="info">
+        <div data-text="brand" data-font-size="xl">Info</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="neutral">
+        <div data-text="brand" data-font-size="xl">Neutral</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="surface">
+        <div data-text="brand" data-font-size="xl">Surface</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="surface-1">
+        <div data-text="brand" data-font-size="xl">Surface 1</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+      </div>
+
+      <div class="color-card" data-variant="surface-2">
+        <div data-text="brand" data-font-size="xl">Surface 2</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div data-layout="ram" data-columns style="--layout-grid-item-min: 0rem">
+    <h2 style="margin-block: 0">Viewport Text</h2>
+    <h2 style="margin-block: 0">Container Text</h2>
+
+    <section>
+      <p data-font-size="xl" data-text="brand">Brand Text Color</p>
+      <p data-font-size="l" data-variant="primary" data-text>Primary Text Color</p>
+      <p data-font-size="l" data-variant="secondary" data-text>Secondary Text Color</p>
+      <p data-font-size="l" data-variant="tertiary" data-text>Tertiary Text Color</p>
+      <p data-font-size="l" data-variant="quaternary" data-text>Quaternary Text Color</p>
+      <p data-font-size="l" data-variant="success" data-text>Success Text Color</p>
+      <p data-font-size="l" data-variant="warning" data-text>Warning Text Color</p>
+      <p data-font-size="l" data-variant="error" data-text>Danger Text Color</p>
+      <p data-font-size="l" data-variant="info" data-text>Info Text Color</p>
+      <p>Normal Text Color</p>
+      <p data-text="subtle">Subtle Text Color</p>
+      <p data-text="muted">Muted Text Color</p>
+    </section>
+
+    <section data-fluid-viewport>
+      <p data-font-size="xl" data-text="brand">Brand Text Color</p>
+      <p data-font-size="l" data-variant="primary" data-text>Primary Text Color</p>
+      <p data-font-size="l" data-variant="secondary" data-text>Secondary Text Color</p>
+      <p data-font-size="l" data-variant="tertiary" data-text>Tertiary Text Color</p>
+      <p data-font-size="l" data-variant="quaternary" data-text>Quaternary Text Color</p>
+      <p data-font-size="l" data-variant="success" data-text>Success Text Color</p>
+      <p data-font-size="l" data-variant="warning" data-text>Warning Text Color</p>
+      <p data-font-size="l" data-variant="error" data-text>Danger Text Color</p>
+      <p data-font-size="l" data-variant="info" data-text>Info Text Color</p>
+      <p>Normal Text Color</p>
+      <p data-text="subtle">Subtle Text Color</p>
+      <p data-text="muted">Muted Text Color</p>
+    </section>
+
+    <section>
+      <div data-font-size="4xl">Font size 4xl</div>
+      <div data-font-size="3xl">Font size 3xl</div>
+      <div data-font-size="2xl">Font size 2xl</div>
+      <div data-font-size="xl">Font size xl</div>
+      <div data-font-size="l">Font size l</div>
+      <div data-font-size="m">Font size m</div>
+      <div data-font-size="s">Font size s</div>
+      <div data-font-size="xs">Font size xs</div>
+    </section>
+
+    <section data-fluid-viewport>
+      <div data-font-size="4xl">Font size 4xl</div>
+      <div data-font-size="3xl">Font size 3xl</div>
+      <div data-font-size="2xl">Font size 2xl</div>
+      <div data-font-size="xl">Font size xl</div>
+      <div data-font-size="l">Font size l</div>
+      <div data-font-size="m">Font size m</div>
+      <div data-font-size="s">Font size s</div>
+      <div data-font-size="xs">Font size xs</div>
+    </section>
+
+    <section>
+      <h1>Heading H1</h1>
+      <h2>Heading H2</h2>
+      <h3>Heading H3</h3>
+      <h4>Heading H4</h4>
+      <h5>Heading H5</h5>
+      <h5>Heading H6</h5>
+      <p>Paragraph P</p>
+    </section>
+
+    <section data-fluid-viewport>
+      <h1>Heading H1</h1>
+      <h2>Heading H2</h2>
+      <h3>Heading H3</h3>
+      <h4>Heading H4</h4>
+      <h5>Heading H5</h5>
+      <h5>Heading H6</h5>
+      <p>Paragraph P</p>
+    </section>
+  </div>
+
+  <section>
+    <h2>Spacing</h2>
+    <div
+      style="
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: var(--space-s);
+        align-items: center;
+        transform: rotate(-90deg);
+        transform-origin: top left;
+        margin-block-start: var(--space-4xl);
+      "
+    >
+      <div style="transform: rotate(90deg); margin-inline: auto">2xs</div>
+      <div data-variant="primary" data-color="100" style="width: var(--space-2xs); height: var(--space-l)"></div>
+      <div style="transform: rotate(90deg); margin-inline: auto">xs</div>
+      <div data-variant="secondary" style="width: var(--space-xs); height: var(--space-l)"></div>
+      <div style="transform: rotate(90deg); margin-inline: auto">s</div>
+      <div data-variant="tertiary" style="width: var(--space-s); height: var(--space-l)"></div>
+      <div style="transform: rotate(90deg); margin-inline: auto">m</div>
+      <div data-variant="quaternary" style="width: var(--space-m); height: var(--space-l)"></div>
+      <div style="transform: rotate(90deg); margin-inline: auto">l</div>
+      <div data-variant="success" style="width: var(--space-l); height: var(--space-l)"></div>
+      <div style="transform: rotate(90deg); margin-inline: auto">xl</div>
+      <div data-variant="error" style="width: var(--space-xl); height: var(--space-l)"></div>
+      <div style="transform: rotate(90deg); margin-inline: auto">2xl</div>
+      <div data-variant="warning" style="width: var(--space-2xl); height: var(--space-l)"></div>
+      <div style="transform: rotate(90deg); margin-inline: auto">3xl</div>
+      <div data-variant="info" style="width: var(--space-3xl); height: var(--space-l)"></div>
+      <div style="transform: rotate(90deg); margin-inline: auto">4xl</div>
+      <div data-variant="surface" style="width: var(--space-4xl); height: var(--space-l)"></div>
+    </div>
+  </section>
+
+  <section style="margin-block-start: calc(var(--space-4xl) * -3)">
+    <br />
+    <h2>Border Radius</h2>
+    <div data-layout="ram" style="gap: var(--space-m)">
+      <div
+        data-variant="primary"
+        data-border-radius="2xs"
+        style="height: calc(var(--space-2xl) * 3); display: grid; place-items: center"
+      >
+        <span data-font-size="xl">2xs</span>
+      </div>
+      <div
+        data-variant="secondary"
+        data-border-radius="xs"
+        style="height: calc(var(--space-2xl) * 3); display: grid; place-items: center"
+      >
+        <span data-font-size="xl">xs</span>
+      </div>
+      <div
+        data-variant="tertiary"
+        data-border-radius="s"
+        style="height: calc(var(--space-2xl) * 3); display: grid; place-items: center"
+      >
+        <span data-font-size="xl">s</span>
+      </div>
+      <div
+        data-variant="quaternary"
+        data-border-radius="m"
+        style="height: calc(var(--space-2xl) * 3); display: grid; place-items: center"
+      >
+        <span data-font-size="xl">m</span>
+      </div>
+      <div
+        data-variant="success"
+        data-border-radius="l"
+        style="height: calc(var(--space-2xl) * 3); display: grid; place-items: center"
+      >
+        <span data-font-size="xl">l</span>
+      </div>
+      <div
+        data-variant="warning"
+        data-border-radius="xl"
+        style="height: calc(var(--space-2xl) * 3); display: grid; place-items: center"
+      >
+        <span data-font-size="xl">xl</span>
+      </div>
+      <div
+        data-variant="error"
+        data-border-radius="2xl"
+        style="height: calc(var(--space-2xl) * 3); display: grid; place-items: center"
+      >
+        <span data-font-size="xl">2xl</span>
+      </div>
+      <div
+        data-variant="info"
+        data-border-radius="3xl"
+        style="height: calc(var(--space-2xl) * 3); display: grid; place-items: center"
+      >
+        <span data-font-size="xl">3xl</span>
+      </div>
+      <div style="margin: auto">
+        <div
+          data-font-size="xl"
+          data-variant="surface-2"
+          data-border-radius="infinity"
+          style="height: calc(var(--space-2xl) * 3); aspect-ratio: 1 / 1; display: grid; place-items: center"
+        >
+          <span data-font-size="xl">∞</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Elevations</h2>
+    <div data-layout="ram" data-columns style="--layout-grid-item-min: 24rem; --layout-gap: var(--space-3xl)">
+      <div data-variant="primary" data-elevation="xl" data-border-radius="m" style="padding: var(--space-xl)">
+        <div data-text="brand" data-font-size="xl">Primary</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>
+        </p>
+        <br />
+        <div class="color-card" data-variant="success" data-elevation="l">
+          <div data-text="brand" data-font-size="xl">Success</div>
+          <div>Normal text color</div>
+          <div data-text="subtle">Subtle text color</div>
+          <div data-text="muted">Muted text color</div>
+          <p>
+            <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+            <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          </p>
+          <br />
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+            <button type="button" data-variant="primary">Default</button>
+            <button type="button" data-variant="secondary">Secondary</button>
+          </div>
+        </div>
+      </div>
+
+      <div data-variant="secondary" data-elevation="xl" data-border-radius="m" style="padding: var(--space-xl)">
+        <div data-text="brand" data-font-size="xl">Secondary</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+        <br />
+        <div class="color-card" data-variant="surface" data-elevation="l">
+          <div data-text="brand" data-font-size="xl">Surface</div>
+          <div>Normal text color</div>
+          <div data-text="subtle">Subtle text color</div>
+          <div data-text="muted">Muted text color</div>
+          <p>
+            <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+            <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          </p>
+          <br />
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+            <button type="button" data-variant="tertiary">Tertiary</button>
+            <button type="button" data-variant="quaternary">Quaternary</button>
+          </div>
+        </div>
+      </div>
+
+      <div data-variant="tertiary" data-elevation="2xl" data-border-radius="m" style="padding: var(--space-xl)">
+        <div data-text="brand" data-font-size="xl">Tertiary</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+        <br />
+        <div class="color-card" data-variant="warning" data-elevation="l">
+          <div data-text="brand" data-font-size="xl">Warning</div>
+          <div>Normal text color</div>
+          <div data-text="subtle">Subtle text color</div>
+          <div data-text="muted">Muted text color</div>
+          <p>
+            <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+            <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          </p>
+          <br />
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+            <button type="button" data-variant="success">Success</button>
+            <button type="button" data-variant="error">Error</button>
+          </div>
+        </div>
+      </div>
+
+      <div data-variant="quaternary" data-elevation="2xl" data-border-radius="m" style="padding: var(--space-xl)">
+        <div data-text="brand" data-font-size="xl">Quaternary</div>
+        <div>Normal text color</div>
+        <div data-text="subtle">Subtle text color</div>
+        <div data-text="muted">Muted text color</div>
+        <p>
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+        </p>
+        <br />
+        <div class="color-card" data-variant="error" data-elevation="l">
+          <div data-text="brand" data-font-size="xl">Error</div>
+          <div>Normal text color</div>
+          <div data-text="subtle">Subtle text color</div>
+          <div data-text="muted">Muted text color</div>
+          <p>
+            <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+            <a href="#top" onclick="arguments[0].preventDefault()">Example Link</a>&nbsp;
+          </p>
+          <br />
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+            <button type="button" data-variant="warning">Warning</button>
+            <button type="button" data-variant="surface">Surface</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Buttons</h2>
+    <div data-layout="ram" style="gap: var(--space-m); --layout-grid-item-min: 10ch">
+      <button type="button" data-variant="primary">Default</button>
+      <button type="button" data-variant="secondary">Secondary</button>
+      <button type="button" data-variant="success">Success</button>
+      <button type="button" data-variant="warning">Warning</button>
+      <button type="button" data-variant="danger">Danger</button>
+      <button type="button" data-variant="info">Info</button>
+      <button type="button" data-variant="neutral">Neutral</button>
+      <button type="button" data-variant="surface">Surface-1</button>
+      <button type="button" data-variant="surface-1">Surface-1</button>
+      <button type="button" data-variant="surface-2">Surface-2</button>
+    </div>
+  </section>
+</section>

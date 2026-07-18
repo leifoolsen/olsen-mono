@@ -1,0 +1,10 @@
+---
+// src/pages/design-system-test-page.astro
+
+import designSystemContent from '@features/static-html/design-system-test-page.html?raw';
+import AppLayout from '@layouts/app-layout.astro';
+---
+
+<AppLayout title="HTML Test Page">
+  <main class="page" set:html={designSystemContent} />
+</AppLayout>

@@ -1,0 +1,115 @@
+---
+import '@styles/app-layout.css';
+import ToggleSwitch from '@components/toggle/toggle-switch.astro';
+import BaseLayout from './base-layout.astro';
+
+type Props = {
+  title: string;
+}
+
+const { title } = Astro.props;
+const isCondensed = Astro.cookies.get('density')?.value === 'condensed';
+const isLight = Astro.cookies.get('theme')?.value === 'light';
+---
+
+<BaseLayout title={title}>
+  <div class="app-grid" data-sidebar-collapsed="false" id="app-container">
+
+    <header class="app-header" data-elevation="s">
+      <div class="app-header-left">
+        <button
+          id="sidebar-toggle"
+          class="app-sidebar-toggle"
+          aria-label="Toggle meny"
+          type="button"
+          data-border-radius="xs"
+        >
+          ≡
+        </button>
+        <div data-font-size="xl">Astro + HTMX</div>
+      </div>
+
+      <div class="app-header-right" id="app-header-right">
+        <ToggleSwitch
+          id="density-toggle"
+          name="density"
+          checked={isCondensed}
+          ariaLabel="Toggle font size"
+        >
+          <Fragment slot="on-icon"><small><small>A</small></small>A</Fragment>
+          <Fragment slot="off-icon">A<small><small>A</small></small></Fragment>
+        </ToggleSwitch>
+        <ToggleSwitch
+          id="theme-switcher"
+          name="theme"
+          checked={isLight}
+          ariaLabel="Toggle light dark theme"
+        >
+          <Fragment slot="on-icon">☀️</Fragment>
+          <Fragment slot="off-icon">🌙</Fragment>
+        </ToggleSwitch>
+      </div>
+    </header>
+
+    <aside class="app-sidebar">
+      <nav>
+        <ul class="app-sidebar-nav-list" data-font-size="m">
+          <li>
+            <a href="/html5-test-page">👉 HTML5 Test Page</a>
+          </li>
+          <li>
+            <a href="/design-system-test-page">👉 Designsystem Test Page</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="app-main">
+      <slot />
+    </main>
+
+  </div>
+</BaseLayout>
+
+<script>
+  const toggleBtn = document.getElementById('sidebar-toggle');
+  const container = document.getElementById('app-container');
+
+  toggleBtn?.addEventListener('click', () => {
+    const isCollapsed = container?.getAttribute('data-sidebar-collapsed') === 'true';
+    container?.setAttribute('data-sidebar-collapsed', isCollapsed ? 'false' : 'true');
+  });
+
+  function initNativeToggleListener() {
+    const container = document.getElementById('app-header-right');
+    if (!container) return;
+
+    container.addEventListener('change', (event) => {
+      const input = event.target as HTMLInputElement;
+
+      if (!input.classList.contains('switch')) return;
+
+      const name = input.name;
+      const checked = input.checked;
+
+      let cookieValue = "";
+      let htmlAttribute = "";
+
+      if (name === 'density') {
+        cookieValue = checked ? 'condensed' : 'default';
+        htmlAttribute = 'data-density';
+      } else if (name === 'theme') {
+        cookieValue = checked ? 'light' : 'dark';
+        htmlAttribute = 'data-theme';
+      }
+
+      if (!cookieValue || !htmlAttribute) return;
+
+      document.documentElement.setAttribute(htmlAttribute, cookieValue);
+      document.cookie = `${name}=${cookieValue}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Strict`;
+    });
+  }
+
+  initNativeToggleListener();
+  document.addEventListener('astro:after-swap', initNativeToggleListener);
+</script>
