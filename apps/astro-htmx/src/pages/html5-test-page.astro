@@ -1,0 +1,10 @@
+---
+// src/pages/html5-test-page.astro
+
+import html5TestContent from '@features/static-html/html5-test-page.html?raw';
+import AppLayout from "@layouts/app-layout.astro";
+---
+
+<AppLayout title="HTML Test Page">
+  <main class="page" set:html={html5TestContent} />
+</AppLayout>

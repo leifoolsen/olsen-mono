@@ -96,18 +96,22 @@ importers:
 
   apps/astro-htmx:
     dependencies:
-      '@astrojs/check':
-        specifier: 0.9.9
-        version: 0.9.9(prettier@3.9.5)(typescript@6.0.3)
       '@astrojs/node':
         specifier: ^11.0.2
         version: 11.0.2(astro@7.0.7(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@2.7.0)(yaml@2.9.0))
+      '@olsen-mono/core-utils':
+        specifier: workspace:*
+        version: link:../../packages/core-utils
+      '@olsen-mono/css-foundation':
+        specifier: workspace:*
+        version: link:../../packages/css-foundation
+    devDependencies:
+      '@astrojs/check':
+        specifier: 0.9.9
+        version: 0.9.9(prettier@3.9.5)(typescript@6.0.3)
       astro:
         specifier: ^7.0.7
         version: 7.0.7(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.1)(jiti@2.7.0)(yaml@2.9.0)
-      typescript:
-        specifier: 6.0.3
-        version: 6.0.3
 
   apps/hono-htmx:
     dependencies:
