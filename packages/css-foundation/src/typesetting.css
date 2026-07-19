@@ -202,6 +202,11 @@ html {
   }
 }
 
+/* --- Scroll margin allowance below focused elements  to ensure they are clearly in view --- */
+:where(:focus) {
+  scroll-padding-block-end: 8vh;
+}
+
 /* --- Focus management for accessibility --- */
 :where(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]):focus-visible {
   outline: 3px solid #ffffff;
