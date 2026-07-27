@@ -3,33 +3,33 @@
   color-scheme: light dark;
 
   /* --- Base Colors --- */
-  --hue-neutral: 250;
   --lightness-neutral: 0.6;
   --chroma-neutral: 0.02;
-  --hue-primary: 303.4;
+  --hue-neutral: 250;
   --lightness-primary: 0.51;
   --chroma-primary: 0.2;
-  --hue-secondary: 352;
+  --hue-primary: 303.4;
   --lightness-secondary: 0.56;
   --chroma-secondary: 0.15;
-  --hue-tertiary: 132;
+  --hue-secondary: 352;
   --lightness-tertiary: 0.71;
   --chroma-tertiary: 0.15;
-  --hue-quaternary: 158;
+  --hue-tertiary: 132;
   --lightness-quaternary: 0.69;
   --chroma-quaternary: 0.13;
-  --hue-success: 145; /* green */
-  --chroma-success: 0.25;
+  --hue-quaternary: 158;
   --lightness-success: 0.35;
-  --hue-error: 29; /* red */
+  --chroma-success: 0.25;
+  --hue-success: 145; /* green */
   --lightness-error: 0.55;
   --chroma-error: 0.25;
-  --hue-warning: 65; /* orange */
+  --hue-error: 29; /* red */
   --lightness-warning: 0.68;
   --chroma-warning: 0.25;
-  --hue-info: 210; /* cyan */
+  --hue-warning: 65; /* orange */
   --lightness-info: 0.61;
   --chroma-info: 0.16;
+  --hue-info: 210; /* cyan */
 
   /* --- Default lch --- */
   --base-l: var(--lightness-neutral);
