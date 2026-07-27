@@ -51,13 +51,6 @@ html {
   font-size: var(--font-size-m, 1rem);
 }
 
-/* --- Fill available space in inputs (but not buttons)
-:where(textarea),
-:where(input:not(:where([type='submit'], [type='checkbox'], [type='radio'], [type='button'], [type='reset']))) {
-  inline-size: 100%;
-}
---- */
-
 :where(figcaption) {
   color: var(--text-sublte);
 }
@@ -78,23 +71,6 @@ html {
 
 :where(h1, h2, h3, h4) {
   text-wrap: balance;
-}
-
-:where(button, fieldset, label, input, textarea, select) {
-  font-family: var(--font-family-heading), sans-serif;
-}
-
-:where(label) {
-  font-weight: var(--font-weight-xl);
-  display: inline-flex;
-  gap: var(--space-xs, 0.5rem);
-  cursor: pointer;
-  user-select: none;
-
-  &:has(:disabled) {
-    cursor: not-allowed;
-    color: var(--muted-text);
-  }
 }
 
 :where(h1) {
@@ -185,14 +161,73 @@ html {
   font-weight: bold;
 }
 
+:where(button, fieldset, legend, label, input, textarea, select) {
+  font-family: var(--font-family-heading), sans-serif;
+}
+
+:where(label, legend) {
+  font-weight: var(--font-weight-2xl);
+}
+
+:where(label) {
+  display: inline-flex;
+  gap: var(--space-s, 0.5rem);
+  cursor: pointer;
+  user-select: none;
+
+  &:has(:disabled) {
+    cursor: not-allowed;
+    color: var(--muted-text);
+  }
+}
+
+/* --- Input & Fieldset --- */
+:where(input, textarea, select) {
+  &:disabled + label {
+    cursor: not-allowed;
+    color: var(--muted-text);
+  }
+}
+
+:where(fieldset) {
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: var(--space-xs, 2px);
+  margin: 0;
+  padding: var(--space-m, 1rem) var(--space-l, 1.5rem);
+  min-inline-size: 0;
+
+  & legend {
+    display: block;
+    padding: 0 var(--space-xs, 0.25rem);
+    margin: 0 0 0 calc(var(--space-xs, 0.25rem) * -1);
+    font-size: var(--font-size-l);
+  }
+
+  &:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+
+    & legend {
+      color: var(--muted-text, #666);
+    }
+  }
+}
+
+/* --- Fill available space in inputs (but not buttons)
+:where(textarea),
+:where(input:not(:where([type="submit"], [type="checkbox"], [type="radio"], [type="button"], [type="reset"]))) {
+  inline-size: 100%;
+}
+--- */
+
 /* --- A elements that don't have a class get default styles --- */
 :where(a:not([class])) {
   color: var(--brand-text-color, var(--system-brand-color));
   text-decoration-skip-ink: auto;
   text-decoration: underline;
   text-decoration-style: solid;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 3px;
+  text-decoration-thickness: max(0.08em, 2px);
+  text-underline-offset: 0.15em;
   text-decoration-color: light-dark(oklch(from currentcolor l c h / 40%), oklch(from currentcolor l c h / 50%));
   transition:
     color 0.15s ease,
@@ -220,6 +255,11 @@ html {
   }
 }
 
+/* --- Scroll margin allowance above anchor links --- */
+:target {
+  scroll-padding-block-start: 2rem;
+}
+
 /* --- Scroll margin allowance below focused elements  to ensure they are clearly in view --- */
 :where(:focus) {
   scroll-padding-block-end: 8vh;
@@ -227,9 +267,11 @@ html {
 
 /* --- Focus management for accessibility --- */
 :where(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]):focus-visible {
-  outline: 3px solid #ffffff;
-  outline-offset: 0;
-  box-shadow: 0 0 0 5px #000000;
+  --outline-size: max(2px, 0.15em);
+
+  outline: var(--outline-size) solid #ffffff;
+  outline-offset: var(--outline-size);
+  box-shadow: 0 0 0 calc(var(--outline-size) * 2) #000000;
 }
 
 /* --- Anything that has been anchored to should have extra scroll margin --- */
