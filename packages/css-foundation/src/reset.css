@@ -49,6 +49,29 @@
   min-block-size: 4lh;
 }
 
+/**
+ * 1. Correct the height in Firefox.
+ * 2. Add visible overflow in Edge and IE.
+ */
+:where(hr) {
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+  box-sizing: content-box;
+  position: relative;
+  border: 0;
+  margin: 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: currentColor;
+  }
+}
+
 :where([hidden]:not([hidden="until-found"])) {
   /* biome-ignore lint/complexity/noImportantStyles: Should be !important */
   display: none !important;
