@@ -166,7 +166,7 @@ html {
 }
 
 :where(label, legend) {
-  font-weight: var(--font-weight-2xl);
+  font-weight: var(--font-weight-xl);
 }
 
 :where(label) {
@@ -201,6 +201,7 @@ html {
     padding: 0 var(--space-xs, 0.25rem);
     margin: 0 0 0 calc(var(--space-xs, 0.25rem) * -1);
     font-size: var(--font-size-l);
+    width: fit-content;
   }
 
   &:disabled {
