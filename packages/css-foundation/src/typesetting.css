@@ -172,6 +172,7 @@ html {
 :where(label) {
   display: inline-flex;
   gap: var(--space-s, 0.5rem);
+  flex-wrap: nowrap;
   cursor: pointer;
   user-select: none;
 
