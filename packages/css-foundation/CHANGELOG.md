@@ -1,5 +1,11 @@
 # @olsen-mono/css-foundation
 
+## 0.0.10
+
+### Patch Changes
+
+- d4afbed: Added: assert-valid-slots.ts, checkbox.astro, field-group.astro, field-help.astro, form-elements.astro, form-elements.css, input-field.astro, input-group.astro, radio-button.astro, select-field.astro, text-area.astro.
+
 ## 0.0.9
 
 ### Patch Changes

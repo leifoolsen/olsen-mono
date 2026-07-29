@@ -1,5 +1,13 @@
 # astro-htmx
 
+## 0.0.3
+
+### Patch Changes
+
+- d4afbed: Added: assert-valid-slots.ts, checkbox.astro, field-group.astro, field-help.astro, form-elements.astro, form-elements.css, input-field.astro, input-group.astro, radio-button.astro, select-field.astro, text-area.astro.
+- Updated dependencies [d4afbed]
+  - @olsen-mono/css-foundation@0.0.10
+
 ## 0.0.2
 
 ### Patch Changes
