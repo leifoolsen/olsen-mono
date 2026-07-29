@@ -1,0 +1,30 @@
+---
+// src/components/form-element/field-group.astro
+
+import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
+import type { HTMLAttributes } from 'astro/types';
+import './form-elements.css';
+
+type Props = HTMLAttributes<'fieldset'> & {
+  bordered?: boolean;
+  orientation?: 'column' | 'row';
+  role?: 'group' | 'radiogroup';
+};
+
+const {
+  bordered,
+  orientation = 'column',
+  class: className,
+  role = 'group',
+  ...rest
+} = Astro.props;
+
+assertValidSlots(Astro.slots, [], 'FieldGroup');
+---
+<fieldset
+  class:list={['field-group', `orientation-${orientation}`, bordered && 'bordered', className]}
+  role={role}
+  {...rest}
+>
+  <slot />
+</fieldset>

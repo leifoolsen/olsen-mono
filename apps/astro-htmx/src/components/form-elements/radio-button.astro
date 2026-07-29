@@ -1,0 +1,39 @@
+---
+// src/components/form-element/radio-button.astro
+
+import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
+import type { HTMLAttributes } from 'astro/types';
+import './form-elements.css';
+
+type Props = HTMLAttributes<'input'> & {
+  id: string;
+  name: string;
+  value: string;
+  labelPosition?: 'after' | 'before';
+};
+
+const {
+  id,
+  value,
+  name,
+  labelPosition = 'after',
+  class: className,
+  ...rest
+} = Astro.props;
+
+assertValidSlots(Astro.slots, [], 'RadioButton');
+
+const hasLabel = Astro.slots.has('default');
+const Wrapper = hasLabel ? 'div' : Fragment;
+const wrapperProps = hasLabel
+  ? { class: `input-group ${labelPosition === 'before' ? 'label-before' : ''}`.trim() }
+  : {};
+---
+<Wrapper {...wrapperProps}>
+  <input type="radio" class:list={['radio-input', className]} id={id} name={name} value={value} {...rest} />
+  {hasLabel && (
+    <label for={id}>
+      <slot />
+    </label>
+  )}
+</Wrapper>
