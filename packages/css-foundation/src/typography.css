@@ -16,8 +16,8 @@
   --golden-ratio: 1.61803399;
 
   /* --- Choose your scale ratio --- */
-  --scale-min: var(--major-third);
-  --scale-max: var(--perfect-fourth);
+  --scale-min: var(--minor-third);
+  --scale-max: var(--major-third);
   --base-font-size-min: 1; /* rem */
   --base-font-size-max: 1.25; /* rem */
   --fluid-width-min: 400; /* px */
@@ -118,6 +118,7 @@
   /* --- Fluid Spacing --- */
   --_space-scale-ratio: 1.5;
   --_space-fluid: var(--font-size-m);
+  --space-3xs: calc(max(0.1rem, var(--_space-fluid) * pow(var(--_space-scale-ratio), -4)));
   --space-2xs: calc(max(0.125rem, var(--_space-fluid) * pow(var(--_space-scale-ratio), -3)));
   --space-xs: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), -2));
   --space-s: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), -1));

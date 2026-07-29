@@ -1,6 +1,6 @@
 ---
 import '@styles/app-layout.css';
-import ToggleSwitch from '@components/toggle/toggle-switch.astro';
+import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
 import BaseLayout from './base-layout.astro';
 
 type Props = {
@@ -36,8 +36,8 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
           checked={isCondensed}
           ariaLabel="Toggle font size"
         >
-          <Fragment slot="on-icon"><small><small>A</small></small>A</Fragment>
-          <Fragment slot="off-icon">A<small><small>A</small></small></Fragment>
+          <span slot="on-icon"><small><small>A</small></small>A</span>
+          <span slot="off-icon">A<small><small>A</small></small></span>
         </ToggleSwitch>
         <ToggleSwitch
           id="theme-switcher"
@@ -45,8 +45,8 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
           checked={isLight}
           ariaLabel="Toggle light dark theme"
         >
-          <Fragment slot="on-icon">☀️</Fragment>
-          <Fragment slot="off-icon">🌙</Fragment>
+          <span slot="on-icon">☀️</span>
+          <span slot="off-icon">🌙</span>
         </ToggleSwitch>
       </div>
     </header>
@@ -59,6 +59,9 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
           </li>
           <li>
             <a href="/design-system-test-page">👉 Designsystem Test Page</a>
+          </li>
+          <li>
+            <a href="/form-elements">👉 Form Elements</a>
           </li>
         </ul>
       </nav>

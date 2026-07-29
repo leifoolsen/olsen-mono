@@ -1,0 +1,429 @@
+---
+import Checkbox from '@components/form-elements/checkbox.astro';
+import FieldGroup from '@components/form-elements/field-group.astro';
+import InputField from '@components/form-elements/input-field.astro';
+import RadioButton from '@components/form-elements/radio-button.astro';
+import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
+import AppLayout from '@layouts/app-layout.astro';
+import '@components/form-elements/form-elements.css';
+import SelectField from '@components/form-elements/select-field.astro';
+import TextArea from '@components/form-elements/text-area.astro';
+---
+
+<AppLayout title="Form Elements">
+  <h1 id="top">Form Elements</h1>
+
+  <section data-layout="row" style="gap: var(--space-l)">
+    <div style="display: flex; gap: var(--space-m); flex-wrap: wrap;">
+      <FieldGroup id="forms__toggle-switch_styled" bordered>
+        <legend>Toggle Switch</legend>
+        <ToggleSwitch
+          id="form-elements-switch-unchecked"
+          name="form-elements-switch-unchecked"
+          ariaLabel="Toggle light dark theme"
+          labelPosition="before"
+        >
+          <span>Initially Unchecked</span>
+        </ToggleSwitch>
+
+        <ToggleSwitch
+          checked
+          id="form-elements-switch-checked"
+          name="form-elements-switch-checked"
+          ariaLabel="Toggle light dark theme"
+          labelPosition="before"
+        >
+          <span>Initially Checked</span>
+        </ToggleSwitch>
+
+        <ToggleSwitch
+          id="form-elements-switch-unchecked-disabled"
+          name="form-elements-switch-unchecked-disabled"
+          disabled
+          ariaLabel="Toggle light dark theme"
+        >
+          <span>Disabled, Unchecked</span>
+        </ToggleSwitch>
+
+        <ToggleSwitch
+          id="form-elements-switch-checked-disabled"
+          name="form-elements-switch-checked-disabled"
+          checked
+          disabled
+          ariaLabel="Toggle light dark theme"
+        >
+          <span>Disabled, Checked</span>
+        </ToggleSwitch>
+
+        <ToggleSwitch
+          id="form-elements-switch-icon-unchecked"
+          name="form-elements-switch-icon-unchecked"
+          ariaLabel="Toggle light dark theme"
+        >
+          <span slot="on-icon">☀️</span>
+          <span slot="off-icon">🌙</span>
+          <span>Initially Unchecked</span>
+        </ToggleSwitch>
+
+        <ToggleSwitch
+          id="form-elements-switch-icon-checked"
+          name="form-elements-switch-icon-checked"
+          checked
+          ariaLabel="Toggle light dark theme"
+        >
+          <span slot="on-icon"><small class="baz"><small>A</small></small>A</span>
+          <span slot="off-icon">A<small><small>A</small></small></span>
+          <span>Initially Checked</span>
+        </ToggleSwitch>
+
+        <ToggleSwitch
+          id="form-elements-switch-icon-disabled-unchecked"
+          name="form-elements-switch-icon-disabled-unchecked"
+          disabled
+          ariaLabel="Toggle light dark theme"
+        >
+          <span slot="on-icon">☀️</span>
+          <span slot="off-icon">🌙</span>
+          <span>Unchecked, disabled</span>
+        </ToggleSwitch>
+
+        <ToggleSwitch
+          id="form-elements-switch-icon-disabled-checked"
+          name="form-elements-switch-icon-disabled-checked"
+          disabled
+          checked
+          ariaLabel="Toggle light dark theme"
+        >
+          <span slot="on-icon"><small><small>A</small></small>A</span>
+          <span slot="off-icon">A<small><small>A</small></small></span>
+          <span>Checked, disabled</span>
+        </ToggleSwitch>
+      </FieldGroup>
+
+      <FieldGroup id="forms__checkbox_styled" bordered>
+        <legend>Checkbox</legend>
+
+        <FieldGroup>
+          <Checkbox
+            id="form-elements-checkbox"
+            name="form-elements-checkbox"
+            value="cb1"
+          >
+            <span>Initially Unchecked</span>
+          </Checkbox>
+          <Checkbox
+            checked
+            id="form-elements-checkbox-checked"
+            name="form-elements-checkbox-checked"
+            value="cb2"
+          >
+            <span>Initially Checked</span>
+          </Checkbox>
+          <Checkbox
+            disabled
+            id="form-elements-checkbox-disabled"
+            name="form-elements-checkbox-disabled"
+            value="cb3"
+          >
+            <span>Unchecked, Disabled</span>
+          </Checkbox>
+          <Checkbox
+            disabled
+            checked
+            id="form-elements-checkbox-disabled-checked"
+            name="form-elements-checkbox-disabled-checked"
+            value="cb4"
+          >
+            <span>Checked, Disabled</span>
+          </Checkbox>
+        </FieldGroup>
+        <hr />
+        <FieldGroup orientation="row">
+          <Checkbox
+            id="form-elements-checkbox2"
+            name="form-elements-checkbox2"
+            value="cb1"
+            labelPosition="before"
+          >
+            <span>Initially Unchecked</span>
+          </Checkbox>
+          <Checkbox
+            checked
+            id="form-elements-checkbox-checked2"
+            name="form-elements-checkbox-checked2"
+            value="cb2"
+            labelPosition="before"
+          >
+            <span>Initially Checked</span>
+          </Checkbox>
+        </FieldGroup>
+      </FieldGroup>
+
+      <FieldGroup id="forms__radio_styled" bordered>
+        <legend>Radio Buttons</legend>
+
+        <FieldGroup role="radiogroup">
+          <RadioButton id="form-elements-radio-group-1" name="radioOption" value="1">Option 1</RadioButton>
+          <RadioButton id="form-elements-radio-group-2" name="radioOption" value="2">Option 2</RadioButton>
+          <RadioButton id="form-elements-radio-group-3" name="radioOption" value="3">Option 2</RadioButton>
+          <RadioButton
+            id="form-elements-radio-group-4"
+            name="radioOption"
+            value="4"
+            checked
+            disabled
+          >
+            Disabled Option
+          </RadioButton>
+        </FieldGroup>
+        <hr />
+        <FieldGroup role="radiogroup" orientation="row">
+          <RadioButton id="testing-1" name="testing" value="1" disabled labelPosition="before">Testing 1...</RadioButton>
+          <RadioButton id="testing-2" name="testing" value="2" disabled checked>Testing 2 ...</RadioButton>
+        </FieldGroup>
+      </FieldGroup>
+    </div>
+
+    <div style="display: flex; gap: var(--space-m); flex-wrap: wrap;">
+      <FieldGroup id="forms__inputs_styled" bordered style="min-width: 50ch;">
+        <legend>Input fields</legend>
+
+        <InputField id="input__text_styled" placeholder="Enter Text">
+          Text Input
+          <span slot="description">This is a description of the input.</span>
+        </InputField>
+        <InputField id="input__number_styled" type="number" placeholder="Enter Number">
+          Number Input
+        </InputField>
+        <InputField id="input__password_styled" type="password" placeholder="Type your Password">
+          Password
+        </InputField>
+        <InputField id="input__required_styled" type="text" placeholder="Required Input" required>
+          Required Input
+        </InputField>
+        <InputField
+          id="input__text_readonly_styled"
+          placeholder="Enter Text"
+          value="Read Only"
+          readonly
+        >
+          Read Only Text Input
+        </InputField>
+        <InputField
+          id="input__text_disabled_styled"
+          placeholder="Enter Text"
+          value="Lorem Ipsum"
+          disabled
+        >
+          Disabled Text Input
+        </InputField>
+        <InputField
+          id="input__text_invalid_styled"
+          placeholder="Enter Text"
+          value="Lorem Ipsum"
+          invalid
+          required
+        >
+          <span>Invalid Required Text Input</span>
+          <span slot="error-message">The input is not valid.</span>
+          <span slot="description">This is a description of the input.</span>
+        </InputField>
+        <InputField id="input__date_styled" type="date" value="1970-01-01">
+          Date input
+        </InputField>
+      </FieldGroup>
+
+      <FieldGroup id="forms__textareas_styled" bordered style="min-width: 50ch; max-width: 50ch;">
+        <legend>Text Areas</legend>
+
+        <TextArea id="textarea_styled" placeholder="Enter your message here" value="Lorem Ipsum Dolar Est!">
+          Text Area Input
+          <span slot="description">This is a description of the text area.</span>
+        </TextArea>
+        <TextArea id="textarea_styled_required" placeholder="Enter your message here" required>
+          Required Text
+          <span slot="description">This is a description of the text area.</span>
+        </TextArea>
+        <TextArea id="textarea_styled_readonly" placeholder="Enter your message here" readonly>
+          Read Only Text
+        </TextArea>
+        <TextArea
+          id="textarea_styled_disabled"
+          placeholder="Enter your message here"
+          value="Lorem Ipsum Dolar Est!"
+          disabled
+        >
+          Disabled Text
+        </TextArea>
+        <TextArea
+          id="textarea_styled_required_invalid"
+          placeholder="Enter your message here"
+          value="Lorem Ipsum Dolar Est!"
+          required invalid
+        >
+          Required Invalid Text
+          <span slot="error-message">The input is not valid.</span>
+        </TextArea>
+      </FieldGroup>
+
+      <FieldGroup id="forms__selects_styled" bordered style="min-width: 50ch; max-width: 50ch;">
+        <legend>Select Menus</legend>
+
+        <SelectField id="select_styled">
+          <optgroup label="Option Group">
+            <option>Option One</option>
+            <option>Option Two</option>
+            <option>Option Three</option>
+          </optgroup>
+          <span slot="label">Select</span>
+          <span slot="description">This is a description of the select.</span>
+        </SelectField>
+
+        <SelectField id="select_styled_required" required>
+          <optgroup label="Option Group">
+            <option>Option One</option>
+            <option>Option Two</option>
+            <option>Option Three</option>
+          </optgroup>
+          <span slot="label">Select Required</span>
+        </SelectField>
+
+        <SelectField id="select_styled_disabled" disabled>
+          <optgroup label="Option Group">
+            <option>Option One</option>
+            <option>Option Two</option>
+            <option>Option Three</option>
+          </optgroup>
+          <span slot="label">Select Disabled</span>
+        </SelectField>
+
+        <SelectField id="select_styled_invalid" invalid>
+          <optgroup label="Option Group">
+            <option>Option One</option>
+            <option>Option Two</option>
+            <option>Option Three</option>
+          </optgroup>
+          <span slot="label">Select Invalid</span>
+          <span slot="error-message">The input is not valid.</span>
+        </SelectField>
+      </FieldGroup>
+    </div>
+
+    <h2>Unstyled</h2>
+
+    <fieldset id="forms__inputs">
+      <legend>Input fields</legend>
+      <FieldGroup>
+        <p>
+          <label for="input__text">Text Input</label>
+          <input id="input__text" type="text" placeholder="Text Input" />
+        </p>
+        <p>
+          <label for="input__password">Password</label>
+          <input id="input__password" type="password" placeholder="Type your Password" />
+        </p>
+        <p>
+          <label for="input__webaddress">Web Address</label>
+          <input id="input__webaddress" type="url" placeholder="https://yoursite.com" />
+        </p>
+        <p>
+          <label for="input__emailaddress">Email Address</label>
+          <input id="input__emailaddress" type="email" placeholder="name@email.com" />
+        </p>
+        <p>
+          <label for="input__phone">Phone Number</label>
+          <input id="input__phone" type="tel" placeholder="(999) 999-9999" />
+        </p>
+        <p>
+          <label for="input__search">Search</label>
+          <input id="input__search" type="search" placeholder="Enter Search Term" />
+        </p>
+        <p>
+          <label for="input__text2">Number Input</label>
+          <input id="input__text2" type="number" placeholder="Enter a Number" />
+        </p>
+        <p>
+          <label for="input__file">File Input</label>
+          <input id="input__file" type="file" />
+        </p>
+      </FieldGroup>
+    </fieldset>
+
+    <fieldset id="forms__textareas">
+      <legend>Textareas</legend>
+      <p>
+        <label for="textarea">Textarea</label>
+        <textarea id="textarea" rows="8" cols="48" placeholder="Enter your message here"></textarea>
+      </p>
+    </fieldset>
+
+    <fieldset id="forms__select" data-layout="row">
+      <legend>Select menus</legend>
+      <p>
+        <label for="select">Select</label>
+        <select id="select">
+          <optgroup label="Option Group">
+            <option>Option One</option>
+            <option>Option Two</option>
+            <option>Option Three</option>
+          </optgroup>
+        </select>
+      </p>
+      <p>
+        <label for="select_multiple">Select (multiple)</label>
+        <select id="select_multiple" multiple="multiple">
+          <optgroup label="Option Group">
+            <option>Option One</option>
+            <option>Option Two</option>
+            <option>Option Three</option>
+          </optgroup>
+        </select>
+      </p>
+    </fieldset>
+
+    <fieldset id="forms__html5" data-layout="row">
+      <legend>HTML5 inputs</legend>
+      <p>
+        <label for="ic">Color input</label>
+        <input type="color" id="ic" value="#000000" />
+      </p>
+      <p>
+        <label for="in">Number input</label>
+        <input type="number" id="in" min="0" max="10" value="5" />
+      </p>
+      <p>
+        <label for="ir">Range input</label>
+        <input type="range" id="ir" value="10" />
+      </p>
+      <p>
+        <label for="idd">Date input</label>
+        <input type="date" id="idd" value="1970-01-01" />
+      </p>
+      <p>
+        <label for="idm">Month input</label>
+        <input type="month" id="idm" value="1970-01" />
+      </p>
+      <p>
+        <label for="idw">Week input</label>
+        <input type="week" id="idw" value="1970-W01" />
+      </p>
+      <p>
+        <label for="idt">Time input</label>
+        <input type="time" id="idt" name="idt" min="00:00" max="24:00" />
+      </p>
+      <p>
+        <label for="idtl">Datetime-local input</label>
+        <input type="datetime-local" id="idtl" value="1970-01-01T00:00" />
+      </p>
+      <p>
+        <label for="idl">Datalist</label>
+        <input type="text" id="idl" list="example-list" />
+        <datalist id="example-list">
+          <option value="Example #1"></option>
+          <option value="Example #2"></option>
+          <option value="Example #3"></option>
+        </datalist>
+      </p>
+    </fieldset>
+  </section>
+</AppLayout>

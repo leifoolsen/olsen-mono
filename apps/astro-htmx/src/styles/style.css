@@ -1,5 +1,5 @@
 /* style.css */
-@layer reset, tokens, base, layout;
+@layer reset, tokens, base, layout, components;
 
 @import "@olsen-mono/css-foundation/reset.css" layer(reset);
 @import "@olsen-mono/css-foundation/colors.css" layer(tokens);
@@ -7,4 +7,3 @@
 @import "@olsen-mono/css-foundation/typography.css" layer(base);
 @import "@olsen-mono/css-foundation/typesetting.css" layer(base);
 @import "@olsen-mono/css-foundation/layouts.css" layer(layout);
-@import "../components/toggle/toggle-switch.css" layer(components);

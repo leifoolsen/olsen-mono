@@ -1,0 +1,82 @@
+---
+import {assertValidSlots} from '@components/utils/assert-valid-slots.ts';
+import type { HTMLAttributes } from 'astro/types';
+import './form-elements.css';
+
+type Props = HTMLAttributes<'input'> & {
+  id: string;
+  name: string;
+  ariaLabel: string;
+  checked?: boolean;
+  labelPosition?: 'after' | 'before';
+}
+
+const {
+  id,
+  name,
+  ariaLabel,
+  checked = false,
+  class: className,
+  labelPosition = 'after',
+  ...rest
+} = Astro.props;
+
+const SLOT_NAMES = ['on-icon', 'off-icon'] as const;
+type SlotName = typeof SLOT_NAMES[number];
+
+const hasLabel = Astro.slots.has('default');
+const Wrapper = hasLabel ? 'div' : Fragment;
+
+const wrapperProps = hasLabel
+  ? { class: `input-group ${labelPosition === 'before' ? 'label-before' : ''}`.trim() }
+  : {};
+
+async function renderIconSlot(slotName: SlotName, componentClass: string) {
+  if (!Astro.slots.has(slotName)) return null;
+
+  const rawHtml = await Astro.slots.render(slotName);
+  const trimmedHtml = rawHtml.trim();
+
+  if (!trimmedHtml.startsWith('<')) {
+    throw new Error(`[ToggleSwitch]: Content in slot="${slotName}" must be wrapped in an HTML element.`);
+  }
+
+  const firstTagRegex = /^<([a-z1-6]+)([^>]*)-*>/i;
+
+  return trimmedHtml.replace(firstTagRegex, (_, tagName, attributes) => {
+    if (attributes.includes('class="')) {
+      const updatedAttributes = attributes.replace('class="', `class="${componentClass} `);
+      return `<${tagName}${updatedAttributes}>`;
+    } else {
+      return `<${tagName} class="${componentClass}"${attributes}>`;
+    }
+  });
+}
+
+assertValidSlots(Astro.slots, SLOT_NAMES, 'ToggleSwitch');
+
+const onIconHtml = await renderIconSlot('on-icon', 'icon-on');
+const offIconHtml = await renderIconSlot('off-icon', 'icon-off');
+---
+<Wrapper {...wrapperProps}>
+  <label class:list={['toggle-switch', className]}>
+    <input
+      type="checkbox"
+      role="switch"
+      id={id}
+      name={name}
+      checked={checked}
+      aria-label={ariaLabel}
+      class="switch"
+      {...rest}
+    />
+    {onIconHtml && <Fragment set:html={onIconHtml} />}
+    {offIconHtml && <Fragment set:html={offIconHtml} />}
+  </label>
+
+  {hasLabel && (
+    <label for={id}>
+      <slot />
+    </label>
+  )}
+</Wrapper>

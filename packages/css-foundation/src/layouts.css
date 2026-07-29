@@ -1,10 +1,10 @@
 /* --- RAM: Repeat, Auto, MinMax Layout --- */
 [data-layout="ram"] {
-  --_gap: var(--layout-gap, var(--space-l));
+  --_switch-gap: var(--layout-gap, var(--space-l));
   --_min-width: var(--layout-grid-item-min, 30ch);
 
   display: grid;
-  gap: var(--_gap);
+  gap: var(--_switch-gap);
   grid-template-columns: repeat(auto-fit, minmax(min(var(--_min-width, 100%)), 1fr));
 
   /* --- Restrict Columns --- */
@@ -13,15 +13,19 @@
 
     grid-template-columns: repeat(
         auto-fit,
-        minmax(max(var(--_min-width), calc((100% - (var(--_cols) - 1) * var(--_gap)) / var(--_cols))), 1fr)
+        minmax(max(var(--_min-width), calc((100% - (var(--_cols) - 1) * var(--_switch-gap)) / var(--_cols))), 1fr)
       );
   }
 }
 
-/* --- Stack Layout --- */
-[data-layout="stack"] {
+/* --- Stacked / Row Layout --- */
+[data-layout="row"] {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: var(--space-m);
+
+  & > * {
+    margin-bottom: 0;
+  }
 }

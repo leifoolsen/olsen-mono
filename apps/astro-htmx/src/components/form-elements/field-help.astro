@@ -1,0 +1,43 @@
+---
+// src/components/form-element/field-help.astro
+
+import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
+import './form-elements.css';
+
+type Props = {
+  id: string;
+  descriptionId?: string;
+};
+
+const {
+  id,
+  descriptionId = `${id}-description`
+} = Astro.props;
+
+assertValidSlots(Astro.slots, [], 'FieldHelp');
+
+const popoverId = `${id}-popover`;
+const uniqueAnchorName = `--anchor-${id}`;
+---
+<button
+  tabindex="-1"
+  type="button"
+  class="popover-trigger-btn"
+  popovertarget={popoverId}
+  aria-label="Show help"
+  style={`anchor-name: ${uniqueAnchorName};`}
+>
+  ⓘ
+</button>
+
+<div
+  data-variant="neutral"
+  id={popoverId}
+  popover="auto"
+  class="info-tooltip-popover"
+  style={`position-anchor: ${uniqueAnchorName};`}
+>
+  <div class="popover-description">
+    <span style="font-size: 1.2em;">ⓘ</span>&nbsp;<span id={descriptionId}><slot /></span>
+  </div>
+</div>
