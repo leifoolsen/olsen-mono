@@ -25,12 +25,12 @@
     "typecheck": "astro check"
   },
   "dependencies": {
-    "@astrojs/node": "^11.0.3",
+    "@astrojs/node": "^11.1.2",
     "@olsen-mono/core-utils": "workspace:*",
     "@olsen-mono/css-foundation": "workspace:*"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
-    "astro": "^7.1.5"
+    "astro": "^7.2.2"
   }
 }
