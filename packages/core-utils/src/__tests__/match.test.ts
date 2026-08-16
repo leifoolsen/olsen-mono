@@ -34,7 +34,7 @@ describe('match', () => {
       });
     });
 
-    it('should evaluate the first match when more then one predicate evaluates to the same value', () => {
+    it('should return the first match when more then one predicate evaluates to the same value', () => {
       const color = match<string, Color>('warning')
         .on('warning', () => 'red')
         .on('warning', () => 'green')
@@ -249,7 +249,7 @@ describe('match', () => {
         expect(color2).toBe('red');
       });
 
-      it('should evaluate the first match when more then one predicate evaluates to the same value', async () => {
+      it('should return the first match when more then one predicate evaluates to the same value', async () => {
         const color = await matchAsync<string, Color>('warning')
           .on('warning', () => 'red')
           .on('warning', () => 'green')
