@@ -101,7 +101,7 @@
 
     &:has(
         .select-input[aria-invalid="true"],
-        [type="checkbox"][aria-invalid="true"],
+        [type="checkbox"][aria-invalid="true"]:checked,
         [aria-invalid="true"]:required:not(:placeholder-shown)
       ) {
       & > label::after {
