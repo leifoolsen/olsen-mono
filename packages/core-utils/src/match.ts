@@ -1,5 +1,5 @@
 /**
- * A TypeGuard is a type predicate function used for narrowing down the type of a value.
+ * A TypeGuard is a type predicate function used for narrowing down the type of value.
  * It takes a value of a broader type and evaluates whether it belongs to a more specific type.
  * When used in conditional statements, the TypeScript compiler leverages this function
  * to narrow the type of the value within the scope of the condition.
@@ -161,12 +161,41 @@ export const matchAsync = <X = undefined, Y = unknown>(x?: X): MatchAsync<X, Y> 
 
     const promise = runMatch();
 
-    return {
-      on: <NR extends Y = Y, NT extends X = X>(
+    const createChain = <R>(currentPromise: Promise<R>): MatchWithResultAsync<X, R, Y> => ({
+      on: <NR extends Y, NT extends X = X>(
         nextPred: TypeGuard<X, NT> | ((x: X) => boolean | Promise<boolean>) | boolean | X,
-        nextFn: (x: NT) => NR | Promise<NR>,
-      ) => {
-        const nextPromise = promise.catch(async () => {
+        nextFn: (value: NT) => NR | Promise<NR>,
+      ): MatchWithResultAsync<X, unknown extends Y ? R | NR : Y, Y> => {
+        const nextPromise = currentPromise.catch(async (err) => {
+          if (err instanceof Error && err.message !== 'Not matched') throw err;
+
+          const isMatched =
+            typeof nextPred === 'function'
+              ? await (nextPred as (value: X) => boolean | Promise<boolean>)(x as X)
+              : nextPred === x || nextPred === true;
+
+          if (isMatched) return await nextFn(x as unknown as NT);
+          throw new Error('Not matched');
+        });
+
+        return createChain(nextPromise) as unknown as MatchWithResultAsync<X, unknown extends Y ? R | NR : Y, Y>;
+      },
+      otherwise: <NR extends Y>(fallbackFn: (value: X) => NR | Promise<NR>) => {
+        return currentPromise.catch((err) => {
+          if (err instanceof Error && err.message !== 'Not matched') throw err;
+          return fallbackFn(x as X);
+        }) as Promise<unknown extends Y ? R | NR : Y>;
+      },
+    });
+
+    return {
+      on: <NR extends Y, NT extends X = X>(
+        nextPred: TypeGuard<X, NT> | ((value: X) => boolean | Promise<boolean>) | boolean | X,
+        nextFn: (value: NT) => NR | Promise<NR>,
+      ): MatchWithResultAsync<X, unknown extends Y ? R | NR : Y, Y> => {
+        const nextPromise = promise.catch(async (err) => {
+          if (err instanceof Error && err.message !== 'Not matched') throw err;
+
           const isMatched =
             typeof nextPred === 'function'
               ? await (nextPred as (x: X) => boolean | Promise<boolean>)(x as X)
@@ -175,12 +204,14 @@ export const matchAsync = <X = undefined, Y = unknown>(x?: X): MatchAsync<X, Y> 
           if (isMatched) return await nextFn(x as unknown as NT);
           throw new Error('Not matched');
         });
-        return matchedAsync<X, unknown extends Y ? R | NR : Y, Y>(
-          nextPromise as unknown as Promise<unknown extends Y ? R | NR : Y>,
-        );
+
+        return createChain(nextPromise) as unknown as MatchWithResultAsync<X, unknown extends Y ? R | NR : Y, Y>;
       },
-      otherwise: <NR extends Y = Y>(fallbackFn: (x: X) => NR | Promise<NR>) => {
-        return promise.catch(() => fallbackFn(x as X)) as Promise<unknown extends Y ? R | NR : Y>;
+      otherwise: <NR extends Y>(fallbackFn: (value: X) => NR | Promise<NR>) => {
+        return promise.catch((err) => {
+          if (err instanceof Error && err.message !== 'Not matched') throw err;
+          return fallbackFn(x as X);
+        }) as Promise<unknown extends Y ? R : Y>;
       },
     };
   },

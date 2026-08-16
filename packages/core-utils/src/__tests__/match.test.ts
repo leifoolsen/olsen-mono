@@ -18,6 +18,7 @@ describe('match', () => {
 
       it('match boolean predicate', () => {
         const value = true;
+
         const color = match<boolean, string>(value)
           .on(value, () => 'red')
           .otherwise(() => 'blue');
@@ -31,6 +32,31 @@ describe('match', () => {
 
         expect(color2).toBe('red');
       });
+    });
+
+    it('should evaluate the first match when more then one predicate evaluates to the same value', () => {
+      const color = match<string, Color>('warning')
+        .on('warning', () => 'red')
+        .on('warning', () => 'green')
+        .otherwise(() => 'blue');
+
+      expect(color).toBe('red');
+
+      const value = true;
+      const color2 = match<boolean, string>(value)
+        .on(value, () => 'red')
+        .on(value, () => 'green')
+        .otherwise(() => 'blue');
+
+      expect(color2).toBe('red');
+
+      // Simplified
+      const color3 = match()
+        .on(value, () => 'red')
+        .on(value, () => 'green')
+        .otherwise(() => 'blue');
+
+      expect(color3).toBe('red');
     });
 
     describe('match predicate function', () => {
@@ -221,6 +247,31 @@ describe('match', () => {
           .otherwise(() => 'blue');
 
         expect(color2).toBe('red');
+      });
+
+      it('should evaluate the first match when more then one predicate evaluates to the same value', async () => {
+        const color = await matchAsync<string, Color>('warning')
+          .on('warning', () => 'red')
+          .on('warning', () => 'green')
+          .otherwise(() => 'blue');
+
+        expect(color).toBe('red');
+
+        const value = true;
+        const color2 = await matchAsync<boolean, string>(value)
+          .on(value, () => 'red')
+          .on(value, () => 'green')
+          .otherwise(() => 'blue');
+
+        expect(color2).toBe('red');
+
+        // Simplified
+        const color3 = await matchAsync()
+          .on(value, () => 'red')
+          .on(value, () => 'green')
+          .otherwise(() => 'blue');
+
+        expect(color3).toBe('red');
       });
     });
 
