@@ -2,6 +2,7 @@
 // src/components/form-element/text-area.astro
 
 import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
+import { matchAsync} from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import FieldHelp from './field-help.astro';
 import './form-elements.css';
@@ -9,6 +10,7 @@ import './form-elements.css';
 type Props = HTMLAttributes<'textarea'> & {
   id: string;
   invalid?: boolean;
+  label?: string;
   labelPosition?: 'top' | 'before';
   value?: string;
 };
@@ -17,21 +19,38 @@ const {
   class: className,
   id,
   invalid,
+  label,
   labelPosition = 'top',
-  value= '',
+  value,
   ...rest
 } = Astro.props;
 
-const ALLOWED_SLOTS = ['description', 'error-message'] as const;
+const ALLOWED_SLOTS = ['description', 'error-message', 'label'] as const;
 assertValidSlots(Astro.slots, ALLOWED_SLOTS, 'TextArea');
 
-const hasLabel = Astro.slots.has('default');
-const hasDescription = Astro.slots.has('description');
-const descriptionId = hasDescription ?`${id}-description` : undefined;
-const hasErrorSlot = Astro.slots.has('error-message');
+const processedLabel = await matchAsync()
+  .on(!!label, () => `<label for="${id}">${label}</label>`)
+  .on(Astro.slots.has('label'), async () => {
+    const rawLabel = await Astro.slots.render('label');
+    const isLabelTag = rawLabel ? /^\s*<label(?=[>\s])/i.test(rawLabel) : false;
+    return isLabelTag
+      ? rawLabel.replace('<label', `<label for="${id}"`)
+      : `<label for="${id}">${rawLabel}</label>`;
+  })
+  .otherwise(() => null);
 
-const Wrapper = hasLabel ? 'div' : Fragment;
-const wrapperProps = hasLabel
+const textareaValue = await matchAsync()
+  .on(!!value, () => value)
+  .otherwise(async () => Astro.slots.has('default') ? await Astro.slots.render('default') : '');
+
+const hasDescriptionSlot = Astro.slots.has('description');
+const descriptionId = hasDescriptionSlot ?`${id}-description` : undefined;
+
+const hasErrorMessageSlot = Astro.slots.has('error-message');
+const showErrorMessage = invalid && hasErrorMessageSlot;
+
+const Wrapper = processedLabel ? 'div' : Fragment;
+const wrapperProps = processedLabel
   ? { class: `input-group ${labelPosition === 'top' ? 'label-top' : 'label-before'}`.trim() }
   : {};
 ---
@@ -43,22 +62,18 @@ const wrapperProps = hasLabel
       class:list={['text-input', 'textarea-input', className]}
       id={id}
       {...rest}
-    >{value}</textarea>
+    >{textareaValue}</textarea>
 
-    {hasDescription && (
+    {hasDescriptionSlot && (
       <FieldHelp id={id} descriptionId={descriptionId}>
         <slot name="description" />
       </FieldHelp>
     )}
   </div>
 
-  {hasLabel && (
-    <label for={id}>
-      <slot />
-    </label>
-  )}
+  {!!processedLabel && <Fragment set:html={processedLabel} />}
 
-  {hasErrorSlot && (
+  {showErrorMessage && (
     <div class="error-message" role="alert">
       <slot name="error-message" />
     </div>

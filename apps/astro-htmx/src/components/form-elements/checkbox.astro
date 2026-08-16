@@ -2,46 +2,51 @@
 // src/components/form-element/checkbox.astro
 
 import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
+import { matchAsync } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import './form-elements.css';
 
 type Props = HTMLAttributes<'input'> & {
   id: string;
-  name: string;
-  value: string;
+  invalid?: boolean;
+  label?: string;
   labelPosition?: 'after' | 'before';
 };
 
 const {
-  id,
-  value,
-  name,
-  labelPosition = 'after',
   class: className,
+  id,
+  invalid,
+  label,
+  labelPosition = 'after',
   ...rest
 } = Astro.props;
 
-assertValidSlots(Astro.slots, [], 'Checkbox');
+assertValidSlots(Astro.slots, ['label'], 'Checkbox');
 
-const hasLabel = Astro.slots.has('default');
-const Wrapper = hasLabel ? 'div' : Fragment;
-const wrapperProps = hasLabel
+const processedLabel = await matchAsync()
+  .on(!!label, () => `<label for="${id}">${label}</label>`)
+  .on(Astro.slots.has('label'), async () => {
+    const rawLabel = await Astro.slots.render('label');
+    const isLabelTag = rawLabel ? /^\s*<label(?=[>\s])/i.test(rawLabel) : false;
+    return isLabelTag
+      ? rawLabel.replace('<label', `<label for="${id}"`)
+      : `<label for="${id}">${rawLabel}</label>`;
+  })
+  .otherwise(() => null);
+
+const Wrapper = processedLabel ? 'div' : Fragment;
+const wrapperProps = processedLabel
   ? { class: `input-group ${labelPosition === 'before' ? 'label-before' : ''}`.trim() }
   : {};
 ---
 <Wrapper {...wrapperProps}>
   <input
-    type="checkbox"
     class:list={['checkbox-input', className]}
-    id={id}
-    name={name}
-    value={value}
+    id={id} type="checkbox"
+    aria-invalid={invalid ? "true" : undefined}
     {...rest}
   />
 
-  {hasLabel && (
-    <label for={id}>
-      <slot />
-    </label>
-  )}
+  {!!processedLabel && <Fragment set:html={processedLabel} />}
 </Wrapper>
