@@ -38,10 +38,10 @@ const processedLabel = await matchAsync()
   })
   .otherwise(() => null);
 
-const hasDescription = Astro.slots.has('description');
-const descriptionId = hasDescription ?`${id}-description` : undefined;
+const hasDescriptionSlot = Astro.slots.has('description');
+const descriptionId = hasDescriptionSlot ?`${id}-description` : undefined;
 
-const hasErrorMessage = Astro.slots.has('error-message');
+const hasErrorMessageSlot = Astro.slots.has('error-message');
 
 const Wrapper = processedLabel ? 'div' : Fragment;
 const wrapperProps = processedLabel
@@ -59,8 +59,8 @@ const wrapperProps = processedLabel
       {...rest}
     />
 
-    {hasDescription && (
-      <FieldHelp id={id} descriptionId={descriptionId}>
+    {hasDescriptionSlot && (
+      <FieldHelp id={descriptionId!}>
         <slot name="description" />
       </FieldHelp>
     )}
@@ -68,7 +68,7 @@ const wrapperProps = processedLabel
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 
-  {hasErrorMessage && (
+  {hasErrorMessageSlot && (
     <div class="error-message" role="alert">
       <slot name="error-message" />
     </div>

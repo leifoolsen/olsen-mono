@@ -65,7 +65,7 @@ const wrapperProps = processedLabel
     >{textareaValue}</textarea>
 
     {hasDescriptionSlot && (
-      <FieldHelp id={id} descriptionId={descriptionId}>
+      <FieldHelp id={descriptionId!}>
         <slot name="description" />
       </FieldHelp>
     )}

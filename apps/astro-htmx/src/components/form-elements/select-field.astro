@@ -38,7 +38,7 @@ const processedLabel = await matchAsync()
   .otherwise(() => null);
 
 const hasDescriptionSlot = Astro.slots.has('description');
-const descriptionId = `${id}-description`;
+const descriptionId = hasDescriptionSlot ?`${id}-description` : undefined;
 
 const hasErrorMessageSlot = Astro.slots.has('error-message');
 const showErrorMessage = invalid && hasErrorMessageSlot;
@@ -61,7 +61,7 @@ const wrapperProps = processedLabel
       <slot />
     </select>
     {hasDescriptionSlot && (
-      <FieldHelp id={id} descriptionId={descriptionId}>
+      <FieldHelp id={descriptionId!}>
         <slot name="description" />
       </FieldHelp>
     )}
