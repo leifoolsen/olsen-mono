@@ -1,5 +1,12 @@
 # hello-htmx
 
+## 0.0.17
+
+### Patch Changes
+
+- Updated dependencies [3e18bf6]
+  - @olsen-mono/core-utils@0.0.18
+
 ## 0.0.16
 
 ### Patch Changes

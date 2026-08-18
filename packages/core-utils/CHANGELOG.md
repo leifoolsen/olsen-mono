@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.18
+
+### Patch Changes
+
+- 3e18bf6: Added range field component. Added async match function.
+
 ## 0.0.17
 
 ### Patch Changes
