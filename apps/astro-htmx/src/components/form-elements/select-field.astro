@@ -60,7 +60,6 @@ const wrapperProps = processedLabel
       {/* Default slot is used for <option> and <optgroup> tags */}
       <slot />
     </select>
-
     {hasDescriptionSlot && (
       <FieldHelp id={id} descriptionId={descriptionId}>
         <slot name="description" />

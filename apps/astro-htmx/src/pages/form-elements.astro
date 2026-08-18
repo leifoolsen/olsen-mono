@@ -3,6 +3,7 @@ import Checkbox from '@components/form-elements/checkbox.astro';
 import FieldGroup from '@components/form-elements/field-group.astro';
 import InputField from '@components/form-elements/input-field.astro';
 import RadioButton from '@components/form-elements/radio-button.astro';
+import RangeField from '@components/form-elements/range-field.astro';
 import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
 import AppLayout from '@layouts/app-layout.astro';
 import '@components/form-elements/form-elements.css';
@@ -200,6 +201,30 @@ import TextArea from '@components/form-elements/text-area.astro';
           </RadioButton>
         </FieldGroup>
       </FieldGroup>
+
+      <FieldGroup id="forms__radio_styled" bordered style="min-width: 40ch">
+        <legend>Range Inputs</legend>
+
+        <RangeField
+          id="range-input"
+          min={0}
+          max={360}
+          step={0.1}
+          value={303.4}
+          label="Range Input"
+        >
+          <span slot="description">This is a description of the range field input.</span>
+        </RangeField>
+        <RangeField
+          disabled
+          id="range-input-disabled"
+          min={0}
+          max={360}
+          step={0.1}
+          value={303.4}
+          label="Range Input, disabled"
+        />
+      </FieldGroup>
     </div>
 
     <div style="display: flex; gap: var(--space-m); flex-wrap: wrap;">
@@ -263,6 +288,7 @@ import TextArea from '@components/form-elements/text-area.astro';
           <span slot="description">This is a description of the required text area.</span>
         </TextArea>
         <TextArea id="textarea_styled_readonly" placeholder="Enter your message here" readonly>
+          Lorem Ipsum Dolar Est!
           <label slot="label">Read Only Text</label>
         </TextArea>
         <TextArea
@@ -286,13 +312,14 @@ import TextArea from '@components/form-elements/text-area.astro';
       </FieldGroup>
 
       <FieldGroup id="forms__selects_styled" bordered style="min-width: 50ch; max-width: 50ch;">
-        <legend>Select Menus</legend>
+        <legend>Native Select</legend>
 
         <SelectField id="select_styled" label="Select">
           <optgroup label="Option Group">
             <option value="1">Option One</option>
             <option value="2">Option Two</option>
             <option value="3" selected>Option Three</option>
+            <option value="4">Option Four has a long text description. Lorem Ipsum Dolar Est!</option>
           </optgroup>
           <span slot="description">This is a description of the select.</span>
         </SelectField>
@@ -302,6 +329,7 @@ import TextArea from '@components/form-elements/text-area.astro';
             <option>Option One</option>
             <option>Option Two</option>
             <option>Option Three</option>
+            <option value="4">Option Four has a long text description. Lorem Ipsum Dolar Est!</option>
           </optgroup>
           <label slot="label">Select Required</label>
         </SelectField>
