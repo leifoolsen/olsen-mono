@@ -3,6 +3,7 @@ import Checkbox from '@components/form-elements/checkbox.astro';
 import FieldGroup from '@components/form-elements/field-group.astro';
 import InputField from '@components/form-elements/input-field.astro';
 import RadioButton from '@components/form-elements/radio-button.astro';
+import RangeField from '@components/form-elements/range-field.astro';
 import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
 import AppLayout from '@layouts/app-layout.astro';
 import '@components/form-elements/form-elements.css';
@@ -16,33 +17,33 @@ import TextArea from '@components/form-elements/text-area.astro';
   <section data-layout="row" style="gap: var(--space-l)">
     <div style="display: flex; gap: var(--space-m); flex-wrap: wrap;">
       <FieldGroup id="forms__toggle-switch_styled" bordered>
-        <legend>Toggle Switch</legend>
+        <legend>Toggle Switches</legend>
         <ToggleSwitch
           id="form-elements-switch-unchecked"
           name="form-elements-switch-unchecked"
-          ariaLabel="Toggle light dark theme"
+          aria-label="Toggle light dark theme"
           labelPosition="before"
         >
-          <span>Initially Unchecked</span>
+          <label slot="label">Initially Unchecked</label>
         </ToggleSwitch>
 
         <ToggleSwitch
           checked
           id="form-elements-switch-checked"
           name="form-elements-switch-checked"
-          ariaLabel="Toggle light dark theme"
+          aria-label="Toggle light dark theme"
           labelPosition="before"
         >
-          <span>Initially Checked</span>
+          <label slot="label">Initially Checked</label>
         </ToggleSwitch>
 
         <ToggleSwitch
           id="form-elements-switch-unchecked-disabled"
           name="form-elements-switch-unchecked-disabled"
           disabled
-          ariaLabel="Toggle light dark theme"
+          aria-label="Toggle light dark theme"
         >
-          <span>Disabled, Unchecked</span>
+          <label slot="label">Disabled, Unchecked</label>
         </ToggleSwitch>
 
         <ToggleSwitch
@@ -50,41 +51,41 @@ import TextArea from '@components/form-elements/text-area.astro';
           name="form-elements-switch-checked-disabled"
           checked
           disabled
-          ariaLabel="Toggle light dark theme"
+          aria-label="Toggle light dark theme"
         >
-          <span>Disabled, Checked</span>
+          <label slot="label">Disabled, Checked</label>
         </ToggleSwitch>
 
         <ToggleSwitch
           id="form-elements-switch-icon-unchecked"
           name="form-elements-switch-icon-unchecked"
-          ariaLabel="Toggle light dark theme"
+          aria-label="Toggle light dark theme"
         >
           <span slot="on-icon">☀️</span>
           <span slot="off-icon">🌙</span>
-          <span>Initially Unchecked</span>
+          <label slot="label">Initially Unchecked</label>
         </ToggleSwitch>
 
         <ToggleSwitch
           id="form-elements-switch-icon-checked"
           name="form-elements-switch-icon-checked"
           checked
-          ariaLabel="Toggle light dark theme"
+          aria-label="Toggle light dark theme"
         >
           <span slot="on-icon"><small class="baz"><small>A</small></small>A</span>
           <span slot="off-icon">A<small><small>A</small></small></span>
-          <span>Initially Checked</span>
+          <label slot="label">Initially Checked</label>
         </ToggleSwitch>
 
         <ToggleSwitch
           id="form-elements-switch-icon-disabled-unchecked"
           name="form-elements-switch-icon-disabled-unchecked"
           disabled
-          ariaLabel="Toggle light dark theme"
+          aria-label="Toggle light dark theme"
         >
           <span slot="on-icon">☀️</span>
           <span slot="off-icon">🌙</span>
-          <span>Unchecked, disabled</span>
+          <label slot="label">Unchecked, disabled</label>
         </ToggleSwitch>
 
         <ToggleSwitch
@@ -92,32 +93,48 @@ import TextArea from '@components/form-elements/text-area.astro';
           name="form-elements-switch-icon-disabled-checked"
           disabled
           checked
-          ariaLabel="Toggle light dark theme"
+          aria-label="Toggle light dark theme"
         >
           <span slot="on-icon"><small><small>A</small></small>A</span>
           <span slot="off-icon">A<small><small>A</small></small></span>
-          <span>Checked, disabled</span>
+          <label slot="label">Checked, disabled</label>
         </ToggleSwitch>
       </FieldGroup>
 
       <FieldGroup id="forms__checkbox_styled" bordered>
-        <legend>Checkbox</legend>
+        <legend>Checkboxes</legend>
 
         <FieldGroup>
           <Checkbox
             id="form-elements-checkbox"
             name="form-elements-checkbox"
             value="cb1"
-          >
-            <span>Initially Unchecked</span>
-          </Checkbox>
+            label="Initially Unchecked"
+          />
           <Checkbox
             checked
             id="form-elements-checkbox-checked"
             name="form-elements-checkbox-checked"
             value="cb2"
           >
-            <span>Initially Checked</span>
+            <span slot="label">Initially Checked</span>
+          </Checkbox>
+          <Checkbox
+            checked
+            required
+            id="form-elements-checkbox-required"
+            name="form-elements-checkbox-required"
+            value="cbrequired"
+            label="Required"
+          />
+          <Checkbox
+            checked
+            invalid
+            id="form-elements-checkbox-invalid"
+            name="form-elements-checkbox-invalid"
+            value="cbinvalid"
+          >
+            <label slot="label">Invalid</label>
           </Checkbox>
           <Checkbox
             disabled
@@ -125,7 +142,7 @@ import TextArea from '@components/form-elements/text-area.astro';
             name="form-elements-checkbox-disabled"
             value="cb3"
           >
-            <span>Unchecked, Disabled</span>
+            <label slot="label">Unchecked, Disabled</label>
           </Checkbox>
           <Checkbox
             disabled
@@ -133,9 +150,8 @@ import TextArea from '@components/form-elements/text-area.astro';
             id="form-elements-checkbox-disabled-checked"
             name="form-elements-checkbox-disabled-checked"
             value="cb4"
-          >
-            <span>Checked, Disabled</span>
-          </Checkbox>
+            label="Checked, Disabled"
+          />
         </FieldGroup>
         <hr />
         <FieldGroup orientation="row">
@@ -145,7 +161,7 @@ import TextArea from '@components/form-elements/text-area.astro';
             value="cb1"
             labelPosition="before"
           >
-            <span>Initially Unchecked</span>
+            <span slot="label">Initially Unchecked</span>
           </Checkbox>
           <Checkbox
             checked
@@ -154,7 +170,7 @@ import TextArea from '@components/form-elements/text-area.astro';
             value="cb2"
             labelPosition="before"
           >
-            <span>Initially Checked</span>
+            <span slot="label">Initially Checked</span>
           </Checkbox>
         </FieldGroup>
       </FieldGroup>
@@ -163,24 +179,51 @@ import TextArea from '@components/form-elements/text-area.astro';
         <legend>Radio Buttons</legend>
 
         <FieldGroup role="radiogroup">
-          <RadioButton id="form-elements-radio-group-1" name="radioOption" value="1">Option 1</RadioButton>
-          <RadioButton id="form-elements-radio-group-2" name="radioOption" value="2">Option 2</RadioButton>
-          <RadioButton id="form-elements-radio-group-3" name="radioOption" value="3">Option 2</RadioButton>
+          <RadioButton id="form-elements-radio-group-1" name="radioOption" value="1" label="Option 1" />
+          <RadioButton id="form-elements-radio-group-2" name="radioOption" value="2" label="Option 2" />
+          <RadioButton id="form-elements-radio-group-3" name="radioOption" value="3">
+            <label slot="label">Option 3</label>
+          </RadioButton>
           <RadioButton
             id="form-elements-radio-group-4"
             name="radioOption"
             value="4"
             checked
             disabled
-          >
-            Disabled Option
-          </RadioButton>
+            label="Disabled Option"
+          />
         </FieldGroup>
         <hr />
         <FieldGroup role="radiogroup" orientation="row">
-          <RadioButton id="testing-1" name="testing" value="1" disabled labelPosition="before">Testing 1...</RadioButton>
-          <RadioButton id="testing-2" name="testing" value="2" disabled checked>Testing 2 ...</RadioButton>
+          <RadioButton id="testing-1" name="testing" value="1" disabled labelPosition="before" label="Testing 1..." />
+          <RadioButton id="testing-2" name="testing" value="2" disabled checked>
+            <span slot="label">Testing 2 ...</span>
+          </RadioButton>
         </FieldGroup>
+      </FieldGroup>
+
+      <FieldGroup id="forms__radio_styled" bordered style="min-width: 40ch">
+        <legend>Range Inputs</legend>
+
+        <RangeField
+          id="range-input"
+          min={0}
+          max={360}
+          step={0.1}
+          value={303.4}
+          label="Range Input"
+        >
+          <span slot="description">This is a description of the range field input.</span>
+        </RangeField>
+        <RangeField
+          disabled
+          id="range-input-disabled"
+          min={0}
+          max={360}
+          step={0.1}
+          value={303.4}
+          label="Range Input, disabled"
+        />
       </FieldGroup>
     </div>
 
@@ -188,34 +231,30 @@ import TextArea from '@components/form-elements/text-area.astro';
       <FieldGroup id="forms__inputs_styled" bordered style="min-width: 50ch;">
         <legend>Input fields</legend>
 
-        <InputField id="input__text_styled" placeholder="Enter Text">
-          Text Input
+        <InputField id="input__text_styled" placeholder="Enter Text" label="Text Input">
           <span slot="description">This is a description of the input.</span>
         </InputField>
         <InputField id="input__number_styled" type="number" placeholder="Enter Number">
-          Number Input
+          <label slot="label">Number Input</label>
         </InputField>
         <InputField id="input__password_styled" type="password" placeholder="Type your Password">
-          Password
+          <label slot="label">Password</label>
         </InputField>
-        <InputField id="input__required_styled" type="text" placeholder="Required Input" required>
-          Required Input
-        </InputField>
+        <InputField id="input__required_styled" type="text" placeholder="Required Input" required label="Required Input" />
         <InputField
           id="input__text_readonly_styled"
           placeholder="Enter Text"
           value="Read Only"
           readonly
-        >
-          Read Only Text Input
-        </InputField>
+          label="Read Only Text Input"
+        />
         <InputField
           id="input__text_disabled_styled"
           placeholder="Enter Text"
           value="Lorem Ipsum"
           disabled
         >
-          Disabled Text Input
+          <span slot="label">Disabled Text Input</span>
         </InputField>
         <InputField
           id="input__text_invalid_styled"
@@ -224,58 +263,64 @@ import TextArea from '@components/form-elements/text-area.astro';
           invalid
           required
         >
-          <span>Invalid Required Text Input</span>
+          <span slot="label">Invalid Required Text Input</span>
           <span slot="error-message">The input is not valid.</span>
-          <span slot="description">This is a description of the input.</span>
+          <span slot="description">This is a description of the invalid required text input.</span>
         </InputField>
-        <InputField id="input__date_styled" type="date" value="1970-01-01">
-          Date input
+        <InputField id="input__date_styled" type="date" value="1970-01-01" label="Date Input">
+          <span slot="description">This is a description of the date input.</span>
         </InputField>
       </FieldGroup>
 
       <FieldGroup id="forms__textareas_styled" bordered style="min-width: 50ch; max-width: 50ch;">
         <legend>Text Areas</legend>
 
-        <TextArea id="textarea_styled" placeholder="Enter your message here" value="Lorem Ipsum Dolar Est!">
-          Text Area Input
+        <TextArea
+          id="textarea_styled"
+          placeholder="Enter your message here"
+          value="Lorem Ipsum Dolar Est!"
+          label="Text Area Input"
+        >
           <span slot="description">This is a description of the text area.</span>
         </TextArea>
         <TextArea id="textarea_styled_required" placeholder="Enter your message here" required>
-          Required Text
-          <span slot="description">This is a description of the text area.</span>
+          <span slot="label">Required Text</span>
+          <span slot="description">This is a description of the required text area.</span>
         </TextArea>
         <TextArea id="textarea_styled_readonly" placeholder="Enter your message here" readonly>
-          Read Only Text
+          Lorem Ipsum Dolar Est!
+          <label slot="label">Read Only Text</label>
         </TextArea>
         <TextArea
           id="textarea_styled_disabled"
           placeholder="Enter your message here"
-          value="Lorem Ipsum Dolar Est!"
           disabled
         >
-          Disabled Text
+          Lorem Ipsum Dolar Est!
+          <label slot="label">Disabled Text</label>
         </TextArea>
         <TextArea
           id="textarea_styled_required_invalid"
           placeholder="Enter your message here"
-          value="Lorem Ipsum Dolar Est!"
           required invalid
+          label="Required Invalid Text"
         >
-          Required Invalid Text
+          Lorem Ipsum Dolar Est!
+          <span slot="description">This is a description of the required invalid text area.</span>
           <span slot="error-message">The input is not valid.</span>
         </TextArea>
       </FieldGroup>
 
       <FieldGroup id="forms__selects_styled" bordered style="min-width: 50ch; max-width: 50ch;">
-        <legend>Select Menus</legend>
+        <legend>Native Select</legend>
 
-        <SelectField id="select_styled">
+        <SelectField id="select_styled" label="Select">
           <optgroup label="Option Group">
-            <option>Option One</option>
-            <option>Option Two</option>
-            <option>Option Three</option>
+            <option value="1">Option One</option>
+            <option value="2">Option Two</option>
+            <option value="3" selected>Option Three</option>
+            <option value="4">Option Four has a long text description. Lorem Ipsum Dolar Est!</option>
           </optgroup>
-          <span slot="label">Select</span>
           <span slot="description">This is a description of the select.</span>
         </SelectField>
 
@@ -284,8 +329,9 @@ import TextArea from '@components/form-elements/text-area.astro';
             <option>Option One</option>
             <option>Option Two</option>
             <option>Option Three</option>
+            <option value="4">Option Four has a long text description. Lorem Ipsum Dolar Est!</option>
           </optgroup>
-          <span slot="label">Select Required</span>
+          <label slot="label">Select Required</label>
         </SelectField>
 
         <SelectField id="select_styled_disabled" disabled>
@@ -297,13 +343,12 @@ import TextArea from '@components/form-elements/text-area.astro';
           <span slot="label">Select Disabled</span>
         </SelectField>
 
-        <SelectField id="select_styled_invalid" invalid>
+        <SelectField id="select_styled_invalid" invalid label="Select Invalid">
           <optgroup label="Option Group">
             <option>Option One</option>
             <option>Option Two</option>
             <option>Option Three</option>
           </optgroup>
-          <span slot="label">Select Invalid</span>
           <span slot="error-message">The input is not valid.</span>
         </SelectField>
       </FieldGroup>

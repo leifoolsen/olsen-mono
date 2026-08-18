@@ -1,78 +1,219 @@
 /**
- * Represents a functional pattern-matching construct that allows executing
- * specific logic based on predicates and provides a fallback mechanism.
+ * A TypeGuard is a type predicate function used for narrowing down the type of value.
+ * It takes a value of a broader type and evaluates whether it belongs to a more specific type.
+ * When used in conditional statements, the TypeScript compiler leverages this function
+ * to narrow the type of the value within the scope of the condition.
  *
- * @template X - The input type to match against.
- * @template Y - The output type produced by the matching functions.
- *
- * @property on - Registers a condition (predicate) and the corresponding
- * function to execute if the predicate evaluates to true.
- * @param pred - A predicate function that takes an input of type X and returns
- * a boolean indicating whether the condition matches.
- * @param fn - A function that gets executed with the input of type X if the
- * predicate predicate evaluates to true. It produces an output of type Y.
- * @returns The Match instance for chaining additional conditions.
- *
- * @property otherwise - Defines a fallback function that gets executed when no
- * registered condition matches.
- * @param fn - A function that takes an input of type X and produces an output
- * of type Y.
- * @returns The output of the fallback function.
- *
- * @property toString - Prevents string conversion for Match.
- * @returns This method always throws and ensures no string representation can be generated.
- *
- * @property [Symbol.toPrimitive] - Prevents implicit coercion of Match to a primitive.
- * @param hint - A string hint for the type of primitive conversion.
- * @returns This method always throws and ensures no primitive conversion can occur.
+ * @template X - The broader type of the value being checked.
+ * @template T - The narrower type the value is being checked against.
+ * @param {X} x - The value to be checked for compatibility with the narrower type.
+ * @returns {x is T} - Returns `true` if the value is of the narrower type, otherwise `false`.
  */
-type Match<X, Y> = {
-  on: (pred: (x: X) => boolean, fn: (x: X) => Y) => Match<X, Y>;
+type TypeGuard<X, T extends X> = (x: X) => x is T;
+
+/**
+ * Represents a pattern matching construct for evaluating and handling conditions or patterns
+ * applied on a given type.
+ *
+ * @template X - The input type for the matching logic.
+ * @template Y - The output or result type of the matching process. Default is `unknown`.
+ */
+type Match<X, Y = unknown> = {
+  on: <R extends Y = Y, T extends X = X>(
+    pred: TypeGuard<X, T> | ((x: X) => boolean) | boolean | X,
+    fn: (x: T) => R,
+  ) => MatchWithResult<X, unknown extends Y ? R : Y, Y>;
   otherwise: (fn: (x: X) => Y) => Y;
-  toString: () => never;
-  [Symbol.toPrimitive]: (hint: string) => never;
 };
 
 /**
- * A utility function that throws an error when .otherwise() is not called.
+ * Represents a utility type that facilitates matching conditions on a given type `X`,
+ * transforming its value based on specified handlers, and cumulatively building a result type `R`.
+ *
+ * @template X The input type on which conditions will be matched.
+ * @template R The accumulated result type based on executed match handlers.
+ * @template Y An optional type parameter representing the expected result type of the match handlers.
  */
-const throwMissingOtherwise = (): never => {
-  throw new Error('Match must be terminated with .otherwise()');
+type MatchWithResult<X, R, Y = unknown> = {
+  on: <NR extends Y, NT extends X = X>(
+    pred: TypeGuard<X, NT> | ((x: X) => boolean) | boolean | X,
+    fn: (x: NT) => NR,
+  ) => MatchWithResult<X, unknown extends Y ? R | NR : Y, Y>;
+  otherwise: <NR extends Y>(fn: (x: X) => NR) => unknown extends Y ? R | NR : Y;
 };
 
 /**
- * A utility function that returns a match object with the specified value.
+ * Represents a higher-order function used for pattern matching.
+ * Allows chaining through the `on` method and provides a fallback result
+ * through the `otherwise` method.
+ *
+ * @param value - The input value to be used in the pattern matching process.
+ * @typeParam X - The type representing the matched pattern.
+ * @typeParam R - The type of the input value.
+ * @typeParam Y - The type of the result produced after pattern matching.
+ * @returns An object containing methods `on` and `otherwise` for pattern matching.
  */
-const matched = <X, Y>(value: Y): Match<X, Y> => ({
-  on: () => matched<X, Y>(value),
-  otherwise: () => value,
-  toString: throwMissingOtherwise,
-  [Symbol.toPrimitive]: throwMissingOtherwise,
+const matched = <X, R, Y>(value: R): MatchWithResult<X, R, Y> => ({
+  on: () => matched<X, R, Y>(value),
+  otherwise: () => value as unknown as unknown extends Y ? R : Y,
 });
 
 /**
- * A generic function that enables pattern matching for a given value.
- * This is a functional replacement for the switch statement and the if-else chain.
+ * Represents a function to create a `Match` object for pattern matching on the given input.
  *
- * @template X The type of the input value.
- * @template Y The type of the output value.
- * @param {X} x The input value to be matched against patterns.
- * @returns {Match<X, Y>} The match interface providing methods to define patterns and their corresponding handlers.
+ * @template X - The type of the input value to be matched. Defaults to `undefined`.
+ * @template Y - The type of the result produced by the match. Defaults to `unknown`.
+ * @param {X} [x] - The input value to be matched. This value is optional.
+ * @returns {Match<X, Y>} A `Match` object that allows for pattern matching operations using `.on()` or `.otherwise()`.
  */
+export const match = <X = undefined, Y = unknown>(x?: X): Match<X, Y> => ({
+  on: <R extends Y = Y, T extends X = X>(
+    pred: TypeGuard<X, T> | ((x: X) => boolean) | boolean | X,
+    fn: (x: T) => R,
+  ): MatchWithResult<X, unknown extends Y ? R : Y, Y> => {
+    const isMatched = typeof pred === 'function' ? (pred as (x: X) => boolean)(x as X) : pred === x || pred === true;
+
+    return isMatched
+      ? matched<X, unknown extends Y ? R : Y, Y>(fn(x as unknown as T) as unknown as unknown extends Y ? R : Y)
+      : (match<X, Y>(x) as unknown as MatchWithResult<X, unknown extends Y ? R : Y, Y>);
+  },
+  otherwise: (fn: (x: X) => Y): Y => fn(x as X),
+});
 
 /**
- * A function that creates a match object, allowing for fluent pattern matching
- * and conditional application of functions based on predicates.
+ * Represents an asynchronous pattern matching construct, allowing the user to define
+ * conditional execution paths through a sequence of predicates and associated handler functions.
  *
- * @template X - The type of the input value.
- * @template Y - The type of the output value.
- * @param {X} x - The value to perform pattern matching on.
- * @returns {Match<X, Y>} An object with methods for applying conditional logic.
- * @see {@link https://selectfrom.dev/switch-with-a-functional-and-generic-turn-547e17b0df9 | Switch with a Functional and Generic Turn}
+ * @template X - The input type on which the pattern matching operates.
+ * @template Y - The return type of the matched result, defaults to `unknown`.
  */
-export const match = <X, Y>(x: X): Match<X, Y> => ({
-  on: (pred: (x: X) => boolean, fn: (x: X) => Y) => (pred(x) ? matched<X, Y>(fn(x)) : match<X, Y>(x)),
-  otherwise: (fn: (x: X) => Y) => fn(x),
-  toString: throwMissingOtherwise,
-  [Symbol.toPrimitive]: throwMissingOtherwise,
+type MatchAsync<X, Y = unknown> = {
+  on: <R extends Y = Y, T extends X = X>(
+    pred: TypeGuard<X, T> | ((x: X) => boolean | Promise<boolean>) | boolean | X,
+    fn: (x: T) => R | Promise<R>,
+  ) => MatchWithResultAsync<X, unknown extends Y ? R : Y, Y>;
+  otherwise: (fn: (x: X) => Y | Promise<Y>) => Promise<Y>;
+};
+
+/**
+ * Represents a structure facilitating conditional asynchronous matching of an input type `X`
+ * to produce an output result type `R`. Optionally, a narrowing result type `Y` may be defined,
+ * defaulting to `unknown` if unspecified.
+ *
+ * @template X The input type the matching operates on.
+ * @template R The result type produced by the match once resolved.
+ * @template Y (Optional) The narrowed output type defaulting to `unknown` if not specified.
+ */
+type MatchWithResultAsync<X, R, Y = unknown> = {
+  on: <NR extends Y, NT extends X = X>(
+    pred: TypeGuard<X, NT> | ((x: X) => boolean | Promise<boolean>) | boolean | X,
+    fn: (x: NT) => NR | Promise<NR>,
+  ) => MatchWithResultAsync<X, unknown extends Y ? R | NR : Y, Y>;
+  otherwise: <NR extends Y>(fn: (x: X) => NR | Promise<NR>) => Promise<unknown extends Y ? R | NR : Y>;
+};
+
+/**
+ * Creates an asynchronous match handler that processes a value of type `R` or a promise resolving to type `R`.
+ *
+ * The `matchedAsync` function returns an object implementing methods for handling conditional flows
+ * in a fluent and asynchronous manner. It allows chaining of actions with `on` and `otherwise` methods,
+ * enabling deferred evaluation of logic depending on the matched criteria.
+ *
+ * @template X The input type used for pattern matching conditions.
+ * @template R The resolved type of the input value or promise.
+ * @template Y The type of the value returned by the "otherwise" method in cases where no patterns match.
+ * @param {R | Promise<R>} value The value to be processed, which can either be a resolved result or a promise resolving to it.
+ * @returns {MatchWithResultAsync<X, R, Y>} An object containing methods `on` for conditional matching
+ * and `otherwise` for default resolution.
+ */
+const matchedAsync = <X, R, Y>(value: R | Promise<R>): MatchWithResultAsync<X, R, Y> => ({
+  on: () => matchedAsync<X, R, Y>(value),
+  otherwise: async () => value as unknown as unknown extends Y ? R : Y,
+});
+
+/**
+ * Provides an asynchronous matching mechanism for handling values based on specified conditions.
+ * Allows chaining of match cases with predicates and corresponding handler functions,
+ * and an optional fallback/default handler for unmatched cases.
+ *
+ * @template X Specifies the type of the input value to be matched. Defaults to `undefined`.
+ * @template Y Specifies the type of the resulting value from a match. Defaults to `unknown`.
+ * @param {X} [x] The input value to be evaluated against specified predicates. Omitted/optional.
+ * @returns {MatchAsync<X, Y>} An object facilitating asynchronous match handling
+ * and chaining through `on` and `otherwise` methods.
+ */
+export const matchAsync = <X = undefined, Y = unknown>(x?: X): MatchAsync<X, Y> => ({
+  on: <R extends Y = Y, T extends X = X>(
+    pred: TypeGuard<X, T> | ((x: X) => boolean | Promise<boolean>) | boolean | X,
+    fn: (x: T) => R | Promise<R>,
+  ): MatchWithResultAsync<X, unknown extends Y ? R : Y, Y> => {
+    const runMatch = async () => {
+      const isMatched =
+        typeof pred === 'function'
+          ? await (pred as (x: X) => boolean | Promise<boolean>)(x as X)
+          : pred === x || pred === true;
+
+      if (isMatched) {
+        return fn(x as unknown as T);
+      }
+      throw new Error('Not matched');
+    };
+
+    const promise = runMatch();
+
+    const createChain = <R>(currentPromise: Promise<R>): MatchWithResultAsync<X, R, Y> => ({
+      on: <NR extends Y, NT extends X = X>(
+        nextPred: TypeGuard<X, NT> | ((x: X) => boolean | Promise<boolean>) | boolean | X,
+        nextFn: (value: NT) => NR | Promise<NR>,
+      ): MatchWithResultAsync<X, unknown extends Y ? R | NR : Y, Y> => {
+        const nextPromise = currentPromise.catch(async (err) => {
+          if (err instanceof Error && err.message !== 'Not matched') throw err;
+
+          const isMatched =
+            typeof nextPred === 'function'
+              ? await (nextPred as (value: X) => boolean | Promise<boolean>)(x as X)
+              : nextPred === x || nextPred === true;
+
+          if (isMatched) return await nextFn(x as unknown as NT);
+          throw new Error('Not matched');
+        });
+
+        return createChain(nextPromise) as unknown as MatchWithResultAsync<X, unknown extends Y ? R | NR : Y, Y>;
+      },
+      otherwise: <NR extends Y>(fallbackFn: (value: X) => NR | Promise<NR>) => {
+        return currentPromise.catch((err) => {
+          if (err instanceof Error && err.message !== 'Not matched') throw err;
+          return fallbackFn(x as X);
+        }) as Promise<unknown extends Y ? R | NR : Y>;
+      },
+    });
+
+    return {
+      on: <NR extends Y, NT extends X = X>(
+        nextPred: TypeGuard<X, NT> | ((value: X) => boolean | Promise<boolean>) | boolean | X,
+        nextFn: (value: NT) => NR | Promise<NR>,
+      ): MatchWithResultAsync<X, unknown extends Y ? R | NR : Y, Y> => {
+        const nextPromise = promise.catch(async (err) => {
+          if (err instanceof Error && err.message !== 'Not matched') throw err;
+
+          const isMatched =
+            typeof nextPred === 'function'
+              ? await (nextPred as (x: X) => boolean | Promise<boolean>)(x as X)
+              : nextPred === x || nextPred === true;
+
+          if (isMatched) return await nextFn(x as unknown as NT);
+          throw new Error('Not matched');
+        });
+
+        return createChain(nextPromise) as unknown as MatchWithResultAsync<X, unknown extends Y ? R | NR : Y, Y>;
+      },
+      otherwise: <NR extends Y>(fallbackFn: (value: X) => NR | Promise<NR>) => {
+        return promise.catch((err) => {
+          if (err instanceof Error && err.message !== 'Not matched') throw err;
+          return fallbackFn(x as X);
+        }) as Promise<unknown extends Y ? R : Y>;
+      },
+    };
+  },
+  otherwise: async (fn: (x: X) => Y | Promise<Y>): Promise<Y> => fn(x as X),
 });

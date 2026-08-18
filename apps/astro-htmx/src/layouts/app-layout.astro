@@ -34,7 +34,7 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
           id="density-toggle"
           name="density"
           checked={isCondensed}
-          ariaLabel="Toggle font size"
+          aria-label="Toggle font size"
         >
           <span slot="on-icon"><small><small>A</small></small>A</span>
           <span slot="off-icon">A<small><small>A</small></small></span>
@@ -43,7 +43,7 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
           id="theme-switcher"
           name="theme"
           checked={isLight}
-          ariaLabel="Toggle light dark theme"
+          aria-label="Toggle light dark theme"
         >
           <span slot="on-icon">☀️</span>
           <span slot="off-icon">🌙</span>

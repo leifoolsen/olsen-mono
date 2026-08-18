@@ -2,6 +2,7 @@
 // src/components/form-element/select-field.astro
 
 import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
+import { matchAsync} from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import FieldHelp from './field-help.astro';
 import './form-elements.css';
@@ -9,6 +10,7 @@ import './form-elements.css';
 type Props = HTMLAttributes<'select'> & {
   id: string;
   invalid?: boolean;
+  label?: string;
   labelPosition?: 'top' | 'before';
 };
 
@@ -16,69 +18,59 @@ const {
   class: className,
   id,
   invalid,
+  label,
   labelPosition = 'top',
   ...rest
 } = Astro.props;
 
-// Vi tillater både 'label' og 'default' for maksimal konsistens
-const ALLOWED_SLOTS = ['label', 'description', 'error-message'] as const;
+const ALLOWED_SLOTS = ['description', 'error-message', 'label'] as const;
 assertValidSlots(Astro.slots, ALLOWED_SLOTS, 'SelectField');
 
-const hasDescription = Astro.slots.has('description');
-const hasErrorSlot = Astro.slots.has('error-message');
+const processedLabel = await matchAsync()
+  .on(!!label, () => `<label for="${id}">${label}</label>`)
+  .on(Astro.slots.has('label'), async () => {
+    const rawLabel = await Astro.slots.render('label');
+    const isLabelTag = rawLabel ? /^\s*<label(?=[>\s])/i.test(rawLabel) : false;
+    return isLabelTag
+      ? rawLabel.replace('<label', `<label for="${id}"`)
+      : `<label for="${id}">${rawLabel}</label>`;
+  })
+  .otherwise(() => null);
 
-const isInvalid = invalid === true;
-const showErrorMessage = isInvalid && hasErrorSlot;
+const hasDescriptionSlot = Astro.slots.has('description');
+const descriptionId = `${id}-description`;
 
-const descriptionId = `${id}-desc`;
-const errorId = `${id}-error`;
-const uniqueAnchorName = `--anchor-${id}`;
+const hasErrorMessageSlot = Astro.slots.has('error-message');
+const showErrorMessage = invalid && hasErrorMessageSlot;
 
-const ariaDescribedBy = [
-  hasDescription ? descriptionId : '',
-  showErrorMessage ? errorId : ''
-].filter(Boolean).join(' ') || undefined;
-
-// Vi sjekker spesifikt etter 'label'-sloten
-const hasLabel = Astro.slots.has('label');
-
-const Wrapper = hasLabel ? 'div' : Fragment;
-const wrapperProps = hasLabel
+const Wrapper = processedLabel ? 'div' : Fragment;
+const wrapperProps = processedLabel
   ? { class: `input-group ${labelPosition === 'top' ? 'label-top' : 'label-before'}`.trim() }
   : {};
 ---
 <Wrapper {...wrapperProps}>
-  <div
-    class="input-container select-container"
-    style={hasDescription ? `anchor-name: ${uniqueAnchorName};` : undefined}
-  >
+  <div class="input-container select-container">
     <select
-      aria-invalid={isInvalid ? "true" : undefined}
-      aria-describedby={ariaDescribedBy}
+      aria-describedby={descriptionId}
+      aria-invalid={invalid ? "true" : undefined}
       class:list={['text-input', 'select-input', className]}
       id={id}
       {...rest}
     >
-      {/* Default-sloten brukes til <option>-taggene */}
+      {/* Default slot is used for <option> and <optgroup> tags */}
       <slot />
     </select>
-
-    {hasDescription && (
+    {hasDescriptionSlot && (
       <FieldHelp id={id} descriptionId={descriptionId}>
         <slot name="description" />
       </FieldHelp>
     )}
   </div>
 
-  {hasLabel && (
-    <label for={id}>
-      {/* Vi henter innholdet fra 'label'-sloten */}
-      <slot name="label" />
-    </label>
-  )}
+  {!!processedLabel && <Fragment set:html={processedLabel} />}
 
-  {hasErrorSlot && (
-    <div id={errorId} class="error-message" role="alert">
+  {showErrorMessage && (
+    <div class="error-message" role="alert">
       <slot name="error-message" />
     </div>
   )}
