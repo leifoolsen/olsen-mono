@@ -1,5 +1,13 @@
 # astro-htmx
 
+## 0.0.4
+
+### Patch Changes
+
+- 3e18bf6: Added range field component. Added async match function.
+- Updated dependencies [3e18bf6]
+  - @olsen-mono/core-utils@0.0.18
+
 ## 0.0.3
 
 ### Patch Changes
