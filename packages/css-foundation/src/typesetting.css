@@ -73,48 +73,6 @@ html {
   text-wrap: balance;
 }
 
-:where(h1) {
-  font-size: var(--font-size-4xl);
-  font-weight: var(--font-weight-4xl);
-  letter-spacing: var(--letter-spacing-4xl);
-  line-height: var(--line-height-4xl);
-}
-
-:where(h2) {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-3xl);
-  letter-spacing: var(--letter-spacing-3xl);
-  line-height: var(--line-height-3xl);
-}
-
-:where(h3) {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-2xl);
-  letter-spacing: var(--letter-spacing-2xl);
-  line-height: var(--line-height-2xl);
-}
-
-:where(h4) {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-xl);
-  letter-spacing: var(--letter-spacing-xl);
-  line-height: var(--line-height-xl);
-}
-
-:where(h5) {
-  font-size: var(--font-size-l);
-  font-weight: var(--font-weight-l);
-  letter-spacing: var(--letter-spacing-l);
-  line-height: var(--line-height-l);
-}
-
-:where(h6) {
-  font-size: var(--font-size-m);
-  font-weight: var(--font-weight-m);
-  letter-spacing: var(--letter-spacing-m);
-  line-height: var(--line-height-m);
-}
-
 :where(p, li, dd) {
   text-wrap: pretty;
 }

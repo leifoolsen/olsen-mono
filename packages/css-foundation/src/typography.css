@@ -234,6 +234,7 @@ html[data-density="condensed"] {
   line-height: var(--line-height-s);
 }
 
+:where(h6),
 [data-font-size="m"] {
   font-size: var(--font-size-m);
   letter-spacing: var(--letter-spacing-m);
@@ -249,43 +250,43 @@ html[data-density="condensed"] {
   font-family: var(--font-family-heading), sans-serif;
 }
 
-[data-font-size="l"],
-:where(h5):not([data-font-size]) {
+:where(h5),
+[data-font-size="l"] {
   font-size: var(--font-size-l);
   letter-spacing: var(--letter-spacing-l);
   font-weight: var(--font-weight-l);
   line-height: var(--line-height-l);
 }
 
-[data-font-size="xl"],
-:where(h4):not([data-font-size]) {
+:where(h4),
+[data-font-size="xl"] {
   font-size: var(--font-size-xl);
   line-height: var(--line-height-xl);
   letter-spacing: var(--letter-spacing-xl);
   font-weight: var(--font-weight-xl);
 }
 
-[data-font-size="2xl"],
-:where(h3):not([data-font-size]) {
+:where(h3),
+[data-font-size="2xl"] {
   font-size: var(--font-size-2xl);
   letter-spacing: var(--letter-spacing-2xl);
-  font-weight: var(--font-weight-2xl);
+  font-weight: var(--font-weight-xl);
   line-height: var(--line-height-2xl);
 }
 
-[data-font-size="3xl"],
-:where(h2):not([data-font-size]) {
+:where(h2),
+[data-font-size="3xl"] {
   font-size: var(--font-size-3xl);
   letter-spacing: var(--letter-spacing-3xl);
-  font-weight: var(--font-weight-3xl);
+  font-weight: var(--font-weight-xl);
   line-height: var(--line-height-3xl);
 }
 
-[data-font-size="4xl"],
-:where(h1):not([data-font-size]) {
+:where(h1),
+[data-font-size="4xl"] {
   font-size: var(--font-size-4xl);
   letter-spacing: var(--letter-spacing-4xl);
-  font-weight: var(--font-weight-4xl);
+  font-weight: var(--font-weight-xl);
   line-height: var(--line-height-4xl);
 }
 
