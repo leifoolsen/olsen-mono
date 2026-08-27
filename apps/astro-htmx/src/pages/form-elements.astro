@@ -1,14 +1,18 @@
 ---
 import Checkbox from '@components/form-elements/checkbox.astro';
+import Combobox from '@components/form-elements/combobox.astro';
 import FieldGroup from '@components/form-elements/field-group.astro';
 import InputField from '@components/form-elements/input-field.astro';
+import Listbox from '@components/form-elements/listbox.astro';
+import ListboxGroup from '@components/form-elements/listbox-group.astro';
+import ListboxOption from '@components/form-elements/listbox-option.astro';
 import RadioButton from '@components/form-elements/radio-button.astro';
 import RangeField from '@components/form-elements/range-field.astro';
+import SelectField from '@components/form-elements/select-field.astro';
+import TextArea from '@components/form-elements/text-area.astro';
 import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
 import AppLayout from '@layouts/app-layout.astro';
 import '@components/form-elements/form-elements.css';
-import SelectField from '@components/form-elements/select-field.astro';
-import TextArea from '@components/form-elements/text-area.astro';
 ---
 
 <AppLayout title="Form Elements">
@@ -254,6 +258,7 @@ import TextArea from '@components/form-elements/text-area.astro';
           value="Lorem Ipsum"
           disabled
         >
+          <span slot="description">This is a description of the disabled text input.</span>
           <span slot="label">Disabled Text Input</span>
         </InputField>
         <InputField
@@ -280,12 +285,9 @@ import TextArea from '@components/form-elements/text-area.astro';
           placeholder="Enter your message here"
           value="Lorem Ipsum Dolar Est!"
           label="Text Area Input"
-        >
-          <span slot="description">This is a description of the text area.</span>
-        </TextArea>
+        />
         <TextArea id="textarea_styled_required" placeholder="Enter your message here" required>
           <span slot="label">Required Text</span>
-          <span slot="description">This is a description of the required text area.</span>
         </TextArea>
         <TextArea id="textarea_styled_readonly" placeholder="Enter your message here" readonly>
           Lorem Ipsum Dolar Est!
@@ -306,7 +308,6 @@ import TextArea from '@components/form-elements/text-area.astro';
           label="Required Invalid Text"
         >
           Lorem Ipsum Dolar Est!
-          <span slot="description">This is a description of the required invalid text area.</span>
           <span slot="error-message">The input is not valid.</span>
         </TextArea>
       </FieldGroup>
@@ -321,7 +322,7 @@ import TextArea from '@components/form-elements/text-area.astro';
             <option value="3" selected>Option Three</option>
             <option value="4">Option Four has a long text description. Lorem Ipsum Dolar Est!</option>
           </optgroup>
-          <span slot="description">This is a description of the select.</span>
+          <Fragment slot="description">This is a description of the select.</Fragment>
         </SelectField>
 
         <SelectField id="select_styled_required" required>
@@ -331,16 +332,16 @@ import TextArea from '@components/form-elements/text-area.astro';
             <option>Option Three</option>
             <option value="4">Option Four has a long text description. Lorem Ipsum Dolar Est!</option>
           </optgroup>
-          <label slot="label">Select Required</label>
+          <Fragment slot="label">Select Required</Fragment>
         </SelectField>
 
-        <SelectField id="select_styled_disabled" disabled>
+        <SelectField id="select_styled_disabled" disabled label="Select Disabled">
           <optgroup label="Option Group">
             <option>Option One</option>
             <option>Option Two</option>
             <option>Option Three</option>
           </optgroup>
-          <span slot="label">Select Disabled</span>
+          <Fragment slot="description">This is a description of the disabled select.</Fragment>
         </SelectField>
 
         <SelectField id="select_styled_invalid" invalid label="Select Invalid">
@@ -349,8 +350,264 @@ import TextArea from '@components/form-elements/text-area.astro';
             <option>Option Two</option>
             <option>Option Three</option>
           </optgroup>
-          <span slot="error-message">The input is not valid.</span>
+          <Fragment slot="error-message">The input is not valid.</Fragment>
         </SelectField>
+      </FieldGroup>
+
+      <FieldGroup id="designsystem__listboxes" bordered style="min-width: 50ch;">
+        <legend>Listboxes</legend>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+          <p id="listbox-label">Simple Listbox without Marker</p>
+          <Listbox id="listbox" aria-labelledby="listbox-label" bordered>
+            <ListboxGroup>
+              <ListboxOption id="listbox-option-1" name="option" value="1">Option 1</ListboxOption>
+              <ListboxOption id="listbox-option-2" name="option" value="2">Option 2</ListboxOption>
+              <ListboxOption id="listbox-option-3" name="option" value="3">Option 3</ListboxOption>
+              <ListboxOption id="listbox-option-4" name="option" value="4">Option 4</ListboxOption>
+            </ListboxGroup>
+          </Listbox>
+        </div>
+
+        <script>
+          const element = document.getElementById('listbox');
+          element?.addEventListener('change', (e) => {
+            const customEvent = e as CustomEvent;
+            console.log('#listbox:', customEvent.detail);
+          });
+        </script>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+          <p id="listbox2-label">Grouped Options with Marker</p>
+          <Listbox id="listbox2" aria-labelledby="listbox2-label" showMarker bordered activeDescendantId="listbox2-option-5">
+            <ListboxGroup label="Land Animals">
+              <ListboxOption id="listbox2-option-1" name="animal" value="cat">Cat</ListboxOption>
+              <ListboxOption id="listbox2-option-2" name="animal" value="dog">Dog</ListboxOption>
+              <ListboxOption id="listbox2-option-3" name="animal" value="tiger">Tiger</ListboxOption>
+              <ListboxOption id="listbox2-option-4" name="animal" value="reindeer">Reindeer</ListboxOption>
+              <ListboxOption id="listbox2-option-5" name="animal" value="racoon">Raccoon</ListboxOption>
+            </ListboxGroup>
+            <ListboxGroup label="Water Animals">
+              <ListboxOption id="listbox2-option-6" name="animal" value="dolphin">Dolphin</ListboxOption>
+              <ListboxOption id="listbox2-option-7" name="animal" value="flounder">Flounder</ListboxOption>
+              <ListboxOption id="listbox2-option-8" name="animal" value="eel">Eel</ListboxOption>
+            </ListboxGroup>
+            <ListboxGroup label="Air Animals">
+              <ListboxOption id="listbox2-option-9" name="animal" value="falcon">Falcon</ListboxOption>
+              <ListboxOption id="listbox2-option-10" disabled name="animal" value="winged-horse">Winged Horse</ListboxOption>
+              <ListboxOption id="listbox2-option-11" name="animal" value="owl">Owl</ListboxOption>
+            </ListboxGroup>
+          </Listbox>
+        </div>
+      </FieldGroup>
+
+      <script>
+        const element = document.getElementById('listbox2');
+        element?.addEventListener('change', (e) => {
+          const customEvent = e as CustomEvent;
+          console.log('#listbox2:', customEvent.detail);
+        });
+      </script>
+
+      <FieldGroup id="designsystem__listboxes" bordered style="min-width: 50ch;">
+        <legend>Multi Select Listboxes</legend>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+          <p id="ms-listbox-label">Simple Multi Select Listbox</p>
+          <Listbox id="ms-listbox" aria-labelledby="listbox-label" multiSelectable bordered>
+            <ListboxGroup>
+              <ListboxOption id="ms-listbox-option-1" name="option-1" value="1">Option 1</ListboxOption>
+              <ListboxOption id="ms-listbox-option-2" name="option-2" value="2">Option 2</ListboxOption>
+              <ListboxOption id="ms-listbox-option-3" name="option-3" value="3">Option 3</ListboxOption>
+              <ListboxOption id="ms-listbox-option-4" name="option-4" value="4">Option 4</ListboxOption>
+            </ListboxGroup>
+          </Listbox>
+        </div>
+
+        <script>
+          const element = document.getElementById('ms-listbox');
+          element?.addEventListener('change', (e) => {
+            const customEvent = e as CustomEvent;
+            console.log('#ms-listbox:', customEvent.detail);
+          });
+        </script>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
+          <p id="ms-listbox2-label">Multi Select Grouped Options</p>
+          <div style="display: flex; gap: var(--space-xs); align-items: center;">
+            <button type="button" id="ms-listbox2-select-all">Select all</button>
+            <button type="button" id="ms-listbox2-empty-selection">Empty selection</button>
+          </div>
+          <div>
+            <InputField
+              id="ms-listbox2-search"
+              type="search"
+              placeholder="Enter search term..."
+              aria-label="Search"
+              aria-controls="ms-listbox2"
+            >
+              <span slot="description">Description of the search field</span>
+            </InputField>
+          </div>
+          <Listbox id="ms-listbox2" aria-labelledby="listbox2-label" multiSelectable bordered>
+            <ListboxGroup>
+              <Fragment slot="label"><span>Land Animals</span><span style="transform: scale(1.2)">𓃰</span></Fragment>
+              <ListboxOption id="ms-listbox2-option-1" name="cat" value="cat">Cat</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-2" name="dog" value="dog">Dog</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-3" name="tiger" value="tiger">Tiger</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-4" name="reindeer" value="reindeer">Reindeer</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-5" name="racoon" value="racoon">Raccoon</ListboxOption>
+            </ListboxGroup>
+            <ListboxGroup>
+              <Fragment slot="label">Water Animals <span style="transform: scale(1.6)">𓆟</span></Fragment>
+              <ListboxOption id="ms-listbox2-option-6" name="dolphin" value="dolphin">Dolphin</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-7" name="flounder" value="flounder">Flounder</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-8" name="eel" value="eel">Eel</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-9" name="trout" value="trout">Trout</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-10" name="herring" value="herring">Herring</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-11" name="halibut" value="halibut">Halibut</ListboxOption>
+            </ListboxGroup>
+            <ListboxGroup>
+              <Fragment slot="label">Air Animals<span style="transform: scale(1.2)">𓅬</span></Fragment>
+              <ListboxOption id="ms-listbox2-option-12" name="falcon" value="falcon">Falcon</ListboxOption>
+              <ListboxOption
+                id="ms-listbox2-option-13"
+                disabled
+                name="winged-horse"
+                value="winged-horse"
+              >
+                Winged Horse
+              </ListboxOption>
+              <ListboxOption id="ms-listbox2-option-14" name="owl" value="owl">Owl</ListboxOption>
+            </ListboxGroup>
+          </Listbox>
+        </div>
+      </FieldGroup>
+
+      <script>
+        const listbox = document.getElementById('ms-listbox2');
+        const searchField = document.getElementById('ms-listbox2-search');
+        const selectAllBtn = document.getElementById('ms-listbox2-select-all');
+        const emptySelectionBtn = document.getElementById('ms-listbox2-empty-selection');
+
+        listbox?.addEventListener('change', (e) => {
+          const customEvent = e as CustomEvent;
+          console.log('#ms-listbox2:', customEvent.detail);
+        });
+
+        searchField?.addEventListener('input', (e) => {
+          const target = e.target as HTMLInputElement;
+          (listbox as any).filter(target.value);
+        });
+
+        selectAllBtn?.addEventListener('click', () => {
+          (listbox as any)?.selectAll();
+        });
+
+        emptySelectionBtn?.addEventListener('click', () => {
+          (listbox as any).deselectAll();
+        });
+      </script>
+
+      <FieldGroup id="designsystem__comboboxes" bordered style="min-width: 50ch;">
+        <legend>Comboboxes</legend>
+
+        <Combobox id="combobox" placeholder="Start typing to filter..." label="Select a fish" invalid>
+          <span slot="description">Description of the combobox</span>
+
+          <Fragment slot="options">
+            <ListboxGroup>
+              <ListboxOption id="cb-option-6" name="fish" value="dolphin">Dolphin</ListboxOption>
+              <ListboxOption id="cb-option-7" name="fish" value="flounder">Flounder</ListboxOption>
+              <ListboxOption id="cb-option-8" name="fish" value="eel">Eel</ListboxOption>
+              <ListboxOption id="cb-option-9" name="fish" value="trout">Trout</ListboxOption>
+              <ListboxOption id="cb-option-10" name="fish" value="herring">Herring</ListboxOption>
+              <ListboxOption id="cb-option-11" name="fish" value="halibut">Halibut</ListboxOption>
+              <ListboxOption id="cb-option-12" name="fish" value="triggerfish">Humuhumunukunukuāpuaʻa</ListboxOption>
+            </ListboxGroup>
+          </Fragment>
+        </Combobox>
+
+        <Combobox id="combobox2" placeholder="Start typing to filter..." label="Select a land animal">
+          <Fragment slot="options">
+            <ListboxGroup>
+              <ListboxOption id="cb2-option-1" name="land" value="cat">Cat</ListboxOption>
+              <ListboxOption id="cb2-option-2" name="land" value="dog">Dog</ListboxOption>
+              <ListboxOption id="cb2-option-3" name="land" value="tiger">Tiger</ListboxOption>
+              <ListboxOption id="cb2-option-4" name="land" value="reindeer">Reindeer</ListboxOption>
+              <ListboxOption id="cb2-option-5" name="land" value="racoon">Raccoon</ListboxOption>
+            </ListboxGroup>
+          </Fragment>
+        </Combobox>
+
+        <Combobox id="combobox3" placeholder="Start typing to filter..." label="Multi selectable combobox" multiSelectable>
+          <Fragment slot="options">
+            <ListboxGroup>
+              <Fragment slot="label"><span>Land Animals</span><span style="transform: scale(1.2)">𓃰</span></Fragment>
+              <ListboxOption id="cb3-option-1" name="cat" value="cat">Cat</ListboxOption>
+              <ListboxOption id="cb3-option-2" name="dog" value="dog">Dog</ListboxOption>
+              <ListboxOption id="cb3-option-3" name="tiger" value="tiger">Tiger</ListboxOption>
+              <ListboxOption id="cb3-option-4" name="reindeer" value="reindeer">Reindeer</ListboxOption>
+              <ListboxOption id="cb3-option-5" name="racoon" value="racoon">Raccoon</ListboxOption>
+            </ListboxGroup>
+            <ListboxGroup>
+              <Fragment slot="label">Water Animals <span style="transform: scale(1.6)">𓆟</span></Fragment>
+              <ListboxOption id="cb3--option-6" name="dolphin" value="dolphin">Dolphin</ListboxOption>
+              <ListboxOption id="cb3-option-7" name="flounder" value="flounder">Flounder</ListboxOption>
+              <ListboxOption id="cb3--option-8" name="eel" value="eel">Eel</ListboxOption>
+              <ListboxOption id="cb3--option-9" name="trout" value="trout">Trout</ListboxOption>
+              <ListboxOption id="cb3--option-10" name="herring" value="herring">Herring</ListboxOption>
+              <ListboxOption id="cb3--option-11" name="halibut" value="halibut">Halibut</ListboxOption>
+            </ListboxGroup>
+            <ListboxGroup>
+              <Fragment slot="label">Air Animals<span style="transform: scale(1.2)">𓅬</span></Fragment>
+              <ListboxOption id="cb3--option-12" name="falcon" value="falcon">Falcon</ListboxOption>
+              <ListboxOption id="cb3--option-13" disabled name="winged-horse" value="winged-horse">
+                Winged Horse
+              </ListboxOption>
+              <ListboxOption id="cb3--option-14" name="owl" value="owl">Owl</ListboxOption>
+              <ListboxOption id="cb3--option-15" name="sparrow" value="sparrow">Sparrow</ListboxOption>
+              <ListboxOption id="cb3--option-16" name="mallard" value="mallard">Mallard</ListboxOption>
+              <ListboxOption id="cb3--option-17" name="vulture" value="vulture">Vulture</ListboxOption>
+              <ListboxOption id="cb3--option-18" name="penguin" value="penguin">Penguin</ListboxOption>
+            </ListboxGroup>
+          </Fragment>
+        </Combobox>
+
+        <Combobox id="combobox4" placeholder="Select a bird..." label="Select only" readonly>
+          <span slot="description">Description of the select only</span>
+
+          <Fragment slot="options">
+            <ListboxGroup>
+              <ListboxOption id="cb4-option-1" name="bird" value="falcon">Falcon</ListboxOption>
+              <ListboxOption id="cb4--option-2" disabled name="bird" value="winged-horse">
+                Winged Horse
+              </ListboxOption>
+              <ListboxOption id="cb4--option-3" name="bird" value="owl">Owl</ListboxOption>
+              <ListboxOption id="cb4--option-4" name="bird" value="sparrow">Sparrow</ListboxOption>
+              <ListboxOption id="cb4--option-5" name="bird" value="mallard">Mallard</ListboxOption>
+              <ListboxOption id="cb4--option-6" name="bird" value="vulture">Vulture</ListboxOption>
+              <ListboxOption id="cb4--option-7" name="bird" value="penguin">Penguin</ListboxOption>
+              <ListboxOption id="cb4--option-8" name="bird" value="long text">Penguin</ListboxOption>
+            </ListboxGroup>
+          </Fragment>
+        </Combobox>
+
+        <Combobox id="combobox5" placeholder="Select a bird..." label="Disabled combobox" disabled>
+          <Fragment slot="options">
+            <ListboxGroup>
+              <ListboxOption id="cb5-option-1" name="bird" value="falcon">Falcon</ListboxOption>
+              <ListboxOption id="cb5--option-2" disabled name="bird" value="winged-horse">
+                Winged Horse
+              </ListboxOption>
+              <ListboxOption id="cb5--option-3" name="bird" value="owl">Owl</ListboxOption>
+              <ListboxOption id="cb5--option-4" name="bird" value="sparrow">Sparrow</ListboxOption>
+              <ListboxOption id="cb5--option-5" name="bird" value="mallard">Mallard</ListboxOption>
+              <ListboxOption id="cb5--option-6" name="bird" value="vulture">Vulture</ListboxOption>
+              <ListboxOption id="cb5--option-7" name="bird" value="penguin">Penguin</ListboxOption>
+            </ListboxGroup>
+          </Fragment>
+        </Combobox>
       </FieldGroup>
     </div>
 

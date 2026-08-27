@@ -1,7 +1,35 @@
 /* src/components/form-element/form-elements.css */
 
 @layer components {
-  /* --- Field Group --- */
+  /* --- Input Related Variables --- */
+  .combobox-container,
+  .combobox-results-popover,
+  .combobox-input,
+  .input-container,
+  .input-group,
+  .listbox,
+  .listbox-group,
+  .listbox-option,
+  .text-input,
+  .toggle-switch,
+  .select-container,
+  input[type="radio"].radio-input,
+  input[type="checkbox"].checkbox-input,
+  input[type="range"].range-input {
+    --input-background-color: oklch(from var(--swatch-color) calc(l + 0.05) c h);
+    --input-background-active-color: oklch(from var(--swatch-color) calc(l - 0.05) c h);
+    --input-background-hover-color: oklch(from var(--swatch-color) calc(l + 0.02) c h);
+    --input-background-disabled-color: oklch(from var(--swatch-color) calc(l + 0.01) c h);
+    --_input-scale: 1.5;
+    --_input-height: calc(1em * var(--_input-scale));
+    --_marker-size: calc(var(--_input-height) * 0.55);
+    --_switch-width: calc(var(--_input-height) * 2);
+    --_switch-gap: calc(var(--_input-height) * 0.1);
+    --_switch-knob-size: calc(var(--_input-height) * 0.76);
+    --_error-color: oklch(0.6 0.18 20);
+  }
+
+  /* --- Fields Group --- */
   .field-group {
     border: none;
     border-radius: 0;
@@ -10,15 +38,14 @@
     display: inline-flex;
     gap: var(--space-m, 0.75rem) var(--space-m, 0.75rem);
     width: fit-content;
+    flex-wrap: wrap;
 
     &.orientation-column {
       flex-direction: column;
-      flex-wrap: nowrap;
     }
 
     &.orientation-row {
       flex-direction: row;
-      flex-wrap: wrap;
     }
 
     & legend {
@@ -39,11 +66,6 @@
         margin: 0 0 0 calc(var(--space-xs, 0.25rem) * -1);
       }
     }
-  }
-
-  .input-group,
-  .text-input {
-    --_error-color: oklch(0.6 0.18 20);
   }
 
   /* --- Input Group --- */
@@ -70,11 +92,6 @@
       order: 1;
     }
 
-    & input {
-      line-height: 1;
-      order: 2;
-    }
-
     & .error-message {
       color: var(--_error-color);
       display: none;
@@ -92,7 +109,7 @@
       color: var(--brand-text-color);
     }
 
-    &:has(:required:placeholder-shown, .select-input:required, :required[type="checkbox"]:not(:checked)) {
+    &:has(:is(:required:placeholder-shown, .select-input:required, :required[type="checkbox"]:not(:checked))) {
       & > label::after {
         content: "*";
         transform: scale(1.2) translate(-0.2em, 0.1em);
@@ -100,38 +117,22 @@
     }
 
     &:has(
-        .select-input[aria-invalid="true"],
-        [type="checkbox"][aria-invalid="true"]:checked,
-        [aria-invalid="true"]:required:not(:placeholder-shown)
+        :is(
+            .select-input[aria-invalid="true"],
+            [type="checkbox"][aria-invalid="true"]:checked,
+            [aria-invalid="true"]:required:not(:placeholder-shown)
+          )
       ) {
       & > label::after {
         color: var(--_error-color);
-        content: "\26A0"; /* Warning Sign, ⚠ */
-        transform: scale(1.3) translate(-0.1em, 0.1em);
+        content: "\26A0"; /* ⚠ */
+        transform: scale(1.8) translate(-0.1em, -0.1em);
       }
 
       & > .error-message {
         display: block;
       }
     }
-  }
-
-  /* --- Input Related Variables --- */
-  .toggle-switch,
-  .text-input,
-  .select-container,
-  input[type="radio"].radio-input,
-  input[type="checkbox"].checkbox-input,
-  input[type="range"].range-input {
-    --input-background-color: oklch(from var(--swatch-color) calc(l + 0.05) c h);
-    --input-background-active-color: oklch(from var(--swatch-color) calc(l - 0.05) c h);
-    --input-background-disabled-color: oklch(from var(--swatch-color) calc(l + 0.01) c h);
-    --_input-scale: 1.5;
-    --_input-height: calc(1em * var(--_input-scale));
-    --_marker-size: calc(var(--_input-height) * 0.55);
-    --_switch-width: calc(var(--_input-height) * 2);
-    --_switch-gap: calc(var(--_input-height) * 0.1);
-    --_switch-knob-size: calc(var(--_input-height) * 0.76);
   }
 
   .toggle-switch,
@@ -293,7 +294,6 @@
       transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
       opacity 0.15s ease;
     opacity: 0;
-    transform: scale(0.6);
   }
 
   input[type="radio"].radio-input::before {
@@ -301,7 +301,6 @@
   }
 
   input[type="checkbox"].checkbox-input::before {
-    background-color: oklch(from var(--brand-text-color) calc(l + 0.05) c h / 90%);
     clip-path: polygon(14% 44%, 0 58%, 38% 96%, 100% 16%, 84% 2%, 38% 68%);
   }
 
@@ -314,7 +313,6 @@
   input[type="radio"].radio-input:checked::before,
   input[type="checkbox"].checkbox-input:checked::before {
     opacity: 1;
-    transform: scale(1);
   }
 
   input[type="radio"].radio-input:focus-visible,
@@ -341,132 +339,180 @@
     border-color: var(--_error-color);
   }
 
-  /* --- Input Container --- */
-  .input-container {
-    display: inline-flex;
-    gap: var(--space-s, 0.5rem);
-    flex-wrap: nowrap;
-    position: relative;
-    width: 100%;
-    order: 2;
+  /* --- Icons used in inputs. --- */
+  .icon {
+    align-content: center;
+    aspect-ratio: 1;
+    background: none;
+    border: none;
+    box-shadow: none;
+    display: inline-grid;
+    height: 1em;
+    outline: none;
+    z-index: 2;
 
-    &:has(button) .text-input {
-      padding-inline-end: calc(var(--space-xl) * 1.05);
+    &.search-icon {
+      /* Magnifying glass, stroke-width='2' */
+      background-color: currentColor;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23000000%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Ccircle%20cx%3D%2711%27%20cy%3D%2711%27%20r%3D%278%27/%3E%3Cline%20x1%3D%2721%27%20y1%3D%2721%27%20x2%3D%2716.65%27%20y2%3D%2716.65%27/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23000000%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Ccircle%20cx%3D%2711%27%20cy%3D%2711%27%20r%3D%278%27/%3E%3Cline%20x1%3D%2721%27%20y1%3D%2721%27%20x2%3D%2716.65%27%20y2%3D%2716.65%27/%3E%3C/svg%3E");
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    &.chevron-icon {
+      border-top: 0.13em solid currentColor;
+      border-right: 0.13em solid currentColor;
+      height: 0.6em;
+      transform: rotate(135deg) translateY(0.2em);
+    }
+
+    &.clear-icon {
+      font-weight: var(--font-weight-l);
+      border-radius: 50%;
+
+      &::before {
+        content: "\00d7"; /* × */
+      }
+    }
+
+    &.info-icon {
+      &::before {
+        border-radius: 50%;
+        content: "ⓘ";
+        transform: translateY(0.05em);
+      }
     }
   }
 
   /* --- Text Input --- */
-  .text-input {
-    width: 100%;
-    flex: 1;
+  .input-container {
+    align-items: center;
     background-color: var(--input-background-color);
-    padding: var(--space-xs, 0.5rem) var(--space-s, 0.75rem);
     border: 1px solid var(--border-color);
-    border-radius: var(--space-2xs, 4px);
-    color: inherit;
-    font-size: inherit;
+    border-radius: var(--space-2xs);
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: var(--space-xs);
+    order: 2;
+    padding-inline: var(--space-s);
+    position: relative;
     transition:
       border-color 0.2s,
-      box-shadow 0.2s;
+      box-shadow 0.2s,
+      background-color 0.2s;
+    width: 100%;
+
+    &:focus-within {
+      border: 1px solid var(--brand-text-color);
+      box-shadow:
+        0 0 0 max(2px, 0.15em) canvas,
+        0 0 0 max(4px, 0.25em) var(--brand-text-color);
+      outline: none;
+    }
+
+    &:has([aria-invalid="true"]:required:not(:placeholder-shown)) {
+      border-color: var(--_error-color);
+    }
+
+    &:has(:is(:disabled, [readonly])) {
+      background-color: var(--input-background-disabled-color);
+
+      & .clear-icon {
+        background-color: var(--input-background-disabled-color);
+        display: none;
+      }
+
+      & :is(.search-icon, .chevron-icon) {
+        color: var(--muted-text);
+        cursor: not-allowed;
+      }
+
+      & button.info-icon::before {
+        background-color: var(--input-background-disabled-color);
+      }
+    }
+
+    &:has(input:placeholder-shown) {
+      & .clear-icon {
+        display: none;
+      }
+    }
+
+    &:has([readonly]) {
+      border-style: dashed;
+    }
+  }
+
+  .text-input[type="search"] {
+    &::-webkit-search-decoration,
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-results-button,
+    &::-webkit-search-results-decoration {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+  }
+
+  .text-input,
+  .select-input {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    flex: 1;
+    font-size: inherit;
+    outline: none;
+    padding-block: var(--space-xs);
+    padding-inline: 0;
+    text-overflow: ellipsis;
+    width: 100%;
 
     &:disabled,
     &[readonly] {
-      background-color: var(--input-background-disabled-color);
       color: var(--muted-text);
       cursor: not-allowed;
     }
 
     &[readonly] {
-      border-style: dashed;
       cursor: default;
     }
 
-    &[aria-invalid="true"]:required:not(:placeholder-shown) {
-      border-color: var(--_error-color);
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+      border: none;
+      background-color: transparent;
     }
-  }
-
-  .input-container:focus-within:has(button:focus) .text-input,
-  .text-input:focus-visible {
-    outline: 2px solid var(--brand-text-color);
-    outline-offset: 2px;
-    box-shadow: none;
   }
 
   /* --- Textarea --- */
-  .textarea-input {
-    min-block-size: 13ch;
-    resize: vertical;
-    width: 100%;
+  .textarea-container {
+    display: inline-grid;
+    padding: 0;
   }
 
-  /* --- Select Input --- */
+  .textarea-input {
+    color: inherit;
+    min-block-size: 5.15lh;
+    max-height: 12.05lh;
+    padding: var(--space-xs) var(--space-s);
+    resize: vertical;
+  }
+
+  /* --- Native Select --- */
+  .select-container {
+    &:has([aria-invalid="true"]) {
+      border-color: var(--_error-color);
+    }
+  }
+
   .select-input {
     appearance: none;
-    background-color: transparent;
     cursor: pointer;
-    z-index: 1;
-    padding-inline-end: 1.8em;
-    text-overflow: ellipsis;
-
-    &[aria-invalid="true"] {
-      border-color: var(--_error-color);
-    }
-  }
-
-  .select-container {
-    background-color: var(--input-background-color);
-    min-inline-size: 30ch;
-    position: relative;
-
-    &::after {
-      right: var(--space-s, 0.5rem);
-      top: var(--space-l, 1.25rem);
-      transform: translateY(-100%);
-      content: "";
-      width: 1em;
-      height: 0.7em;
-      background-color: var(--muted-text);
-      clip-path: polygon(100% 0%, 0 0%, 50% 100%);
-      position: absolute;
-    }
-
-    &:has(button)::after {
-      right: var(--space-xl, 1.5rem);
-    }
-
-    &:has(button) .select-input {
-      padding-inline-end: 3em;
-    }
-
-    &:has(:disabled, [readonly]) {
-      background-color: var(--input-background-disabled-color);
-    }
-
-    &:has([readonly]) {
-      border-style: dashed;
-      cursor: default;
-    }
-
-    &:has(:disabled)::after {
-      cursor: not-allowed;
-    }
-  }
-
-  .select-input option {
-    padding: var(--space-xs, 0.5rem) var(--space-s, 0.75rem);
-    border-radius: var(--space-3xs, 2px);
-    color: inherit;
-    cursor: pointer;
-
-    &:focus {
-      background-color: var(--input-background-active-color);
-      color: var(--brand-text-color);
-    }
-
-    &[aria-invalid="true"] {
-      border-color: var(--_error-color);
-    }
   }
 
   /* --- Range Input --- */
@@ -474,10 +520,10 @@
     --_slider-height: var(--space-xs, 0.75rem);
     --_thumb-height: calc(var(--space-m, 1rem) * 1.2);
 
-    display: flex;
     align-items: center;
-    gap: var(--space-s, 0.75rem);
-    width: 100%;
+    display: inline-flex;
+    gap: 0;
+    padding-inline-start: var(--space-xs);
   }
 
   .range-input[type="range"] {
@@ -566,7 +612,7 @@
   }
 
   .range-number-input {
-    width: 11ch;
+    width: 12ch;
     text-align: center;
 
     appearance: textfield;
@@ -577,31 +623,232 @@
     }
   }
 
-  /* --- Popover --- */
-  .popover-trigger-btn {
-    position: absolute;
-    right: var(--space-s, 0.5rem);
-    top: var(--space-l, 1.25rem);
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    padding: 0;
-    font-size: 1.2em;
-    cursor: pointer;
-    user-select: none;
-    z-index: 2;
-    border-radius: var(--space-3xs, 2px);
-    transition: opacity 0.2s;
-    height: 1.2rem;
-    aspect-ratio: 1 / 1;
+  /* --- Listbox ---*/
+  .listbox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: inherit;
+    font-size: inherit;
     outline: none;
-    box-shadow: none;
-    display: grid;
-    align-content: end;
+    background-color: var(--input-background-color);
+
+    /* TODO: A container should be responsible for the listbox height */
+    max-height: 40ch;
+    overflow-y: auto;
 
     &:focus-visible {
-      opacity: 1;
+      outline: 2px solid var(--brand-text-color);
+      outline-offset: 2px;
     }
+
+    &.bordered {
+      border: 1px solid var(--border-color);
+      border-radius: var(--space-2xs);
+    }
+  }
+
+  .listbox[aria-multiselectable="true"] {
+    & .listbox-option {
+      padding-left: var(--space-xl);
+
+      &::before {
+        position: absolute;
+        left: var(--space-xs, 0.5rem);
+        content: "";
+        display: inline-block;
+        width: var(--_input-height);
+        height: var(--_input-height);
+        border: 1px solid var(--border-color);
+        border-radius: var(--space-3xs);
+        background-color: var(--input-background-color);
+        transform: scale(0.75) translateY(-6%);
+        transition:
+          background-color 0.15s,
+          border-color 0.15s;
+      }
+
+      &[aria-selected="true"]::before {
+        background-color: var(--input-background-active-color);
+        border-color: var(--accent-color);
+      }
+
+      &[aria-selected="true"]::after {
+        left: calc(var(--space-m) * 0.8);
+      }
+    }
+  }
+
+  /* aria-multiselectable is required, so it's safe to test for "false */
+  .listbox[aria-multiselectable="false"][data-show-marker="true"] {
+    & .listbox-option {
+      padding-left: var(--space-l);
+    }
+  }
+
+  .listbox[aria-multiselectable="false"]:not([data-show-marker="true"]) {
+    & .listbox-option[aria-selected="true"]::after {
+      display: none;
+    }
+  }
+
+  .listbox-option {
+    padding: var(--space-xs) var(--space-s);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.1s ease;
+    position: relative;
+
+    &[aria-selected="true"] {
+      font-weight: 600;
+      background-color: oklch(from var(--system-brand-color) calc(l + 0.1) c h / 5%);
+
+      &::after {
+        position: absolute;
+        left: var(--space-xs);
+        color: var(--system-brand-color);
+        content: "";
+        inline-size: var(--_marker-size);
+        block-size: var(--_marker-size);
+        background-color: oklch(from var(--brand-text-color) calc(l + 0.05) c h / 90%);
+        transition:
+          transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.15s ease;
+        clip-path: polygon(14% 44%, 0 58%, 38% 96%, 100% 16%, 84% 2%, 38% 68%);
+        transform: scale(0.9) translateY(-6%);
+      }
+    }
+
+    &[aria-disabled="true"] {
+      color: var(--muted-text);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    &.is-active,
+    &:focus-visible {
+      background-color: var(--input-background-active-color);
+      color: var(--brand-text-color);
+      outline: none;
+    }
+
+    &:hover:not(.is-active) {
+      background-color: var(--input-background-hover-color);
+    }
+  }
+
+  .listbox-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .listbox-group-label {
+    /* TODO: How to combine sticky and scroll into view?
+    position: sticky;
+    top: 0;
+    */
+
+    background-color: oklch(from var(--system-brand-color) calc(l + 0.1) c h / 10%);
+    padding: var(--space-xs) var(--space-s);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted-text);
+    font-weight: var(--font-weight-l);
+    user-select: none;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.1s ease;
+  }
+
+  .listbox-group-label ~ li {
+    padding-left: var(--space-l);
+  }
+
+  /* --- Combobox ---*/
+  .combobox-container {
+    &:has([readonly]) {
+      background-color: var(--input-background-color);
+      border-style: solid;
+
+      & .chevron-icon {
+        cursor: pointer;
+        color: inherit;
+      }
+
+      & .clear-icon {
+        display: inline-grid;
+      }
+    }
+
+    &:has(:disabled) {
+      input {
+        cursor: not-allowed;
+      }
+
+      & .clear-icon {
+        display: none;
+      }
+    }
+  }
+
+  .combobox-input {
+    &[readonly] {
+      color: inherit;
+      cursor: pointer;
+    }
+  }
+
+  .combobox-results-popover {
+    inset: auto;
+    margin: 0;
+    position: fixed;
+    border: 0;
+    background-color: var(--input-background-color);
+    color: inherit;
+    border-radius: var(--space-2xs);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    font-size: var(--font-size-s, 0.9em);
+    top: anchor(bottom);
+    left: anchor(left);
+    min-inline-size: anchor-size(width);
+    margin-block-start: var(--space-xs);
+    position-try-fallbacks: flip-block;
+  }
+
+  .combobox-results-popover .listbox {
+    max-height: 15lh;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+
+  /* --- Popover --- */
+  .tool-btn,
+  .popover-trigger-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 1.1em;
+    cursor: pointer;
+    user-select: none;
+    height: 1em;
+    aspect-ratio: 1;
+    outline: none;
+    box-shadow: none;
+    display: inline-grid;
+    align-content: center;
+    place-items: center;
+    z-index: 2;
+    /*position: absolute;*/
+    /*right: 0.6em;*/
+    /*top: 1.1em;*/
+    /*transform: translateY(-50%);*/
   }
 
   .info-tooltip-popover {
@@ -618,7 +865,7 @@
     position-area: bottom right;
     margin-block-start: var(--space-2xs, 0.25rem);
     position-try-fallbacks: flip-block, flip-inline;
-    z-index: 100;
+    z-index: 3;
   }
 
   .popover-trigger-btn:hover ~ .info-tooltip-popover {

@@ -1,0 +1,37 @@
+---
+// src/components/form-element/listbox-option.astro
+
+import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
+import type { HTMLAttributes } from 'astro/types';
+import './form-elements.css';
+
+type Props = HTMLAttributes<'li'> & {
+  disabled?: boolean;
+  id: string;
+  name: string;
+  value: string;
+};
+
+const {
+  class: className,
+  disabled,
+  id,
+  name,
+  value,
+  ...rest
+} = Astro.props;
+
+assertValidSlots(Astro.slots, [], 'ListboxOption');
+---
+<li
+  aria-disabled={disabled}
+  aria-selected="false"
+  class:list={['listbox-option', className]}
+  data-name={name}
+  data-value={value}
+  id={id}
+  role="option"
+  {...rest}
+>
+  <slot />
+</li>

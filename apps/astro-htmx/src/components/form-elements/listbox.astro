@@ -1,0 +1,316 @@
+---
+// src/components/form-element/listbox.astro
+
+import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
+import type { HTMLAttributes } from 'astro/types';
+import './form-elements.css';
+
+type Props = HTMLAttributes<'div'> & {
+  activeDescendantId?: string;
+  bordered?: boolean;
+  id: string;
+  multiSelectable?: boolean;
+  showMarker?: boolean;
+};
+
+const {
+  activeDescendantId,
+  bordered,
+  class: className,
+  id,
+  multiSelectable,
+  showMarker,
+  ...rest
+} = Astro.props;
+
+assertValidSlots(Astro.slots, [], 'Listbox');
+
+---
+<div
+  aria-activedescendant={activeDescendantId}
+  aria-multiselectable={!!multiSelectable}
+  class:list={['listbox', bordered && 'bordered', className]}
+  data-listbox-container
+  data-show-marker={showMarker}
+  id={id}
+  role="listbox"
+  tabindex="0"
+  {...rest}
+>
+  <slot />
+</div>
+
+<script>
+  import { match } from '@olsen-mono/core-utils';
+
+  function setupListboxes() {
+    const listboxes = document.querySelectorAll('[data-listbox-container]:not([hidden])');
+
+    for (const listbox of listboxes) {
+      if (!(listbox instanceof HTMLElement) || listbox.hasAttribute('data-initialized')) continue;
+      listbox.setAttribute('data-initialized', 'true');
+
+      let lastSelectedIndex = -1;
+
+      const isMulti = listbox.getAttribute('aria-multiselectable') === 'true';
+
+      const getSelectebleOptions = (): HTMLElement[] =>
+        Array.from(listbox.querySelectorAll('[role="option"]:not([aria-disabled="true"]):not([hidden])'));
+
+      const emitChange = () => {
+        const allOptions = Array.from(listbox.querySelectorAll('[role="option"]'));
+        const selectedOptions = allOptions.filter(opt => opt.getAttribute('aria-selected') === 'true');
+
+        const data = selectedOptions.map(opt => ({
+          id: opt.id,
+          name: opt.getAttribute('data-name') ?? '',
+          value: opt.getAttribute('data-value') ?? '',
+          text: opt instanceof HTMLElement ? opt.innerText ?? '' : '',
+        }));
+
+        listbox.dispatchEvent(new CustomEvent('change', {
+          bubbles: true,
+          detail: isMulti ? data : (data[0] || null)
+        }));
+      };
+
+      const setActive = (target: HTMLElement | null) => {
+        if (!target) return;
+
+        const options = getSelectebleOptions();
+        lastSelectedIndex = options.indexOf(target);
+
+        listbox.setAttribute('aria-activedescendant', target.id);
+        listbox.querySelector('.is-active')?.classList.remove('is-active');
+        target.classList.add('is-active');
+
+        // FIX FOR STICKY TITLES?
+        // target.scrollIntoView({ block: 'nearest' });
+
+        if (!isMulti) {
+          for (const opt of listbox.querySelectorAll('[role="option"]')) {
+            opt.setAttribute('aria-selected', 'false');
+          }
+          target.setAttribute('aria-selected', 'true');
+          emitChange();
+        }
+      };
+
+      const setActive2 = (target: HTMLElement | null) => {
+        if (!target) return;
+
+        const options = getSelectebleOptions();
+        lastSelectedIndex = options.indexOf(target);
+
+        listbox.setAttribute('aria-activedescendant', target.id);
+        listbox.querySelector('.is-active')?.classList.remove('is-active');
+        target.classList.add('is-active');
+        target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      };
+
+      const toggleSelect = (target: HTMLElement) => {
+        const isSelected = target.getAttribute('aria-selected') === 'true';
+        target.setAttribute('aria-selected', isSelected ? 'false' : 'true');
+        emitChange();
+      };
+
+      const selectRange = (targetIndex: number) => {
+        if (!isMulti || lastSelectedIndex === -1) return;
+
+        const options = getSelectebleOptions();
+
+        const start = Math.min(lastSelectedIndex, targetIndex);
+        const end = Math.max(lastSelectedIndex, targetIndex);
+
+        for (let i = start; i <= end; i++) {
+          const isSelected = options[i]?.getAttribute('aria-selected') === 'true';
+          options[i]?.setAttribute('aria-selected', isSelected ? 'false' : 'true');
+        }
+        emitChange();
+      };
+
+      (listbox as any).emitChange = emitChange;
+
+      (listbox as any).selectAll = () => {
+        if (!isMulti) return;
+        const options = getSelectebleOptions();
+        for (const opt of options) {
+          opt.setAttribute('aria-selected', 'true');
+        }
+        (listbox as any).emitChange();
+      };
+
+      (listbox as any).deselectAll = () => {
+        const options = getSelectebleOptions();
+        for (const opt of options) {
+          opt.setAttribute('aria-selected', 'false');
+        }
+        (listbox as any).emitChange();
+      };
+
+      (listbox as any).filter = (query: string) => {
+        const cleanQuery = query.toLowerCase().trim();
+        const options = Array.from(listbox.querySelectorAll('[role="option"]'));
+        const groups = Array.from(listbox.querySelectorAll('[role="group"]'));
+
+        if (cleanQuery === '') {
+          for (const opt of options) {
+            if (!(opt instanceof HTMLElement)) continue;
+            opt.hidden = false;
+            opt.setAttribute('aria-selected', 'false');
+          }
+        } else {
+          for (const opt of options) {
+            if (!(opt instanceof HTMLElement)) continue;
+            const value = (opt.getAttribute('data-value') ?? '').toLowerCase();
+            const text = (opt.innerText.toLowerCase() ?? '').toLowerCase();
+            opt.hidden = !(value.includes(cleanQuery) || text.includes(cleanQuery));
+            if (opt.hidden) opt.setAttribute('aria-selected', 'false');
+          }
+        }
+
+        for (const group of groups) {
+          if (!(group instanceof HTMLElement)) continue;
+          const visibleOptions = group.querySelectorAll('[role="option"]:not([hidden])');
+          group.hidden = visibleOptions.length < 1;
+        }
+
+        listbox.removeAttribute('aria-activedescendant');
+      };
+
+      listbox.addEventListener('focus', () => {
+        const options = getSelectebleOptions();
+        if (options.length === 0) return;
+
+        const alreadySelected = listbox.querySelector('[role="option"][aria-selected="true"]');
+
+        if (alreadySelected instanceof HTMLElement) {
+          setActive2(alreadySelected);
+        }
+        else {
+          setActive2(options[0]!);
+        }
+      });
+
+      listbox.addEventListener('blur', () => {
+        listbox.querySelector('.is-active')?.classList.remove('is-active');
+      });
+
+      listbox.addEventListener('keydown', (e: KeyboardEvent) => {
+        const options = getSelectebleOptions();
+        if (options.length === 0) return;
+
+        match<KeyboardEvent, void>(e)
+          .on((e) => isMulti && (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'a',
+            (e) => {
+              e.preventDefault();
+              const allSelected = options.every(opt => opt.getAttribute('aria-selected') === 'true');
+
+              for (const opt of options) {
+                opt.setAttribute('aria-selected', allSelected ? 'false' : 'true');
+              }
+              emitChange();
+            })
+          .otherwise((e) => {
+            const activeId = listbox.getAttribute('aria-activedescendant');
+            const activeEl = activeId ? document.getElementById(activeId) : null;
+            const currentIndex = activeEl ? options.indexOf(activeEl) : -1;
+
+            const nextTarget = match<KeyboardEvent, HTMLElement | null>(e)
+              .on((e) => isMulti && e.shiftKey && (e.key === 'ArrowDown' || e.key === 'ArrowUp'),
+                (e) => {
+                  e.preventDefault();
+                  const nextIndex = e.key === 'ArrowDown'
+                    ? Math.min(currentIndex + 1, options.length - 1)
+                    : Math.max(currentIndex - 1, 0);
+
+                  const nextEl = options[nextIndex];
+                  if (nextEl) {
+                    setActive(nextEl);
+                    selectRange(nextIndex);
+                  }
+                  return null;
+                },
+              )
+              .on((e) => e.key === 'ArrowDown',
+                (e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  return options[(currentIndex + 1) % options.length]!;
+                },
+              )
+              .on((e) => e.key === 'ArrowUp',
+                (e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const len = options.length;
+                  return options[(currentIndex - 1 + len) % len]!;
+                },
+              )
+              .on((e) => e.key === 'Home',
+                (e) => {
+                  e.preventDefault();
+                  return options[0]!;
+                },
+              )
+              .on((e) => e.key === 'End',
+                (e) => {
+                  e.preventDefault();
+                  return options[options.length - 1]!;
+                },
+              )
+              .on((e) => e.key === ' ' || e.key === 'Enter',
+                (e) => {
+                  e.preventDefault();
+                  if (activeEl && isMulti) {
+                    toggleSelect(activeEl);
+                  }
+                  else if (activeEl) {
+                    setActive(activeEl);
+                  }
+                  return null;
+                },
+              )
+              .on((e) => e.key.length === 1,
+                (e) => {
+                  const re = new RegExp(`^${e.key}`, 'i');
+                  const target = options.slice(currentIndex + 1).find(opt => opt.innerText?.match(re))
+                    ?? options.slice(0, currentIndex).find(opt => opt.innerText?.match(re));
+
+                  return target ?? null;
+                }
+              )
+              .otherwise(() => null);
+
+            if (nextTarget) {
+              setActive2(nextTarget);
+            }
+          });
+      });
+
+      listbox.addEventListener('click', (e) => {
+        const target = (e.target as HTMLElement).closest('[role="option"]');
+        if (!(target instanceof HTMLElement) || target.hasAttribute('disabled') || target.hidden) return;
+
+        const options = getSelectebleOptions();
+        const targetIndex = options.indexOf(target);
+
+        match<boolean, void>()
+          .on(isMulti && e.shiftKey && lastSelectedIndex !== -1, () => {
+            e.preventDefault();
+            selectRange(targetIndex);
+            setActive(target);
+          })
+          .on(isMulti, () => {
+            e.preventDefault();
+            setActive(target);
+            toggleSelect(target);
+          })
+          .otherwise(() => setActive(target));
+      });
+    }
+  }
+
+  setupListboxes();
+  document.addEventListener('astro:after-swap', setupListboxes);
+</script>

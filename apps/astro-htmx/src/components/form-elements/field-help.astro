@@ -19,13 +19,11 @@ const anchorName = `--anchor-${id}`;
 <button
   tabindex="-1"
   type="button"
-  class="popover-trigger-btn"
+  class="popover-trigger-btn icon info-icon"
   popovertarget={id}
   aria-label="Show help"
   style={`anchor-name: ${anchorName};`}
->
-  ⓘ
-</button>
+/>
 
 <div
   data-variant="neutral"
@@ -35,6 +33,6 @@ const anchorName = `--anchor-${id}`;
   style={`position-anchor: ${anchorName};`}
 >
   <div class="popover-description">
-    <span style="font-size: 1.2em;">ⓘ</span>&nbsp;<span><slot /></span>
+    <span class="icon info-icon" />&nbsp;<span><slot /></span>
   </div>
 </div>
