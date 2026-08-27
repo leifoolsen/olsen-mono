@@ -371,7 +371,7 @@ import '@components/form-elements/form-elements.css';
 
         <script>
           const element = document.getElementById('listbox');
-          element?.addEventListener('change', (e) => {
+          element?.addEventListener('listbox-change', (e) => {
             const customEvent = e as CustomEvent;
             console.log('#listbox:', customEvent.detail);
           });
@@ -403,7 +403,7 @@ import '@components/form-elements/form-elements.css';
 
       <script>
         const element = document.getElementById('listbox2');
-        element?.addEventListener('change', (e) => {
+        element?.addEventListener('listbox-change', (e) => {
           const customEvent = e as CustomEvent;
           console.log('#listbox2:', customEvent.detail);
         });
@@ -426,7 +426,7 @@ import '@components/form-elements/form-elements.css';
 
         <script>
           const element = document.getElementById('ms-listbox');
-          element?.addEventListener('change', (e) => {
+          element?.addEventListener('listbox-change', (e) => {
             const customEvent = e as CustomEvent;
             console.log('#ms-listbox:', customEvent.detail);
           });
@@ -490,7 +490,7 @@ import '@components/form-elements/form-elements.css';
         const selectAllBtn = document.getElementById('ms-listbox2-select-all');
         const emptySelectionBtn = document.getElementById('ms-listbox2-empty-selection');
 
-        listbox?.addEventListener('change', (e) => {
+        listbox?.addEventListener('listbox-change', (e) => {
           const customEvent = e as CustomEvent;
           console.log('#ms-listbox2:', customEvent.detail);
         });
@@ -537,7 +537,7 @@ import '@components/form-elements/form-elements.css';
         <script>
           const cb = document.getElementById('combobox');
 
-          cb?.addEventListener('change', (e) => {
+          cb?.addEventListener('combobox-change', (e) => {
             const customEvent = e as CustomEvent;
             console.log('#combobox:', customEvent.detail);
           });
@@ -592,7 +592,7 @@ import '@components/form-elements/form-elements.css';
         <script>
           const cb3 = document.getElementById('combobox3');
 
-          cb3?.addEventListener('change', (e) => {
+          cb3?.addEventListener('combobox-change', (e) => {
             const customEvent = e as CustomEvent;
             console.log('#combobox3:', customEvent.detail);
           });

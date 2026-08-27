@@ -68,7 +68,7 @@ assertValidSlots(Astro.slots, [], 'Listbox');
           text: opt instanceof HTMLElement ? opt.innerText : '',
         }));
 
-        listbox.dispatchEvent(new CustomEvent('change', {
+        listbox.dispatchEvent(new CustomEvent('listbox-change', {
           bubbles: true,
           detail: isMulti ? data : (data[0] || null)
         }));

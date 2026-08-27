@@ -214,7 +214,7 @@ const wrapperProps = processedLabel
         }
       });
 
-      listbox.addEventListener('change', (e: Event) => {
+      listbox.addEventListener('listbox-change', (e: Event) => {
         e.stopPropagation();
         const customEvent = e as CustomEvent;
         const data = customEvent.detail;
@@ -230,7 +230,7 @@ const wrapperProps = processedLabel
           input.setAttribute('data-value', '');
         }
 
-        input.dispatchEvent(new CustomEvent('change', {
+        input.dispatchEvent(new CustomEvent('combobox-change', {
           bubbles: true,
           detail: data,
         }));
