@@ -503,13 +503,13 @@ import '@components/form-elements/form-elements.css';
         });
 
         selectAllBtn?.addEventListener('click', () => {
-          if (listbox && typeof (listbox as any).selectall === 'function') {
+          if (listbox && typeof (listbox as any).selectAll === 'function') {
             (listbox as any)?.selectAll();
           }
         });
 
         emptySelectionBtn?.addEventListener('click', () => {
-          if (listbox && typeof (listbox as any).deselectall === 'function') {
+          if (listbox && typeof (listbox as any).deselectAll === 'function') {
             (listbox as any)?.deselectAll();
           }
         });
@@ -533,6 +533,15 @@ import '@components/form-elements/form-elements.css';
             </ListboxGroup>
           </Fragment>
         </Combobox>
+
+        <script>
+          const cb = document.getElementById('combobox');
+
+          cb?.addEventListener('change', (e) => {
+            const customEvent = e as CustomEvent;
+            console.log('#combobox:', customEvent.detail);
+          });
+        </script>
 
         <Combobox id="combobox2" placeholder="Start typing to filter..." label="Select a land animal">
           <Fragment slot="options">
@@ -579,6 +588,15 @@ import '@components/form-elements/form-elements.css';
             </ListboxGroup>
           </Fragment>
         </Combobox>
+
+        <script>
+          const cb3 = document.getElementById('combobox3');
+
+          cb3?.addEventListener('change', (e) => {
+            const customEvent = e as CustomEvent;
+            console.log('#combobox3:', customEvent.detail);
+          });
+        </script>
 
         <Combobox id="combobox4" placeholder="Select a bird..." label="Select only" readonly>
           <span slot="description">Description of the select only</span>
