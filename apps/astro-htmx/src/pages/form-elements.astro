@@ -497,15 +497,21 @@ import '@components/form-elements/form-elements.css';
 
         searchField?.addEventListener('input', (e) => {
           const target = e.target as HTMLInputElement;
-          (listbox as any).filter(target.value);
+          if (listbox && typeof (listbox as any).filter === 'function') {
+            (listbox as any).filter(target.value);
+          }
         });
 
         selectAllBtn?.addEventListener('click', () => {
-          (listbox as any)?.selectAll();
+          if (listbox && typeof (listbox as any).selectall === 'function') {
+            (listbox as any)?.selectAll();
+          }
         });
 
         emptySelectionBtn?.addEventListener('click', () => {
-          (listbox as any).deselectAll();
+          if (listbox && typeof (listbox as any).deselectall === 'function') {
+            (listbox as any)?.deselectAll();
+          }
         });
       </script>
 
