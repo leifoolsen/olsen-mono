@@ -168,11 +168,6 @@ const wrapperProps = processedLabel
             (listbox as any).filter('');
           }
 
-          input.dispatchEvent(new CustomEvent('change', {
-            bubbles: true,
-            detail: isMultiSelectable ? [] : null,
-          }));
-
           input.focus();
         });
       }
