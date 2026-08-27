@@ -118,6 +118,7 @@
   /* --- Fluid Spacing --- */
   --_space-scale-ratio: 1.5;
   --_space-fluid: var(--font-size-m);
+  --space-4xs: calc(max(0.05rem, var(--_space-fluid) * pow(var(--_space-scale-ratio), -5)));
   --space-3xs: calc(max(0.1rem, var(--_space-fluid) * pow(var(--_space-scale-ratio), -4)));
   --space-2xs: calc(max(0.125rem, var(--_space-fluid) * pow(var(--_space-scale-ratio), -3)));
   --space-xs: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), -2));
