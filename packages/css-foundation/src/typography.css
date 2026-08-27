@@ -292,6 +292,14 @@ html[data-density="condensed"] {
 }
 
 /* --- Fluid Radius --- */
+[data-border-radius="4xs"] {
+  border-radius: var(--space-4xs);
+}
+
+[data-border-radius="3xs"] {
+  border-radius: var(--space-3xs);
+}
+
 [data-border-radius="2xs"] {
   border-radius: var(--space-2xs);
 }
@@ -322,6 +330,10 @@ html[data-density="condensed"] {
 
 [data-border-radius="3xl"] {
   border-radius: var(--space-3xl);
+}
+
+[data-border-radius="4xl"] {
+  border-radius: var(--space-4xl);
 }
 
 [data-border-radius="infinity"] {
