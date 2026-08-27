@@ -65,7 +65,7 @@ assertValidSlots(Astro.slots, [], 'Listbox');
           id: opt.id,
           name: opt.getAttribute('data-name') ?? '',
           value: opt.getAttribute('data-value') ?? '',
-          text: opt instanceof HTMLElement ? opt.innerText ?? '' : '',
+          text: opt instanceof HTMLElement ? opt.innerText : '',
         }));
 
         listbox.dispatchEvent(new CustomEvent('change', {
@@ -84,7 +84,7 @@ assertValidSlots(Astro.slots, [], 'Listbox');
         listbox.querySelector('.is-active')?.classList.remove('is-active');
         target.classList.add('is-active');
 
-        // FIX FOR STICKY TITLES?
+        // FIX FOR STICKY TITLES: How to improve? Acts unpredictable when user clicks an item before list is focused.
         // target.scrollIntoView({ block: 'nearest' });
 
         if (!isMulti) {
@@ -163,7 +163,7 @@ assertValidSlots(Astro.slots, [], 'Listbox');
           for (const opt of options) {
             if (!(opt instanceof HTMLElement)) continue;
             const value = (opt.getAttribute('data-value') ?? '').toLowerCase();
-            const text = (opt.innerText.toLowerCase() ?? '').toLowerCase();
+            const text = (opt.innerText ?? '').toLowerCase();
             opt.hidden = !(value.includes(cleanQuery) || text.includes(cleanQuery));
             if (opt.hidden) opt.setAttribute('aria-selected', 'false');
           }
