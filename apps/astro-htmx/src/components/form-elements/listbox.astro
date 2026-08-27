@@ -105,7 +105,7 @@ assertValidSlots(Astro.slots, [], 'Listbox');
         listbox.setAttribute('aria-activedescendant', target.id);
         listbox.querySelector('.is-active')?.classList.remove('is-active');
         target.classList.add('is-active');
-        target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        target.scrollIntoView({ block: 'nearest' });
       };
 
       const toggleSelect = (target: HTMLElement) => {
