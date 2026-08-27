@@ -160,8 +160,20 @@ const wrapperProps = processedLabel
           e.stopPropagation();
           input.value = '';
           input.setAttribute('data-value', '');
+
+          if (listbox && typeof (listbox as any).deselectAll === 'function') {
+            (listbox as any).deselectAll();
+          }
+          if (listbox && typeof (listbox as any).filter === 'function') {
+            (listbox as any).filter('');
+          }
+
+          input.dispatchEvent(new CustomEvent('change', {
+            bubbles: true,
+            detail: isMultiSelectable ? [] : null,
+          }));
+
           input.focus();
-          input.dispatchEvent(new Event('input', { bubbles: true }));
         });
       }
 
@@ -208,6 +220,7 @@ const wrapperProps = processedLabel
       });
 
       listbox.addEventListener('change', (e: Event) => {
+        e.stopPropagation();
         const customEvent = e as CustomEvent;
         const data = customEvent.detail;
 
@@ -219,6 +232,18 @@ const wrapperProps = processedLabel
           input.setAttribute('data-value', data.value)
         } else {
           input.value = '';
+          input.setAttribute('data-value', '');
+        }
+
+        input.dispatchEvent(new CustomEvent('change', {
+          bubbles: true,
+          detail: data,
+        }));
+
+        if (!isMultiSelectable && data) {
+          popover.hidePopover();
+          input.setAttribute('aria-expanded', "false");
+          input.focus();
         }
       });
 
