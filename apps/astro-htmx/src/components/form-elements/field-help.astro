@@ -6,38 +6,33 @@ import './form-elements.css';
 
 type Props = {
   id: string;
-  descriptionId?: string;
 };
 
 const {
   id,
-  descriptionId = `${id}-description`
 } = Astro.props;
 
 assertValidSlots(Astro.slots, [], 'FieldHelp');
 
-const popoverId = `${id}-popover`;
-const uniqueAnchorName = `--anchor-${id}`;
+const anchorName = `--anchor-${id}`;
 ---
 <button
   tabindex="-1"
   type="button"
-  class="popover-trigger-btn"
-  popovertarget={popoverId}
+  class="popover-trigger-btn icon info-icon"
+  popovertarget={id}
   aria-label="Show help"
-  style={`anchor-name: ${uniqueAnchorName};`}
->
-  ⓘ
-</button>
+  style={`anchor-name: ${anchorName};`}
+/>
 
 <div
   data-variant="neutral"
-  id={popoverId}
+  id={id}
   popover="auto"
   class="info-tooltip-popover"
-  style={`position-anchor: ${uniqueAnchorName};`}
+  style={`position-anchor: ${anchorName};`}
 >
   <div class="popover-description">
-    <span style="font-size: 1.2em;">ⓘ</span>&nbsp;<span id={descriptionId}><slot /></span>
+    <span class="icon info-icon" />&nbsp;<span><slot /></span>
   </div>
 </div>

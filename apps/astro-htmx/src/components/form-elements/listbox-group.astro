@@ -1,0 +1,37 @@
+---
+// src/components/form-element/listbox-group.astro
+
+import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
+import { matchAsync } from '@olsen-mono/core-utils';
+import type { HTMLAttributes } from 'astro/types';
+import './form-elements.css';
+
+type Props = HTMLAttributes<'ul'> & {
+  label?: string;
+};
+
+const {
+  class: className,
+  label,
+  ...rest
+} = Astro.props;
+
+assertValidSlots(Astro.slots, ['label'], 'ListboxGroup');
+
+const processedLabel = await matchAsync()
+  .on(!!label, () => `<Fragment>${label}</Fragment>`)
+  .on(Astro.slots.has('label'), async () => await Astro.slots.render('label'))
+  .otherwise(() => null);
+---
+<ul
+  class:list={['listbox-group', className]}
+  role="group"
+  {...rest}
+>
+  {!!processedLabel && (
+    <li class="listbox-group-label" role="presentation">
+      {!!processedLabel && <Fragment set:html={processedLabel} />}
+    </li>
+  )}
+  <slot />
+</ul>

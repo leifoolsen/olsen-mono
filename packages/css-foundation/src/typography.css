@@ -106,18 +106,19 @@
   --letter-spacing-4xl: -0.03em;
 
   /* --- Font Weights --- */
-  --weight-xs: 300;
-  --weight-s: 400;
-  --weight-m: 400;
-  --weight-l: 400;
-  --font-weight-xl: 500;
-  --font-weight-2xl: 600;
-  --font-weight-3xl: 700;
-  --font-weight-4xl: 700;
+  --font-weight-xs: 300;
+  --font-weight-s: 400;
+  --font-weight-m: 400;
+  --font-weight-l: 500;
+  --font-weight-xl: 600;
+  --font-weight-2xl: 700;
+  --font-weight-3xl: 800;
+  --font-weight-4xl: 900;
 
   /* --- Fluid Spacing --- */
   --_space-scale-ratio: 1.5;
   --_space-fluid: var(--font-size-m);
+  --space-4xs: calc(max(0.05rem, var(--_space-fluid) * pow(var(--_space-scale-ratio), -5)));
   --space-3xs: calc(max(0.1rem, var(--_space-fluid) * pow(var(--_space-scale-ratio), -4)));
   --space-2xs: calc(max(0.125rem, var(--_space-fluid) * pow(var(--_space-scale-ratio), -3)));
   --space-xs: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), -2));
@@ -234,6 +235,7 @@ html[data-density="condensed"] {
   line-height: var(--line-height-s);
 }
 
+:where(h6),
 [data-font-size="m"] {
   font-size: var(--font-size-m);
   letter-spacing: var(--letter-spacing-m);
@@ -249,47 +251,55 @@ html[data-density="condensed"] {
   font-family: var(--font-family-heading), sans-serif;
 }
 
-[data-font-size="l"],
-:where(h5):not([data-font-size]) {
+:where(h5),
+[data-font-size="l"] {
   font-size: var(--font-size-l);
   letter-spacing: var(--letter-spacing-l);
   font-weight: var(--font-weight-l);
   line-height: var(--line-height-l);
 }
 
-[data-font-size="xl"],
-:where(h4):not([data-font-size]) {
+:where(h4),
+[data-font-size="xl"] {
   font-size: var(--font-size-xl);
-  line-height: var(--line-height-xl);
+  line-height: var(--line-height-l);
   letter-spacing: var(--letter-spacing-xl);
   font-weight: var(--font-weight-xl);
 }
 
-[data-font-size="2xl"],
-:where(h3):not([data-font-size]) {
+:where(h3),
+[data-font-size="2xl"] {
   font-size: var(--font-size-2xl);
   letter-spacing: var(--letter-spacing-2xl);
-  font-weight: var(--font-weight-2xl);
+  font-weight: var(--font-weight-l);
   line-height: var(--line-height-2xl);
 }
 
-[data-font-size="3xl"],
-:where(h2):not([data-font-size]) {
+:where(h2),
+[data-font-size="3xl"] {
   font-size: var(--font-size-3xl);
   letter-spacing: var(--letter-spacing-3xl);
-  font-weight: var(--font-weight-3xl);
+  font-weight: var(--font-weight-l);
   line-height: var(--line-height-3xl);
 }
 
-[data-font-size="4xl"],
-:where(h1):not([data-font-size]) {
+:where(h1),
+[data-font-size="4xl"] {
   font-size: var(--font-size-4xl);
   letter-spacing: var(--letter-spacing-4xl);
-  font-weight: var(--font-weight-4xl);
+  font-weight: var(--font-weight-l);
   line-height: var(--line-height-4xl);
 }
 
 /* --- Fluid Radius --- */
+[data-border-radius="4xs"] {
+  border-radius: var(--space-4xs);
+}
+
+[data-border-radius="3xs"] {
+  border-radius: var(--space-3xs);
+}
+
 [data-border-radius="2xs"] {
   border-radius: var(--space-2xs);
 }
@@ -320,6 +330,10 @@ html[data-density="condensed"] {
 
 [data-border-radius="3xl"] {
   border-radius: var(--space-3xl);
+}
+
+[data-border-radius="4xl"] {
+  border-radius: var(--space-4xl);
 }
 
 [data-border-radius="infinity"] {

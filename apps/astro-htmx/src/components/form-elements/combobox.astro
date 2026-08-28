@@ -1,0 +1,290 @@
+---
+// src/components/form-element/combobox.astro
+
+import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
+import { matchAsync } from '@olsen-mono/core-utils';
+import type { HTMLAttributes } from 'astro/types';
+import FieldHelp from './field-help.astro';
+import Listbox from './listbox.astro';
+import './form-elements.css';
+
+type Props = HTMLAttributes<'input'> & {
+  id: string;
+  invalid?: boolean;
+  label?: string;
+  labelPosition?: 'top' | 'before';
+  multiSelectable?: boolean;
+};
+
+const {
+  class: className,
+  id,
+  invalid,
+  label,
+  labelPosition = 'top',
+  multiSelectable = false,
+  readonly,
+  type = readonly ? 'text' : 'search',
+  ...rest
+} = Astro.props;
+
+const ALLOWED_SLOTS = ['label', 'options', 'description', 'error-message'] as const;
+assertValidSlots(Astro.slots, ALLOWED_SLOTS, 'Combobox');
+
+const processedLabel = await matchAsync()
+  .on(!!label, () => `<label for="${id}">${label}</label>`)
+  .on(Astro.slots.has('label'), async () => {
+    const rawLabel = await Astro.slots.render('label');
+    const isLabelTag = rawLabel ? /^\s*<label(?=[>\s])/i.test(rawLabel) : false;
+    return isLabelTag
+      ? rawLabel.replace('<label', `<label for="${id}"`)
+      : `<label for="${id}">${rawLabel}</label>`;
+  })
+  .otherwise(() => null);
+
+const hasDescriptionSlot = Astro.slots.has('description');
+const descriptionId = hasDescriptionSlot ?`${id}-description` : undefined;
+
+const hasOptionsSlot = Astro.slots.has('options');
+const hasErrorSlot = Astro.slots.has('error-message');
+
+const showErrorMessage = invalid && hasErrorSlot;
+
+const resultsPopoverId = `${id}-results-popover`;
+const uniqueAnchorName = `--anchor-list-${id}`;
+
+const Wrapper = processedLabel ? 'div' : Fragment;
+const wrapperProps = processedLabel
+  ? { class: `input-group ${labelPosition === 'top' ? 'label-top' : 'label-before'}`.trim() }
+  : {};
+---
+<Wrapper {...wrapperProps}>
+  <div
+    class="input-container combobox-container"
+    style={`anchor-name: ${uniqueAnchorName};`}
+  >
+    <input
+      aria-controls={resultsPopoverId}
+      aria-describedby={descriptionId}
+      aria-expanded="false"
+      aria-haspopup="true"
+      aria-invalid={invalid ? "true" : undefined}
+      autocomplete="off"
+      class:list={['text-input', 'combobox-input', className]}
+      data-combobox-input
+      id={id}
+      readonly={readonly}
+      role="combobox"
+      type={type}
+      {...rest}
+    />
+
+    {type === 'search' && (
+      <div class="icon search-icon" />
+    )}
+
+    {type === 'text' && (
+      <div class="icon chevron-icon" />
+    )}
+
+    <button
+      aria-label="Clear"
+      class="tool-btn icon clear-icon"
+      tabindex="-1"
+      type="button"
+    />
+
+    {hasDescriptionSlot && (
+      <FieldHelp id={descriptionId!}>
+        <slot name="description" />
+      </FieldHelp>
+    )}
+  </div>
+
+  {!!processedLabel && <Fragment set:html={processedLabel} />}
+
+  {showErrorMessage && (
+    <div class="error-message" role="alert">
+      <slot name="error-message" />
+    </div>
+  )}
+
+  {hasOptionsSlot && (
+    <div
+      class="combobox-results-popover"
+      data-combobox-popover
+      id={resultsPopoverId}
+      popover="auto"
+      style={`position-anchor: ${uniqueAnchorName};`}
+    >
+      <Listbox id={`${id}-listbox`} multiSelectable={multiSelectable} data-combobox-listbox bordered showMarker>
+        <slot name="options" />
+      </Listbox>
+    </div>
+  )}
+</Wrapper>
+
+<script>
+  import { match } from '@olsen-mono/core-utils';
+
+  function setupComboboxFields() {
+    const inputs = document.querySelectorAll('[data-combobox-input]');
+
+    for (const input of inputs) {
+      if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
+      input.setAttribute('data-initialized', 'true');
+
+      const wrapper = input.closest('.input-group');
+      if (!wrapper) continue;
+
+      const popover = wrapper.querySelector('[data-combobox-popover]');
+      const listbox = wrapper.querySelector('[data-combobox-listbox]');
+      const isMultiSelectable = listbox?.getAttribute('aria-multiselectable') === 'true';
+
+      if (!(popover instanceof HTMLElement) || !(listbox instanceof HTMLElement)) continue;
+
+      const searchIcon = wrapper.querySelector('.search-icon, .chevron-icon');
+      const clearIcon = wrapper.querySelector('.clear-icon');
+      const infoIcon = wrapper.querySelector('.info-icon');
+
+      if (searchIcon) {
+        searchIcon.addEventListener('click', () => {
+          input.focus();
+          input.click();
+        })
+      }
+
+      if (clearIcon) {
+        clearIcon.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          input.value = '';
+          input.setAttribute('data-value', '');
+
+          if (listbox && typeof (listbox as any).deselectAll === 'function') {
+            (listbox as any).deselectAll();
+          }
+          if (listbox && typeof (listbox as any).filter === 'function') {
+            (listbox as any).filter('');
+          }
+
+          input.focus();
+        });
+      }
+
+      if (infoIcon) {
+        infoIcon.addEventListener('click', () => {
+          if(!input.disabled) {
+            input.focus();
+          }
+          else {
+            (infoIcon as HTMLButtonElement).disabled = true;
+          }
+        })
+      }
+
+      listbox.addEventListener('keydown', (e) => {
+        match(e)
+          .on(e.key === 'Escape', () => {
+            e.preventDefault();
+            popover.hidePopover()
+            input.setAttribute('aria-expanded', "false")
+            input.focus();
+          })
+          .on(e.key === ' ' || e.key === 'Enter', () => {
+            e.preventDefault();
+            if (!isMultiSelectable) {
+              popover.hidePopover()
+              input.setAttribute('aria-expanded', "false")
+              input.focus();
+            }
+          })
+      });
+
+      listbox.addEventListener('blur', () => {
+        popover.hidePopover()
+        input.setAttribute('aria-expanded', "false")
+      });
+
+      listbox.addEventListener('click', () => {
+        if (!isMultiSelectable) {
+          popover.hidePopover()
+          input.setAttribute('aria-expanded', "false")
+          input.focus();
+        }
+      });
+
+      listbox.addEventListener('listbox-change', (e: Event) => {
+        e.stopPropagation();
+        const customEvent = e as CustomEvent;
+        const data = customEvent.detail;
+
+        if (Array.isArray(data)) {
+          input.value = data.map(item => item.text).join(', ');
+          input.setAttribute('data-value', data.map(item => item.value).join(', '))
+        } else if (data) {
+          input.value = data.text;
+          input.setAttribute('data-value', data.value)
+        } else {
+          input.value = '';
+          input.setAttribute('data-value', '');
+        }
+
+        input.dispatchEvent(new CustomEvent('combobox-change', {
+          bubbles: true,
+          detail: data,
+        }));
+
+        if (!isMultiSelectable && data) {
+          popover.hidePopover();
+          input.setAttribute('aria-expanded', "false");
+          input.focus();
+        }
+      });
+
+      input.addEventListener('click', () => {
+        if (input.getAttribute('aria-expanded') !== "true") {
+          popover.showPopover();
+          input.setAttribute('aria-expanded', "true")
+        }
+        else {
+          popover.hidePopover();
+          input.setAttribute('aria-expanded', "false")
+        }
+      });
+
+      input.addEventListener('input', () => {
+        popover.showPopover()
+        input.setAttribute('aria-expanded', "true")
+
+        if (typeof (listbox as any).filter === 'function') {
+          (listbox as any).filter(input.value);
+        }
+      });
+
+      input.addEventListener('keydown', (e) => {
+        match(e)
+          .on(e.key === 'ArrowDown' || e.key === 'ArrowUp', (e) => {
+            e.preventDefault();
+            popover.showPopover();
+            listbox.focus();
+            input.setAttribute('aria-expanded', "true")
+          })
+          .on(e.key === 'Escape', () => {
+            e.preventDefault();
+            popover.hidePopover()
+            input.setAttribute('aria-expanded', "false")
+            input.focus();
+          })
+          .on(e.key === 'Tab', () => {
+            popover.hidePopover()
+            input.setAttribute('aria-expanded', "false")
+          })
+      });
+    }
+  }
+
+  setupComboboxFields();
+  document.addEventListener('astro:after-swap', setupComboboxFields);
+
+</script>

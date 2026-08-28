@@ -38,10 +38,10 @@ const processedLabel = await matchAsync()
   })
   .otherwise(() => null);
 
-const hasDescription = Astro.slots.has('description');
-const descriptionId = hasDescription ?`${id}-description` : undefined;
+const hasDescriptionSlot = Astro.slots.has('description');
+const descriptionId = hasDescriptionSlot ?`${id}-description` : undefined;
 
-const hasErrorMessage = Astro.slots.has('error-message');
+const hasErrorMessageSlot = Astro.slots.has('error-message');
 
 const Wrapper = processedLabel ? 'div' : Fragment;
 const wrapperProps = processedLabel
@@ -54,13 +54,25 @@ const wrapperProps = processedLabel
       aria-invalid={invalid ? "true" : undefined}
       aria-describedby={descriptionId}
       class:list={['text-input', className]}
+      data-text-input
       id={id}
       type={type}
       {...rest}
     />
 
-    {hasDescription && (
-      <FieldHelp id={id} descriptionId={descriptionId}>
+    {type === 'search' && (
+      <div class="icon search-icon" />
+    )}
+
+    <button
+      aria-label="Clear"
+      class="tool-btn icon clear-icon"
+      tabindex="-1"
+      type="button"
+    />
+
+    {hasDescriptionSlot && (
+      <FieldHelp id={descriptionId!}>
         <slot name="description" />
       </FieldHelp>
     )}
@@ -68,10 +80,55 @@ const wrapperProps = processedLabel
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 
-  {hasErrorMessage && (
+  {hasErrorMessageSlot && (
     <div class="error-message" role="alert">
       <slot name="error-message" />
     </div>
   )}
 </Wrapper>
 
+<script>
+  function setupInputFields() {
+    const inputs = document.querySelectorAll('[data-text-input]');
+
+    for (const input of inputs) {
+      if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
+      input.setAttribute('data-initialized', 'true');
+
+      const wrapper = input.closest('.input-container');
+      if (!wrapper) continue;
+
+      const searchIcon = wrapper.querySelector('.search-icon');
+      const clearIcon = wrapper.querySelector('.clear-icon');
+      const infoIcon = wrapper.querySelector('.info-icon');
+
+      if (searchIcon) {
+        searchIcon.addEventListener('click', () => {
+          input.focus();
+        })
+      }
+
+      if (clearIcon) {
+        clearIcon.addEventListener('click', () => {
+          input.value = '';
+          input.focus();
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+      }
+
+      if (infoIcon) {
+        infoIcon.addEventListener('click', () => {
+          if(!input.disabled) {
+            input.focus();
+          }
+          else {
+            (infoIcon as HTMLButtonElement).disabled = true;
+          }
+        })
+      }
+    }
+  }
+
+  setupInputFields();
+  document.addEventListener('astro:after-swap', setupInputFields);
+</script>

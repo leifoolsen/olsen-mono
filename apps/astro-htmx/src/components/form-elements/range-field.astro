@@ -1,11 +1,11 @@
 ---
 // src/components/form-element/range-field.astro
 
+import FieldHelp from "@components/form-elements/field-help.astro";
 import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
 import { matchAsync } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import './form-elements.css';
-import FieldHelp from "@components/form-elements/field-help.astro";
 
 type Props = HTMLAttributes<'input'> & {
   id: string;
@@ -81,7 +81,7 @@ const wrapperProps = processedLabel
     />
 
     {hasDescription && (
-      <FieldHelp id={numberInputId} descriptionId={descriptionId}>
+      <FieldHelp id={descriptionId!}>
         <slot name="description" />
       </FieldHelp>
     )}
