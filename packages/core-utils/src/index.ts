@@ -1,5 +1,6 @@
 export { assertNonNullish } from './assert-non-nullish.js';
 export { createSafeRegex } from './create-safe-regex.js';
+export { debounce } from './debounce.js';
 export { hasOwn } from './has-own.ts';
 export { isAtomic } from './is-atomic.js';
 export { isEmpty } from './is-empty.js';
