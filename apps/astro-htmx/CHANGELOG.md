@@ -1,5 +1,13 @@
 # astro-htmx
 
+## 0.0.5
+
+### Patch Changes
+
+- 3fd1116: Added liastbox and combobox components
+- Updated dependencies [3fd1116]
+  - @olsen-mono/css-foundation@0.0.11
+
 ## 0.0.4
 
 ### Patch Changes
