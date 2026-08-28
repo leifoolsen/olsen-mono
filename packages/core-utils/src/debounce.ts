@@ -14,7 +14,7 @@ type AnyFunction = (...args: never[]) => void;
 export function debounce<T extends AnyFunction>(func: T, wait: number = 300) {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  return (...args: Parameters<T>): void => {
+  const debouncedFn = (...args: Parameters<T>): void => {
     if (timeoutId !== null) {
       clearTimeout(timeoutId);
     }
@@ -23,4 +23,13 @@ export function debounce<T extends AnyFunction>(func: T, wait: number = 300) {
       func(...args);
     }, wait);
   };
+
+  debouncedFn.cancel = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  };
+
+  return debouncedFn;
 }

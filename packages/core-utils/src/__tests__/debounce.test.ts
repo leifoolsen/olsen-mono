@@ -63,4 +63,16 @@ describe('debounce', () => {
     vi.advanceTimersByTime(1);
     expect(callback).toHaveBeenCalledTimes(1);
   });
+
+  it('should not call debounced function if cancelled', () => {
+    const callback = vi.fn();
+    const debounced = debounce(callback); // Bruker defaultverdi = 300
+
+    debounced();
+    vi.advanceTimersByTime(299);
+    expect(callback).not.toHaveBeenCalled();
+
+    debounced.cancel();
+    expect(callback).not.toHaveBeenCalled();
+  });
 });
