@@ -13,6 +13,8 @@ type Props = HTMLAttributes<'li'> & {
 };
 
 const {
+  'aria-disabled': ariaDisabled ,
+  'aria-selected': ariaSelected = 'false',
   class: className,
   disabled,
   id,
@@ -24,8 +26,8 @@ const {
 assertValidSlots(Astro.slots, [], 'ListboxOption');
 ---
 <li
-  aria-disabled={disabled}
-  aria-selected="false"
+  aria-disabled={disabled ?? ariaDisabled ?? undefined}
+  aria-selected={ariaSelected}
   class:list={['listbox-option', className]}
   data-name={name}
   data-value={value}
