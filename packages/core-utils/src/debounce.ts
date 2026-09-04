@@ -1,7 +1,5 @@
-/**
- * "Hack" for (...args: any[]) => void
- */
-type AnyFunction = (...args: never[]) => void;
+// biome-ignore lint/suspicious/noExplicitAny: any is required to  for generics and Parameters<T> to behave as intended.
+type AnyFunction = (...args: any[]) => void;
 
 type DebouncedFunction<T extends AnyFunction> = {
   (...args: Parameters<T>): void;
@@ -14,7 +12,7 @@ type DebouncedFunction<T extends AnyFunction> = {
  * is called repeatedly before the timer times out, then the old timer is cleared and starts a fresh countdown.
  *
  * @param func - the function to debounce.
- * @param wait - time to wait, in milliseconds, before the function i executed.
+ * @param wait - time to wait, in milliseconds, before the function is executed.
  * @param immediate - run immediately on the first call.
  */
 export function debounce<T extends AnyFunction>(func: T, wait = 300, immediate = false): DebouncedFunction<T> {
