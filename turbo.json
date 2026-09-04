@@ -3,7 +3,7 @@
   "futureFlags": {
     "watchUsingTaskInputs": true
   },
-  "globalDependencies": [".gitignore", "tsconfig.json", "biome.json"],
+  "globalDependencies": [".gitignore", "tsconfig.json", "biome.jsonc"],
   "tasks": {
     "compile": {
       "dependsOn": ["^compile"],
