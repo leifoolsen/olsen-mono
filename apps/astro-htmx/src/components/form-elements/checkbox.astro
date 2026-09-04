@@ -14,6 +14,7 @@ type Props = HTMLAttributes<'input'> & {
 };
 
 const {
+  'aria-invalid': ariaInvalid,
   class: className,
   id,
   invalid,
@@ -42,9 +43,9 @@ const wrapperProps = processedLabel
 ---
 <Wrapper {...wrapperProps}>
   <input
+    aria-invalid={invalid ?? ariaInvalid ?? undefined}
     class:list={['checkbox-input', className]}
     id={id} type="checkbox"
-    aria-invalid={invalid ? "true" : undefined}
     {...rest}
   />
 
