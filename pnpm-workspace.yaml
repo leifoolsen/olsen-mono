@@ -17,7 +17,6 @@ preferOffline: true
 engineStrict: true
 allowBuilds:
   esbuild: true
-  lightningcss-cli: true
   unrs-resolver: true
 minimumReleaseAgeExclude:
   - '@astrojs/internal-helpers@0.10.2'
