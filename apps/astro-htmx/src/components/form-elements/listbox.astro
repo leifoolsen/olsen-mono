@@ -29,7 +29,7 @@ assertValidSlots(Astro.slots, [], 'Listbox');
 ---
 <ui-listbox
   aria-activedescendant={activeDescendantId ?? ariaActiveDescendant ?? undefined}
-  aria-multiselectable={multiSelectable ?? ariaMultiSelectable ?? undefined}
+  aria-multiselectable={multiSelectable ?? ariaMultiSelectable ?? "false"}
   class:list={['listbox', bordered && 'bordered', className]}
   data-listbox-container
   data-show-marker={showMarker}
