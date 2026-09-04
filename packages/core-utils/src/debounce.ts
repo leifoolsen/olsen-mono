@@ -13,14 +13,14 @@ type DebouncedFunction<T extends AnyFunction> = {
  *
  * @param func - the function to debounce.
  * @param wait - time to wait, in milliseconds, before the function is executed.
- * @param immediate - run immediately on the first call.
+ * @param leading - run immediately on the first call.
  */
-export function debounce<T extends AnyFunction>(func: T, wait = 300, immediate = false): DebouncedFunction<T> {
+export function debounce<T extends AnyFunction>(func: T, wait = 300, leading = false): DebouncedFunction<T> {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
   let lastArgs: Parameters<T> | null = null;
 
   const debouncedFn = (...args: Parameters<T>): void => {
-    const callNow = immediate && !timeoutId;
+    const callNow = leading && !timeoutId;
     lastArgs = args;
 
     if (timeoutId !== null) {
