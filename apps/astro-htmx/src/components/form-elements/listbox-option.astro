@@ -19,6 +19,7 @@ const {
   disabled,
   id,
   name,
+  role = 'option',
   value,
   ...rest
 } = Astro.props;
@@ -32,7 +33,7 @@ assertValidSlots(Astro.slots, [], 'ListboxOption');
   data-name={name}
   data-value={value}
   id={id}
-  role="option"
+  role={role}
   {...rest}
 >
   <slot />
