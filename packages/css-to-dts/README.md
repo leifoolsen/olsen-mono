@@ -37,11 +37,12 @@ Update your local `package.json`:
 ```json
 {
   "scripts": {
-    "clean": "rimraf dist",
-    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run compile-css",
-    "compile-css": "lightningcss --sourcemap --output-dir ./dist ./src/*.css",
-    "css-to-dts": "npx css-to-dts src dist",
-    "dev": "tsdown && pnpm run css-to-dts && pnpm run compile-css"
+    "clean": "shx rm -rf dist",
+    "compile": "pnpm run compile-css && pnpm run compile-ts",
+    "compile-css": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-css-to-dist",
+    "compile-ts": "tsdown",
+    "copy-css-to-dist": "copyfiles -u 1 \"src/**/*.{css,d.ts}\" dist",
+    "css-to-dts": "node ../css-to-dts/dist/css-to-dts.mjs src"
   }
 }
 ```
@@ -51,14 +52,14 @@ Update your local `package.json`:
 ```json
 {
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "shx rm -rf dist",
     "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run compile-css",
-    "compile-css": "lightningcss --sourcemap --output-dir ./dist ./src/*.css",
-    "css-to-dts": "npx css-to-dts src dist",
-    "dev": "pnpm run css-to-dts && pnpm run compile-css"
+    "copy-css-to-dist": "copyfiles -u 1 \"src/**/*.{css,d.ts}\" dist",
+    "css-to-dts": "node ../css-to-dts/dist/css-to-dts.mjs src"
   }
 }
 ```
+
 
 ### Generated Output Example
 
