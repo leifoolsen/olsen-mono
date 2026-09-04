@@ -17,6 +17,7 @@ const {
   id,
   label,
   labelPosition = 'after',
+  type = 'radio',
   ...rest
 } = Astro.props;
 
@@ -39,6 +40,6 @@ const wrapperProps = processedLabel
   : {};
 ---
 <Wrapper {...wrapperProps}>
-  <input type="radio" class:list={['radio-input', className]} id={id} {...rest} />
+  <input type={type} class:list={['radio-input', className]} id={id} {...rest} />
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 </Wrapper>

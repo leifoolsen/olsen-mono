@@ -370,10 +370,11 @@ import '@components/form-elements/form-elements.css';
         </div>
 
         <script>
-          const element = document.getElementById('listbox');
+          type ListboxType = HTMLElementTagNameMap['ui-listbox'];
+          const element = document.querySelector<ListboxType>('#listbox');
+
           element?.addEventListener('listbox-change', (e) => {
-            const customEvent = e as CustomEvent;
-            console.log('#listbox:', customEvent.detail);
+            console.log('#listbox:', e.detail);
           });
         </script>
 
@@ -385,7 +386,7 @@ import '@components/form-elements/form-elements.css';
               <ListboxOption id="listbox2-option-2" name="animal" value="dog">Dog</ListboxOption>
               <ListboxOption id="listbox2-option-3" name="animal" value="tiger">Tiger</ListboxOption>
               <ListboxOption id="listbox2-option-4" name="animal" value="reindeer">Reindeer</ListboxOption>
-              <ListboxOption id="listbox2-option-5" name="animal" value="racoon">Raccoon</ListboxOption>
+              <ListboxOption id="listbox2-option-5" name="animal" value="racoon" aria-selected="true">Raccoon</ListboxOption>
             </ListboxGroup>
             <ListboxGroup label="Water Animals">
               <ListboxOption id="listbox2-option-6" name="animal" value="dolphin">Dolphin</ListboxOption>
@@ -402,10 +403,11 @@ import '@components/form-elements/form-elements.css';
       </FieldGroup>
 
       <script>
-        const element = document.getElementById('listbox2');
+        type ListboxType = HTMLElementTagNameMap['ui-listbox'];
+        const element = document.querySelector<ListboxType>('#listbox2');
+
         element?.addEventListener('listbox-change', (e) => {
-          const customEvent = e as CustomEvent;
-          console.log('#listbox2:', customEvent.detail);
+          console.log('#listbox2:', e.detail);
         });
       </script>
 
@@ -416,7 +418,7 @@ import '@components/form-elements/form-elements.css';
           <p id="ms-listbox-label">Simple Multi Select Listbox</p>
           <Listbox id="ms-listbox" aria-labelledby="listbox-label" multiSelectable bordered>
             <ListboxGroup>
-              <ListboxOption id="ms-listbox-option-1" name="option-1" value="1">Option 1</ListboxOption>
+              <ListboxOption id="ms-listbox-option-1" name="option-1" value="1" aria-selected="true">Option 1</ListboxOption>
               <ListboxOption id="ms-listbox-option-2" name="option-2" value="2">Option 2</ListboxOption>
               <ListboxOption id="ms-listbox-option-3" name="option-3" value="3">Option 3</ListboxOption>
               <ListboxOption id="ms-listbox-option-4" name="option-4" value="4">Option 4</ListboxOption>
@@ -425,10 +427,11 @@ import '@components/form-elements/form-elements.css';
         </div>
 
         <script>
-          const element = document.getElementById('ms-listbox');
+          type ListboxType = HTMLElementTagNameMap['ui-listbox'];
+          const element = document.querySelector<ListboxType>('#ms-listbox');
+
           element?.addEventListener('listbox-change', (e) => {
-            const customEvent = e as CustomEvent;
-            console.log('#ms-listbox:', customEvent.detail);
+            console.log('#ms-listbox:', e.detail);
           });
         </script>
 
@@ -456,7 +459,7 @@ import '@components/form-elements/form-elements.css';
               <ListboxOption id="ms-listbox2-option-2" name="dog" value="dog">Dog</ListboxOption>
               <ListboxOption id="ms-listbox2-option-3" name="tiger" value="tiger">Tiger</ListboxOption>
               <ListboxOption id="ms-listbox2-option-4" name="reindeer" value="reindeer">Reindeer</ListboxOption>
-              <ListboxOption id="ms-listbox2-option-5" name="racoon" value="racoon">Raccoon</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-5" name="racoon" value="racoon" aria-selected="true">Raccoon</ListboxOption>
             </ListboxGroup>
             <ListboxGroup>
               <Fragment slot="label">Water Animals <span style="transform: scale(1.6)">𓆟</span></Fragment>
@@ -466,6 +469,7 @@ import '@components/form-elements/form-elements.css';
               <ListboxOption id="ms-listbox2-option-9" name="trout" value="trout">Trout</ListboxOption>
               <ListboxOption id="ms-listbox2-option-10" name="herring" value="herring">Herring</ListboxOption>
               <ListboxOption id="ms-listbox2-option-11" name="halibut" value="halibut">Halibut</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-15" name="fish" value="triggerfish">Humuhumunukunukuāpuaʻa</ListboxOption>
             </ListboxGroup>
             <ListboxGroup>
               <Fragment slot="label">Air Animals<span style="transform: scale(1.2)">𓅬</span></Fragment>
@@ -478,47 +482,42 @@ import '@components/form-elements/form-elements.css';
               >
                 Winged Horse
               </ListboxOption>
-              <ListboxOption id="ms-listbox2-option-14" name="owl" value="owl">Owl</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-14" name="owl" value="owl" aria-selected="true">Owl</ListboxOption>
             </ListboxGroup>
           </Listbox>
         </div>
       </FieldGroup>
 
       <script>
-        const listbox = document.getElementById('ms-listbox2');
-        const searchField = document.getElementById('ms-listbox2-search');
-        const selectAllBtn = document.getElementById('ms-listbox2-select-all');
-        const emptySelectionBtn = document.getElementById('ms-listbox2-empty-selection');
+        type ListboxType = HTMLElementTagNameMap['ui-listbox'];
+        const listbox = document.querySelector<ListboxType>('#ms-listbox2');
+
+        const selectAllBtn = document.getElementById('ms-listbox2-select-all') as HTMLButtonElement;
+        const emptySelectionBtn = document.getElementById('ms-listbox2-empty-selection') as HTMLButtonElement;
 
         listbox?.addEventListener('listbox-change', (e) => {
-          const customEvent = e as CustomEvent;
-          console.log('#ms-listbox2:', customEvent.detail);
+          console.log('#ms-listbox2:', e.detail);
         });
 
-        searchField?.addEventListener('input', (e) => {
-          const target = e.target as HTMLInputElement;
-          if (listbox && typeof (listbox as any).filter === 'function') {
-            (listbox as any).filter(target.value);
-          }
-        });
+        const searchField = document.querySelector<HTMLInputElement>('#ms-listbox2-search');
+
+        searchField?.addEventListener('input', () => {
+          listbox?.filter(searchField.value);
+        })
 
         selectAllBtn?.addEventListener('click', () => {
-          if (listbox && typeof (listbox as any).selectAll === 'function') {
-            (listbox as any)?.selectAll();
-          }
+          listbox?.selectAll()
         });
 
         emptySelectionBtn?.addEventListener('click', () => {
-          if (listbox && typeof (listbox as any).deselectAll === 'function') {
-            (listbox as any)?.deselectAll();
-          }
+          listbox?.deselectAll();
         });
       </script>
 
       <FieldGroup id="designsystem__comboboxes" bordered style="min-width: 50ch;">
         <legend>Comboboxes</legend>
 
-        <Combobox id="combobox" placeholder="Start typing to filter..." label="Select a fish" invalid>
+        <Combobox id="combobox" placeholder="Start typing to filter..." label="Select a fish">
           <span slot="description">Description of the combobox</span>
 
           <Fragment slot="options">
@@ -529,17 +528,19 @@ import '@components/form-elements/form-elements.css';
               <ListboxOption id="cb-option-9" name="fish" value="trout">Trout</ListboxOption>
               <ListboxOption id="cb-option-10" name="fish" value="herring">Herring</ListboxOption>
               <ListboxOption id="cb-option-11" name="fish" value="halibut">Halibut</ListboxOption>
-              <ListboxOption id="cb-option-12" name="fish" value="triggerfish">Humuhumunukunukuāpuaʻa</ListboxOption>
+              <ListboxOption id="cb-option-12" name="fish" value="triggerfish" aria-selected=true>
+                Humuhumunukunukuāpuaʻa
+              </ListboxOption>
             </ListboxGroup>
           </Fragment>
         </Combobox>
 
         <script>
-          const cb = document.getElementById('combobox');
+          type ComboboxType = HTMLElementTagNameMap['ui-combobox'];
+          const cb = document.querySelector<ComboboxType>('#combobox');
 
           cb?.addEventListener('combobox-change', (e) => {
-            const customEvent = e as CustomEvent;
-            console.log('#combobox:', customEvent.detail);
+            console.log('#combobox:', e.detail);
           });
         </script>
 
@@ -563,7 +564,7 @@ import '@components/form-elements/form-elements.css';
               <ListboxOption id="cb3-option-2" name="dog" value="dog">Dog</ListboxOption>
               <ListboxOption id="cb3-option-3" name="tiger" value="tiger">Tiger</ListboxOption>
               <ListboxOption id="cb3-option-4" name="reindeer" value="reindeer">Reindeer</ListboxOption>
-              <ListboxOption id="cb3-option-5" name="racoon" value="racoon">Raccoon</ListboxOption>
+              <ListboxOption id="cb3-option-5" name="racoon" value="racoon" aria-selected="true">Raccoon</ListboxOption>
             </ListboxGroup>
             <ListboxGroup>
               <Fragment slot="label">Water Animals <span style="transform: scale(1.6)">𓆟</span></Fragment>
@@ -571,8 +572,14 @@ import '@components/form-elements/form-elements.css';
               <ListboxOption id="cb3-option-7" name="flounder" value="flounder">Flounder</ListboxOption>
               <ListboxOption id="cb3--option-8" name="eel" value="eel">Eel</ListboxOption>
               <ListboxOption id="cb3--option-9" name="trout" value="trout">Trout</ListboxOption>
-              <ListboxOption id="cb3--option-10" name="herring" value="herring">Herring</ListboxOption>
+              <ListboxOption id="cb3--option-10" name="herring" value="herring" aria-selected="true">Herring</ListboxOption>
               <ListboxOption id="cb3--option-11" name="halibut" value="halibut">Halibut</ListboxOption>
+              <ListboxOption id="cb-option-24" name="triggerfish" value="triggerfish"  aria-selected=true>
+                Humuhumunukunukuāpuaʻa
+              </ListboxOption>
+              <ListboxOption id="cb3--option-19" name="salmon" value="salmon">Salmon</ListboxOption>
+              <ListboxOption id="cb3--option-20" name="pollock" value="pollock">Pollock</ListboxOption>
+              <ListboxOption id="cb3--option-23" name="penguin" value="penguin">Penguin</ListboxOption>
             </ListboxGroup>
             <ListboxGroup>
               <Fragment slot="label">Air Animals<span style="transform: scale(1.2)">𓅬</span></Fragment>
@@ -583,18 +590,20 @@ import '@components/form-elements/form-elements.css';
               <ListboxOption id="cb3--option-14" name="owl" value="owl">Owl</ListboxOption>
               <ListboxOption id="cb3--option-15" name="sparrow" value="sparrow">Sparrow</ListboxOption>
               <ListboxOption id="cb3--option-16" name="mallard" value="mallard">Mallard</ListboxOption>
-              <ListboxOption id="cb3--option-17" name="vulture" value="vulture">Vulture</ListboxOption>
-              <ListboxOption id="cb3--option-18" name="penguin" value="penguin">Penguin</ListboxOption>
+              <ListboxOption id="cb3--option-17" name="vulture" value="vulture" aria-selected="true">Vulture</ListboxOption>
+              <ListboxOption id="cb3--option-18" name="penguin" value="penguin" disabled>Penguin</ListboxOption>
+              <ListboxOption id="cb3--option-21" name="harrier" value="harrier">Harrier</ListboxOption>
+              <ListboxOption id="cb3--option-22" name="buzzared" value="buzzard">Buzzard</ListboxOption>
             </ListboxGroup>
           </Fragment>
         </Combobox>
 
         <script>
-          const cb3 = document.getElementById('combobox3');
+          type ComboboxType = HTMLElementTagNameMap['ui-combobox'];
+          const cb3 = document.querySelector<ComboboxType>('#combobox3');
 
           cb3?.addEventListener('combobox-change', (e) => {
-            const customEvent = e as CustomEvent;
-            console.log('#combobox3:', customEvent.detail);
+            console.log('#combobox3:', e.detail);
           });
         </script>
 

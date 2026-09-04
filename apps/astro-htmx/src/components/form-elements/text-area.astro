@@ -15,6 +15,7 @@ type Props = HTMLAttributes<'textarea'> & {
 };
 
 const {
+  'aria-invalid': ariaInvalid,
   class: className,
   id,
   invalid,
@@ -53,7 +54,7 @@ const wrapperProps = processedLabel
 <Wrapper {...wrapperProps}>
   <div class="input-container textarea-container">
     <textarea
-      aria-invalid={invalid ? "true" : undefined}
+      aria-invalid={invalid ?? ariaInvalid ?? undefined}
       class:list={['text-input', 'textarea-input', className]}
       id={id}
       {...rest}
