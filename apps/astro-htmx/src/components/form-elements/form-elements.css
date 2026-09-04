@@ -317,8 +317,6 @@
 
   input[type="radio"].radio-input:focus-visible,
   input[type="checkbox"].checkbox-input:focus-visible {
-    --outline-size: max(2px, 0.15em);
-
     outline: var(--outline-size) solid var(--brand-text-color);
     outline-offset: var(--outline-size);
     box-shadow: none;
@@ -373,6 +371,7 @@
     &.clear-icon {
       font-weight: var(--font-weight-l);
       border-radius: 50%;
+      background: none;
 
       &::before {
         content: "\00d7"; /* × */
@@ -422,7 +421,7 @@
       background-color: var(--input-background-disabled-color);
 
       & .clear-icon {
-        background-color: var(--input-background-disabled-color);
+        background-color: transparent;
         display: none;
       }
 
@@ -639,14 +638,20 @@
     overflow-y: auto;
 
     &:focus-visible {
-      outline: 2px solid var(--brand-text-color);
-      outline-offset: 2px;
+      box-shadow: none;
+      outline: var(--outline-size) solid var(--brand-text-color);
+      outline-offset: var(--outline-size);
+
       transition: outline-color 0.5s;
     }
 
     &.bordered {
       border: 1px solid var(--border-color);
       border-radius: var(--space-2xs);
+
+      &:focus-visible {
+        border-color: var(--brand-text-color);
+      }
     }
   }
 
@@ -703,6 +708,8 @@
     justify-content: space-between;
     transition: background-color 0.1s ease;
     position: relative;
+    scroll-margin-top: calc(var(--_input-height) + var(--space-xs) * 2);
+    scroll-margin-bottom: var(--space-xs);
 
     &[aria-selected="true"] {
       font-weight: 600;
@@ -749,12 +756,9 @@
   }
 
   .listbox-group-label {
-    /* TODO: How to combine sticky and scroll into view?
     position: sticky;
     top: 0;
-    */
-
-    background-color: oklch(from var(--system-brand-color) calc(l + 0.1) c h / 10%);
+    background-color: oklch(from var(--input-background-color) calc(l - 0.05) c h / 95%);
     padding: var(--space-xs) var(--space-s);
     text-transform: uppercase;
     letter-spacing: 0.05em;
