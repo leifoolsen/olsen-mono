@@ -16,7 +16,7 @@
     },
     "lint": {
       "cache": true,
-      "inputs": ["src/**/*", "packages/**/*", "biome.json"]
+      "inputs": ["src/**/*", "packages/**/*", "biome.jsonc"]
     },
     "test": {
       "dependsOn": ["^compile"],
