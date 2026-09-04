@@ -100,7 +100,7 @@ describe('debounce', () => {
     expect(callback).toHaveBeenCalled();
 
     vi.advanceTimersByTime(199);
-    expect(callback).toHaveBeenCalledOnce();
+    expect(callback).toHaveBeenCalledTimes(1);
 
     vi.advanceTimersByTime(10);
     expect(callback).toHaveBeenCalledTimes(2);
