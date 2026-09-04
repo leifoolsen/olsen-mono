@@ -54,7 +54,7 @@ describe('debounce', () => {
 
   it('should use the default value of 300ms if wait is not specified', () => {
     const callback = vi.fn();
-    const debounced = debounce(callback); // Bruker defaultverdi = 300
+    const debounced = debounce(callback);
 
     debounced();
     vi.advanceTimersByTime(299);
@@ -66,7 +66,7 @@ describe('debounce', () => {
 
   it('should not call debounced function if cancelled', () => {
     const callback = vi.fn();
-    const debounced = debounce(callback); // Bruker defaultverdi = 300
+    const debounced = debounce(callback);
 
     debounced();
     vi.advanceTimersByTime(299);
@@ -74,5 +74,35 @@ describe('debounce', () => {
 
     debounced.cancel();
     expect(callback).not.toHaveBeenCalled();
+  });
+
+  it('should immediately call debounced function if flushed', () => {
+    const callback = vi.fn();
+    const debounced = debounce(callback);
+
+    debounced();
+    vi.advanceTimersByTime(200);
+    expect(callback).not.toHaveBeenCalled();
+
+    vi.advanceTimersByTime(1);
+    expect(callback).not.toHaveBeenCalled();
+
+    debounced.flush();
+    expect(callback).toHaveBeenCalled();
+  });
+
+  it('run immediately on the first call, then run on next timeout', () => {
+    const callback = vi.fn();
+    const debounced = debounce(callback, 200, true);
+
+    debounced();
+
+    expect(callback).toHaveBeenCalled();
+
+    vi.advanceTimersByTime(199);
+    expect(callback).toHaveBeenCalledOnce();
+
+    vi.advanceTimersByTime(10);
+    expect(callback).toHaveBeenCalledTimes(2);
   });
 });
