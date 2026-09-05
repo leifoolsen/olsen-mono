@@ -35,19 +35,14 @@ const processedLabel = await matchAsync()
       : `<label for="${id}">${rawLabel}</label>`;
   })
   .otherwise(() => null);
-
-const Wrapper = processedLabel ? 'div' : Fragment;
-const wrapperProps = processedLabel
-  ? { class: `input-group ${labelPosition === 'before' ? 'label-before' : ''}`.trim() }
-  : {};
 ---
-<Wrapper {...wrapperProps}>
+<div class:list={['input-group', labelPosition === 'before' ? 'label-before' : undefined, className]}>
   <input
     aria-invalid={invalid ?? ariaInvalid ?? undefined}
-    class:list={['checkbox-input', className]}
+    class='checkbox-input'
     id={id} type="checkbox"
     {...rest}
   />
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
-</Wrapper>
+</div>
