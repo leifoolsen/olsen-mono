@@ -138,6 +138,9 @@
 
   /* Adaptive Spacing, suitable for e.g. larger sections */
   --space-m-3xl: clamp(var(--space-m), 100vw, var(--space-3xl));
+
+  /* --- Outline --- */
+  --outline-size: max(2px, 0.15em);
 }
 
 /** --- Condensed Font --- */

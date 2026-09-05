@@ -15,6 +15,8 @@ type Props = HTMLAttributes<'input'> & {
 };
 
 const {
+  'aria-describedby': ariaDescribedBy,
+  'aria-invalid': ariaInvalid,
   class: className,
   id,
   invalid,
@@ -39,21 +41,16 @@ const processedLabel = await matchAsync()
   .otherwise(() => null);
 
 const hasDescriptionSlot = Astro.slots.has('description');
-const descriptionId = hasDescriptionSlot ?`${id}-description` : undefined;
+const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
 
 const hasErrorMessageSlot = Astro.slots.has('error-message');
-
-const Wrapper = processedLabel ? 'div' : Fragment;
-const wrapperProps = processedLabel
-  ? { class: `input-group ${labelPosition === 'top' ? 'label-top' : 'label-before'}`.trim() }
-  : {};
 ---
-<Wrapper {...wrapperProps}>
+<div class:list={['input-group', labelPosition === 'top' ? 'label-top' : 'label-before', className]}>
   <div class="input-container">
     <input
-      aria-invalid={invalid ? "true" : undefined}
-      aria-describedby={descriptionId}
-      class:list={['text-input', className]}
+      aria-describedby={descriptionId ?? ariaDescribedBy ?? undefined}
+      aria-invalid={invalid ?? ariaInvalid ?? undefined}
+      class='text-input'
       data-text-input
       id={id}
       type={type}
@@ -65,7 +62,7 @@ const wrapperProps = processedLabel
     )}
 
     <button
-      aria-label="Clear"
+      aria-label="Clear value"
       class="tool-btn icon clear-icon"
       tabindex="-1"
       type="button"
@@ -85,7 +82,7 @@ const wrapperProps = processedLabel
       <slot name="error-message" />
     </div>
   )}
-</Wrapper>
+</div>
 
 <script>
   function setupInputFields() {
@@ -93,14 +90,15 @@ const wrapperProps = processedLabel
 
     for (const input of inputs) {
       if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
+
       input.setAttribute('data-initialized', 'true');
 
       const wrapper = input.closest('.input-container');
       if (!wrapper) continue;
 
-      const searchIcon = wrapper.querySelector('.search-icon');
-      const clearIcon = wrapper.querySelector('.clear-icon');
-      const infoIcon = wrapper.querySelector('.info-icon');
+      const searchIcon = wrapper.querySelector<HTMLDivElement>('.search-icon');
+      const clearButton = wrapper.querySelector<HTMLButtonElement>('.clear-icon');
+      const infoButton = wrapper.querySelector<HTMLButtonElement>('.info-icon');
 
       if (searchIcon) {
         searchIcon.addEventListener('click', () => {
@@ -108,21 +106,21 @@ const wrapperProps = processedLabel
         })
       }
 
-      if (clearIcon) {
-        clearIcon.addEventListener('click', () => {
+      if (clearButton) {
+        clearButton.addEventListener('click', () => {
           input.value = '';
           input.focus();
           input.dispatchEvent(new Event('input', { bubbles: true }));
         });
       }
 
-      if (infoIcon) {
-        infoIcon.addEventListener('click', () => {
+      if (infoButton) {
+        infoButton.addEventListener('click', () => {
           if(!input.disabled) {
             input.focus();
           }
           else {
-            (infoIcon as HTMLButtonElement).disabled = true;
+            infoButton.disabled = true;
           }
         })
       }

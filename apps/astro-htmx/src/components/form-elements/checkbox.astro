@@ -14,6 +14,7 @@ type Props = HTMLAttributes<'input'> & {
 };
 
 const {
+  'aria-invalid': ariaInvalid,
   class: className,
   id,
   invalid,
@@ -34,19 +35,14 @@ const processedLabel = await matchAsync()
       : `<label for="${id}">${rawLabel}</label>`;
   })
   .otherwise(() => null);
-
-const Wrapper = processedLabel ? 'div' : Fragment;
-const wrapperProps = processedLabel
-  ? { class: `input-group ${labelPosition === 'before' ? 'label-before' : ''}`.trim() }
-  : {};
 ---
-<Wrapper {...wrapperProps}>
+<div class:list={['input-group', labelPosition === 'before' ? 'label-before' : undefined, className]}>
   <input
-    class:list={['checkbox-input', className]}
+    aria-invalid={invalid ?? ariaInvalid ?? undefined}
+    class='checkbox-input'
     id={id} type="checkbox"
-    aria-invalid={invalid ? "true" : undefined}
     {...rest}
   />
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
-</Wrapper>
+</div>

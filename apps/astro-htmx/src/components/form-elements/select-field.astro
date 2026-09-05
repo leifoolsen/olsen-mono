@@ -15,6 +15,8 @@ type Props = HTMLAttributes<'select'> & {
 };
 
 const {
+  'aria-describedby': ariaDescribedBy,
+  'aria-invalid': ariaInvalid,
   class: className,
   id,
   invalid,
@@ -42,18 +44,13 @@ const descriptionId = hasDescriptionSlot ?`${id}-description` : undefined;
 
 const hasErrorMessageSlot = Astro.slots.has('error-message');
 const showErrorMessage = invalid && hasErrorMessageSlot;
-
-const Wrapper = processedLabel ? 'div' : Fragment;
-const wrapperProps = processedLabel
-  ? { class: `input-group ${labelPosition === 'top' ? 'label-top' : 'label-before'}`.trim() }
-  : {};
 ---
-<Wrapper {...wrapperProps}>
+<div class:list={['input-group', labelPosition === 'top' ? 'label-top' : 'label-before', className]}>
   <div class="input-container select-container">
     <select
-      aria-describedby={descriptionId}
-      aria-invalid={invalid ? "true" : undefined}
-      class:list={['text-input', 'select-input', className]}
+      aria-describedby={descriptionId ?? ariaDescribedBy ?? undefined}
+      aria-invalid={invalid ?? ariaInvalid ?? undefined}
+      class:list={['text-input', 'select-input']}
       data-select-input
       id={id}
       {...rest}
@@ -85,7 +82,7 @@ const wrapperProps = processedLabel
       <slot name="error-message" />
     </div>
   )}
-</Wrapper>
+</div>
 
 <script>
   function setupSelectFields() {
@@ -98,9 +95,9 @@ const wrapperProps = processedLabel
       const wrapper = input.closest('.select-container');
       if (!wrapper) continue;
 
-      const chevronIcon = wrapper.querySelector('.chevron-icon');
-      const clearIcon = wrapper.querySelector('.clear-icon');
-      const infoIcon = wrapper.querySelector('.info-icon');
+      const chevronIcon = wrapper.querySelector<HTMLDivElement>('.chevron-icon');
+      const clearButton = wrapper.querySelector<HTMLButtonElement>('.clear-icon');
+      const infoIcon = wrapper.querySelector<HTMLButtonElement>('.info-icon');
 
       if (chevronIcon) {
         chevronIcon.addEventListener('click', () => {
@@ -111,8 +108,8 @@ const wrapperProps = processedLabel
         })
       }
 
-      if (clearIcon) {
-        clearIcon.addEventListener('click', () => {
+      if (clearButton) {
+        clearButton.addEventListener('click', () => {
           input.value = '';
           input.focus();
           input.dispatchEvent(new Event('input', { bubbles: true }));
@@ -125,7 +122,7 @@ const wrapperProps = processedLabel
             input.focus();
           }
           else {
-            (infoIcon as HTMLButtonElement).disabled = true;
+            infoIcon.disabled = true;
           }
         })
       }

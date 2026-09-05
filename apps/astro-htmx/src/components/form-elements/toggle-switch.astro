@@ -15,6 +15,8 @@ const {
   id,
   label,
   labelPosition = 'after',
+  role = 'switch',
+  type = 'checkbox',
   ...rest
 } = Astro.props;
 
@@ -56,23 +58,16 @@ const processedLabel = await matchAsync()
   })
   .otherwise(() => null);
 
-const Wrapper = processedLabel ? 'div' : Fragment;
-
-const wrapperProps = processedLabel
-  ? { class: `input-group ${labelPosition === 'before' ? 'label-before' : ''}`.trim() }
-  : {};
-
-
 const onIconHtml = await renderIconSlot('on-icon', 'icon-on');
 const offIconHtml = await renderIconSlot('off-icon', 'icon-off');
 ---
-<Wrapper {...wrapperProps}>
-  <label class:list={['toggle-switch', className]}>
+<div class:list={['input-group', labelPosition === 'before' ? 'label-before' : undefined, className]}>
+  <label class='toggle-switch'>
     <input
       class="switch"
       id={id}
-      role="switch"
-      type="checkbox"
+      role={role}
+      type={type}
       {...rest}
     />
     {onIconHtml && <Fragment set:html={onIconHtml} />}
@@ -80,4 +75,4 @@ const offIconHtml = await renderIconSlot('off-icon', 'icon-off');
   </label>
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
-</Wrapper>
+</div>

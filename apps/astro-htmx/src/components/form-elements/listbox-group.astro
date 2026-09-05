@@ -13,6 +13,7 @@ type Props = HTMLAttributes<'ul'> & {
 const {
   class: className,
   label,
+  role = 'group',
   ...rest
 } = Astro.props;
 
@@ -25,7 +26,7 @@ const processedLabel = await matchAsync()
 ---
 <ul
   class:list={['listbox-group', className]}
-  role="group"
+  role={role}
   {...rest}
 >
   {!!processedLabel && (

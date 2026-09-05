@@ -10,7 +10,6 @@
     "css-to-dts",
     "hono",
     "htmx",
-    "lightningcss",
     "monorepo",
     "node 26",
     "pnpm",
@@ -20,7 +19,14 @@
     "vite",
     "vitest"
   ],
-  "packageManager": "pnpm@11.10.0",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.25.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@11.25.0",
   "browserslist": [
     "> 0.25%",
     "not dead"
@@ -29,7 +35,7 @@
     "node": ">=26.0.0",
     "npm": "please-use-pnpm",
     "yarn": "please-use-pnpm",
-    "pnpm": ">= 11.0.0"
+    "pnpm": ">= 11.25.0"
   },
   "author": "Leif Olsen",
   "license": "ISC",
@@ -74,12 +80,10 @@
     "globals": "17.7.0",
     "happy-dom": "20.10.6",
     "jiti": "2.7.0",
-    "lightningcss": "1.32.0",
-    "lightningcss-cli": "1.32.0",
     "open-props": "1.7.23",
     "shx": "0.4.0",
-    "tsdown": "^0.22.4",
-    "turbo": "2.10.4",
+    "tsdown": "0.22.14",
+    "turbo": "2.10.12",
     "typescript": "6.0.3",
     "vitest": "4.1.10"
   }

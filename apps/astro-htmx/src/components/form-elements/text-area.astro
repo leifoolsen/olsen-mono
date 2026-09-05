@@ -15,6 +15,7 @@ type Props = HTMLAttributes<'textarea'> & {
 };
 
 const {
+  'aria-invalid': ariaInvalid,
   class: className,
   id,
   invalid,
@@ -44,17 +45,12 @@ const textareaValue = await matchAsync()
 
 const hasErrorMessageSlot = Astro.slots.has('error-message');
 const showErrorMessage = invalid && hasErrorMessageSlot;
-
-const Wrapper = processedLabel ? 'div' : Fragment;
-const wrapperProps = processedLabel
-  ? { class: `input-group ${labelPosition === 'top' ? 'label-top' : 'label-before'}`.trim() }
-  : {};
 ---
-<Wrapper {...wrapperProps}>
+<div class:list={['input-group', labelPosition === 'top' ? 'label-top' : 'label-before', className]}>
   <div class="input-container textarea-container">
     <textarea
-      aria-invalid={invalid ? "true" : undefined}
-      class:list={['text-input', 'textarea-input', className]}
+      aria-invalid={invalid ?? ariaInvalid ?? undefined}
+      class:list={['text-input', 'textarea-input']}
       id={id}
       {...rest}
     >{textareaValue}</textarea>
@@ -67,4 +63,4 @@ const wrapperProps = processedLabel
       <slot name="error-message" />
     </div>
   )}
-</Wrapper>
+</div>
