@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { tryCatch } from '../try-catch';
+import { tryCatch } from '../try-catch.ts';
 
 describe('tryCatch', () => {
   const getData = (id?: number) => {

@@ -1,4 +1,4 @@
-import { isPromiseLike } from '@olsen-mono/core-utils';
+import { isPromiseLike } from './is-promise-like';
 
 type Success<T> = readonly [undefined, T];
 type Failure<E> = readonly [E, undefined?];

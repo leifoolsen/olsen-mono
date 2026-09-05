@@ -21,4 +21,5 @@ export { isTemporal } from './is-temporal.js';
 export { isValidObjectKey } from './is-valid-object-key.js';
 export { isZonedDateTime } from './is-zoned-date-time.js';
 export { match, matchAsync } from './match.js';
+export { tryCatch } from './try-catch.js';
 export type { AtomicObject, DeepPartial, TemporalObject } from './types.js';

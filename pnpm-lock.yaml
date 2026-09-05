@@ -329,15 +329,6 @@ importers:
 
   packages/tooling: {}
 
-  packages/try-catch:
-    devDependencies:
-      '@olsen-mono/core-utils':
-        specifier: workspace:*
-        version: link:../core-utils
-      '@types/node':
-        specifier: 'catalog:'
-        version: 26.4.1
-
 packages:
 
   '@astrojs/check@0.9.10':
