@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx",
-    "types": ["node", "vite/client"]
-  },
-  "include": ["src/**/*", "types.d.ts"]
-}

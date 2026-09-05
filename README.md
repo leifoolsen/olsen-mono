@@ -11,7 +11,7 @@ internal tooling package, keeping individual workspace definitions "anemic" and 
 ```text
 olsen-mono/
 ├── apps/
-│   └── hono-htmx/          # Hono + HTMX web application (Vite-powered SSR)
+│   └── astro-htmx/          # Astro + HTMX web application
 ├── packages/
 │   ├── core-utils/          # Shared utility functions
 │   ├── css-foundation/      # Modern css reset and type setting utilizing the W3C Design Tokens Standard via Open Props
@@ -28,26 +28,6 @@ olsen-mono/
 ├── tsdown.config.ts         # Global build presets for shared libraries
 └── package.json             # Root orchestrator and global tasks
 ```
-
----
-
-## 🔎 Backend For Frontend
-
-The repository is also set up to evaluate different Backend For Frontend, BFF, architectures.
-
-### Architectural Evaluation Matrix (planned so far)
-
-| Criteria                         | Hono + htmx (in progress)                                       | Fastify + Datastar                                                  | Astro + htmx (+ Lit)                                                                 |
-| :------------------------------- | :-------------------------------------------------------------- | :------------------------------------------------------------------ | :----------------------------------------------------------------------------------- |
-| **Core Focus**                   | Ultra-lightweight, Edge-ready API/BFF                           | Robust, plugin-rich enterprise backend                              | Content-driven frontend, SSG/SSR hybrid                                              |
-| **Client Updates**               | AJAX / HTML fragments                                           | SSE (Server-Sent Events) & Signals                                  | AJAX / HTML fragments & UI Islands                                                   |
-| **Component Model**              | JSX (native via Hono)                                           | HTML string literals or JSX                                         | `.astro` files + Web Components                                                      |
-| **Optimal For**                  | Low-latency, Edge/Cloudflare deployments                        | Complex real-time enterprise backends                               | SEO, documentation, hybrid content apps                                              |
-| **Build Step**                   | Minimal / Optional                                              | Minimal / Standard Node compilation                                 | Required (Astro compiler & Vite optimization)                                        |
-| **`@olsen-mon/core-css`**        | Injected globally or via component class strings                | Injected globally or via component class strings                    | Imported directly in `.astro` layouts or scoped inside Lit components                |
-| **`@olsen-mono/object-builder`** | Used in Hono handlers to strictly initialize BFF domain objects | Used in Fastify hooks/routes to construct safe data payloads        | Used in server-side frontmatter to instantiate props safely before rendering         |
-| **`@olsen-mono/reactive-state`** | Bridges with htmx via server-side state mutations               | Synchronizes perfectly with Datastar's client-side reactive signals | Powers local client-side state inside Lit islands, isolated from Astro's static HTML |
-| **`@olsen-mono/pipe`**           | Processes data pipelines and HTML transformations sequentially  | Transforms data streams feeding into Server-Sent Events (SSE)       | Chains server-side data fetching and formatting before rendering the page            |
 
 ---
 
@@ -71,11 +51,10 @@ All core processes are optimized to utilize single-command global hot-reloading 
 
 - **`pnpm dev`**: Automatically builds out dependent workspaces, triggers internal asset sync, and hooks up Vite's HMR server alongside `vite-plugin-live-reload` on port `3000`.
 - **`pnpm dev-package`**: Starts a single workspace package in development mode, e.g., `pnpm watch-pkg @olsen-mono/core-utils`.
-- **`pnpm dev-htmx`**: Starts the `apps/hono-htmx` application in development mode.
 - **`pnpm lint`**: Triggers immediate macro-analysis across all packages, configurations, and core root files (`--max-warnings 10`).
 - **`pnpm test`**: Parallel test runner utilizing `Vitest` scoped natively inside isolated directories using internal workspace aliases.
 - **`pnpm test-watch`**: Global live-updating testing environment capturing code state modifications continuously.
-- **`pnpm build` / `pnpm compile`**: Compiles shared library workspaces down to production targets and bundles Hono into an standalone Server-Side Rendered (SSR) binary package.
+- **`pnpm build` / `pnpm compile`**: Compiles shared library workspaces down to production targets and bundles astro-htmx into an standalone Server-Side Rendered (SSR) binary package.
 
 ---
 
@@ -110,7 +89,7 @@ The architecture distinguishes between Pre-Merge Validation (**CI**) and Post-Me
 
 ---
 
-## 📦 Client Asset Sync (HTMX Automation). WIP: Move to `apps/hono-htmx`
+## 📦 Client Asset Sync (HTMX Automation).
 
 To achieve 100% self-contained, air-gapped deployments without external CDN runtime dependencies, `apps/hello-htmx` automatically bridges backend resources to public nodes:
 
