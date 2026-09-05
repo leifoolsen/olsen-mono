@@ -50,7 +50,7 @@ const showErrorMessage = invalid && hasErrorMessageSlot;
   <div class="input-container textarea-container">
     <textarea
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
-      class:list={['text-input', 'textarea-input', className]}
+      class:list={['text-input', 'textarea-input']}
       id={id}
       {...rest}
     >{textareaValue}</textarea>
