@@ -227,7 +227,7 @@ html {
 
 /* --- Default focus management for accessibility --- */
 :where(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]):focus-visible {
-  outline: var(--outline-size) solid #ffffff;
+  outline: var(--outline-size) solid var(--brand-text-color);
   outline-offset: var(--outline-size);
   box-shadow: none;
 }
