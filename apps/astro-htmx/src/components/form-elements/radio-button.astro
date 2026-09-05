@@ -33,13 +33,8 @@ const processedLabel = await matchAsync()
       : `<label for="${id}">${rawLabel}</label>`;
   })
   .otherwise(() => null);
-
-const Wrapper = processedLabel ? 'div' : Fragment;
-const wrapperProps = processedLabel
-  ? { class: `input-group ${labelPosition === 'before' ? 'label-before' : ''}`.trim() }
-  : {};
 ---
-<Wrapper {...wrapperProps}>
+<div class:list={['input-group', labelPosition === 'before' ? 'label-before' : undefined, className]}>
   <input type={type} class:list={['radio-input', className]} id={id} {...rest} />
   {!!processedLabel && <Fragment set:html={processedLabel} />}
-</Wrapper>
+</div>
