@@ -46,19 +46,13 @@ const processedLabel = await matchAsync()
 
 const hasDescription = Astro.slots.has('description');
 const descriptionId = hasDescription ?`${id}-description` : undefined;
-
 const numberInputId = `${id}-number`;
-
-const Wrapper = processedLabel ? 'div' : Fragment;
-const wrapperProps = processedLabel
-  ? { class: `input-group ${labelPosition === 'top' ? 'label-top' : 'label-before'}`.trim() }
-  : {};
 ---
-<Wrapper {...wrapperProps}>
+<div class:list={['input-group', labelPosition === 'top' ? 'label-top' : 'label-before', className]}>
   <div class="input-container range-container">
     <input
       aria-describedby={descriptionId ?? ariaDescribedBy ?? undefined}
-      class:list={['range-input', className]}
+      class='range-input'
       type={type}
       id={id}
       min={min}
@@ -90,4 +84,4 @@ const wrapperProps = processedLabel
   </div>
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
-</Wrapper>
+</div>
