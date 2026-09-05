@@ -61,16 +61,13 @@ const processedLabel = await matchAsync()
       : `<label for="${inputId}">${rawLabel}</label>`;
   })
   .otherwise(() => null);
-
-const Wrapper = processedLabel ? 'div' : Fragment;
-const wrapperProps = processedLabel
-  ? { class: `input-group ${labelPosition === 'top' ? 'label-top' : 'label-before'}`.trim() }
-  : {};
 ---
-<Wrapper {...wrapperProps}>
-  <ui-combobox
+<ui-combobox
+  class:list={['input-group', labelPosition === 'top' ? 'label-top' : 'label-before', className]}
+  id={id}
+>
+  <div
     class="input-container combobox-container"
-    id={id}
     style={`anchor-name: ${uniqueAnchorName};`}
   >
     <input
@@ -80,7 +77,7 @@ const wrapperProps = processedLabel
       aria-haspopup={ariaHasPopup}
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
       autocomplete={autocomplete}
-      class:list={['text-input', 'combobox-input', className]}
+      class:list={['text-input', 'combobox-input']}
       data-combobox-input
       id={inputId}
       readonly={readonly}
@@ -109,7 +106,7 @@ const wrapperProps = processedLabel
         <slot name="description" />
       </FieldHelp>
     )}
-  </ui-combobox>
+  </div>
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 
@@ -138,7 +135,7 @@ const wrapperProps = processedLabel
       </Listbox>
     </div>
   )}
-</Wrapper>
+</ui-combobox>
 
 <script>
   import { match } from '@olsen-mono/core-utils';
@@ -152,10 +149,9 @@ const wrapperProps = processedLabel
 
     /* connectedCallback() fires when the element is inserted into the DOM */
     connectedCallback() {
-      const wrapper = this.closest('.input-group');
       const foundInput = this.querySelector('[data-combobox-input]');
-      const foundPopover = wrapper?.querySelector('[data-combobox-popover]');
-      const foundListbox = wrapper?.querySelector('ui-listbox');
+      const foundPopover = this.querySelector('[data-combobox-popover]');
+      const foundListbox = this.querySelector('ui-listbox');
 
       if (
         !(foundInput instanceof HTMLInputElement) ||
@@ -163,14 +159,14 @@ const wrapperProps = processedLabel
         !(foundListbox instanceof HTMLElement)
       ) {
         match<boolean, void>()
-          .on(!(foundInput instanceof HTMLInputElement) , () => {
+          .on(!foundInput , () => {
             console.warn('[ui-combobox] Could not find input element with data-combobox-input');
           })
-          .on(!(foundPopover instanceof HTMLElement) , () => {
+          .on(!foundPopover , () => {
             console.warn('[ui-combobox] Could not find element with data-combobox-popover');
           })
-          .on(!(foundListbox instanceof HTMLElement) , () => {
-            console.warn('[ui-combobox] Could not find ui-listbox element');
+          .on(!foundListbox , () => {
+            console.warn('[ui-combobox] Could not find ui-listbox Web Component');
           })
 
         return;
