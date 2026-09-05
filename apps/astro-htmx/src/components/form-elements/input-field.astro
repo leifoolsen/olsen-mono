@@ -44,13 +44,8 @@ const hasDescriptionSlot = Astro.slots.has('description');
 const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
 
 const hasErrorMessageSlot = Astro.slots.has('error-message');
-
-const Wrapper = processedLabel ? 'div' : Fragment;
-const wrapperProps = processedLabel
-  ? { class: `input-group ${labelPosition === 'top' ? 'label-top' : 'label-before'}`.trim() }
-  : {};
 ---
-<Wrapper {...wrapperProps}>
+<div class:list={['input-group', labelPosition === 'top' ? 'label-top' : 'label-before', className]}>
   <div class="input-container">
     <input
       aria-describedby={descriptionId ?? ariaDescribedBy ?? undefined}
@@ -87,7 +82,7 @@ const wrapperProps = processedLabel
       <slot name="error-message" />
     </div>
   )}
-</Wrapper>
+</div>
 
 <script>
   function setupInputFields() {
