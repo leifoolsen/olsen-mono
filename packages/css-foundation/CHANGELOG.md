@@ -1,5 +1,11 @@
 # @olsen-mono/css-foundation
 
+## 0.0.12
+
+### Patch Changes
+
+- ca79482: Implemented debounce function. Redefined Listbox and Combobox as a Web Component. Added a debounced filter function to Listbox. Fixed sticky listbox group. Implemented hasOwn type guard.
+
 ## 0.0.11
 
 ### Patch Changes
