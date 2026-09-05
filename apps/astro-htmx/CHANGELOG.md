@@ -1,5 +1,14 @@
 # astro-htmx
 
+## 0.0.6
+
+### Patch Changes
+
+- ca79482: Implemented debounce function. Redefined Listbox and Combobox as a Web Component. Added a debounced filter function to Listbox. Fixed sticky listbox group. Implemented hasOwn type guard.
+- Updated dependencies [ca79482]
+  - @olsen-mono/css-foundation@0.0.12
+  - @olsen-mono/core-utils@0.0.19
+
 ## 0.0.5
 
 ### Patch Changes

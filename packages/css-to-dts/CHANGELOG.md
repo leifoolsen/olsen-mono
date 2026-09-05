@@ -1,5 +1,11 @@
 # @olsen-mono/css-to-dts
 
+## 0.0.6
+
+### Patch Changes
+
+- ca79482: Implemented debounce function. Redefined Listbox and Combobox as a Web Component. Added a debounced filter function to Listbox. Fixed sticky listbox group. Implemented hasOwn type guard.
+
 ## 0.0.5
 
 ### Patch Changes
