@@ -35,6 +35,6 @@ const processedLabel = await matchAsync()
   .otherwise(() => null);
 ---
 <div class:list={['input-group', labelPosition === 'before' ? 'label-before' : undefined, className]}>
-  <input type={type} class:list={['radio-input', className]} id={id} {...rest} />
+  <input type={type} class='radio-input' id={id} {...rest} />
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 </div>
