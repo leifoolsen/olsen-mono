@@ -150,13 +150,29 @@ const wrapperProps = processedLabel
     private listbox!: HTMLElementTagNameMap['ui-listbox'];
     private isMultiSelectable = false;
 
+    /* connectedCallback() fires when the element is inserted into the DOM */
     connectedCallback() {
       const wrapper = this.closest('.input-group');
       const foundInput = this.querySelector('[data-combobox-input]');
       const foundPopover = wrapper?.querySelector('[data-combobox-popover]');
       const foundListbox = wrapper?.querySelector('ui-listbox');
 
-      if (!(foundInput instanceof HTMLInputElement) || !(foundPopover instanceof HTMLElement) || !(foundListbox instanceof HTMLElement)) {
+      if (
+        !(foundInput instanceof HTMLInputElement) ||
+        !(foundPopover instanceof HTMLElement) ||
+        !(foundListbox instanceof HTMLElement)
+      ) {
+        match<boolean, void>()
+          .on(!(foundInput instanceof HTMLInputElement) , () => {
+            console.warn('[ui-combobox] Could not find input element with data-combobox-input');
+          })
+          .on(!(foundPopover instanceof HTMLElement) , () => {
+            console.warn('[ui-combobox] Could not find element with data-combobox-popover');
+          })
+          .on(!(foundListbox instanceof HTMLElement) , () => {
+            console.warn('[ui-combobox] Could not find ui-listbox element');
+          })
+
         return;
       }
 
