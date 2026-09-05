@@ -315,13 +315,6 @@
     opacity: 1;
   }
 
-  input[type="radio"].radio-input:focus-visible,
-  input[type="checkbox"].checkbox-input:focus-visible {
-    outline: var(--outline-size) solid var(--brand-text-color);
-    outline-offset: var(--outline-size);
-    box-shadow: none;
-  }
-
   input[type="radio"].radio-input:disabled,
   input[type="checkbox"].checkbox-input:disabled {
     background-color: var(--input-background-disabled-color);
