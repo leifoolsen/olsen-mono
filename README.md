@@ -110,7 +110,26 @@ To keep package overhead at a absolute minimum, we utilize an **anemic package p
 
 ---
 
-## Cleaning up turborepo
+## Dry Run
+
+```bash
+# 1. Commit local changes
+git commit 
+
+# 2.Update versions in local packages
+pnpm changeset version
+
+# 3. Simulate versioning of packages
+pnpm -r publish --dry-run --no-git-checks
+
+# 4. Restore versionig of local packages
+git restore .
+git clean -fd .changeset/
+
+```
+---
+
+## Cleaning up Turborepo
 
 To drop all node_modules and completely reinstall everything across the monorepo, delete the workspace
 root `node_modules`, all package-level `node_modules`, and the local pnpm stores before running a fresh installation.
