@@ -49,6 +49,7 @@
   "scripts": {
     "build": "turbo run compile typecheck test && pnpm lint",
     "changeset": "changeset",
+    "changeset-dry": "pnpm -r publish --dry-run --no-git-checks",
     "ci": "pnpm build",
     "clean": "shx rm -rf .turbo \"**/.turbo\" node_modules/.cache \"**/node_modules/.vite\" \"**/.tsbuildinfo\" && pnpm install",
     "compile": "turbo run compile",
@@ -66,7 +67,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.6",
-    "@changesets/cli": "2.31.0",
+    "@changesets/cli": "3.0.2",
     "@olsen-mono/tooling": "workspace:*",
     "@tsdown/css": "0.23.0",
     "@turbo/gen": "2.10.12",
