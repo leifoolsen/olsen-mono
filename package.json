@@ -45,7 +45,7 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "build": "turbo run compile typecheck test && pnpm lint",
+    "build": "turbo run compile typecheck test lint",
     "changeset": "changeset",
     "changeset-dry": "pnpm -r publish --dry-run --no-git-checks",
     "ci": "pnpm build",
@@ -60,7 +60,7 @@
     "test": "turbo run test",
     "test-watch": "vitest",
     "typecheck": "turbo run typecheck",
-    "version-packages": "changeset version && pnpm install --ignore-scripts",
+    "version-packages": "changeset version && pnpm install",
     "dev-astro": "pnpm --filter=./apps/astro-htmx... dev"
   },
   "devDependencies": {
