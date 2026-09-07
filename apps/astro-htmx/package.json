@@ -19,7 +19,7 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "dev": "astro dev",
-    "lint": "biome check . && prettier --check \"src/**/*.astro\"",
+    "lint": "biome check . && prettier --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "start": "astro dev",
     "compile": "astro build",
     "preview": "astro preview",

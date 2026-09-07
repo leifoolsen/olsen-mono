@@ -8,7 +8,7 @@
     "./vitest": "./vitest.base.ts"
   },
   "scripts": {
-    "lint": "biome check . --no-errors-on-unmatched",
+    "lint": "biome check . --no-errors-on-unmatched && prettier --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "typecheck": "tsc --noEmit"
   }
 }

@@ -13,7 +13,7 @@
   },
   "scripts": {
     "compile": "tsdown",
-    "lint": "biome check . --no-errors-on-unmatched",
+    "lint": "biome check . --no-errors-on-unmatched && prettier --ignore-path ../../.prettierignore --check \"*.+(md|mdx)\"",
     "test": "vitest run"
   },
   "devDependencies": {
