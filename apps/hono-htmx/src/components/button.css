@@ -1,7 +1,0 @@
-@layer components {
-  .myButton {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-}
