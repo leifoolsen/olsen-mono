@@ -5,7 +5,7 @@ import BaseLayout from './base-layout.astro';
 
 type Props = {
   title: string;
-}
+};
 
 const { title } = Astro.props;
 const isCondensed = Astro.cookies.get('density')?.value === 'condensed';
@@ -14,7 +14,6 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
 
 <BaseLayout title={title}>
   <div class="app-grid" data-sidebar-collapsed="false" id="app-container">
-
     <header class="app-header" data-elevation="s">
       <div class="app-header-left">
         <button
@@ -30,21 +29,11 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
       </div>
 
       <div class="app-header-right" id="app-header-right">
-        <ToggleSwitch
-          id="density-toggle"
-          name="density"
-          checked={isCondensed}
-          aria-label="Toggle font size"
-        >
+        <ToggleSwitch id="density-toggle" name="density" checked={isCondensed} aria-label="Toggle font size">
           <span slot="on-icon"><small><small>A</small></small>A</span>
           <span slot="off-icon">A<small><small>A</small></small></span>
         </ToggleSwitch>
-        <ToggleSwitch
-          id="theme-switcher"
-          name="theme"
-          checked={isLight}
-          aria-label="Toggle light dark theme"
-        >
+        <ToggleSwitch id="theme-switcher" name="theme" checked={isLight} aria-label="Toggle light dark theme">
           <span slot="on-icon">☀️</span>
           <span slot="off-icon">🌙</span>
         </ToggleSwitch>
@@ -70,7 +59,6 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
     <main class="app-main">
       <slot />
     </main>
-
   </div>
 </BaseLayout>
 
@@ -95,8 +83,8 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
       const name = input.name;
       const checked = input.checked;
 
-      let cookieValue = "";
-      let htmlAttribute = "";
+      let cookieValue = '';
+      let htmlAttribute = '';
 
       if (name === 'density') {
         cookieValue = checked ? 'condensed' : 'default';

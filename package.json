@@ -53,7 +53,7 @@
     "compile": "turbo run compile",
     "find-caches": "shx ls -d .turbo \"**/.turbo\" \"**/node_modules/.vite\" \"node_modules/.cache\" \"**/.tsbuildinfo\"",
     "lint": "turbo run lint",
-    "lint:fix": "biome check --write . && prettier --write \"src/**/*.astro\"",
+    "lint-fix": "biome check --write . && prettier --write \"**/src/**/*.astro\"",
     "prepare": "pnpm --filter=@olsen-mono/css-to-dts run compile",
     "release": "changeset publish",
     "show-tsconfig": "tsc --showConfig",

@@ -30,19 +30,13 @@ const processedLabel = await matchAsync()
   .on(Astro.slots.has('label'), async () => {
     const rawLabel = await Astro.slots.render('label');
     const isLabelTag = rawLabel ? /^\s*<label(?=[>\s])/i.test(rawLabel) : false;
-    return isLabelTag
-      ? rawLabel.replace('<label', `<label for="${id}"`)
-      : `<label for="${id}">${rawLabel}</label>`;
+    return isLabelTag ? rawLabel.replace('<label', `<label for="${id}"`) : `<label for="${id}">${rawLabel}</label>`;
   })
   .otherwise(() => null);
 ---
+
 <div class:list={['input-group', labelPosition === 'before' ? 'label-before' : undefined, className]}>
-  <input
-    aria-invalid={invalid ?? ariaInvalid ?? undefined}
-    class='checkbox-input'
-    id={id} type="checkbox"
-    {...rest}
-  />
+  <input aria-invalid={invalid ?? ariaInvalid ?? undefined} class="checkbox-input" id={id} type="checkbox" {...rest} />
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 </div>

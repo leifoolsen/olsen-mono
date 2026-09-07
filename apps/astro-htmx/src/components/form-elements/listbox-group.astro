@@ -10,12 +10,7 @@ type Props = HTMLAttributes<'ul'> & {
   label?: string;
 };
 
-const {
-  class: className,
-  label,
-  role = 'group',
-  ...rest
-} = Astro.props;
+const { class: className, label, role = 'group', ...rest } = Astro.props;
 
 assertValidSlots(Astro.slots, ['label'], 'ListboxGroup');
 
@@ -24,15 +19,14 @@ const processedLabel = await matchAsync()
   .on(Astro.slots.has('label'), async () => await Astro.slots.render('label'))
   .otherwise(() => null);
 ---
-<ul
-  class:list={['listbox-group', className]}
-  role={role}
-  {...rest}
->
-  {!!processedLabel && (
-    <li class="listbox-group-label" role="presentation">
-      {!!processedLabel && <Fragment set:html={processedLabel} />}
-    </li>
-  )}
+
+<ul class:list={['listbox-group', className]} role={role} {...rest}>
+  {
+    !!processedLabel && (
+      <li class="listbox-group-label" role="presentation">
+        {!!processedLabel && <Fragment set:html={processedLabel} />}
+      </li>
+    )
+  }
   <slot />
 </ul>

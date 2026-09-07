@@ -34,9 +34,7 @@ const processedLabel = await matchAsync()
   .on(Astro.slots.has('label'), async () => {
     const rawLabel = await Astro.slots.render('label');
     const isLabelTag = rawLabel ? /^\s*<label(?=[>\s])/i.test(rawLabel) : false;
-    return isLabelTag
-      ? rawLabel.replace('<label', `<label for="${id}"`)
-      : `<label for="${id}">${rawLabel}</label>`;
+    return isLabelTag ? rawLabel.replace('<label', `<label for="${id}"`) : `<label for="${id}">${rawLabel}</label>`;
   })
   .otherwise(() => null);
 
@@ -45,43 +43,41 @@ const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
 
 const hasErrorMessageSlot = Astro.slots.has('error-message');
 ---
+
 <div class:list={['input-group', labelPosition === 'top' ? 'label-top' : 'label-before', className]}>
   <div class="input-container">
     <input
       aria-describedby={descriptionId ?? ariaDescribedBy ?? undefined}
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
-      class='text-input'
+      class="text-input"
       data-text-input
       id={id}
       type={type}
       {...rest}
     />
 
-    {type === 'search' && (
-      <div class="icon search-icon" />
-    )}
+    {type === 'search' && <div class="icon search-icon" />}
 
-    <button
-      aria-label="Clear value"
-      class="tool-btn icon clear-icon"
-      tabindex="-1"
-      type="button"
-    />
+    <button aria-label="Clear value" class="tool-btn icon clear-icon" tabindex="-1" type="button"></button>
 
-    {hasDescriptionSlot && (
-      <FieldHelp id={descriptionId!}>
-        <slot name="description" />
-      </FieldHelp>
-    )}
+    {
+      hasDescriptionSlot && (
+        <FieldHelp id={descriptionId!}>
+          <slot name="description" />
+        </FieldHelp>
+      )
+    }
   </div>
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 
-  {hasErrorMessageSlot && (
-    <div class="error-message" role="alert">
-      <slot name="error-message" />
-    </div>
-  )}
+  {
+    hasErrorMessageSlot && (
+      <div class="error-message" role="alert">
+        <slot name="error-message" />
+      </div>
+    )
+  }
 </div>
 
 <script>
@@ -103,7 +99,7 @@ const hasErrorMessageSlot = Astro.slots.has('error-message');
       if (searchIcon) {
         searchIcon.addEventListener('click', () => {
           input.focus();
-        })
+        });
       }
 
       if (clearButton) {
@@ -116,13 +112,12 @@ const hasErrorMessageSlot = Astro.slots.has('error-message');
 
       if (infoButton) {
         infoButton.addEventListener('click', () => {
-          if(!input.disabled) {
+          if (!input.disabled) {
             input.focus();
-          }
-          else {
+          } else {
             infoButton.disabled = true;
           }
-        })
+        });
       }
     }
   }

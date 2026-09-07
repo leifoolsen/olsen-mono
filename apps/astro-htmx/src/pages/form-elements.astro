@@ -109,18 +109,8 @@ import '@components/form-elements/form-elements.css';
         <legend>Checkboxes</legend>
 
         <FieldGroup>
-          <Checkbox
-            id="form-elements-checkbox"
-            name="form-elements-checkbox"
-            value="cb1"
-            label="Initially Unchecked"
-          />
-          <Checkbox
-            checked
-            id="form-elements-checkbox-checked"
-            name="form-elements-checkbox-checked"
-            value="cb2"
-          >
+          <Checkbox id="form-elements-checkbox" name="form-elements-checkbox" value="cb1" label="Initially Unchecked" />
+          <Checkbox checked id="form-elements-checkbox-checked" name="form-elements-checkbox-checked" value="cb2">
             <span slot="label">Initially Checked</span>
           </Checkbox>
           <Checkbox
@@ -140,12 +130,7 @@ import '@components/form-elements/form-elements.css';
           >
             <label slot="label">Invalid</label>
           </Checkbox>
-          <Checkbox
-            disabled
-            id="form-elements-checkbox-disabled"
-            name="form-elements-checkbox-disabled"
-            value="cb3"
-          >
+          <Checkbox disabled id="form-elements-checkbox-disabled" name="form-elements-checkbox-disabled" value="cb3">
             <label slot="label">Unchecked, Disabled</label>
           </Checkbox>
           <Checkbox
@@ -159,12 +144,7 @@ import '@components/form-elements/form-elements.css';
         </FieldGroup>
         <hr />
         <FieldGroup orientation="row">
-          <Checkbox
-            id="form-elements-checkbox2"
-            name="form-elements-checkbox2"
-            value="cb1"
-            labelPosition="before"
-          >
+          <Checkbox id="form-elements-checkbox2" name="form-elements-checkbox2" value="cb1" labelPosition="before">
             <span slot="label">Initially Unchecked</span>
           </Checkbox>
           <Checkbox
@@ -209,14 +189,7 @@ import '@components/form-elements/form-elements.css';
       <FieldGroup id="forms__radio_styled" bordered style="min-width: 40ch">
         <legend>Range Inputs</legend>
 
-        <RangeField
-          id="range-input"
-          min={0}
-          max={360}
-          step={0.1}
-          value={303.4}
-          label="Range Input"
-        >
+        <RangeField id="range-input" min={0} max={360} step={0.1} value={303.4} label="Range Input">
           <span slot="description">This is a description of the range field input.</span>
         </RangeField>
         <RangeField
@@ -244,7 +217,13 @@ import '@components/form-elements/form-elements.css';
         <InputField id="input__password_styled" type="password" placeholder="Type your Password">
           <label slot="label">Password</label>
         </InputField>
-        <InputField id="input__required_styled" type="text" placeholder="Required Input" required label="Required Input" />
+        <InputField
+          id="input__required_styled"
+          type="text"
+          placeholder="Required Input"
+          required
+          label="Required Input"
+        />
         <InputField
           id="input__text_readonly_styled"
           placeholder="Enter Text"
@@ -252,22 +231,11 @@ import '@components/form-elements/form-elements.css';
           readonly
           label="Read Only Text Input"
         />
-        <InputField
-          id="input__text_disabled_styled"
-          placeholder="Enter Text"
-          value="Lorem Ipsum"
-          disabled
-        >
+        <InputField id="input__text_disabled_styled" placeholder="Enter Text" value="Lorem Ipsum" disabled>
           <span slot="description">This is a description of the disabled text input.</span>
           <span slot="label">Disabled Text Input</span>
         </InputField>
-        <InputField
-          id="input__text_invalid_styled"
-          placeholder="Enter Text"
-          value="Lorem Ipsum"
-          invalid
-          required
-        >
+        <InputField id="input__text_invalid_styled" placeholder="Enter Text" value="Lorem Ipsum" invalid required>
           <span slot="label">Invalid Required Text Input</span>
           <span slot="error-message">The input is not valid.</span>
           <span slot="description">This is a description of the invalid required text input.</span>
@@ -293,18 +261,15 @@ import '@components/form-elements/form-elements.css';
           Lorem Ipsum Dolar Est!
           <label slot="label">Read Only Text</label>
         </TextArea>
-        <TextArea
-          id="textarea_styled_disabled"
-          placeholder="Enter your message here"
-          disabled
-        >
+        <TextArea id="textarea_styled_disabled" placeholder="Enter your message here" disabled>
           Lorem Ipsum Dolar Est!
           <label slot="label">Disabled Text</label>
         </TextArea>
         <TextArea
           id="textarea_styled_required_invalid"
           placeholder="Enter your message here"
-          required invalid
+          required
+          invalid
           label="Required Invalid Text"
         >
           Lorem Ipsum Dolar Est!
@@ -380,13 +345,21 @@ import '@components/form-elements/form-elements.css';
 
         <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
           <p id="listbox2-label">Grouped Options with Marker</p>
-          <Listbox id="listbox2" aria-labelledby="listbox2-label" showMarker bordered activeDescendantId="listbox2-option-5">
+          <Listbox
+            id="listbox2"
+            aria-labelledby="listbox2-label"
+            showMarker
+            bordered
+            activeDescendantId="listbox2-option-5"
+          >
             <ListboxGroup label="Land Animals">
               <ListboxOption id="listbox2-option-1" name="animal" value="cat">Cat</ListboxOption>
               <ListboxOption id="listbox2-option-2" name="animal" value="dog">Dog</ListboxOption>
               <ListboxOption id="listbox2-option-3" name="animal" value="tiger">Tiger</ListboxOption>
               <ListboxOption id="listbox2-option-4" name="animal" value="reindeer">Reindeer</ListboxOption>
-              <ListboxOption id="listbox2-option-5" name="animal" value="racoon" aria-selected="true">Raccoon</ListboxOption>
+              <ListboxOption id="listbox2-option-5" name="animal" value="racoon" aria-selected="true"
+                >Raccoon</ListboxOption
+              >
             </ListboxGroup>
             <ListboxGroup label="Water Animals">
               <ListboxOption id="listbox2-option-6" name="animal" value="dolphin">Dolphin</ListboxOption>
@@ -395,7 +368,9 @@ import '@components/form-elements/form-elements.css';
             </ListboxGroup>
             <ListboxGroup label="Air Animals">
               <ListboxOption id="listbox2-option-9" name="animal" value="falcon">Falcon</ListboxOption>
-              <ListboxOption id="listbox2-option-10" disabled name="animal" value="winged-horse">Winged Horse</ListboxOption>
+              <ListboxOption id="listbox2-option-10" disabled name="animal" value="winged-horse"
+                >Winged Horse</ListboxOption
+              >
               <ListboxOption id="listbox2-option-11" name="animal" value="owl">Owl</ListboxOption>
             </ListboxGroup>
           </Listbox>
@@ -418,7 +393,9 @@ import '@components/form-elements/form-elements.css';
           <p id="ms-listbox-label">Simple Multi Select Listbox</p>
           <Listbox id="ms-listbox" aria-labelledby="listbox-label" multiSelectable bordered>
             <ListboxGroup>
-              <ListboxOption id="ms-listbox-option-1" name="option-1" value="1" aria-selected="true">Option 1</ListboxOption>
+              <ListboxOption id="ms-listbox-option-1" name="option-1" value="1" aria-selected="true"
+                >Option 1</ListboxOption
+              >
               <ListboxOption id="ms-listbox-option-2" name="option-2" value="2">Option 2</ListboxOption>
               <ListboxOption id="ms-listbox-option-3" name="option-3" value="3">Option 3</ListboxOption>
               <ListboxOption id="ms-listbox-option-4" name="option-4" value="4">Option 4</ListboxOption>
@@ -441,17 +418,15 @@ import '@components/form-elements/form-elements.css';
             <button type="button" id="ms-listbox2-select-all">Select all</button>
             <button type="button" id="ms-listbox2-empty-selection">Empty selection</button>
           </div>
-          <div>
-            <InputField
-              id="ms-listbox2-search"
-              type="search"
-              placeholder="Enter search term..."
-              aria-label="Search"
-              aria-controls="ms-listbox2"
-            >
-              <span slot="description">Description of the search field</span>
-            </InputField>
-          </div>
+          <InputField
+            id="ms-listbox2-search"
+            type="search"
+            placeholder="Enter search term..."
+            aria-label="Search"
+            aria-controls="ms-listbox2"
+          >
+            <span slot="description">Description of the search field</span>
+          </InputField>
           <Listbox id="ms-listbox2" aria-labelledby="listbox2-label" multiSelectable bordered>
             <ListboxGroup>
               <Fragment slot="label"><span>Land Animals</span><span style="transform: scale(1.2)">𓃰</span></Fragment>
@@ -459,7 +434,9 @@ import '@components/form-elements/form-elements.css';
               <ListboxOption id="ms-listbox2-option-2" name="dog" value="dog">Dog</ListboxOption>
               <ListboxOption id="ms-listbox2-option-3" name="tiger" value="tiger">Tiger</ListboxOption>
               <ListboxOption id="ms-listbox2-option-4" name="reindeer" value="reindeer">Reindeer</ListboxOption>
-              <ListboxOption id="ms-listbox2-option-5" name="racoon" value="racoon" aria-selected="true">Raccoon</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-5" name="racoon" value="racoon" aria-selected="true"
+                >Raccoon</ListboxOption
+              >
             </ListboxGroup>
             <ListboxGroup>
               <Fragment slot="label">Water Animals <span style="transform: scale(1.6)">𓆟</span></Fragment>
@@ -469,17 +446,14 @@ import '@components/form-elements/form-elements.css';
               <ListboxOption id="ms-listbox2-option-9" name="trout" value="trout">Trout</ListboxOption>
               <ListboxOption id="ms-listbox2-option-10" name="herring" value="herring">Herring</ListboxOption>
               <ListboxOption id="ms-listbox2-option-11" name="halibut" value="halibut">Halibut</ListboxOption>
-              <ListboxOption id="ms-listbox2-option-15" name="fish" value="triggerfish">Humuhumunukunukuāpuaʻa</ListboxOption>
+              <ListboxOption id="ms-listbox2-option-15" name="fish" value="triggerfish"
+                >Humuhumunukunukuāpuaʻa</ListboxOption
+              >
             </ListboxGroup>
             <ListboxGroup>
               <Fragment slot="label">Air Animals<span style="transform: scale(1.2)">𓅬</span></Fragment>
               <ListboxOption id="ms-listbox2-option-12" name="falcon" value="falcon">Falcon</ListboxOption>
-              <ListboxOption
-                id="ms-listbox2-option-13"
-                disabled
-                name="winged-horse"
-                value="winged-horse"
-              >
+              <ListboxOption id="ms-listbox2-option-13" disabled name="winged-horse" value="winged-horse">
                 Winged Horse
               </ListboxOption>
               <ListboxOption id="ms-listbox2-option-14" name="owl" value="owl" aria-selected="true">Owl</ListboxOption>
@@ -503,10 +477,10 @@ import '@components/form-elements/form-elements.css';
 
         searchField?.addEventListener('input', () => {
           listbox?.filter(searchField.value);
-        })
+        });
 
         selectAllBtn?.addEventListener('click', () => {
-          listbox?.selectAll()
+          listbox?.selectAll();
         });
 
         emptySelectionBtn?.addEventListener('click', () => {
@@ -556,7 +530,12 @@ import '@components/form-elements/form-elements.css';
           </Fragment>
         </Combobox>
 
-        <Combobox id="combobox3" placeholder="Start typing to filter..." label="Multi selectable combobox" multiSelectable>
+        <Combobox
+          id="combobox3"
+          placeholder="Start typing to filter..."
+          label="Multi selectable combobox"
+          multiSelectable
+        >
           <Fragment slot="options">
             <ListboxGroup>
               <Fragment slot="label"><span>Land Animals</span><span style="transform: scale(1.2)">𓃰</span></Fragment>
@@ -572,9 +551,11 @@ import '@components/form-elements/form-elements.css';
               <ListboxOption id="cb3-option-7" name="flounder" value="flounder">Flounder</ListboxOption>
               <ListboxOption id="cb3--option-8" name="eel" value="eel">Eel</ListboxOption>
               <ListboxOption id="cb3--option-9" name="trout" value="trout">Trout</ListboxOption>
-              <ListboxOption id="cb3--option-10" name="herring" value="herring" aria-selected="true">Herring</ListboxOption>
+              <ListboxOption id="cb3--option-10" name="herring" value="herring" aria-selected="true"
+                >Herring</ListboxOption
+              >
               <ListboxOption id="cb3--option-11" name="halibut" value="halibut">Halibut</ListboxOption>
-              <ListboxOption id="cb-option-24" name="triggerfish" value="triggerfish"  aria-selected="true">
+              <ListboxOption id="cb-option-24" name="triggerfish" value="triggerfish" aria-selected="true">
                 Humuhumunukunukuāpuaʻa
               </ListboxOption>
               <ListboxOption id="cb3--option-19" name="salmon" value="salmon">Salmon</ListboxOption>
@@ -590,7 +571,9 @@ import '@components/form-elements/form-elements.css';
               <ListboxOption id="cb3--option-14" name="owl" value="owl">Owl</ListboxOption>
               <ListboxOption id="cb3--option-15" name="sparrow" value="sparrow">Sparrow</ListboxOption>
               <ListboxOption id="cb3--option-16" name="mallard" value="mallard">Mallard</ListboxOption>
-              <ListboxOption id="cb3--option-17" name="vulture" value="vulture" aria-selected="true">Vulture</ListboxOption>
+              <ListboxOption id="cb3--option-17" name="vulture" value="vulture" aria-selected="true"
+                >Vulture</ListboxOption
+              >
               <ListboxOption id="cb3--option-18" name="penguin" value="penguin" disabled>Penguin</ListboxOption>
               <ListboxOption id="cb3--option-21" name="harrier" value="harrier">Harrier</ListboxOption>
               <ListboxOption id="cb3--option-22" name="buzzared" value="buzzard">Buzzard</ListboxOption>
@@ -613,9 +596,7 @@ import '@components/form-elements/form-elements.css';
           <Fragment slot="options">
             <ListboxGroup>
               <ListboxOption id="cb4-option-1" name="bird" value="falcon">Falcon</ListboxOption>
-              <ListboxOption id="cb4--option-2" disabled name="bird" value="winged-horse">
-                Winged Horse
-              </ListboxOption>
+              <ListboxOption id="cb4--option-2" disabled name="bird" value="winged-horse"> Winged Horse </ListboxOption>
               <ListboxOption id="cb4--option-3" name="bird" value="owl">Owl</ListboxOption>
               <ListboxOption id="cb4--option-4" name="bird" value="sparrow">Sparrow</ListboxOption>
               <ListboxOption id="cb4--option-5" name="bird" value="mallard">Mallard</ListboxOption>
@@ -630,9 +611,7 @@ import '@components/form-elements/form-elements.css';
           <Fragment slot="options">
             <ListboxGroup>
               <ListboxOption id="cb5-option-1" name="bird" value="falcon">Falcon</ListboxOption>
-              <ListboxOption id="cb5--option-2" disabled name="bird" value="winged-horse">
-                Winged Horse
-              </ListboxOption>
+              <ListboxOption id="cb5--option-2" disabled name="bird" value="winged-horse"> Winged Horse </ListboxOption>
               <ListboxOption id="cb5--option-3" name="bird" value="owl">Owl</ListboxOption>
               <ListboxOption id="cb5--option-4" name="bird" value="sparrow">Sparrow</ListboxOption>
               <ListboxOption id="cb5--option-5" name="bird" value="mallard">Mallard</ListboxOption>

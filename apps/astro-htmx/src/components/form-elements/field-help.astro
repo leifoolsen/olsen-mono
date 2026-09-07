@@ -8,22 +8,20 @@ type Props = {
   id: string;
 };
 
-const {
-  id,
-} = Astro.props;
+const { id } = Astro.props;
 
 assertValidSlots(Astro.slots, [], 'FieldHelp');
 
 const anchorName = `--anchor-${id}`;
 ---
+
 <button
   tabindex="-1"
   type="button"
   class="popover-trigger-btn icon info-icon"
   popovertarget={id}
   aria-label="Show help"
-  style={`anchor-name: ${anchorName};`}
-/>
+  style={`anchor-name: ${anchorName};`}></button>
 
 <div
   data-variant="neutral"
@@ -33,6 +31,6 @@ const anchorName = `--anchor-${id}`;
   style={`position-anchor: ${anchorName};`}
 >
   <div class="popover-description">
-    <span class="icon info-icon" />&nbsp;<span><slot /></span>
+    <span class="icon info-icon"></span>&nbsp;<span><slot /></span>
   </div>
 </div>

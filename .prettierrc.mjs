@@ -4,6 +4,7 @@ const config = {
   semi: true,
   singleQuote: true,
   trailingComma: 'all',
+  printWidth: 120,
   overrides: [
     // Prettier is only used for formatting Astro files, until Biome's HTML formatter fully supports Astro markup
     {
