@@ -1,6 +1,6 @@
 {
   "name": "astro-htmx",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": true,
   "type": "module",
   "publishConfig": {
@@ -19,7 +19,7 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "dev": "astro dev",
-    "lint": "biome check . && prettier --check \"src/**/*.astro\"",
+    "lint": "biome check . && prettier --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "start": "astro dev",
     "compile": "astro build",
     "preview": "astro preview",

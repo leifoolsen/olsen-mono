@@ -1,6 +1,6 @@
 {
   "name": "@olsen-mono/tooling",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "private": true,
   "type": "module",
   "exports": {
@@ -8,7 +8,7 @@
     "./vitest": "./vitest.base.ts"
   },
   "scripts": {
-    "lint": "biome check . --no-errors-on-unmatched",
+    "lint": "biome check . --no-errors-on-unmatched && prettier --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "typecheck": "tsc --noEmit"
   }
 }

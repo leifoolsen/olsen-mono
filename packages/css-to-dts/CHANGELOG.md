@@ -1,5 +1,11 @@
 # @olsen-mono/css-to-dts
 
+## 0.0.8
+
+### Patch Changes
+
+- ec254fc: Added Prettier for linting of *.astro and *.md files
+
 ## 0.0.7
 
 ### Patch Changes

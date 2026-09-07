@@ -1,5 +1,11 @@
 # @olsen-mono/reactive-state
 
+## 0.0.5
+
+### Patch Changes
+
+- ec254fc: Added Prettier for linting of *.astro and *.md files
+
 ## 0.0.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @olsen-mono/tooling
 
+## 0.0.13
+
+### Patch Changes
+
+- ec254fc: Added Prettier for linting of *.astro and *.md files
+
 ## 0.0.12
 
 ### Patch Changes

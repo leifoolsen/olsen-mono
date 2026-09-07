@@ -41,8 +41,8 @@
   },
   "overrides": [
     {
-      // Disables formatting until Biome's HTML formatter fully supports Astro markup
-      "includes": ["**/*.astro", "*.astro"],
+      // Disables formatting until Biome's formatter fully supports Astro and MD markup
+      "includes": ["**/*.astro", "*.astro", "**/*.md", "*.md", "**/*.mdx", "*.mdx"],
       "formatter": {
         "enabled": false
       },
