@@ -1,5 +1,11 @@
 # @olsen-mono/css-foundation
 
+## 0.0.13
+
+### Patch Changes
+
+- e541538: Updated .changeset/config.json to allow versioning of private packages. Improved ./github/workflows files. Added .vscode config for Biome and Prettier.  Added prettier for linting of *.astro files.
+
 ## 0.0.12
 
 ### Patch Changes
