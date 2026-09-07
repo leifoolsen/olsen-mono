@@ -11,16 +11,11 @@ type Props = HTMLAttributes<'fieldset'> & {
   role?: 'group' | 'radiogroup';
 };
 
-const {
-  bordered,
-  orientation = 'column',
-  class: className,
-  role = 'group',
-  ...rest
-} = Astro.props;
+const { bordered, orientation = 'column', class: className, role = 'group', ...rest } = Astro.props;
 
 assertValidSlots(Astro.slots, [], 'FieldGroup');
 ---
+
 <fieldset
   class:list={['field-group', `orientation-${orientation}`, bordered && 'bordered', className]}
   role={role}

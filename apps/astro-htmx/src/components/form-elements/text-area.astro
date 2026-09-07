@@ -2,7 +2,7 @@
 // src/components/form-element/text-area.astro
 
 import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
-import { matchAsync} from '@olsen-mono/core-utils';
+import { matchAsync } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import './form-elements.css';
 
@@ -33,34 +33,35 @@ const processedLabel = await matchAsync()
   .on(Astro.slots.has('label'), async () => {
     const rawLabel = await Astro.slots.render('label');
     const isLabelTag = rawLabel ? /^\s*<label(?=[>\s])/i.test(rawLabel) : false;
-    return isLabelTag
-      ? rawLabel.replace('<label', `<label for="${id}"`)
-      : `<label for="${id}">${rawLabel}</label>`;
+    return isLabelTag ? rawLabel.replace('<label', `<label for="${id}"`) : `<label for="${id}">${rawLabel}</label>`;
   })
   .otherwise(() => null);
 
 const textareaValue = await matchAsync()
   .on(!!value, () => value)
-  .otherwise(async () => Astro.slots.has('default') ? await Astro.slots.render('default') : '');
+  .otherwise(async () => (Astro.slots.has('default') ? await Astro.slots.render('default') : ''));
 
 const hasErrorMessageSlot = Astro.slots.has('error-message');
 const showErrorMessage = invalid && hasErrorMessageSlot;
 ---
+
 <div class:list={['input-group', labelPosition === 'top' ? 'label-top' : 'label-before', className]}>
   <div class="input-container textarea-container">
     <textarea
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
       class:list={['text-input', 'textarea-input']}
       id={id}
-      {...rest}
-    >{textareaValue}</textarea>
+      {...rest}>{textareaValue}</textarea
+    >
   </div>
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 
-  {showErrorMessage && (
-    <div class="error-message" role="alert">
-      <slot name="error-message" />
-    </div>
-  )}
+  {
+    showErrorMessage && (
+      <div class="error-message" role="alert">
+        <slot name="error-message" />
+      </div>
+    )
+  }
 </div>

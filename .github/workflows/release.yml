@@ -37,7 +37,7 @@ jobs:
             ${{ runner.os }}-turbo-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
+        run: pnpm install --frozen-lockfile
 
       - name: Run CI tasks
         run: pnpm run ci

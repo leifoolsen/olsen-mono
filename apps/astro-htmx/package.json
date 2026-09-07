@@ -19,18 +19,19 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "dev": "astro dev",
+    "lint": "biome check . && prettier --check \"src/**/*.astro\"",
     "start": "astro dev",
     "compile": "astro build",
     "preview": "astro preview",
     "typecheck": "astro check"
   },
   "dependencies": {
-    "@astrojs/node": "^11.1.4",
+    "@astrojs/node": "catalog:",
     "@olsen-mono/core-utils": "workspace:*",
     "@olsen-mono/css-foundation": "workspace:*"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.10",
-    "astro": "^7.2.9"
+    "@astrojs/check": "catalog:",
+    "astro": "catalog:"
   }
 }

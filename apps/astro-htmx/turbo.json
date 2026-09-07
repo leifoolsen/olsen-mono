@@ -2,10 +2,19 @@
   "$schema": "https://turbo.build",
   "extends": ["//"],
   "tasks": {
+    "compile": {
+      "dependsOn": ["^compile"],
+      "inputs": ["src/**/*", "public/**/*", "astro.config.mjs", "tsconfig.json"],
+      "outputs": ["dist/**", ".astro/**"]
+    },
     "typecheck": {
       "dependsOn": ["^compile"],
       "cache": true,
-      "inputs": ["src/**/*.ts", "src/**/*.astro", "tsconfig.json"]
+      "inputs": ["src/**/*.ts", "src/**/*.astro", "tsconfig.json", "astro.config.mjs"]
+    },
+    "lint": {
+      "cache": true,
+      "inputs": ["src/**/*", "**/*.astro", "astro.config.mjs"]
     }
   }
 }

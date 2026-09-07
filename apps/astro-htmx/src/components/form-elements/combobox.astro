@@ -19,8 +19,8 @@ type Props = HTMLAttributes<'input'> & {
 const {
   'aria-controls': _ariaControls,
   'aria-describedby': ariaDescribedBy,
-  'aria-expanded': ariaExpanded ='false',
-  'aria-haspopup': ariaHasPopup='true',
+  'aria-expanded': ariaExpanded = 'false',
+  'aria-haspopup': ariaHasPopup = 'true',
   'aria-invalid': ariaInvalid,
   autocomplete = 'off',
   class: className,
@@ -30,7 +30,7 @@ const {
   labelPosition = 'top',
   multiSelectable = false,
   readonly,
-  role = "combobox",
+  role = 'combobox',
   type = readonly ? 'text' : 'search',
   ...rest
 } = Astro.props;
@@ -62,14 +62,9 @@ const processedLabel = await matchAsync()
   })
   .otherwise(() => null);
 ---
-<ui-combobox
-  class:list={['input-group', labelPosition === 'top' ? 'label-top' : 'label-before', className]}
-  id={id}
->
-  <div
-    class="input-container combobox-container"
-    style={`anchor-name: ${uniqueAnchorName};`}
-  >
+
+<ui-combobox class:list={['input-group', labelPosition === 'top' ? 'label-top' : 'label-before', className]} id={id}>
+  <div class="input-container combobox-container" style={`anchor-name: ${uniqueAnchorName};`}>
     <input
       aria-controls={resultsPopoverId}
       aria-describedby={descriptionId ?? ariaDescribedBy ?? undefined}
@@ -86,55 +81,46 @@ const processedLabel = await matchAsync()
       {...rest}
     />
 
-    {type === 'search' && (
-      <div class="icon search-icon" />
-    )}
+    {type === 'search' && <div class="icon search-icon" />}
 
-    {type === 'text' && (
-      <div class="icon chevron-icon" />
-    )}
+    {type === 'text' && <div class="icon chevron-icon" />}
 
-    <button
-      aria-label="Clear"
-      class="tool-btn icon clear-icon"
-      tabindex="-1"
-      type="button"
-    />
+    <button aria-label="Clear" class="tool-btn icon clear-icon" tabindex="-1" type="button"></button>
 
-    {hasDescriptionSlot && (
-      <FieldHelp id={descriptionId!}>
-        <slot name="description" />
-      </FieldHelp>
-    )}
+    {
+      hasDescriptionSlot && (
+        <FieldHelp id={descriptionId!}>
+          <slot name="description" />
+        </FieldHelp>
+      )
+    }
   </div>
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 
-  {showErrorMessage && (
-    <div class="error-message" role="alert">
-      <slot name="error-message" />
-    </div>
-  )}
+  {
+    showErrorMessage && (
+      <div class="error-message" role="alert">
+        <slot name="error-message" />
+      </div>
+    )
+  }
 
-  {hasOptionsSlot && (
-    <div
-      class="combobox-results-popover"
-      data-combobox-popover
-      id={resultsPopoverId}
-      popover="auto"
-      style={`position-anchor: ${uniqueAnchorName};`}
-    >
-      <Listbox
-        id={`${id}-listbox`}
-        multiSelectable={multiSelectable}
-        data-combobox-listbox
-        bordered
-        showMarker
+  {
+    hasOptionsSlot && (
+      <div
+        class="combobox-results-popover"
+        data-combobox-popover
+        id={resultsPopoverId}
+        popover="auto"
+        style={`position-anchor: ${uniqueAnchorName};`}
       >
-        <slot name="options" />
-      </Listbox>
-    </div>
-  )}
+        <Listbox id={`${id}-listbox`} multiSelectable={multiSelectable} data-combobox-listbox bordered showMarker>
+          <slot name="options" />
+        </Listbox>
+      </div>
+    )
+  }
 </ui-combobox>
 
 <script>
@@ -159,15 +145,15 @@ const processedLabel = await matchAsync()
         !(foundListbox instanceof HTMLElement)
       ) {
         match<boolean, void>()
-          .on(!foundInput , () => {
+          .on(!foundInput, () => {
             console.warn('[ui-combobox] Could not find input element with data-combobox-input');
           })
-          .on(!foundPopover , () => {
+          .on(!foundPopover, () => {
             console.warn('[ui-combobox] Could not find element with data-combobox-popover');
           })
-          .on(!foundListbox , () => {
+          .on(!foundListbox, () => {
             console.warn('[ui-combobox] Could not find ui-listbox Web Component');
-          })
+          });
 
         return;
       }
@@ -185,7 +171,7 @@ const processedLabel = await matchAsync()
     private syncInputValue() {
       const selectedOptions = Array.from(this.listbox.querySelectorAll('[role="option"][aria-selected="true"]'));
 
-      const data = selectedOptions.map(opt => ({
+      const data = selectedOptions.map((opt) => ({
         id: opt.id,
         name: opt.getAttribute('data-name') ?? '',
         value: opt.getAttribute('data-value') ?? '',
@@ -193,8 +179,8 @@ const processedLabel = await matchAsync()
       }));
 
       if (this.isMultiSelectable) {
-        this.input.value = data.map(item => item.text).join(', ');
-        this.input.setAttribute('data-value', data.map(item => item.value).join(', '));
+        this.input.value = data.map((item) => item.text).join(', ');
+        this.input.setAttribute('data-value', data.map((item) => item.value).join(', '));
       } else if (data[0]) {
         this.input.value = data[0].text;
         this.input.setAttribute('data-value', data[0].value);
@@ -239,16 +225,22 @@ const processedLabel = await matchAsync()
       // --- Listbox Events ---
       this.listbox.addEventListener('keydown', (e: KeyboardEvent) => {
         match(e)
-          .on(e => e.key === 'Escape', () => {
-            e.preventDefault();
-            this.closePopover();
-          })
-          .on(e => e.key === ' ' || e.key === 'Enter', () => {
-            e.preventDefault();
-            if (!this.isMultiSelectable) {
+          .on(
+            (e) => e.key === 'Escape',
+            () => {
+              e.preventDefault();
               this.closePopover();
-            }
-          });
+            },
+          )
+          .on(
+            (e) => e.key === ' ' || e.key === 'Enter',
+            () => {
+              e.preventDefault();
+              if (!this.isMultiSelectable) {
+                this.closePopover();
+              }
+            },
+          );
       });
 
       this.listbox.addEventListener('blur', () => {
@@ -268,8 +260,8 @@ const processedLabel = await matchAsync()
         const data = customEvent.detail;
 
         if (Array.isArray(data)) {
-          this.input.value = data.map(item => item.text).join(', ');
-          this.input.setAttribute('data-value', data.map(item => item.value).join(', '));
+          this.input.value = data.map((item) => item.text).join(', ');
+          this.input.setAttribute('data-value', data.map((item) => item.value).join(', '));
         } else if (data) {
           this.input.value = data.text;
           this.input.setAttribute('data-value', data.value);
@@ -278,10 +270,12 @@ const processedLabel = await matchAsync()
           this.input.setAttribute('data-value', '');
         }
 
-        this.dispatchEvent(new CustomEvent('combobox-change', {
-          bubbles: true,
-          detail: data,
-        }));
+        this.dispatchEvent(
+          new CustomEvent('combobox-change', {
+            bubbles: true,
+            detail: data,
+          }),
+        );
 
         if (!this.isMultiSelectable && data) {
           this.closePopover();
@@ -294,7 +288,7 @@ const processedLabel = await matchAsync()
       });
 
       this.input.addEventListener('click', () => {
-        if (this.input.getAttribute('aria-expanded') !== "true") {
+        if (this.input.getAttribute('aria-expanded') !== 'true') {
           this.openPopover();
         } else {
           this.closePopover();
@@ -314,29 +308,38 @@ const processedLabel = await matchAsync()
 
       this.input.addEventListener('keydown', (e: KeyboardEvent) => {
         match(e)
-          .on(e => e.key === 'ArrowDown' || e.key === 'ArrowUp', (e) => {
-            e.preventDefault();
-            this.openPopover();
-            this.listbox.focus();
-          })
-          .on(e => e.key === 'Escape', () => {
-            e.preventDefault();
-            this.closePopover();
-          })
-          .on(e => e.key === 'Tab', () => {
-            this.closePopover();
-          });
+          .on(
+            (e) => e.key === 'ArrowDown' || e.key === 'ArrowUp',
+            (e) => {
+              e.preventDefault();
+              this.openPopover();
+              this.listbox.focus();
+            },
+          )
+          .on(
+            (e) => e.key === 'Escape',
+            () => {
+              e.preventDefault();
+              this.closePopover();
+            },
+          )
+          .on(
+            (e) => e.key === 'Tab',
+            () => {
+              this.closePopover();
+            },
+          );
       });
     }
 
     private openPopover() {
       this.popoverEl.showPopover();
-      this.input.setAttribute('aria-expanded', "true");
+      this.input.setAttribute('aria-expanded', 'true');
     }
 
     private closePopover() {
       this.popoverEl.hidePopover();
-      this.input.setAttribute('aria-expanded', "false");
+      this.input.setAttribute('aria-expanded', 'false');
       this.input.focus();
     }
   }

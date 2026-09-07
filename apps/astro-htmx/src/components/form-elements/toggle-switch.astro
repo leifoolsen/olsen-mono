@@ -1,5 +1,5 @@
 ---
-import {assertValidSlots} from '@components/utils/assert-valid-slots.ts';
+import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
 import { matchAsync } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import './form-elements.css';
@@ -8,7 +8,7 @@ type Props = HTMLAttributes<'input'> & {
   id: string;
   label?: string;
   labelPosition?: 'after' | 'before';
-}
+};
 
 const {
   class: className,
@@ -21,7 +21,7 @@ const {
 } = Astro.props;
 
 const SLOT_NAMES = ['on-icon', 'off-icon'] as const;
-type SlotName = typeof SLOT_NAMES[number];
+type SlotName = (typeof SLOT_NAMES)[number];
 
 async function renderIconSlot(slotName: SlotName, componentClass: string) {
   if (!Astro.slots.has(slotName)) return null;
@@ -52,24 +52,17 @@ const processedLabel = await matchAsync()
   .on(Astro.slots.has('label'), async () => {
     const rawLabel = await Astro.slots.render('label');
     const isLabelTag = rawLabel ? /^\s*<label(?=[>\s])/i.test(rawLabel) : false;
-    return isLabelTag
-      ? rawLabel.replace('<label', `<label for="${id}"`)
-      : `<label for="${id}">${rawLabel}</label>`;
+    return isLabelTag ? rawLabel.replace('<label', `<label for="${id}"`) : `<label for="${id}">${rawLabel}</label>`;
   })
   .otherwise(() => null);
 
 const onIconHtml = await renderIconSlot('on-icon', 'icon-on');
 const offIconHtml = await renderIconSlot('off-icon', 'icon-off');
 ---
+
 <div class:list={['input-group', labelPosition === 'before' ? 'label-before' : undefined, className]}>
-  <label class='toggle-switch'>
-    <input
-      class="switch"
-      id={id}
-      role={role}
-      type={type}
-      {...rest}
-    />
+  <label class="toggle-switch">
+    <input class="switch" id={id} role={role} type={type} {...rest} />
     {onIconHtml && <Fragment set:html={onIconHtml} />}
     {offIconHtml && <Fragment set:html={offIconHtml} />}
   </label>

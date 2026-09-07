@@ -27,9 +27,10 @@ const {
 
 assertValidSlots(Astro.slots, [], 'Listbox');
 ---
+
 <ui-listbox
   aria-activedescendant={activeDescendantId ?? ariaActiveDescendant ?? undefined}
-  aria-multiselectable={multiSelectable ?? ariaMultiSelectable ?? "false"}
+  aria-multiselectable={multiSelectable ?? ariaMultiSelectable ?? 'false'}
   class:list={['listbox', bordered && 'bordered', className]}
   data-listbox-container
   data-show-marker={showMarker}
@@ -131,28 +132,32 @@ assertValidSlots(Astro.slots, [], 'Listbox');
       if (options.length === 0) return;
 
       match<KeyboardEvent, void>(e)
-        .on((e) => this.isMulti && (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'a',
+        .on(
+          (e) => this.isMulti && (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'a',
           (e) => {
             e.preventDefault();
-            const allSelected = options.every(opt => opt.getAttribute('aria-selected') === 'true');
+            const allSelected = options.every((opt) => opt.getAttribute('aria-selected') === 'true');
 
             for (const opt of options) {
               opt.setAttribute('aria-selected', allSelected ? 'false' : 'true');
             }
             this.emitChange();
-          })
+          },
+        )
         .otherwise((e) => {
           const activeId = this.getAttribute('aria-activedescendant');
           const activeEl = activeId ? document.getElementById(activeId) : null;
           const currentIndex = activeEl ? options.indexOf(activeEl) : -1;
 
           const nextTarget = match<KeyboardEvent, HTMLElement | null>(e)
-            .on((e) => this.isMulti && e.shiftKey && (e.key === 'ArrowDown' || e.key === 'ArrowUp'),
+            .on(
+              (e) => this.isMulti && e.shiftKey && (e.key === 'ArrowDown' || e.key === 'ArrowUp'),
               (e) => {
                 e.preventDefault();
-                const nextIndex = e.key === 'ArrowDown'
-                  ? Math.min(currentIndex + 1, options.length - 1)
-                  : Math.max(currentIndex - 1, 0);
+                const nextIndex =
+                  e.key === 'ArrowDown'
+                    ? Math.min(currentIndex + 1, options.length - 1)
+                    : Math.max(currentIndex - 1, 0);
 
                 const nextEl = options[nextIndex];
                 if (nextEl) {
@@ -162,14 +167,16 @@ assertValidSlots(Astro.slots, [], 'Listbox');
                 return null;
               },
             )
-            .on((e) => e.key === 'ArrowDown',
+            .on(
+              (e) => e.key === 'ArrowDown',
               (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 return options[(currentIndex + 1) % options.length]!;
               },
             )
-            .on((e) => e.key === 'ArrowUp',
+            .on(
+              (e) => e.key === 'ArrowUp',
               (e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -177,38 +184,42 @@ assertValidSlots(Astro.slots, [], 'Listbox');
                 return options[(currentIndex - 1 + len) % len]!;
               },
             )
-            .on((e) => e.key === 'Home',
+            .on(
+              (e) => e.key === 'Home',
               (e) => {
                 e.preventDefault();
                 return options[0]!;
               },
             )
-            .on((e) => e.key === 'End',
+            .on(
+              (e) => e.key === 'End',
               (e) => {
                 e.preventDefault();
                 return options[options.length - 1]!;
               },
             )
-            .on((e) => e.key === ' ' || e.key === 'Enter',
+            .on(
+              (e) => e.key === ' ' || e.key === 'Enter',
               (e) => {
                 e.preventDefault();
                 if (activeEl && this.isMulti) {
                   this.toggleSelect(activeEl);
-                }
-                else if (activeEl) {
+                } else if (activeEl) {
                   this.setActive(activeEl);
                 }
                 return null;
               },
             )
-            .on((e) => e.key.length === 1,
+            .on(
+              (e) => e.key.length === 1,
               (e) => {
                 const re = new RegExp(`^${e.key}`, 'i');
-                const target = options.slice(currentIndex + 1).find(opt => opt.innerText?.match(re))
-                  ?? options.slice(0, currentIndex).find(opt => opt.innerText?.match(re));
+                const target =
+                  options.slice(currentIndex + 1).find((opt) => opt.innerText?.match(re)) ??
+                  options.slice(0, currentIndex).find((opt) => opt.innerText?.match(re));
 
                 return target ?? null;
-              }
+              },
             )
             .otherwise(() => null);
 
@@ -269,19 +280,21 @@ assertValidSlots(Astro.slots, [], 'Listbox');
 
     public emitChange() {
       const allOptions = Array.from(this.querySelectorAll('[role="option"]'));
-      const selectedOptions = allOptions.filter(opt => opt.getAttribute('aria-selected') === 'true');
+      const selectedOptions = allOptions.filter((opt) => opt.getAttribute('aria-selected') === 'true');
 
-      const data: ListboxItem[] = selectedOptions.map(opt => ({
+      const data: ListboxItem[] = selectedOptions.map((opt) => ({
         id: opt.id,
         name: opt.getAttribute('data-name') ?? '',
         value: opt.getAttribute('data-value') ?? '',
         text: opt instanceof HTMLElement ? opt.innerText : '',
       }));
 
-      this.dispatchEvent(new CustomEvent('listbox-change', {
-        bubbles: true,
-        detail: this.isMulti ? data : (data[0] || null)
-      }));
+      this.dispatchEvent(
+        new CustomEvent('listbox-change', {
+          bubbles: true,
+          detail: this.isMulti ? data : data[0] || null,
+        }),
+      );
     }
 
     public selectAll() {
