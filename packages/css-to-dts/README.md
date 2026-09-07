@@ -60,7 +60,6 @@ Update your local `package.json`:
 }
 ```
 
-
 ### Generated Output Example
 
 Given a source CSS file `styles.css`:
