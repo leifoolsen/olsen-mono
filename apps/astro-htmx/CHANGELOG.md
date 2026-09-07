@@ -1,5 +1,14 @@
 # astro-htmx
 
+## 0.0.9
+
+### Patch Changes
+
+- ec254fc: Added Prettier for linting of *.astro and *.md files
+- Updated dependencies [ec254fc]
+  - @olsen-mono/core-utils@0.0.21
+  - @olsen-mono/css-foundation@0.0.14
+
 ## 0.0.8
 
 ### Patch Changes

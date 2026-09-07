@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.21
+
+### Patch Changes
+
+- ec254fc: Added Prettier for linting of *.astro and *.md files
+
 ## 0.0.20
 
 ### Patch Changes
