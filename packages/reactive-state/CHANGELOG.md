@@ -1,5 +1,11 @@
 # @olsen-mono/reactive-state
 
+## 0.0.4
+
+### Patch Changes
+
+- e541538: Updated .changeset/config.json to allow versioning of private packages. Improved ./github/workflows files. Added .vscode config for Biome and Prettier.  Added prettier for linting of *.astro files.
+
 ## 0.0.3
 
 ### Patch Changes
