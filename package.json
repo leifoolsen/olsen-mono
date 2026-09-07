@@ -18,23 +18,27 @@
     "vite",
     "vitest"
   ],
-  "packageManager": "pnpm@11.25.0",
+  "packageManager": "pnpm@12.3.4",
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "11.25.0",
+      "version": "12.3.4",
+      "onFail": "download"
+    },
+    "node": {
+      "version": "26.8.1",
       "onFail": "download"
     }
   },
-  "browserslist": [
-    "> 0.25%",
-    "not dead"
-  ],
   "engines": {
     "node": ">=26.0.0",
     "npm": "please-use-pnpm",
     "yarn": "please-use-pnpm"
   },
+  "browserslist": [
+    "> 0.25%",
+    "not dead"
+  ],
   "author": "Leif Olsen",
   "license": "ISC",
   "repository": {
@@ -54,7 +58,7 @@
     "compile": "turbo run compile",
     "find-caches": "shx ls -d .turbo \"**/.turbo\" \"**/node_modules/.vite\" \"node_modules/.cache\" \"**/.tsbuildinfo\"",
     "lint": "turbo run lint",
-    "lint-fix": "biome check --write . && prettier --write \"**/src/**/*.astro\"",
+    "lint-fix": "biome check --write . && prettier --ignore-path .prettierignore --write \"**/*.+(astro|md|mdx)\"",
     "prepare": "pnpm --filter=@olsen-mono/css-to-dts run compile",
     "release": "changeset publish",
     "show-tsconfig": "tsc --showConfig",

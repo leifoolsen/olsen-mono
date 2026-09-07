@@ -1,7 +1,106 @@
 # Olsen-Mono
 
 A modern, high-performance monorepo architecture built with **TypeScript 6**, **tsdown**,
-**pnpm workspaces**, **Turborepo** and **Vite**, optimized for **Node.js 26**.
+**pnpm workspaces**, **Turborepo**, **Astro** and **Vite**, optimized for **Node.js 26**.
+
+## 🏗 Development Setup
+
+This monorepo requires **Node.js v26** (due to the use of the native JavaScript `Temporal` API) and **pnpm v12**. To avoid configuration conflicts with Turborepo and global binary execution, we manage Node versions using a version manager.
+
+Follow the steps below depending on your Operating System.
+
+### 💻 MacOS Setup
+
+#### 1. Install Homebrew (if not already installed)
+
+Open your terminal and run:
+
+```bash
+/bin/bash -c "\$(curl -fsSL https://githubusercontent.com)"
+```
+
+#### 2. Install pnpm via Homebrew
+
+Installing `pnpm` through Homebrew provides a native, independent binary that bypasses standard npm execution limitations:
+
+```bash
+brew install pnpm
+```
+
+#### 3. Install Node Version Manager (nvm)
+
+Install the official `nvm` script to handle your Node environments cleanly:
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.7/install.sh | bash
+```
+
+_Restart your terminal session (`exec zsh`) after installation._
+
+#### 4. Install and Lock Node 26
+
+Use `nvm` to download Node 26 and set it as your system default:
+
+```bash
+nvm install 26
+nvm use 26
+nvm alias default 26
+```
+
+---
+
+### 🪟 Windows Setup
+
+#### 1. Install pnpm via Standalone Script
+
+On Windows, do **not** install pnpm via `npm install -g`. Instead, open **PowerShell** as an Administrator and run the official standalone installer:
+
+```powershell
+iwr https://pnpm.io -useb | iex
+```
+
+#### 2. Install NVM for Windows
+
+Windows users must use `nvm-windows` since the Unix bash script does not work natively.
+
+1. Download the latest installer (`nvm-setup.exe`) from the [nvm-windows releases page](https://github.com).
+2. Run the installer and complete the setup.
+3. Open a **new** PowerShell or Command Prompt window.
+
+#### 3. Install and Lock Node 26
+
+Run the following commands in your terminal:
+
+```powershell
+nvm install 26.8.1
+nvm use 26.8.1
+```
+
+---
+
+### 🚀 Verifying and Running the Monorepo
+
+Regardless of your OS, navigate to the `olsen-mono` project root and verify your active versions:
+
+```bash
+# Should return /opt/homebrew/bin/pnpm (macOS) or a local AppData path (Windows)
+which pnpm
+
+# Should return v26.8.1
+node -v
+```
+
+Once confirmed, bootstrap the monorepo dependencies and execute Turborepo build steps:
+
+```bash
+# Install dependencies
+pnpm install --frozen-lockfile
+
+# Run CI tasks (compile, typecheck, test, lint) via Turborepo
+pnpm run ci
+```
+
+---
 
 ## 🏗 Architecture & Workspace Structure
 
@@ -18,8 +117,7 @@ olsen-mono/
 │   ├── css-to-dts/          # CLI tool tailored for `pnpm` monorepos to automatically generate TypeScript definitions (`*.css.d.ts`) from CSS files
 │   ├── object-builder/      # Typesafe builder pattern for object literals
 │   ├── reactive-state/      # Reactive state factory
-│   ├── tooling/             # Centralized configuration presets (vitest, tsdown)
-│   └── try-catch/           # Functional error handling
+│   └── tooling/             # Centralized configuration presets (vitest, tsdown)
 ├── .changeset/              # Automated versioning and changelog management
 ├── .github/workflows/       # GitHub Actions (CI & CD Release Pipelines)
 ├── turbo/                   # Monorepo package templates
@@ -39,7 +137,7 @@ olsen-mono/
 - **Bundling & Compiling:** `tsdown` for standard library compilation (ESM) and `Vite` for localized application server-side building.
 - **Quality Control:** `Biome` for linting and `Vitest` for testing.
 - **Versioning:** `Changeset` for automated versioning and changelog generation.
-- **Continuous Integration:** `GitHub Actions` for automated testing, linting, and release pipelines. 
+- **Continuous Integration:** `GitHub Actions` for automated testing, linting, and release pipelines.
 
 ---
 
@@ -114,7 +212,7 @@ To keep package overhead at a absolute minimum, we utilize an **anemic package p
 
 ```bash
 # 1. Commit local changes
-git commit 
+git commit
 
 # 2.Update versions in local packages
 pnpm changeset version
@@ -127,6 +225,7 @@ git restore .
 git clean -fd .changeset/
 
 ```
+
 ---
 
 ## Cleaning up Turborepo
