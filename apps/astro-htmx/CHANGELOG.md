@@ -1,5 +1,11 @@
 # astro-htmx
 
+## 0.0.8
+
+### Patch Changes
+
+- a8a23d2: apps/astro-htmx/astro.config.mjs: Improved config for no-build. tsconfig.json: Added separate paths for each package in packages.
+
 ## 0.0.7
 
 ### Patch Changes
