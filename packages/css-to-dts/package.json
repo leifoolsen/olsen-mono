@@ -13,6 +13,7 @@
   },
   "scripts": {
     "compile": "tsdown",
+    "lint": "biome check . --no-errors-on-unmatched",
     "test": "vitest run"
   },
   "devDependencies": {

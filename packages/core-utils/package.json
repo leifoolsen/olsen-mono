@@ -34,6 +34,7 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "compile": "tsdown",
+    "lint": "biome check . --no-errors-on-unmatched",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
