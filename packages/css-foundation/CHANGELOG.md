@@ -1,5 +1,11 @@
 # @olsen-mono/css-foundation
 
+## 0.0.14
+
+### Patch Changes
+
+- ec254fc: Added Prettier for linting of *.astro and *.md files
+
 ## 0.0.13
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @olsen-mono/object-builder
 
+## 0.0.6
+
+### Patch Changes
+
+- ec254fc: Added Prettier for linting of *.astro and *.md files
+
 ## 0.0.5
 
 ### Patch Changes
