@@ -4,6 +4,7 @@ A modern, high-performance monorepo architecture built with **TypeScript 6**, **
 **pnpm workspaces**, **Turborepo**, **Astro** and **Vite**, optimized for **Node.js 26**.
 
 ---
+
 ## 🏗 Development Setup
 
 This monorepo requires **Node.js v26** and **pnpm v12**. To avoid configuration conflicts with Turborepo and global
