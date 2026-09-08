@@ -53,11 +53,13 @@ nvm alias default 26
 
 #### 1. Install pnpm via Standalone Script
 
-On Windows, do **not** install pnpm via `npm install -g`. Instead, open **PowerShell** as an Administrator and run the official standalone installer:
+Open **PowerShell** as an Administrator and run the official standalone installer:
 
 ```powershell
 iwr https://pnpm.io -useb | iex
 ```
+
+**Note:** On Windows, do **not** install pnpm via `npm install -g`.
 
 #### 2. Install NVM for Windows
 
@@ -72,8 +74,8 @@ Windows users must use `nvm-windows` since the Unix bash script does not work na
 Run the following commands in your terminal:
 
 ```powershell
-nvm install 26.8.1
-nvm use 26.8.1
+nvm install 26
+nvm use 26
 ```
 
 ---
@@ -94,10 +96,10 @@ Once confirmed, bootstrap the monorepo dependencies and execute Turborepo build 
 
 ```bash
 # Install dependencies
-pnpm install --frozen-lockfile
+pnpm install
 
-# Run CI tasks (compile, typecheck, test, lint) via Turborepo
-pnpm run ci
+# Run compile, typecheck, test, lint via Turborepo
+pnpm build
 ```
 
 ---
