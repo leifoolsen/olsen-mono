@@ -2,7 +2,7 @@
   "$schema": "https://biomejs.dev",
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!**/*.d.ts", "!!**/node_modules", "!!**/dist"]
+    "includes": ["**", "!**/*.d.ts", "!**/node_modules", "!**/dist"]
   },
   "vcs": {
     "enabled": true,
@@ -39,21 +39,15 @@
       "enabled": true
     }
   },
+  // Disables formatting until Biome's formatter fully supports Astro and MD markup
   "overrides": [
     {
-      // Disables formatting until Biome's formatter fully supports Astro and MD markup
-      "includes": ["**/*.astro", "*.astro", "**/*.md", "*.md", "**/*.mdx", "*.mdx"],
+      "includes": ["**/*.astro", "**/*.md", "**/*.mdx"],
       "formatter": {
         "enabled": false
       },
       "linter": {
-        "rules": {
-          "correctness": {
-            // Disable rules that produce false positives because Biome does not see variables/imports used in the HTML section
-            "noUnusedImports": "off",
-            "noUnusedVariables": "off"
-          }
-        }
+        "enabled": false
       }
     }
   ]

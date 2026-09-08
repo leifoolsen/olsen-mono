@@ -52,7 +52,7 @@ html {
 }
 
 :where(figcaption) {
-  color: var(--text-sublte);
+  color: var(--subtle-text);
 }
 
 :where(h1, h2, h3, h4, h5, h6, p, li, dt, dd) {
@@ -107,7 +107,7 @@ html {
 }
 
 :where(code, pre, kbd, samp, output) {
-  font-family: var(--font-family-mono) monospace;
+  font-family: var(--font-familiy-mono) monospace;
 }
 
 :where(code, kbd, samp) {

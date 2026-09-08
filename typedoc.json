@@ -2,7 +2,7 @@
   "$schema": "https://typedoc.org",
   "entryPoints": ["packages/core-utils/src/index.ts", "packages/try-catch/src/index.ts"],
   "plugin": ["typedoc-plugin-markdown"],
-  "entryPointStrategy": "Resolve",
+  "entryPointStrategy": "resolve",
   "out": "packages",
   "outputFileStrategy": "modules",
   "entryFileName": "README.md",
