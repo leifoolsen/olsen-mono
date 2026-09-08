@@ -107,7 +107,7 @@ html {
 }
 
 :where(code, pre, kbd, samp, output) {
-  font-family: var(--font-familiy-mono) monospace;
+  font-family: var(--font-family-mono) monospace;
 }
 
 :where(code, kbd, samp) {
