@@ -68,7 +68,7 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-css-to-dist",
-    "copy-css-to-dist": "copyfiles -u 1 \"src/**/*.{css,d.ts}\" dist",
+    "copy-css-to-dist": "shx mkdir -p dist && shx cp -r \"src/**/*.{css,d.ts}\" dist",
     "css-to-dts": "node ../css-to-dts/dist/css-to-dts.mjs src",
     "lint": "biome check . --no-errors-on-unmatched && prettier --ignore-path ../../.prettierignore --check \"*.+(md|mdx)\""
   },
