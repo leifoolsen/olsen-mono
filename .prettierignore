@@ -1,8 +1,11 @@
+node_modules
+.turbo
+.next
+.astro
 CHANGELOG.md
 coverage
 dist
 lib
 public
 pnpm-lock.yaml
-pnpm-workspace.yaml
 
