@@ -69,6 +69,7 @@
     "test-watch": "vitest",
     "typecheck": "turbo run typecheck",
     "version-packages": "changeset version && pnpm install",
+    "watch-css": "pnpm -r --parallel --if-present watch-css",
     "dev-astro": "pnpm --filter=./apps/astro-htmx... dev"
   },
   "devDependencies": {
