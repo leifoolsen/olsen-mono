@@ -1,4 +1,8 @@
 export type Css = 'bordered' | 'checkbox-input' | 'chevron-icon' | 'clear-icon' | 'combobox-container' | 'combobox-input' | 'combobox-results-popover' | 'error-message' | 'field-group' | 'icon' | 'icon-off' | 'icon-on' | 'info-icon' | 'info-tooltip-popover' | 'input-container' | 'input-group' | 'is-active' | 'label-before' | 'label-top' | 'listbox' | 'listbox-group' | 'listbox-group-label' | 'listbox-option' | 'org' | 'orientation-column' | 'orientation-row' | 'popover-description' | 'popover-trigger-btn' | 'radio-input' | 'range-container' | 'range-input' | 'range-number-input' | 'search-icon' | 'select-container' | 'select-input' | 'text-input' | 'textarea-container' | 'textarea-input' | 'toggle-switch' | 'tool-btn' | 'w3';
-export type CssVariables = '--_error-color' | '--_input-height' | '--_input-scale' | '--_marker-size' | '--_slider-height' | '--_switch-gap' | '--_switch-knob-size' | '--_switch-width' | '--_thumb-height' | '--accent-color' | '--border-color' | '--brand-text-color' | '--font-size-s' | '--font-weight-l' | '--input-background-active-color' | '--input-background-color' | '--input-background-disabled-color' | '--input-background-hover-color' | '--muted-text' | '--outline-size' | '--space-2xs' | '--space-3xs' | '--space-l' | '--space-m' | '--space-s' | '--space-xl' | '--space-xs' | '--swatch-color' | '--system-brand-color';
+export type CssVariables = '--input-background-active-color' | '--input-background-color' | '--input-background-disabled-color' | '--input-background-hover-color';
+export type DataShowMarker = 'true';
+export type CssDataAttributes = {
+  'data-show-marker': DataShowMarker;
+};
 declare const styles: string;
 export default styles;
