@@ -382,7 +382,7 @@ olsen-mono/
 
 ## 🛠 Tech Stack Core
 
-- **Package Manager:** `pnpm >= 11.0.0` with absolute single-source-of-truth configuration (`packageManager` engine locks).
+- **Package Manager:** `pnpm >= 12.0.0` with absolute single-source-of-truth configuration (`packageManager` engine locks).
 - **Orchestration:** `Turborepo v2` maximizing compiler efficiency using parallel execution graphs and cryptographic caching.
 - **Backend Runtime:** `Node.js >= 26.0.0` allowing frictionless execution of native, non-polyfilled APIs like `Temporal` date-time engines.
 - **Bundling & Compiling:** `tsdown` for standard library compilation (ESM) and `Vite` for localized application server-side building.
@@ -501,3 +501,18 @@ pnpm install
 ```
 
 ---
+
+## Pnpm
+
+Useful pmpm commands.
+
+```bash
+# List outdated dependencies
+pnpm outdated -r
+
+# Updated dependencies located in package.json or pnpm-workspace.yaml
+pnpm update -r --latest <package-name>
+
+# Update dependencies located in pnpm-workspace.yaml, e.g. astro
+pnpm update astro @astrojs/node -r --latest
+```
