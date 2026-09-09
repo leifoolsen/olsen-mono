@@ -42,6 +42,8 @@
   --_s-max-3xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 4));
   --_s-min-4xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 5));
   --_s-max-4xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 5));
+  --_s-min-5xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 6));
+  --_s-max-5xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 6));
 
   /* --- Font Sizes --- */
   --font-size-xs: clamp(
@@ -83,6 +85,11 @@
     calc(var(--_s-min-4xl) * 1rem),
     calc(calc(var(--_s-min-4xl) * 1rem) + (var(--_s-max-4xl) - var(--_s-min-4xl)) * var(--_fluid-slope)),
     calc(var(--_s-max-4xl) * 1rem)
+  );
+  --font-size-5xl: clamp(
+    calc(var(--_s-min-5xl) * 1rem),
+    calc(calc(var(--_s-min-5xl) * 1rem) + (var(--_s-max-5xl) - var(--_s-min-5xl)) * var(--_fluid-slope)),
+    calc(var(--_s-max-5xl) * 1rem)
   );
 
   /* --- Line Heights --- */
@@ -129,6 +136,7 @@
   --space-2xl: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), 3));
   --space-3xl: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), 4));
   --space-4xl: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), 5));
+  --space-5xl: calc(var(--_space-fluid) * pow(var(--_space-scale-ratio), 6));
 
   /* Adaptive Spacing, suitable for e.g. Buttons */
   --space-xs-m: clamp(var(--space-xs), 100vw, var(--space-m));
@@ -169,6 +177,8 @@ html[data-density="condensed"] {
   --_s-max-3xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 4));
   --_s-min-4xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 5));
   --_s-max-4xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 5));
+  --_s-min-5xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 6));
+  --_s-max-5xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 6));
   --font-size-l: clamp(
     calc(var(--_s-min-l) * 1rem),
     calc(calc(var(--_s-min-l) * 1rem) + (var(--_s-max-l) - var(--_s-min-l)) * var(--_fluid-slope)),
@@ -193,6 +203,11 @@ html[data-density="condensed"] {
     calc(var(--_s-min-4xl) * 1rem),
     calc(calc(var(--_s-min-4xl) * 1rem) + (var(--_s-max-4xl) - var(--_s-min-4xl)) * var(--_fluid-slope)),
     calc(var(--_s-max-4xl) * 1rem)
+  );
+  --font-size-5xl: clamp(
+    calc(var(--_s-min-5xl) * 1rem),
+    calc(calc(var(--_s-min-5xl) * 1rem) + (var(--_s-max-5xl) - var(--_s-min-5xl)) * var(--_fluid-slope)),
+    calc(var(--_s-max-5xl) * 1rem)
   );
 }
 
@@ -250,7 +265,8 @@ html[data-density="condensed"] {
 [data-font-size="xl"],
 [data-font-size="2xl"],
 [data-font-size="3xl"],
-[data-font-size="4xl"] {
+[data-font-size="4xl"],
+[data-font-size="5xl"] {
   font-family: var(--font-family-heading), sans-serif;
 }
 
@@ -289,6 +305,13 @@ html[data-density="condensed"] {
 :where(h1),
 [data-font-size="4xl"] {
   font-size: var(--font-size-4xl);
+  letter-spacing: var(--letter-spacing-4xl);
+  font-weight: var(--font-weight-l);
+  line-height: var(--line-height-4xl);
+}
+
+[data-font-size="5xl"] {
+  font-size: var(--font-size-5xl);
   letter-spacing: var(--letter-spacing-4xl);
   font-weight: var(--font-weight-l);
   line-height: var(--line-height-4xl);
@@ -337,6 +360,10 @@ html[data-density="condensed"] {
 
 [data-border-radius="4xl"] {
   border-radius: var(--space-4xl);
+}
+
+[data-border-radius="5xl"] {
+  border-radius: var(--space-5xl);
 }
 
 [data-border-radius="infinity"] {
