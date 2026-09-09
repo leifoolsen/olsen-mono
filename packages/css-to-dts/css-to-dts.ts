@@ -44,7 +44,9 @@ function extractCssTokens(cssContent: string) {
 }
 
 async function processSingleFile(cssFile: string) {
-  const cssContent = await fs.readFile(cssFile, 'utf-8');
+  const rawContent = await fs.readFile(cssFile, 'utf-8');
+  const cssContent = rawContent.replace(/\r\n/g, '\n');
+
   const { classes, variables } = extractCssTokens(cssContent);
 
   if (classes.length === 0 && variables.length === 0) {
@@ -59,7 +61,7 @@ async function processSingleFile(cssFile: string) {
     `export type CssVariables = ${variableUnion};`,
     `declare const styles: string;`,
     `export default styles;`,
-  ].join('\n')}\n`;
+  ].join('\n')}\n`; // Garantert ren LF i Node.js
 
   const sourceDtsFilePath = `${cssFile}.d.ts`;
   await fs.writeFile(sourceDtsFilePath, typeDefinition, 'utf-8');
