@@ -1,10 +1,4 @@
 export type Css = never;
-export type CssVariables = never;
-export type DataLayout = 'ram' | 'row';
-export type DataColumns = string;
-export type CssDataAttributes = {
-  'data-layout': DataLayout;
-  'data-columns': DataColumns;
-};
+export type CssVariables = '--_cols' | '--_min-width' | '--_switch-gap' | '--layout-gap' | '--layout-grid-item-min' | '--space-l' | '--space-m';
 declare const styles: string;
 export default styles;
