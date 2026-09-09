@@ -90,8 +90,9 @@
     "clean": "shx rm -rf dist",
     "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-css-to-dist",
     "copy-css-to-dist": "shx mkdir -p dist && shx cp -r \"src/**/*.{css,d.ts}\" dist",
-    "css-to-dts": "css-to-dts src",
-    "watch-css": "css-to-dts src --watch"
+    "css-to-dts": "css-to-dts src --camelCase",
+    "lint": "biome check . --no-errors-on-unmatched && prettier --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
+    "watch-css": "css-to-dts src --camelCase --watch"
   },
   "devDependencies": {
     "@olsen-mono/css-to-dts": "workspace:*"

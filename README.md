@@ -515,4 +515,7 @@ pnpm update -r --latest <package-name>
 
 # Update dependencies located in pnpm-workspace.yaml, e.g. astro
 pnpm update astro @astrojs/node -r --latest
+
+# Bypass cache
+pnpm compile --force
 ```

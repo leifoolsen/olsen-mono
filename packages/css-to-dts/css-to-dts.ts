@@ -5,7 +5,9 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 const isWatchMode = process.argv.includes('--watch') || process.argv.includes('-w');
+const useCamelCase = process.argv.includes('--camelCase');
 const args = process.argv.slice(2).filter((arg) => !arg.startsWith('-'));
+
 const [inputPath, outputPath] = args;
 
 if (!inputPath) {
@@ -16,6 +18,10 @@ if (!inputPath) {
 const absoluteInput = path.resolve(process.cwd(), inputPath);
 const absoluteSourceDir = inputPath.endsWith('.css') ? path.dirname(absoluteInput) : absoluteInput;
 const absoluteTargetDir = outputPath ? path.resolve(process.cwd(), outputPath) : null;
+
+function toCamelCase(str: string): string {
+  return str.replace(/-([a-z0-9])/g, (_, g) => g.toUpperCase());
+}
 
 function extractCssTokens(cssContent: string) {
   const cleanContent = cssContent.replace(/\/\*[\s\S]*?\*\//g, '').replace(/@import\s+[^;]+;/g, '');
@@ -51,11 +57,14 @@ function extractCssTokens(cssContent: string) {
     }
   }
 
+  // Filtering
   const filteredVariables = Array.from(rawVariables)
     .filter((variable) => !variable.startsWith('--_'))
     .sort();
 
-  const filteredClasses = Array.from(rawClasses).sort();
+  const filteredClasses = Array.from(rawClasses)
+    .map((className) => (useCamelCase ? toCamelCase(className) : className))
+    .sort();
 
   const formattedDataAttrs: Record<string, string[]> = {};
   for (const [attrName, valueSet] of Object.entries(dataAttributesMap)) {
@@ -103,12 +112,15 @@ async function processSingleFile(cssFile: string): Promise<boolean> {
         ? `export type CssDataAttributes = {\n${globalDataAttrTypePairs.join('\n')}\n};`
         : `export type CssDataAttributes = never;`;
 
+    const defaultExportType =
+      classes.length > 0 ? `{\n${classes.map((c) => `  '${c}': string;`).join('\n')}\n}` : 'string';
+
     const typeDefinition = `${[
       `export type Css = ${classUnion};`,
       `export type CssVariables = ${variableUnion};`,
       ...dataTypesBlocks,
       globalDataType,
-      `declare const styles: string;`,
+      `declare const styles: ${defaultExportType};`, // <-- Endret fra 'string' til det dynamiske objektet
       `export default styles;`,
     ].join('\n')}\n`;
 

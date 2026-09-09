@@ -24,8 +24,8 @@
     "compile": " pnpm run css-to-dts && astro build",
     "preview": "astro preview",
     "typecheck": "astro check",
-    "css-to-dts": "css-to-dts src",
-    "watch-css": "css-to-dts src --watch"
+    "css-to-dts": "css-to-dts src --camelCase",
+    "watch-css": "css-to-dts src --camelCase --watch"
   },
   "dependencies": {
     "@astrojs/node": "catalog:",

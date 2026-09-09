@@ -1,8 +1,17 @@
-export type Css = 'app-grid' | 'app-header' | 'app-header-left' | 'app-header-right' | 'app-main' | 'app-sidebar' | 'app-sidebar-nav-list' | 'app-sidebar-toggle';
+export type Css = 'appGrid' | 'appHeader' | 'appHeaderLeft' | 'appHeaderRight' | 'appMain' | 'appSidebar' | 'appSidebarNavList' | 'appSidebarToggle';
 export type CssVariables = never;
 export type DataSidebarCollapsed = 'false' | 'true';
 export type CssDataAttributes = {
   'data-sidebar-collapsed': DataSidebarCollapsed;
 };
-declare const styles: string;
+declare const styles: {
+  'appGrid': string;
+  'appHeader': string;
+  'appHeaderLeft': string;
+  'appHeaderRight': string;
+  'appMain': string;
+  'appSidebar': string;
+  'appSidebarNavList': string;
+  'appSidebarToggle': string;
+};
 export default styles;
