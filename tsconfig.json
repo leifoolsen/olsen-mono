@@ -9,13 +9,6 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "paths": {
-      "@olsen-mono/core-utils": ["./packages/core-utils/src/index.ts"],
-      "@olsen-mono/css-foundation": ["./packages/core-utils/src/main.css"],
-      "@olsen-mono/css-to-dts": ["./packages/css-to-dts/src/css-to-dts.ts"],
-      "@olsen-mono/object-builder": ["./packages/object-builder/src/index.ts"],
-      "@olsen-mono/reactive-state": ["./packages/reactive-state/src/index.ts"]
-    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "ESNext",

@@ -8,9 +8,13 @@
   "types": "./dist/index.d.mts",
   "exports": {
     ".": {
+      "types": {
+        "development": "./src/index.ts",
+        "default": "./dist/index.d.mts"
+      },
       "development": "./src/index.ts",
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
     },
     "./package.json": "./package.json"
   },
