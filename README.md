@@ -315,10 +315,10 @@ node -v
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/Telenor-Maritime/uds-frontend.git
+git clone https://github.com/leifoolsen/olsen-mono.git
 ```
 
-Navigate to the `uds-frontend` project root and bootstrap the monorepo dependencies and execute Turborepo build steps:
+Navigate to the `olsen-mono` project root, bootstrap the monorepo dependencies and execute Turborepo build steps:
 
 ```bash
 # Install dependencies
@@ -368,6 +368,9 @@ olsen-mono/
 │   ├── css-to-dts/          # CLI tool tailored for `pnpm` monorepos to automatically generate TypeScript definitions (`*.css.d.ts`) from CSS files
 │   ├── object-builder/      # Typesafe builder pattern for object literals
 │   ├── reactive-state/      # Reactive state factory
+│   └── ... /
+├── tools/
+│   ├── css-to-dts/          # CLI tool tailored for `pnpm` monorepos to automatically generate TypeScript definitions (`*.css.d.ts`) from CSS files
 │   └── tooling/             # Centralized configuration presets (vitest, tsdown)
 ├── .changeset/              # Automated versioning and changelog management
 ├── .github/workflows/       # GitHub Actions (CI & CD Release Pipelines)
