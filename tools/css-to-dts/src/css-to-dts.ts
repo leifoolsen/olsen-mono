@@ -7,7 +7,6 @@ import path from 'node:path';
 const isWatchMode = process.argv.includes('--watch') || process.argv.includes('-w');
 const useCamelCase = process.argv.includes('--camelCase');
 const args = process.argv.slice(2).filter((arg) => !arg.startsWith('-'));
-
 const [inputPath, outputPath] = args;
 
 if (!inputPath) {
