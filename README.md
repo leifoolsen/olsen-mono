@@ -3,13 +3,21 @@
 A modern, high-performance monorepo architecture built with **TypeScript 6**, **tsdown**,
 **pnpm workspaces**, **Turborepo**, **Astro** and **Vite**, optimized for **Node.js 26**.
 
+---
+
 ## 🏗 Development Setup
 
-This monorepo requires **Node.js v26** (due to the use of the native JavaScript `Temporal` API) and **pnpm v12**. To avoid configuration conflicts with Turborepo and global binary execution, we manage Node versions using a version manager.
+This monorepo requires **Node.js v26** and **pnpm v12**. To avoid configuration conflicts with Turborepo and global
+binary execution, we manage Node versions using a version manager.
 
 Follow the steps below depending on your Operating System.
 
-### 💻 MacOS Setup
+### 💻 macOS Setup
+
+⚠️ **Note:** Do **NOT** install `pnpm` or `nvm` via `npm install -g`‼️
+
+If you have a global installation of pnpm and nvm, it will conflict with the standalone installer. To uninstall, see the
+migration guide below for more information:
 
 #### 1. Install Homebrew (if not already installed)
 
@@ -21,7 +29,8 @@ Open your terminal and run:
 
 #### 2. Install pnpm via Homebrew
 
-Installing `pnpm` through Homebrew provides a native, independent binary that bypasses standard npm execution limitations:
+Installing `pnpm` through Homebrew provides a native, independent binary that bypasses standard npm execution
+limitations:
 
 ```bash
 brew install pnpm
@@ -49,14 +58,119 @@ nvm alias default 26
 
 ---
 
+### Migrating to Standalone nvm and pnpm (macOS)
+
+Follow these steps to completely uninstall the legacy nvm- and pnpm versions and install the robust standalone
+alternatives.
+
+#### 1: Remove the global nvm binaries
+
+```bash
+npm uninstall -g nvm
+```
+
+#### 2: Remove the nvm directory
+
+```bash
+rm -rf ~/.nvm
+```
+
+#### 3: Clean the shell environment
+
+Open your terminal profile in a text editor. On modern macOS (using Zsh), this is usually .zshrc.
+
+```bash
+nano ~/.zshrc
+```
+
+Scroll through the file and look for a block of code that looks like this:
+
+```bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+```
+
+Delete those lines.
+
+Press `Ctrl + O` then `Enter` to save, and `Ctrl + X` to exit the nano editor.
+
+For the changes to take effect, close your current terminal window and open a new one, or force-refresh your shell:
+
+```bash
+source ~/.zshrc
+```
+
+To verify it is completely gone, type `nvm`. You should see a `command not found: nvm error` message..
+
+#### 4: Remove the global pnpm CLI
+
+```bash
+npm uninstall -g pnpm
+```
+
+#### 5: Verify it is gone
+
+```bash
+which pnpm
+```
+
+If it returns nothing, the main executable has been successfully removed.
+
+#### 6: Clean up leftover global directories and store
+
+```bash
+# Remove the local pnpm state and global configuration
+rm -rf ~/.local/share/pnpm
+rm -rf ~/.config/pnpm
+
+# Remove the global content-addressable store cache
+rm -rf ~/Library/Caches/pnpm
+```
+
+#### 7: Remove Environment Variables
+
+Open your shell configuration file.
+
+```bash
+nano ~/.zshrc
+```
+
+Look for a block of code that looks like this and delete it:
+
+```bash
+# pnpm
+export PNPM_HOME="/Users/yourusername/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+```
+
+Save and exit (Press `Ctrl + O`, `Enter`, then `Ctrl + X`)
+
+Apply the changes to your current terminal session:
+
+```bash
+source ~/.zshrc
+```
+
+---
+
 ### 🪟 Windows Setup
+
+⚠️ **Note:** Do **NOT** install `pnpm` or `nvm` via `npm install -g`‼️
+
+If you have a global installation of pnpm and nvm, it will conflict with the standalone installer. To uninstall, see the
+migration guide below for more information:
 
 #### 1. Install pnpm via Standalone Script
 
-On Windows, do **not** install pnpm via `npm install -g`. Instead, open **PowerShell** as an Administrator and run the official standalone installer:
+Open **PowerShell** as an Administrator and run the official [pnpm standalone installer](https://pnpm.io/installation#on-windows):
 
 ```powershell
-iwr https://pnpm.io -useb | iex
+Invoke-WebRequest https://get.pnpm.io/install.ps1 -UseBasicParsing | Invoke-Expression
 ```
 
 #### 2. Install NVM for Windows
@@ -72,33 +186,170 @@ Windows users must use `nvm-windows` since the Unix bash script does not work na
 Run the following commands in your terminal:
 
 ```powershell
-nvm install 26.8.1
-nvm use 26.8.1
+nvm install 26
+nvm use 26
+```
+
+---
+
+### Migrating to Standalone NVM and pnpm (Windows)
+
+If you previously installed `nvm` or `pnpm` globally via `npm install -g`, it creates circular dependencies tied to a specific Node.js version. Follow this guide to completely uninstall the legacy versions and install the robust standalone alternatives.
+
+---
+
+#### Part 1: Uninstall Legacy Packages
+
+First, remove the globally managed packages from your active Node instance and clear stale files.
+
+1. **Remove via npm:**
+
+   ```powershell
+   npm uninstall -g pnpm nvm
+   ```
+
+2. **Remove Residual Global Folders:**
+   Manually delete or use terminal commands to remove the following directories if they exist:
+
+- `%AppData%\npm\` (Check for and delete any remaining `pnpm` or `nvm` binaries/shims)
+- `%USERPROFILE%\.pnpm-store\` (Optional, removes cached packages to start fresh)
+
+3. **Troubleshooting Locked Folders:**
+   If Windows throws a _Permission Denied_ or _File in use_ error due to an administrative symlink created by NVM, open **PowerShell as Administrator** and force-delete the specific legacy executable using its absolute path:
+   ```powershell
+   Remove-Item -Path "C:\Users\<YourUsername>\AppData\Local\Author Software\nvm\.nodejs\pnpm.exe" -Force
+   ```
+
+---
+
+#### Part 2: Standalone Installation & Configuration
+
+Always install NVM first, as it handles the underlying Node.js runtimes, followed by pnpm which runs completely independently.
+
+##### 1. Install nvm-windows (v2.0.0+)
+
+1. Download `nvm-setup.exe` from the official GitHub repository: [coreybutler/nvm-windows/releases](https://github.com).
+2. Run the installer and complete the setup wizard.
+3. Open a **new** PowerShell window and verify the installation:
+   ```powershell
+   nvm version
+   ```
+4. Install and activate your desired Node.js version:
+   ```powershell
+   nvm install lts
+   nvm use <version_number>
+   ```
+
+##### 2. Install pnpm (Manual Standalone Executable)
+
+To prevent the installation script from accidentally latching onto NVM's temporary path variables, download the official standalone executable directly into a dedicated directory.
+
+1. Open a **standard PowerShell window** (not as administrator) and run:
+   ```powershell
+   # Create a clean directory for pnpm
+   New-Item -ItemType Directory -Force -Path "C:\Users\<YourUsername>\AppData\Local\pnpm"
+
+   # Download the latest standalone executable
+   Invoke-WebRequest -Uri "https://github.com" -OutFile "C:\Users\<YourUsername>\AppData\Local\pnpm\pnpm.exe" -UseBasicParsing
+   ```
+
+##### 3. Configure Windows Environment Variables
+
+Register the custom installation directory and establish the global bin repository for your global CLI packages.
+
+1. Run the following commands in PowerShell to update your user profile path:
+
+   ```powershell
+   # Register the main pnpm executable path
+   [Environment]::SetEnvironmentVariable("PATH", [Environment]::GetEnvironmentVariable('PATH', 'User') + ';C:\Users\<YourUsername>\AppData\Local\pnpm', 'User')
+
+   # Set PNPM_HOME to the core directory
+   [Environment]::SetEnvironmentVariable("PNPM_HOME", "C:\Users\<YourUsername>\AppData\Local\pnpm", "User")
+
+   # Register the future global bin folder in PATH
+   [Environment]::SetEnvironmentVariable("PATH", [Environment]::GetEnvironmentVariable('PATH', 'User') + ';C:\Users\<YourUsername>\AppData\Local\pnpm\bin', 'User')
+   ```
+
+2. Link pnpm's internal configuration to use the newly created bin folder:
+   ```powershell
+   pnpm config set global-bin-dir "C:\Users\<YourUsername>\AppData\Local\pnpm\bin"
+   ```
+
+---
+
+#### Part 3: Verification
+
+Close all terminal windows and open a **fresh PowerShell window** to test that the standalone stack is functioning correctly.
+
+```powershell
+# Verify NVM
+where.exe nvm
+# Target output: ...\AppData\Local\Author Software\nvm\nvm.exe
+
+# Verify pnpm
+pnpm -v
+where.exe pnpm
+# Target output: ...\AppData\Local\pnpm\pnpm.exe
+
+# Test installing a global package
+pnpm add -g npm-check-updates
+ncu --version
 ```
 
 ---
 
 ### 🚀 Verifying and Running the Monorepo
 
-Regardless of your OS, navigate to the `olsen-mono` project root and verify your active versions:
+Regardless of your OS, verify your active versions:
 
 ```bash
 # Should return /opt/homebrew/bin/pnpm (macOS) or a local AppData path (Windows)
 which pnpm
 
-# Should return v26.8.1
+# Should return v26
 node -v
 ```
 
-Once confirmed, bootstrap the monorepo dependencies and execute Turborepo build steps:
+---
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/Telenor-Maritime/uds-frontend.git
+```
+
+Navigate to the `uds-frontend` project root and bootstrap the monorepo dependencies and execute Turborepo build steps:
 
 ```bash
 # Install dependencies
-pnpm install --frozen-lockfile
+pnpm install
 
-# Run CI tasks (compile, typecheck, test, lint) via Turborepo
-pnpm run ci
+# Run compile, typecheck, test, lint via Turborepo
+pnpm build
 ```
+
+---
+
+## Add the Biome plugin to your editor of choice
+
+[Biome](https://biomejs.dev/) is a code formatter for JavaScript, TypeScript, CSS, and more.
+Biome replaces Prettier, EsLint, and other code formatters.
+
+Configure Biome to automatically format your code on save.
+
+⚠️ **Note:** Remove _astro and md(x) files_ from the plugins file list. This is because Biome is currently not fully
+supported for Astro and Markdown files.
+
+---
+
+## Add the Prettier plugin to your editor of choice
+
+[Prettier](https://prettier.io/) is an opinionated code formatter that automatically enforces a consistent visual style
+across your codebase.
+
+Prettier is used for formatting Astro and md(x) files, until Biome's formatter fully supports Astro and Markdown files.
+
+Configure the Prettier plugin to format only `*.astro` and `*.md(x)` files on save.
 
 ---
 
@@ -131,7 +382,7 @@ olsen-mono/
 
 ## 🛠 Tech Stack Core
 
-- **Package Manager:** `pnpm >= 11.0.0` with absolute single-source-of-truth configuration (`packageManager` engine locks).
+- **Package Manager:** `pnpm >= 12.0.0` with absolute single-source-of-truth configuration (`packageManager` engine locks).
 - **Orchestration:** `Turborepo v2` maximizing compiler efficiency using parallel execution graphs and cryptographic caching.
 - **Backend Runtime:** `Node.js >= 26.0.0` allowing frictionless execution of native, non-polyfilled APIs like `Temporal` date-time engines.
 - **Bundling & Compiling:** `tsdown` for standard library compilation (ESM) and `Vite` for localized application server-side building.
@@ -250,3 +501,21 @@ pnpm install
 ```
 
 ---
+
+## Pnpm
+
+Useful pmpm commands.
+
+```bash
+# List outdated dependencies
+pnpm outdated -r
+
+# Updated dependencies located in package.json or pnpm-workspace.yaml
+pnpm update -r --latest <package-name>
+
+# Update dependencies located in pnpm-workspace.yaml, e.g. astro
+pnpm update astro @astrojs/node -r --latest
+
+# Bypass cache
+pnpm compile --force
+```

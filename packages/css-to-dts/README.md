@@ -41,8 +41,8 @@ Update your local `package.json`:
     "compile": "pnpm run compile-css && pnpm run compile-ts",
     "compile-css": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-css-to-dist",
     "compile-ts": "tsdown",
-    "copy-css-to-dist": "copyfiles -u 1 \"src/**/*.{css,d.ts}\" dist",
-    "css-to-dts": "node ../css-to-dts/dist/css-to-dts.mjs src"
+    "copy-css-to-dist": "shx mkdir -p dist && shx cp -r \"src/**/*.{css,d.ts}\" dist",
+    "css-to-dts": "css-to-dts src"
   }
 }
 ```
@@ -53,9 +53,9 @@ Update your local `package.json`:
 {
   "scripts": {
     "clean": "shx rm -rf dist",
-    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run compile-css",
-    "copy-css-to-dist": "copyfiles -u 1 \"src/**/*.{css,d.ts}\" dist",
-    "css-to-dts": "node ../css-to-dts/dist/css-to-dts.mjs src"
+    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-css-to-dist",
+    "copy-css-to-dist": "shx mkdir -p dist && shx cp -r \"src/**/*.{css,d.ts}\" dist",
+    "css-to-dts": "css-to-dts src"
   }
 }
 ```

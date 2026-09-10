@@ -4,19 +4,14 @@ import AppLayout from '@layouts/app-layout.astro';
 ---
 
 <AppLayout title="Dashboard - Mitt BFF Prosjekt">
-  <!-- Her bor innholdet som blir dyttet inn i <slot /> inne i app-main -->
   <section>
-    <h1 data-font-size="4xl">Velkommen til kontrollpanelet</h1>
-    <p data-font-size="m">
-      Grunnmuren for ditt BFF-monorepo er nå offisielt oppe og kjører! Hele denne siden rendres på serveren via Node 26
-      og Astro.
+    <h1 data-font-size="5xl">Welcome</h1>
+    <p data-font-size="xl" style="font-weight: normal">
+      This app is an implementation of my data driven design system in Astro.
     </p>
   </section>
 
   <section style="margin-block-start: var(--space-xl);">
-    <h2>Verifisering av designsystemet</h2>
-    <p>Du kan navigere til testsidene via sidepanelet, eller bruke hurtiglenkene under:</p>
-
     <ul style="margin-block-start: var(--space-m); display: flex; flex-direction: column; gap: var(--space-xs);">
       <li>
         <a href="/html5-test-page">👉 HTML5 Test Page</a>

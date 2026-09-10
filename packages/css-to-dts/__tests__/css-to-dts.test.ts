@@ -60,7 +60,9 @@ describe('css-to-dts', () => {
     // Expect classes and variables to be sorted and packaged in a union type
     expect(dtsContent).toContain("export type Css = 'btn-primary' | 'is-active';");
     expect(dtsContent).toContain("export type CssVariables = '--primary-color' | '--spacing-md';");
-    expect(dtsContent).toContain('declare const styles: string;');
+    expect(dtsContent).toContain(
+      'declare const styles: {\n' + "  'btn-primary': string;\n" + "  'is-active': string;\n" + '};',
+    );
     expect(dtsContent).toContain('export default styles;');
   });
 

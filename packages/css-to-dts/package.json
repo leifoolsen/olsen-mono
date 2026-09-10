@@ -5,14 +5,11 @@
   "private": true,
   "type": "module",
   "main": "./dist/css-to-dts.mjs",
-  "exports": {
-    ".": "./dist/css-to-dts.mjs"
-  },
   "bin": {
     "css-to-dts": "./dist/css-to-dts.mjs"
   },
   "scripts": {
-    "compile": "tsdown",
+    "compile": "tsdown --clean",
     "lint": "biome check . --no-errors-on-unmatched && prettier --ignore-path ../../.prettierignore --check \"*.+(md|mdx)\"",
     "test": "vitest run"
   },

@@ -1,13 +1,10 @@
 {
   "$schema": "https://turbo.build",
-  "futureFlags": {
-    "watchUsingTaskInputs": true
-  },
   "globalDependencies": [".gitignore", "tsconfig.json", "biome.jsonc", "pnpm-workspace.yaml"],
   "tasks": {
     "compile": {
       "dependsOn": ["^compile"],
-      "inputs": ["src/**/*", "tsconfig.json"],
+      "inputs": ["src/**/*.css", "src/**/*.ts", "src/**/*.tsx", "!src/**/*.d.ts", "tsconfig.json"],
       "outputs": ["dist/**"]
     },
     "typecheck": {
@@ -20,9 +17,8 @@
       "inputs": ["src/**/*", "**/*.astro", "**/*.json", "*.mjs", "*.js"]
     },
     "test": {
-      "dependsOn": ["^compile"],
       "cache": true,
-      "inputs": ["src/**/*.ts", "test/**/*.ts"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.css", "test/**/*.ts", "test/**/*.tsx"]
     },
     "dev": {
       "cache": false,
