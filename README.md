@@ -465,11 +465,15 @@ To keep package overhead at a absolute minimum, we utilize an **anemic package p
 # 1. Commit local changes
 git commit
 
-# 2.Update versions in local packages
-pnpm changeset version
+# 2. Run changeset and follow the instructions in the terminal to
+# select the package(s) you have modified, e.g., @olsen-mono/core-utils.
+pnpm changeset
 
-# 3. Simulate versioning of packages
-pnpm -r publish --dry-run --no-git-checks
+# 2. Dry run: Report changed packages
+pnpm changeset-dry
+
+# 3.Update versions in local packages, optional
+pnpm version-packages
 
 # 4. Restore versionig of local packages
 git restore .

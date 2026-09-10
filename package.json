@@ -52,7 +52,7 @@
   "scripts": {
     "build": "turbo run compile typecheck test lint",
     "changeset": "changeset",
-    "changeset-dry": "pnpm -r publish --dry-run --no-git-checks",
+    "changeset-dry": "changeset status --verbose",
     "ci": "pnpm build",
     "clean": "shx rm -rf .turbo \"**/.turbo\" node_modules/.cache \"**/node_modules/.vite\" \"**/.tsbuildinfo\" && pnpm install",
     "compile": "turbo run compile",
