@@ -1,7 +1,7 @@
 ---
 // src/components/form-element/input-field.astro
 
-import { assertValidSlots } from '@components/utils/assert-valid-slots';
+import { assertValidSlots } from '@olsen-mono/astro-utils';
 import { matchAsync } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import FieldHelp from './field-help.astro';
@@ -60,24 +60,20 @@ const hasErrorMessageSlot = Astro.slots.has('error-message');
 
     <button aria-label="Clear value" class="tool-btn icon clear-icon" tabindex="-1" type="button"></button>
 
-    {
-      hasDescriptionSlot && (
-        <FieldHelp id={descriptionId!}>
-          <slot name="description" />
-        </FieldHelp>
-      )
-    }
+    {hasDescriptionSlot && (
+      <FieldHelp id={descriptionId!}>
+        <slot name="description" />
+      </FieldHelp>
+    )}
   </div>
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 
-  {
-    hasErrorMessageSlot && (
-      <div class="error-message" role="alert">
-        <slot name="error-message" />
-      </div>
-    )
-  }
+  {hasErrorMessageSlot && (
+    <div class="error-message" role="alert">
+      <slot name="error-message" />
+    </div>
+  )}
 </div>
 
 <script>
