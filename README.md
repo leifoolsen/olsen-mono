@@ -461,6 +461,8 @@ To keep package overhead at a absolute minimum, we utilize an **anemic package p
 
 ## Dry Run
 
+Use a dry run to check which packages are affected by the code changes.
+
 ```bash
 # 1. Commit local changes
 git commit
@@ -475,9 +477,10 @@ pnpm changeset-dry
 # 3.Update versions in local packages, optional
 pnpm version-packages
 
-# 4. Restore versionig of local packages
+# 4. Restore versioning of local packages
 git restore .
 git clean -fd .changeset/
+pnpm install
 
 ```
 

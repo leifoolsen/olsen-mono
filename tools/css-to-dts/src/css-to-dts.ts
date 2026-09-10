@@ -23,7 +23,10 @@ function toCamelCase(str: string): string {
 }
 
 function extractCssTokens(cssContent: string) {
-  const cleanContent = cssContent.replace(/\/\*[\s\S]*?\*\//g, '').replace(/@import\s+[^;]+;/g, '');
+  const cleanContent = cssContent
+    .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
+    .replace(/@import\s+[^;]+;/g, '') // Remove @imports
+    .replace(/url\((["']?)(?:(?!\1)[\s\S])*\1\)/g, ''); // Remove url
 
   // 1. Variables
   const variableRegex = /(--[a-zA-Z0-9_-]+)\s*:/g;
@@ -78,66 +81,63 @@ function extractCssTokens(cssContent: string) {
 }
 
 async function processSingleFile(cssFile: string): Promise<boolean> {
-  try {
-    const rawContent = await fs.readFile(cssFile, 'utf-8');
-    const cssContent = rawContent.replace(/\r\n/g, '\n');
+  const rawContent = await fs.readFile(cssFile, 'utf-8');
+  const cssContent = rawContent.replace(/\r\n/g, '\n');
 
-    const { classes, variables, dataAttributes } = extractCssTokens(cssContent);
+  const { classes, variables, dataAttributes } = extractCssTokens(cssContent);
 
-    if (classes.length === 0 && variables.length === 0 && Object.keys(dataAttributes).length === 0) {
-      return false;
-    }
-
-    const classUnion = classes.length > 0 ? classes.map((c) => `'${c}'`).join(' | ') : 'never';
-    const variableUnion = variables.length > 0 ? variables.map((v) => `'${v}'`).join(' | ') : 'never';
-
-    const dataTypesBlocks: string[] = [];
-    const globalDataAttrTypePairs: string[] = [];
-
-    for (const [attrName, values] of Object.entries(dataAttributes)) {
-      const pascalName = attrName
-        .replace(/-/g, ' ')
-        .replace(/\b\w/g, (c) => c.toUpperCase())
-        .replace(/\s+/g, '');
-
-      const valueUnion = values.length > 0 ? values.map((v) => `'${v}'`).join(' | ') : 'string';
-
-      dataTypesBlocks.push(`export type ${pascalName} = ${valueUnion};`);
-      globalDataAttrTypePairs.push(`  '${attrName}': ${pascalName};`);
-    }
-
-    const globalDataType =
-      globalDataAttrTypePairs.length > 0
-        ? `export type CssDataAttributes = {\n${globalDataAttrTypePairs.join('\n')}\n};`
-        : `export type CssDataAttributes = never;`;
-
-    const defaultExportType =
-      classes.length > 0 ? `{\n${classes.map((c) => `  '${c}': string;`).join('\n')}\n}` : 'string';
-
-    const typeDefinition = `${[
-      `export type Css = ${classUnion};`,
-      `export type CssVariables = ${variableUnion};`,
-      ...dataTypesBlocks,
-      globalDataType,
-      `declare const styles: ${defaultExportType};`, // <-- Endret fra 'string' til det dynamiske objektet
-      `export default styles;`,
-    ].join('\n')}\n`;
-
-    const sourceDtsFilePath = `${cssFile}.d.ts`;
-    await fs.writeFile(sourceDtsFilePath, typeDefinition, 'utf-8');
-
-    if (absoluteTargetDir) {
-      const relativeDtsPath = path.relative(absoluteSourceDir, sourceDtsFilePath);
-      const targetDtsFilePath = path.resolve(absoluteTargetDir, relativeDtsPath);
-      await fs.mkdir(path.dirname(targetDtsFilePath), { recursive: true });
-      await fs.copyFile(sourceDtsFilePath, targetDtsFilePath);
-    }
-
-    return true;
-  } catch (error) {
-    console.error(`⚠️ Failed to process file ${cssFile}:`, error);
+  if (classes.length === 0 && variables.length === 0 && Object.keys(dataAttributes).length === 0) {
     return false;
   }
+
+  const classUnion = classes.length > 0 ? `\n  | ${classes.map((c) => `'${c}'`).join('\n  | ')}` : 'never';
+  const variableUnion = variables.length > 0 ? `\n  | ${variables.map((v) => `'${v}'`).join('\n  | ')}` : 'never';
+
+  const dataTypesBlocks: string[] = [];
+  const globalDataAttrTypePairs: string[] = [];
+
+  for (const [attrName, values] of Object.entries(dataAttributes)) {
+    const pascalName = attrName
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, (c) => c.toUpperCase())
+      .replace(/\s+/g, '');
+
+    const valueUnion =
+      values.length > 0
+        ? `${values.map((v) => `'${v}'`).join(' | ')} | (string & {}) | boolean | undefined;`
+        : 'string | boolean | undefined;';
+
+    dataTypesBlocks.push(`export type ${pascalName} = ${valueUnion}`);
+    globalDataAttrTypePairs.push(`  '${attrName}': ${pascalName};`);
+  }
+
+  const globalDataType =
+    globalDataAttrTypePairs.length > 0
+      ? `export type CssDataAttributes = {\n${globalDataAttrTypePairs.join('\n')}\n};`
+      : `export type CssDataAttributes = never;`;
+
+  const defaultExportType = classes.length > 0 ? `Record<Css, string>` : 'string';
+
+  const typeDefinition = `${[
+    `export type Css = ${classUnion};`,
+    `export type CssVariables = ${variableUnion};`,
+    ...dataTypesBlocks,
+    globalDataType,
+    `declare const styles: ${defaultExportType};`,
+    `export default styles;`,
+  ].join('\n')}\n`;
+
+  const sourceDtsFilePath = `${cssFile}.d.ts`;
+  await fs.writeFile(sourceDtsFilePath, typeDefinition, 'utf-8');
+
+  if (absoluteTargetDir) {
+    const relativeDtsPath = path.relative(absoluteSourceDir, sourceDtsFilePath);
+    const targetDtsFilePath = path.resolve(absoluteTargetDir, relativeDtsPath);
+    await fs.mkdir(path.dirname(targetDtsFilePath), { recursive: true });
+    await fs.copyFile(sourceDtsFilePath, targetDtsFilePath);
+  }
+
+  return true;
 }
 
 async function scanAndProcess() {

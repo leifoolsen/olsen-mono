@@ -8,7 +8,7 @@
       "outputs": ["dist/**"]
     },
     "typecheck": {
-      "dependsOn": ["^compile"],
+      "dependsOn": ["^compile", "compile"],
       "cache": true,
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"]
     },

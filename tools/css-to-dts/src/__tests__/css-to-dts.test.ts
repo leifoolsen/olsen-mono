@@ -17,20 +17,26 @@ describe('css-to-dts', () => {
   it('should parse CSS files and generate correct .d.ts type definitions', async () => {
     // 1. Define an input CSS that we know contains comments, imports, classes, and variables
     const mockCss = `
-      /* En kommentar som skal ignoreres */
+      /* A comment - should be ignored */
       @import "normalize.css";
 
       :root {
-        --primary-color: #ff0000;
+        --primary-color: #ff0000; /* A comment - should be ignored */
         --spacing-md: 16px;
       }
 
-      .btn-primary {
+      .btn-primary[data-color] {
         color: var(--primary-color);
+        mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox....");
 
+        /* A comment - should be ignored */
         &.is-active {
           display: block;
         }
+      }
+
+      .aCamelCasedClass {
+        display: inline-block;
       }
     `;
 
@@ -58,12 +64,18 @@ describe('css-to-dts', () => {
     const dtsContent = await fs.readFile(dtsFilePath, 'utf-8');
 
     // Expect classes and variables to be sorted and packaged in a union type
-    expect(dtsContent).toContain("export type Css = 'btn-primary' | 'is-active';");
-    expect(dtsContent).toContain("export type CssVariables = '--primary-color' | '--spacing-md';");
     expect(dtsContent).toContain(
-      'declare const styles: {\n' + "  'btn-primary': string;\n" + "  'is-active': string;\n" + '};',
+      'export type Css = \n' + "  | 'aCamelCasedClass'\n" + "  | 'btn-primary'\n" + "  | 'is-active';",
     );
+    expect(dtsContent).toContain('export type CssVariables = \n' + "  | '--primary-color'\n" + "  | '--spacing-md';");
+    expect(dtsContent).toContain('declare const styles: Record<Css, string>;');
     expect(dtsContent).toContain('export default styles;');
+    expect(dtsContent).toContain(
+      'export type DataColor = string | boolean | undefined;\n' +
+        'export type CssDataAttributes = {\n' +
+        "  'data-color': DataColor;\n" +
+        '};',
+    );
   });
 
   it('should delete obsolete .d.ts files if the CSS file is gone', async () => {
