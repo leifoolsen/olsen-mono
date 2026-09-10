@@ -1,5 +1,11 @@
 # @olsen-mono/object-builder
 
+## 0.0.7
+
+### Patch Changes
+
+- 01578ca: Modified package export i all packages for improved JIT/no-build. Improved generated typing of CSS. Introduced --camelCase and --watch flag. Added script to watch changes in CSS files. Normalized eol by adding .gitattributes file. Replaced copyfiles with shx. Improved dry-run.
+
 ## 0.0.6
 
 ### Patch Changes

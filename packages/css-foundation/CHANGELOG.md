@@ -1,5 +1,11 @@
 # @olsen-mono/css-foundation
 
+## 0.0.15
+
+### Patch Changes
+
+- 01578ca: Modified package export i all packages for improved JIT/no-build. Improved generated typing of CSS. Introduced --camelCase and --watch flag. Added script to watch changes in CSS files. Normalized eol by adding .gitattributes file. Replaced copyfiles with shx. Improved dry-run.
+
 ## 0.0.14
 
 ### Patch Changes
