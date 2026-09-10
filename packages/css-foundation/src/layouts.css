@@ -9,7 +9,7 @@
 
   /* --- Restrict Columns --- */
   &[data-columns] {
-    --_cols: var(--layout-cols, 2);
+    --_cols: 2; /* var(--layout-cols, 2); */
 
     grid-template-columns: repeat(
         auto-fit,

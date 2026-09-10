@@ -4,17 +4,26 @@
   "tasks": {
     "compile": {
       "dependsOn": ["^compile"],
-      "inputs": ["src/**/*", "public/**/*", "astro.config.mjs", "tsconfig.json"],
+      "inputs": [
+        "src/**/*.astro",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.css",
+        "!src/**/*.d.ts",
+        "public/**/*",
+        "astro.config.mjs",
+        "tsconfig.json"
+      ],
       "outputs": ["dist/**", ".astro/**"]
     },
     "typecheck": {
       "dependsOn": ["^compile"],
       "cache": true,
-      "inputs": ["src/**/*.ts", "src/**/*.astro", "tsconfig.json", "astro.config.mjs"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "!src/**/*.d.ts", "tsconfig.json", "astro.config.mjs"]
     },
     "lint": {
       "cache": true,
-      "inputs": ["src/**/*", "**/*.astro", "astro.config.mjs"]
+      "inputs": ["src/**/*.astro", "src/**/*.ts", "src/**/*.tsx", "src/**/*.css", "astro.config.mjs"]
     }
   }
 }

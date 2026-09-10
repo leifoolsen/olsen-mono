@@ -3,5 +3,5 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   ...baseOptions,
-  entry: ['./css-to-dts.ts'],
+  entry: ['./src/css-to-dts.ts'],
 });
