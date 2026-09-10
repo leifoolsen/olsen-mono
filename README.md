@@ -315,10 +315,10 @@ node -v
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/Telenor-Maritime/uds-frontend.git
+git clone https://github.com/leifoolsen/olsen-mono.git
 ```
 
-Navigate to the `uds-frontend` project root and bootstrap the monorepo dependencies and execute Turborepo build steps:
+Navigate to the `olsen-mono` project root, bootstrap the monorepo dependencies and execute Turborepo build steps:
 
 ```bash
 # Install dependencies
@@ -368,6 +368,9 @@ olsen-mono/
 │   ├── css-to-dts/          # CLI tool tailored for `pnpm` monorepos to automatically generate TypeScript definitions (`*.css.d.ts`) from CSS files
 │   ├── object-builder/      # Typesafe builder pattern for object literals
 │   ├── reactive-state/      # Reactive state factory
+│   └── ... /
+├── tools/
+│   ├── css-to-dts/          # CLI tool tailored for `pnpm` monorepos to automatically generate TypeScript definitions (`*.css.d.ts`) from CSS files
 │   └── tooling/             # Centralized configuration presets (vitest, tsdown)
 ├── .changeset/              # Automated versioning and changelog management
 ├── .github/workflows/       # GitHub Actions (CI & CD Release Pipelines)
@@ -461,19 +464,26 @@ To keep package overhead at a absolute minimum, we utilize an **anemic package p
 
 ## Dry Run
 
+Use a dry run to check which packages are affected by the code changes.
+
 ```bash
 # 1. Commit local changes
 git commit
 
-# 2.Update versions in local packages
-pnpm changeset version
+# 2. Run changeset and follow the instructions in the terminal to
+# select the package(s) you have modified, e.g., @olsen-mono/core-utils.
+pnpm changeset
 
-# 3. Simulate versioning of packages
-pnpm -r publish --dry-run --no-git-checks
+# 2. Dry run: Report changed packages
+pnpm changeset-dry
 
-# 4. Restore versionig of local packages
+# 3.Update versions in local packages, optional
+pnpm version-packages
+
+# 4. Restore versioning of local packages
 git restore .
 git clean -fd .changeset/
+pnpm install
 
 ```
 
@@ -498,6 +508,7 @@ pnpm store prune
 
 # 4. Perform a completely fresh installation
 pnpm install
+pnpm build
 ```
 
 ---

@@ -30,7 +30,7 @@ npx css-to-dts src dist
 To use the tool inside an application or a package, add a `css-to-dts` script to trigger the
 CLI automatically before building your application.
 
-Update your local `package.json`:
+Update your local `../../package.json`:
 
 #### If your package contains both CSS and TypeScript files:
 

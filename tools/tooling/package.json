@@ -1,0 +1,14 @@
+{
+  "name": "@olsen-mono/tooling",
+  "description": "Base config for tsdown and vite",
+  "version": "0.0.14",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tsdown": "./tsdown.base.ts",
+    "./vitest": "./vitest.base.ts"
+  },
+  "scripts": {
+    "lint": "biome check  --no-errors-on-unmatched && prettier --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\""
+  }
+}

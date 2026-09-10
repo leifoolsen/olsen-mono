@@ -1,6 +1,7 @@
 packages:
   - apps/*
   - packages/*
+  - tools/*
 
 allowBuilds:
   esbuild: true
@@ -11,8 +12,8 @@ catalog:
   '@astrojs/node': 11.1.5
   '@types/node': 26.5.0
   astro: 7.3.1
-  htmx.org: ^2.0.10
-  vite: ^8.0.10
+  htmx.org: 2.0.10
+  vite: 8.0.10
 
 engineStrict: true
 

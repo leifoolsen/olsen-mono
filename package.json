@@ -52,7 +52,7 @@
   "scripts": {
     "build": "turbo run compile typecheck test lint",
     "changeset": "changeset",
-    "changeset-dry": "pnpm -r publish --dry-run --no-git-checks",
+    "changeset-dry": "changeset status --verbose",
     "ci": "pnpm build",
     "clean": "shx rm -rf .turbo \"**/.turbo\" node_modules/.cache \"**/node_modules/.vite\" \"**/.tsbuildinfo\" && pnpm install",
     "compile": "turbo run compile",
@@ -63,7 +63,7 @@
     "lint-fix-prettier": "prettier --ignore-path .prettierignore --write \"**/*.+(astro|md|mdx)\"",
     "lint-fix-root": "prettier --ignore-path .prettierignore --write \"*.{json,md,mjs,ts,yml,yaml}\"",
     "prepare": "pnpm --filter=@olsen-mono/css-to-dts run compile",
-    "release": "changeset publish",
+    "release": "pnpm compile && changeset publish",
     "show-tsconfig": "tsc --showConfig",
     "test": "turbo run test",
     "test-watch": "vitest",

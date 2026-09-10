@@ -1,10 +1,84 @@
 export type Css = never;
-export type CssVariables = '--augmented-fourth' | '--base-font-size-max' | '--base-font-size-min' | '--fluid-width-max' | '--fluid-width-min' | '--font-family-heading' | '--font-family-main' | '--font-family-mono' | '--font-size-2xl' | '--font-size-3xl' | '--font-size-4xl' | '--font-size-5xl' | '--font-size-l' | '--font-size-m' | '--font-size-s' | '--font-size-xl' | '--font-size-xs' | '--font-weight-2xl' | '--font-weight-3xl' | '--font-weight-4xl' | '--font-weight-l' | '--font-weight-m' | '--font-weight-s' | '--font-weight-xl' | '--font-weight-xs' | '--golden-ratio' | '--letter-spacing-2xl' | '--letter-spacing-3xl' | '--letter-spacing-4xl' | '--letter-spacing-l' | '--letter-spacing-m' | '--letter-spacing-s' | '--letter-spacing-xl' | '--letter-spacing-xs' | '--line-height-2xl' | '--line-height-3xl' | '--line-height-4xl' | '--line-height-l' | '--line-height-m' | '--line-height-s' | '--line-height-xl' | '--line-height-xs' | '--major-second' | '--major-sixth' | '--major-third' | '--minor-second' | '--minor-third' | '--outline-size' | '--perfect-fifth' | '--perfect-fourth' | '--scale-max' | '--scale-min' | '--shadow-2xl' | '--shadow-l' | '--shadow-m' | '--shadow-none' | '--shadow-s' | '--shadow-xl' | '--shadow-xs' | '--space-2xl' | '--space-2xs' | '--space-3xl' | '--space-3xs' | '--space-4xl' | '--space-4xs' | '--space-5xl' | '--space-l' | '--space-m' | '--space-m-3xl' | '--space-s' | '--space-s-l' | '--space-xl' | '--space-xs' | '--space-xs-m';
-export type DataDensity = 'condensed';
-export type DataFluidViewport = string;
-export type DataFontSize = '2xl' | '3xl' | '4xl' | '5xl' | 'l' | 'm' | 's' | 'xl' | 'xs';
-export type DataBorderRadius = '2xl' | '2xs' | '3xl' | '3xs' | '4xl' | '4xs' | '5xl' | 'infinity' | 'l' | 'm' | 's' | 'xl' | 'xs';
-export type DataElevation = '2xl' | 'l' | 'm' | 'none' | 's' | 'xl' | 'xs';
+export type CssVariables = 
+  | '--augmented-fourth'
+  | '--base-font-size-max'
+  | '--base-font-size-min'
+  | '--fluid-width-max'
+  | '--fluid-width-min'
+  | '--font-family-heading'
+  | '--font-family-main'
+  | '--font-family-mono'
+  | '--font-size-2xl'
+  | '--font-size-3xl'
+  | '--font-size-4xl'
+  | '--font-size-5xl'
+  | '--font-size-l'
+  | '--font-size-m'
+  | '--font-size-s'
+  | '--font-size-xl'
+  | '--font-size-xs'
+  | '--font-weight-2xl'
+  | '--font-weight-3xl'
+  | '--font-weight-4xl'
+  | '--font-weight-l'
+  | '--font-weight-m'
+  | '--font-weight-s'
+  | '--font-weight-xl'
+  | '--font-weight-xs'
+  | '--golden-ratio'
+  | '--letter-spacing-2xl'
+  | '--letter-spacing-3xl'
+  | '--letter-spacing-4xl'
+  | '--letter-spacing-l'
+  | '--letter-spacing-m'
+  | '--letter-spacing-s'
+  | '--letter-spacing-xl'
+  | '--letter-spacing-xs'
+  | '--line-height-2xl'
+  | '--line-height-3xl'
+  | '--line-height-4xl'
+  | '--line-height-l'
+  | '--line-height-m'
+  | '--line-height-s'
+  | '--line-height-xl'
+  | '--line-height-xs'
+  | '--major-second'
+  | '--major-sixth'
+  | '--major-third'
+  | '--minor-second'
+  | '--minor-third'
+  | '--outline-size'
+  | '--perfect-fifth'
+  | '--perfect-fourth'
+  | '--scale-max'
+  | '--scale-min'
+  | '--shadow-2xl'
+  | '--shadow-l'
+  | '--shadow-m'
+  | '--shadow-none'
+  | '--shadow-s'
+  | '--shadow-xl'
+  | '--shadow-xs'
+  | '--space-2xl'
+  | '--space-2xs'
+  | '--space-3xl'
+  | '--space-3xs'
+  | '--space-4xl'
+  | '--space-4xs'
+  | '--space-5xl'
+  | '--space-l'
+  | '--space-m'
+  | '--space-m-3xl'
+  | '--space-s'
+  | '--space-s-l'
+  | '--space-xl'
+  | '--space-xs'
+  | '--space-xs-m';
+export type DataDensity = 'condensed' | (string & {}) | boolean | undefined;
+export type DataFluidViewport = string | boolean | undefined;
+export type DataFontSize = '2xl' | '3xl' | '4xl' | '5xl' | 'l' | 'm' | 's' | 'xl' | 'xs' | (string & {}) | boolean | undefined;
+export type DataBorderRadius = '2xl' | '2xs' | '3xl' | '3xs' | '4xl' | '4xs' | '5xl' | 'infinity' | 'l' | 'm' | 's' | 'xl' | 'xs' | (string & {}) | boolean | undefined;
+export type DataElevation = '2xl' | 'l' | 'm' | 'none' | 's' | 'xl' | 'xs' | (string & {}) | boolean | undefined;
 export type CssDataAttributes = {
   'data-density': DataDensity;
   'data-fluid-viewport': DataFluidViewport;

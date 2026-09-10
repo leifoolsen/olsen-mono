@@ -1,44 +1,39 @@
 {
-  "name": "@olsen-mono/object-builder",
-  "description": "Typesafe builder",
-  "version": "0.0.7",
+  "name": "@olsen-mono/css-to-dts",
+  "description": "CLI tool used to generate TypeScript Declaration files (.d.ts) from CSS files.",
+  "version": "0.0.9",
   "private": true,
   "type": "module",
-  "main": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "main": "./dist/css-to-dts.mjs",
+  "bin": {
+    "css-to-dts": "./dist/css-to-dts.mjs"
+  },
   "exports": {
-    ".": {
-      "types": {
-        "development": "./src/index.ts",
-        "default": "./dist/index.d.mts"
-      },
-      "development": "./src/index.ts",
-      "import": "./dist/index.mjs",
-      "default": "./dist/index.mjs"
-    },
+    ".": "./dist/css-to-dts.mjs",
     "./package.json": "./package.json"
   },
+  "keywords": [],
   "files": [
     "dist"
   ],
   "author": "leif.o.olsen@gmail.com",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/olsen-mono/olsen-mono.git",
-    "directory": "packages/object-builder"
+    "directory": "tools/css-to-dts"
   },
   "bugs": {
     "url": "https://github.com/olsen-mono/olsen-mono/issues"
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "compile": "tsdown",
+    "compile": "tsdown --clean",
     "lint": "biome check . --no-errors-on-unmatched && prettier --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@olsen-mono/core-utils": "workspace:*",
     "@types/node": "catalog:"
   }
 }

@@ -1,5 +1,16 @@
 # astro-htmx
 
+## 0.0.10
+
+### Patch Changes
+
+- 01578ca: Modified package export i all packages for improved JIT/no-build. Improved generated typing of CSS. Introduced --camelCase and --watch flag. Added script to watch changes in CSS files. Normalized eol by adding .gitattributes file. Replaced copyfiles with shx. Improved dry-run.
+- dd868fa: Fixed flaws in config files that caused ci to fail
+- Updated dependencies [01578ca]
+- Updated dependencies [dd868fa]
+  - @olsen-mono/core-utils@0.0.22
+  - @olsen-mono/css-foundation@0.0.15
+
 ## 0.0.9
 
 ### Patch Changes
