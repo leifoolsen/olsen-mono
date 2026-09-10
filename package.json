@@ -63,7 +63,7 @@
     "lint-fix-prettier": "prettier --ignore-path .prettierignore --write \"**/*.+(astro|md|mdx)\"",
     "lint-fix-root": "prettier --ignore-path .prettierignore --write \"*.{json,md,mjs,ts,yml,yaml}\"",
     "prepare": "pnpm --filter=@olsen-mono/css-to-dts run compile",
-    "release": "changeset publish",
+    "release": "pnpm compile && changeset publish",
     "show-tsconfig": "tsc --showConfig",
     "test": "turbo run test",
     "test-watch": "vitest",

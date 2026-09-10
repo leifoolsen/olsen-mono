@@ -508,6 +508,7 @@ pnpm store prune
 
 # 4. Perform a completely fresh installation
 pnpm install
+pnpm build
 ```
 
 ---
