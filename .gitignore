@@ -13,15 +13,13 @@ logs
 npm-debug.log*
 coverage
 *.lcov
-*.tsbuildinfo
 .npm
-.eslintcache
-.stylelintcache
 .turbo
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 # Ignore generated TypeScript Project Reference-artifacts in source code
+*.tsbuildinfo
 packages/**/*.d.ts
 packages/**/*.d.mts
 tools/**/*.d.ts
