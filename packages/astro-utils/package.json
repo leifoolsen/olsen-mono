@@ -1,0 +1,46 @@
+{
+  "name": "@olsen-mono/astro-utils",
+  "description": "Astro utilities",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": {
+        "development": "./src/index.ts",
+        "default": "./dist/index.d.ts"
+      },
+      "development": "./src/index.ts",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "leif.o.olsen@gmail.com",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olsen-mono/olsen-mono.git",
+    "directory": "packages/core-utils"
+  },
+  "bugs": {
+    "url": "https://github.com/olsen-mono/olsen-mono/issues"
+  },
+  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
+  "scripts": {
+    "compile": "tsdown",
+    "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@olsen-mono/core-utils": "workspace:*",
+    "astro": "catalog:"
+  }
+}
