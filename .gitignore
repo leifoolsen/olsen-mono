@@ -24,6 +24,7 @@ packages/**/*.d.ts
 packages/**/*.d.mts
 tools/**/*.d.ts
 tools/**/*.d.mts
+tools/css-to-dts/src/__tests__/__fixtures__/
 
 # ... but keep "handwritten" *.d.ts files
 !packages/**/global.d.ts
