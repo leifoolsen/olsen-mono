@@ -21,7 +21,7 @@
     "dev": "astro dev",
     "lint": "biome check . && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "start": "astro dev",
-    "compile": " pnpm run css-to-dts && astro build",
+    "compile": "pnpm run css-to-dts && astro build",
     "preview": "astro preview",
     "typecheck": "astro check",
     "css-to-dts": "css-to-dts src --camelCase",
