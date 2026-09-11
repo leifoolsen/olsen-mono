@@ -188,9 +188,6 @@ importers:
       '@astrojs/node':
         specifier: 'catalog:'
         version: 11.1.5(astro@7.3.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.5.0)(jiti@2.7.0)(yaml@2.9.0))
-      '@olsen-mono/astro-utils':
-        specifier: workspace:*
-        version: link:../../packages/astro-utils
       '@olsen-mono/core-utils':
         specifier: workspace:*
         version: link:../../packages/core-utils
@@ -216,15 +213,6 @@ importers:
       '@olsen-mono/css-to-dts':
         specifier: workspace:*
         version: link:../../tools/css-to-dts
-      astro:
-        specifier: 'catalog:'
-        version: 7.3.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.5.0)(jiti@2.7.0)(yaml@2.9.0)
-
-  packages/astro-utils:
-    devDependencies:
-      '@olsen-mono/core-utils':
-        specifier: workspace:*
-        version: link:../core-utils
       astro:
         specifier: 'catalog:'
         version: 7.3.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.5.0)(jiti@2.7.0)(yaml@2.9.0)
