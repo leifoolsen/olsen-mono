@@ -50,7 +50,7 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "build": "turbo run compile typecheck test lint",
+    "build": "turbo run compile typecheck lint test",
     "changeset": "changeset",
     "changeset-dry": "changeset status --verbose",
     "ci": "pnpm build",
@@ -59,7 +59,7 @@
     "find-caches": "shx ls -d .turbo \"**/.turbo\" \"**/node_modules/.vite\" \"node_modules/.cache\" \"**/.tsbuildinfo\"",
     "lint": "pnpm lint:root && turbo run lint",
     "lint:root": "prettier --no-error-on-unmatched-pattern --ignore-path .prettierignore --check \"*.{json,md,mjs,ts,yml,yaml}\"",
-    "lint-fix-biome": "biome check --write .",
+    "lint-fix-biome": "biome check --no-error-on-unmatched --write .",
     "lint-fix-prettier": "prettier --no-error-on-unmatched-pattern --ignore-path .prettierignore --write \"**/*.+(astro|md|mdx)\"",
     "lint-fix-root": "prettier --no-error-on-unmatched-pattern --ignore-path .prettierignore --write \"*.{json,md,mjs,ts,yml,yaml}\"",
     "prepare": "pnpm --filter=@olsen-mono/css-to-dts run compile",
