@@ -194,6 +194,9 @@ importers:
       '@olsen-mono/css-foundation':
         specifier: workspace:*
         version: link:../../packages/css-foundation
+      astro:
+        specifier: 'catalog:'
+        version: 7.3.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.5.0)(jiti@2.7.0)(yaml@2.9.0)
     devDependencies:
       '@astrojs/check':
         specifier: 'catalog:'
@@ -201,9 +204,6 @@ importers:
       '@olsen-mono/css-to-dts':
         specifier: workspace:*
         version: link:../../tools/css-to-dts
-      astro:
-        specifier: 'catalog:'
-        version: 7.3.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.5.0)(jiti@2.7.0)(yaml@2.9.0)
 
   packages/astro-forms:
     devDependencies:
