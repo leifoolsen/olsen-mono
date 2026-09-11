@@ -5,13 +5,10 @@ coverage/
 build/
 dist/
 lib/
-*storybook.log
-storybook-static
 .DS_Store
 logs
 *.log
-npm-debug.log*
-coverage
+*.log*
 *.lcov
 .npm
 .turbo
