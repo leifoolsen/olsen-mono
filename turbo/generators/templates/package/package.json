@@ -26,10 +26,6 @@
     "url": "https://github.com/olsen-mono/olsen-mono.git",
     "directory": "packages/{{dashCase name}}"
   },
-  "bugs": {
-    "url": "https://github.com/olsen-mono/olsen-mono/issues"
-  },
-  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "compile": "tsdown",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
