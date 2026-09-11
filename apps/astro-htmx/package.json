@@ -30,11 +30,11 @@
   "dependencies": {
     "@astrojs/node": "catalog:",
     "@olsen-mono/core-utils": "workspace:*",
-    "@olsen-mono/css-foundation": "workspace:*"
+    "@olsen-mono/css-foundation": "workspace:*",
+    "astro": "catalog:"
   },
   "devDependencies": {
     "@astrojs/check": "catalog:",
-    "@olsen-mono/css-to-dts": "workspace:*",
-    "astro": "catalog:"
+    "@olsen-mono/css-to-dts": "workspace:*"
   }
 }
