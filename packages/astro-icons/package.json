@@ -1,0 +1,48 @@
+{
+  "name": "@olsen-mono/astro-icons",
+  "description": "Icons",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": {
+        "development": "./src/index.ts",
+        "default": "./dist/index.mjs"
+      },
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "leif.o.olsen@gmail.com",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olsen-mono/olsen-mono.git",
+    "directory": "packages/astro-icons"
+  },
+  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
+  "scripts": {
+    "clean": "shx rm -rf dist",
+    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-assets",
+    "copy-assets": "shx mkdir -p dist && shx cp -r \"src/**/*.{astro,css,d.ts,ts}\" dist",
+    "css-to-dts": "css-to-dts src --camelCase",
+    "watch-css": "css-to-dts src --camelCase --watch",
+    "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@olsen-mono/core-utils": "workspace:*",
+    "@olsen-mono/css-to-dts": "workspace:*"
+  },
+  "peerDependencies": {
+    "astro": ">=7.0.0"
+  }
+}
