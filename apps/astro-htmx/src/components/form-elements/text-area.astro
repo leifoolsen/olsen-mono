@@ -1,8 +1,7 @@
 ---
 // src/components/form-element/text-area.astro
 
-import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
-import { matchAsync } from '@olsen-mono/core-utils';
+import { assertValidSlots, matchAsync } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import './form-elements.css';
 
@@ -51,17 +50,15 @@ const showErrorMessage = invalid && hasErrorMessageSlot;
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
       class:list={['text-input', 'textarea-input']}
       id={id}
-      {...rest}>{textareaValue}</textarea
-    >
+      {...rest}
+    >{textareaValue}</textarea>
   </div>
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 
-  {
-    showErrorMessage && (
-      <div class="error-message" role="alert">
-        <slot name="error-message" />
-      </div>
-    )
-  }
+  {showErrorMessage && (
+    <div class="error-message" role="alert">
+      <slot name="error-message" />
+    </div>
+  )}
 </div>

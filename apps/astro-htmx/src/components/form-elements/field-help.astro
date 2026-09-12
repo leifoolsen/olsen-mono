@@ -1,7 +1,7 @@
 ---
 // src/components/form-element/field-help.astro
 
-import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
+import { assertValidSlots } from '@olsen-mono/core-utils';
 import './form-elements.css';
 
 type Props = {
@@ -21,7 +21,8 @@ const anchorName = `--anchor-${id}`;
   class="popover-trigger-btn icon info-icon"
   popovertarget={id}
   aria-label="Show help"
-  style={`anchor-name: ${anchorName};`}></button>
+  style={`anchor-name: ${anchorName};`}
+></button>
 
 <div
   data-variant="neutral"
@@ -31,6 +32,9 @@ const anchorName = `--anchor-${id}`;
   style={`position-anchor: ${anchorName};`}
 >
   <div class="popover-description">
-    <span class="icon info-icon"></span>&nbsp;<span><slot /></span>
+    <span class="icon info-icon"></span>&nbsp;
+    <span>
+      <slot />
+    </span>
   </div>
 </div>

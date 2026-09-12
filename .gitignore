@@ -5,18 +5,24 @@ coverage/
 build/
 dist/
 lib/
-*storybook.log
-storybook-static
 .DS_Store
 logs
 *.log
-npm-debug.log*
-coverage
+*.log*
 *.lcov
-*.tsbuildinfo
 .npm
-.eslintcache
-.stylelintcache
 .turbo
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Ignore generated TypeScript Project Reference-artifacts in source code
+*.tsbuildinfo
+packages/**/*.d.ts
+packages/**/*.d.mts
+tools/**/*.d.ts
+tools/**/*.d.mts
+tools/css-to-dts/src/__tests__/__fixtures__/
+
+# ... but keep there *.d.ts files
+!packages/**/global.d.ts
+!packages/**/*.css.d.ts

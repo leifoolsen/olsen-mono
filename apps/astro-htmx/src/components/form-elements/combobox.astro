@@ -1,8 +1,7 @@
 ---
 // src/components/form-element/combobox.astro
 
-import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
-import { matchAsync } from '@olsen-mono/core-utils';
+import { assertValidSlots, matchAsync } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import FieldHelp from './field-help.astro';
 import Listbox from './listbox.astro';
@@ -87,40 +86,34 @@ const processedLabel = await matchAsync()
 
     <button aria-label="Clear" class="tool-btn icon clear-icon" tabindex="-1" type="button"></button>
 
-    {
-      hasDescriptionSlot && (
-        <FieldHelp id={descriptionId!}>
-          <slot name="description" />
-        </FieldHelp>
-      )
-    }
+    {hasDescriptionSlot && (
+      <FieldHelp id={descriptionId!}>
+        <slot name="description" />
+      </FieldHelp>
+    )}
   </div>
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}
 
-  {
-    showErrorMessage && (
-      <div class="error-message" role="alert">
-        <slot name="error-message" />
-      </div>
-    )
-  }
+  {showErrorMessage && (
+    <div class="error-message" role="alert">
+      <slot name="error-message" />
+    </div>
+  )}
 
-  {
-    hasOptionsSlot && (
-      <div
-        class="combobox-results-popover"
-        data-combobox-popover
-        id={resultsPopoverId}
-        popover="auto"
-        style={`position-anchor: ${uniqueAnchorName};`}
-      >
-        <Listbox id={`${id}-listbox`} multiSelectable={multiSelectable} data-combobox-listbox bordered showMarker>
-          <slot name="options" />
-        </Listbox>
-      </div>
-    )
-  }
+  {hasOptionsSlot && (
+    <div
+      class="combobox-results-popover"
+      data-combobox-popover
+      id={resultsPopoverId}
+      popover="auto"
+      style={`position-anchor: ${uniqueAnchorName};`}
+    >
+      <Listbox id={`${id}-listbox`} multiSelectable={multiSelectable} data-combobox-listbox bordered showMarker>
+        <slot name="options" />
+      </Listbox>
+    </div>
+  )}
 </ui-combobox>
 
 <script>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { assertValidSlots } from '../assert-valid-slots';
+import { assertValidSlots } from '../assert-valid-slots.ts';
 
 describe('assertValidSlots', () => {
   const ALLOWED = ['icon', 'badge'] as const;
