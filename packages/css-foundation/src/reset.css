@@ -38,7 +38,6 @@
 :where(svg) {
   display: inline-block;
   fill: currentcolor;
-  max-inline-size: 100%;
   vertical-align: middle;
 }
 
