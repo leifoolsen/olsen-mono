@@ -37,9 +37,15 @@
     "clean": "shx rm -rf dist",
     "compile": "tsdown",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
+    "test": "vitest run",
     "typecheck": "astro check && tsc --noEmit"
   },
   "peerDependencies": {
     "astro": ">=7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "astro": "catalog:",
+    "happy-dom": "catalog:"
   }
 }

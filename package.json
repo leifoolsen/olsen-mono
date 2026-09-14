@@ -82,7 +82,6 @@
     "@types/node": "catalog:",
     "cross-env": "10.1.0",
     "globals": "17.12.0",
-    "happy-dom": "20.14.3",
     "jiti": "2.7.0",
     "prettier": "3.9.6",
     "prettier-plugin-astro": "1.0.0",
