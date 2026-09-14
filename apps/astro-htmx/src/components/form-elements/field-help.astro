@@ -1,6 +1,7 @@
 ---
 // src/components/form-element/field-help.astro
 
+import Svg from '@components/svg/svg.astro';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import './form-elements.css';
 
@@ -18,11 +19,13 @@ const anchorName = `--anchor-${id}`;
 <button
   tabindex="-1"
   type="button"
-  class="popover-trigger-btn icon info-icon"
+  class="popover-trigger-btn icon"
   popovertarget={id}
   aria-label="Show help"
   style={`anchor-name: ${anchorName};`}
-></button>
+>
+  <Svg name="info" />
+</button>
 
 <div
   data-variant="neutral"

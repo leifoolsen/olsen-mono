@@ -1,0 +1,60 @@
+---
+// packages/astro-svg/src/svg.astro
+import type { HTMLAttributes } from 'astro/types';
+
+export interface Props extends HTMLAttributes<'svg'> {
+  getSvgData: (name: any) => { rawSvg: string; scale?: string | number };
+  fill?: string;
+  name: string;
+  size?: string | number;
+  stroke?: string;
+}
+
+const {
+  class: className,
+  fill,
+  getSvgData,
+  height,
+  name,
+  size,
+  stroke,
+  style: userStyle,
+  width,
+  ...rest
+} = Astro.props;
+
+const { rawSvg, scale: defaultScale } = getSvgData(name);
+
+const cleanedSvg = rawSvg
+  .replace(/fill="[^"]+"/g, '')
+  .replace(/stroke="[^"]+"/g, '')
+  .replace(/width="[^"]+"/g, '')
+  .replace(/height="[^"]+"/g, '');
+
+const svgAttributes: Record<string, any> = { ...rest };
+
+if (className) svgAttributes.class = className;
+if (stroke) svgAttributes.stroke = stroke;
+svgAttributes.fill = fill || 'currentColor';
+
+const finalSize = size ?? defaultScale;
+const finalHeight = (finalSize ?? height ?? 1).toString().replace('em', '') + 'em';
+const finalWidth = (finalSize ?? width ?? 1).toString().replace('em', '') + 'em';
+
+const sizeStyle = `width: ${finalWidth}; height: ${finalHeight}; aspect-ratio: 1/1; max-inline-size: unset;`;
+svgAttributes.style = userStyle ? `${sizeStyle} ${userStyle}` : sizeStyle;
+
+if (rest['aria-label'] || rest['aria-labelledby']) {
+  svgAttributes.role = rest.role || 'img';
+} else {
+  svgAttributes['aria-hidden'] = 'true';
+}
+
+const attributesString = Object.entries(svgAttributes)
+  .map(([key, value]) => (value === true ? key : `${key}="${value}"`))
+  .join(' ');
+
+const svgWithAttributes = cleanedSvg.replace('<svg', `<svg ${attributesString}`);
+---
+
+<Fragment set:html={svgWithAttributes} />

@@ -1,6 +1,6 @@
 {
-  "name": "@olsen-mono/astro-icons",
-  "description": "Icons",
+  "name": "@olsen-mono/astro-icon",
+  "description": "Astro icon component and icon factory",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -13,9 +13,11 @@
       },
       "default": "./dist/index.mjs"
     },
+    "./icon.astro": "./src/icon.astro",
     "./package.json": "./package.json"
   },
   "files": [
+    "src",
     "dist"
   ],
   "author": "leif.o.olsen@gmail.com",
@@ -26,21 +28,14 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/olsen-mono/olsen-mono.git",
-    "directory": "packages/astro-icons"
+    "directory": "packages/astro-icon"
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "clean": "shx rm -rf dist",
-    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-assets",
-    "copy-assets": "shx mkdir -p dist && shx cp -r \"src/**/*.{astro,css,d.ts,ts}\" dist",
-    "css-to-dts": "css-to-dts src --camelCase",
-    "watch-css": "css-to-dts src --camelCase --watch",
+    "compile": "tsdown",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "typecheck": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "@olsen-mono/core-utils": "workspace:*",
-    "@olsen-mono/css-to-dts": "workspace:*"
   },
   "peerDependencies": {
     "astro": ">=7.0.0"

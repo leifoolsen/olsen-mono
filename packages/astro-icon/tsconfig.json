@@ -5,5 +5,7 @@
   },
   "include": ["src/**/*"],
   "exclude": ["dist/**", "node_modules"],
-  "references": [{ "path": "../core-utils" }]
+  "vueCompilerOptions": {
+    "plugins": ["@astrojs/ts-plugin"]
+  }
 }

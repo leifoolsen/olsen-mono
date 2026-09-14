@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@astrojs/node": "catalog:",
+    "@olsen-mono/astro-icon": "workspace:*",
     "@olsen-mono/core-utils": "workspace:*",
     "@olsen-mono/css-foundation": "workspace:*",
     "astro": "catalog:"

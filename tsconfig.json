@@ -3,6 +3,7 @@
     "allowImportingTsExtensions": true,
     "composite": true,
     "emitDeclarationOnly": true,
+    "jsx": "react-jsx",
     "lib": ["ESNext", "DOM", "ESNext.Temporal"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
