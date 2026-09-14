@@ -2,13 +2,13 @@
 // packages/astro-svg/src/svg.astro
 import type { HTMLAttributes } from 'astro/types';
 
-export interface Props extends HTMLAttributes<'svg'> {
+type Props = HTMLAttributes<'svg'> & {
   getSvgData: (name: any) => { rawSvg: string; scale?: string | number };
   fill?: string;
   name: string;
   size?: string | number;
   stroke?: string;
-}
+};
 
 const {
   class: className,
