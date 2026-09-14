@@ -1,11 +1,10 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["node"]
+    "types": ["node"],
+    "jsx": "preserve",
+    "jsxImportSource": "astro"
   },
   "include": ["src/**/*"],
-  "exclude": ["dist/**", "node_modules"],
-  "vueCompilerOptions": {
-    "plugins": ["@astrojs/ts-plugin"]
-  }
+  "exclude": ["dist/**", "node_modules"]
 }
