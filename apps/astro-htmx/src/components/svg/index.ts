@@ -1,4 +1,4 @@
-import { createIconSystem } from '@olsen-mono/astro-icon';
+import { createSvgRegistry } from '@olsen-mono/astro-svg';
 
 export const svgMapping = {
   asterisk: {
@@ -41,5 +41,5 @@ export const svgMapping = {
 
 const appIcons = import.meta.glob('./raw/*.svg', { query: '?raw', eager: true });
 
-export const { getIconMask, getSvgData } = createIconSystem(svgMapping, appIcons);
+export const { getIconMask, getSvgData } = createSvgRegistry(svgMapping, appIcons);
 export type SvgName = keyof typeof svgMapping;

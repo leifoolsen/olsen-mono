@@ -1,6 +1,6 @@
 {
-  "name": "@olsen-mono/astro-icon",
-  "description": "Astro icon component and icon factory",
+  "name": "@olsen-mono/astro-svg",
+  "description": "Astro SVG component",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -8,14 +8,14 @@
   "types": "./dist/index.d.mts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
+      "types": "./src/index.ts",
       "import": {
         "development": "./src/index.ts",
         "default": "./dist/index.mjs"
       },
       "default": "./dist/index.mjs"
     },
-    "./icon.astro": "./src/icon.astro",
+    "./svg.astro": "./src/svg.astro",
     "./package.json": "./package.json"
   },
   "files": [
@@ -30,7 +30,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/olsen-mono/olsen-mono.git",
-    "directory": "packages/astro-icon"
+    "directory": "packages/astro-svg"
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
