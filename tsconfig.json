@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
     "allowImportingTsExtensions": true,
-    "composite": true,
+    "composite": false,
+    "declaration": true,
     "emitDeclarationOnly": true,
-    "jsx": "react-jsx",
-    "lib": ["ESNext", "DOM", "ESNext.Temporal"],
+    "lib": ["ESNext", "DOM"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "noEmit": false,
+    "noEmit": true,
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,

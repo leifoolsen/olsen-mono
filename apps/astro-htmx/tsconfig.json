@@ -1,22 +1,16 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "composite": false,
     "emitDeclarationOnly": false,
-    "noEmit": true,
+    "jsx": "preserve",
+    "jsxImportSource": "astro",
     "paths": {
       "@components/*": ["./src/components/*"],
       "@features/*": ["./src/features/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@styles/*": ["./src/styles/*"]
     },
-    "plugins": [
-      {
-        "name": "@astrojs/ts-plugin"
-      }
-    ],
-    "jsx": "react"
+    "plugins": [{ "name": "@astrojs/ts-plugin" }]
   },
   "include": [".astro/types.d.ts", "src/**/*"],
   "exclude": ["dist", "node_modules"]

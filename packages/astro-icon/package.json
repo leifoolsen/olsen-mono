@@ -4,9 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
+      "types": "./dist/index.d.mts",
       "import": {
         "development": "./src/index.ts",
         "default": "./dist/index.mjs"
@@ -35,7 +37,7 @@
     "clean": "shx rm -rf dist",
     "compile": "tsdown",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "astro check && tsc --noEmit"
   },
   "peerDependencies": {
     "astro": ">=7.0.0"
