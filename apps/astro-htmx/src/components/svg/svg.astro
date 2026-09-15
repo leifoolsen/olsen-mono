@@ -1,0 +1,17 @@
+---
+// src/components/svg.astro
+import { getSvgData, type SvgName } from '@components/svg/index';
+import Icon from '@olsen-mono/astro-svg/svg.astro';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'svg'> & {
+  name: SvgName;
+  size?: string;
+  fill?: string;
+  stroke?: string;
+};
+
+const { name, ...props } = Astro.props;
+---
+
+<Icon name={name} {...props} getSvgData={getSvgData} />
