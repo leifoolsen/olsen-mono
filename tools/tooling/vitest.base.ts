@@ -1,5 +1,4 @@
 // tools/tooling/vitest.base.ts
-
 import { readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -20,6 +19,7 @@ export const baseConfig = defineConfig({
   test: {
     alias: packageAliases,
     globals: true,
+    reporters: ['verbose'],
     setupFiles: [path.resolve(__dirname, './vitest-setup.ts')],
   },
 });
