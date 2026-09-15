@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "types": ["node"]
-  },
-  "include": ["src/**/*", "env.d.ts", ".astro/*.d.ts"],
-  "exclude": ["dist/**", "node_modules", "src/**/*.astro"]
-}
