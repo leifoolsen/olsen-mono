@@ -1,5 +1,12 @@
 # @olsen-mono/reactive-state
 
+## 0.0.7
+
+### Patch Changes
+
+- 5afbc2e: Added astro-svg package. Added astro-test-utils package. Improved JIT/no-build config.
+- 991be98: Added astro-svg package. Added astro-test-utils package. Improved JIT/no-build config.
+
 ## 0.0.6
 
 ### Patch Changes
