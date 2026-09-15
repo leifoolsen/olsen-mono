@@ -25,6 +25,8 @@ type RenderAstroResult = {
  * @param {ExtractAstroProps<T>} props - The props to be passed to the Astro component.
  * @return {Promise<RenderAstroResult>} A promise that resolves to an object containing the rendered HTML as a string
  *                                      and the container as a `DocumentFragment`.
+ * @see {@link https://angelika.me/2025/02/01/astro-component-unit-tests/ How to set up unit tests for Astro components}
+ *  - which was the original source of inspiration for this implementation.
  */
 export async function renderAstro<T extends AstroComponentFactory>(
   Component: T,
