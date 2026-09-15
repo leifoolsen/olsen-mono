@@ -1,5 +1,11 @@
 # @olsen-mono/css-to-dts
 
+## 0.0.10
+
+### Patch Changes
+
+- 5afbc2e: Added astro-svg package. Added astro-test-utils package. Improved JIT/no-build config.
+
 ## 0.0.9
 
 ### Patch Changes
