@@ -4,6 +4,8 @@
     "composite": false,
     "declaration": true,
     "emitDeclarationOnly": true,
+    "jsx": "preserve",
+    "jsxImportSource": "astro",
     "lib": ["ESNext", "DOM"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
