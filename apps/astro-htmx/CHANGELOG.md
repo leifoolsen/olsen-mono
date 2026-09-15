@@ -1,5 +1,17 @@
 # astro-htmx
 
+## 0.0.11
+
+### Patch Changes
+
+- 5afbc2e: Added astro-svg package. Added astro-test-utils package. Improved JIT/no-build config.
+- 991be98: Added astro-svg package. Added astro-test-utils package. Improved JIT/no-build config.
+- Updated dependencies [5afbc2e]
+- Updated dependencies [991be98]
+  - @olsen-mono/astro-svg@0.0.1
+  - @olsen-mono/core-utils@0.0.23
+  - @olsen-mono/css-foundation@0.0.16
+
 ## 0.0.10
 
 ### Patch Changes
