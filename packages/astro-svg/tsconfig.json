@@ -1,10 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["node"],
-    "jsx": "preserve",
-    "jsxImportSource": "astro",
-    "moduleResolution": "Bundler"
+    "types": ["node"]
   },
   "include": ["src/**/*"],
   "exclude": ["dist/**", "node_modules"]
