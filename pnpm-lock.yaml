@@ -208,6 +208,21 @@ importers:
         specifier: workspace:*
         version: link:../../tools/css-to-dts
 
+  packages/astro-forms:
+    devDependencies:
+      '@olsen-mono/astro-test-utils':
+        specifier: workspace:*
+        version: link:../astro-test-utils
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.5.0
+      astro:
+        specifier: 'catalog:'
+        version: 7.3.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@26.5.0)(jiti@2.7.0)(yaml@2.9.1)
+      happy-dom:
+        specifier: 'catalog:'
+        version: 20.14.5
+
   packages/astro-svg:
     devDependencies:
       '@olsen-mono/astro-test-utils':
