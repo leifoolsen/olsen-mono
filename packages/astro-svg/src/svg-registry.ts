@@ -1,3 +1,5 @@
+// packages/astro-svg/src/svg-registry.ts
+
 type ViteGlobResult =
   | Record<string, string>
   | Record<string, { default: string }>

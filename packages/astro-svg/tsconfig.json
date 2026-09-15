@@ -3,7 +3,8 @@
   "compilerOptions": {
     "types": ["node"],
     "jsx": "preserve",
-    "jsxImportSource": "astro"
+    "jsxImportSource": "astro",
+    "moduleResolution": "Bundler"
   },
   "include": ["src/**/*"],
   "exclude": ["dist/**", "node_modules"]

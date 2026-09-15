@@ -1,11 +1,90 @@
-// import { experimental_AstroContainer as AstroContainer } from 'astro/container';
-import { expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-// import SvgComponent from '../svg.astro';
-
-it('noting', () => {
-  expect(1).toBe(1);
+describe('nothing', () => {
+  it('noting', () => {
+    expect(1).toBe(1);
+  });
 });
+
+// import { experimental_AstroContainer as AstroContainer } from 'astro/container';
+// import { Window } from 'happy-dom';
+// import { describe, expect, it } from 'vitest';
+// import SvgComponent from '../svg.astro';
+// import { createSvgRegistry } from '../svg-registry';
+//
+// describe('svg.astro Komponent', () => {
+//   const mockSvg = '<svg xmlns="http://w3.org" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2z"/></svg>';
+//
+//   const mapping = {
+//     'info-icon': { file: 'info', scale: '1.3em' },
+//     'static-icon': { file: 'static' },
+//   } as const;
+//
+//   const globResult = {
+//     '/icons/info.svg': { default: mockSvg },
+//     '/icons/static.svg': { default: mockSvg },
+//   };
+//
+//   const registry = createSvgRegistry(mapping, globResult);
+//
+//   it('should render SVG with default scale from registry mapping', async () => {
+//     // I Astro v7 skal denne være helt tom for .astro-komponenter!
+//     const container = await AstroContainer.create();
+//
+//     const html = await container.renderToString(SvgComponent, {
+//       props: {
+//         name: 'info-icon',
+//         getSvgData: registry.getSvgData,
+//         class: 'my-svg-icon',
+//       },
+//     });
+//
+//     const window = new Window();
+//     window.document.body.innerHTML = html;
+//     const svg = window.document.querySelector('svg');
+//
+//     expect(svg).not.toBeNull();
+//     expect(svg?.getAttribute('class')).toBe('my-svg-icon');
+//     expect(svg?.getAttribute('style')).toContain('width: 1.3em');
+//   });
+// });
+
+// it('should apply role="img" and remove aria-hidden if aria-label is provided', async () => {
+//   const container = await AstroContainer.create();
+//   const html = await container.renderToString(SvgComponent, {
+//     props: {
+//       name: 'info-icon',
+//       getSvgData: registry.getSvgData,
+//       'aria-label': 'Helpful description',
+//     },
+//   });
+//
+//   const window = new Window();
+//   window.document.body.innerHTML = html;
+//   const svg = window.document.querySelector('svg');
+//
+//   expect(svg?.getAttribute('role')).toBe('img');
+//   expect(svg?.getAttribute('aria-label')).toBe('Helpful description');
+//   expect(svg?.hasAttribute('aria-hidden')).toBe(false);
+// });
+//
+// it('should prioritize explicit size prop over default scale', async () => {
+//   const container = await AstroContainer.create();
+//   const html = await container.renderToString(SvgComponent, {
+//     props: {
+//       name: 'info-icon',
+//       getSvgData: registry.getSvgData,
+//       size: '2rem',
+//     },
+//   });
+//
+//   const window = new Window();
+//   window.document.body.innerHTML = html;
+//   const svg = window.document.querySelector('svg');
+//
+//   expect(svg?.getAttribute('style')).toContain('width: 2rem');
+//   expect(svg?.getAttribute('style')).toContain('height: 2rem');
+// });
 
 // describe.skip('svg.astro', () => {
 //   const mockSvgData = {
