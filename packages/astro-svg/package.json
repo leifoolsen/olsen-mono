@@ -44,7 +44,9 @@
     "astro": ">=7.0.0"
   },
   "devDependencies": {
+    "@olsen-mono/astro-test-utils": "workspace:*",
     "@types/node": "catalog:",
-    "astro": "catalog:"
+    "astro": "catalog:",
+    "happy-dom": "catalog:"
   }
 }

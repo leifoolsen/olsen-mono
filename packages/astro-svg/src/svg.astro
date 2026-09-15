@@ -37,8 +37,6 @@ if (className) svgAttributes.class = className;
 if (stroke) svgAttributes.stroke = stroke;
 svgAttributes.fill = fill || 'currentColor';
 
-const finalSize = size ?? defaultScale;
-
 const formatSize = (val: string | number | undefined | null, fallback: string | number) => {
   if (val === undefined || val === null) return formatSize(fallback, 1);
   const str = val.toString().trim();
@@ -46,8 +44,9 @@ const formatSize = (val: string | number | undefined | null, fallback: string | 
   return isNumeric ? `${str}em` : str;
 };
 
-const finalWidth = formatSize(finalSize ?? width, 1);
-const finalHeight = formatSize(finalSize ?? height, 1);
+const finalSize = size ?? defaultScale;
+const finalWidth = formatSize(width ?? finalSize, 1);
+const finalHeight = formatSize(height ?? finalSize, 1);
 
 const sizeStyle = `width: ${finalWidth}; height: ${finalHeight}; aspect-ratio: 1/1; max-inline-size: unset;`;
 svgAttributes.style = userStyle ? `${sizeStyle} ${userStyle}` : sizeStyle;

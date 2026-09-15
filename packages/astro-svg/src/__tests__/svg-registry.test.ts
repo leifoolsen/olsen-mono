@@ -5,6 +5,7 @@ import { createSvgRegistry } from '../svg-registry';
 describe('createSvgRegistry', () => {
   const mockSvgContent =
     '<svg viewBox="0 0 24 24" width="24" height="24" fill="#333" stroke="#666"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>';
+
   const mockSvgContent2 = '<svg viewBox="0 0 32 32" width="32" height="32"><circle cx="16" cy="16" r="14"/></svg>';
 
   describe('getSvgData', () => {
