@@ -24,5 +24,6 @@ tools/**/*.d.mts
 tools/css-to-dts/src/__tests__/__fixtures__/
 
 # ... but keep there *.d.ts files
+!packages/**/env.d.ts
 !packages/**/global.d.ts
 !packages/**/*.css.d.ts
