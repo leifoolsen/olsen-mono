@@ -1,11 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["node"],
-    "paths": {
-      "@olsen-mono/core-utils": ["../core-utils/src"]
-    }
+    "types": ["node"]
   },
-  "include": ["src/**/*", "../core-utils/src/**/*"],
-  "exclude": ["dist/**", "node_modules"]
+  "include": ["src/**/*"],
+  "exclude": ["dist/**", "node_modules"],
+  "references": [{ "path": "../core-utils" }]
 }

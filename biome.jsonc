@@ -2,15 +2,7 @@
   "$schema": "https://biomejs.dev",
   "files": {
     "ignoreUnknown": true,
-    "includes": [
-      "**",
-      "!**/*.d.ts",
-      "!**/node_modules",
-      "!**/dist",
-      "!tools/css-to-dts/src/__tests__/__fixtures__/**/*",
-      "!**/CHANGELOG.md",
-      "!**/raw/**/*"
-    ]
+    "includes": ["**", "!**/*.d.ts", "!**/node_modules", "!**/dist"]
   },
   "vcs": {
     "enabled": true,
