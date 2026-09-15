@@ -32,7 +32,6 @@ export async function renderAstro<T extends AstroComponentFactory>(
   Component: T,
   props: ExtractAstroProps<T>,
 ): Promise<RenderAstroResult> {
-  // 1. Bygg opp den minimalistiske server-konteksten
   const mockResult = {
     styles: new Set(),
     scripts: new Set(),
