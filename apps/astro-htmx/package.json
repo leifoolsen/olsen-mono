@@ -1,6 +1,6 @@
 {
   "name": "astro-htmx",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "private": true,
   "type": "module",
   "publishConfig": {
@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@astrojs/node": "catalog:",
+    "@olsen-mono/astro-svg": "workspace:*",
     "@olsen-mono/core-utils": "workspace:*",
     "@olsen-mono/css-foundation": "workspace:*",
     "astro": "catalog:"

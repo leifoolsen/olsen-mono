@@ -1,7 +1,7 @@
 {
-  "name": "@olsen-mono/core-utils",
-  "description": "Core Utils",
-  "version": "0.0.23",
+  "name": "@olsen-mono/astro-svg",
+  "description": "Astro SVG component",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "main": "./dist/index.mjs",
@@ -15,26 +15,38 @@
       },
       "default": "./dist/index.mjs"
     },
+    "./svg.astro": "./src/svg.astro",
     "./package.json": "./package.json"
   },
-  "keywords": [],
   "files": [
+    "src",
     "dist"
   ],
   "author": "leif.o.olsen@gmail.com",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/olsen-mono/olsen-mono.git",
-    "directory": "packages/core-utils"
+    "directory": "packages/astro-svg"
   },
+  "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
+    "clean": "shx rm -rf dist",
     "compile": "tsdown",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "astro check && tsc --noEmit"
+  },
+  "peerDependencies": {
+    "astro": ">=7.0.0"
   },
   "devDependencies": {
-    "@types/node": "catalog:"
+    "@olsen-mono/astro-test-utils": "workspace:*",
+    "@types/node": "catalog:",
+    "astro": "catalog:",
+    "happy-dom": "catalog:"
   }
 }

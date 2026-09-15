@@ -73,7 +73,7 @@
     "dev-astro": "pnpm --filter=./apps/astro-htmx... dev"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.12",
+    "@biomejs/biome": "2.5.13",
     "@changesets/cli": "3.0.2",
     "@olsen-mono/tooling": "workspace:*",
     "@tsdown/css": "0.23.0",
@@ -82,13 +82,12 @@
     "@types/node": "catalog:",
     "cross-env": "10.1.0",
     "globals": "17.12.0",
-    "happy-dom": "20.14.0",
     "jiti": "2.7.0",
     "prettier": "3.9.6",
     "prettier-plugin-astro": "1.0.0",
     "shx": "0.4.0",
     "tsdown": "0.23.0",
-    "turbo": "2.10.12",
+    "turbo": "2.10.13",
     "typescript": "6.0.3",
     "vitest": "5.0.0"
   }
