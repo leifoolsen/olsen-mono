@@ -9,7 +9,6 @@ type ExtractAstroProps<T> = T extends (result: any, props: infer P, ...args: any
 /**
  * Represents the result of rendering an Astro component in a Node / Happy DOM environment.
  *
- * @type RenderAstroResult
  * @property {string} html - The rendered HTML string of the component.
  * @property {DocumentFragment} container - The `DocumentFragment` containing the rendered component.
  */
