@@ -29,7 +29,7 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "compile": "tsdown --clean",
-    "lint": "biome check . --no-errors-on-unmatched && prettier --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
+    "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

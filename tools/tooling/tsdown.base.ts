@@ -3,7 +3,9 @@ import { defineConfig, type UserConfig } from 'tsdown';
 export const baseOptions: UserConfig = {
   entry: ['./src/index.ts'],
   format: ['esm'],
-  dts: true,
+  dts: {
+    build: true,
+  },
   clean: false,
   sourcemap: true,
   platform: 'node',

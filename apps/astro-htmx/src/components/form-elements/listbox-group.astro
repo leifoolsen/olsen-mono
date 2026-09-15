@@ -1,8 +1,7 @@
 ---
 // src/components/form-element/listbox-group.astro
 
-import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
-import { matchAsync } from '@olsen-mono/core-utils';
+import { assertValidSlots, matchAsync } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import './form-elements.css';
 
@@ -21,12 +20,10 @@ const processedLabel = await matchAsync()
 ---
 
 <ul class:list={['listbox-group', className]} role={role} {...rest}>
-  {
-    !!processedLabel && (
-      <li class="listbox-group-label" role="presentation">
-        {!!processedLabel && <Fragment set:html={processedLabel} />}
-      </li>
-    )
-  }
+  {!!processedLabel && (
+    <li class="listbox-group-label" role="presentation">
+      {!!processedLabel && <Fragment set:html={processedLabel} />}
+    </li>
+  )}
   <slot />
 </ul>

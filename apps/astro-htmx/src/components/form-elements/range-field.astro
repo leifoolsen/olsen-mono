@@ -2,8 +2,7 @@
 // src/components/form-element/range-field.astro
 
 import FieldHelp from '@components/form-elements/field-help.astro';
-import { assertValidSlots } from '@components/utils/assert-valid-slots.ts';
-import { matchAsync } from '@olsen-mono/core-utils';
+import { assertValidSlots, matchAsync } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import './form-elements.css';
 
@@ -75,13 +74,11 @@ const numberInputId = `${id}-number`;
       {...rest}
     />
 
-    {
-      hasDescription && (
-        <FieldHelp id={descriptionId!}>
-          <slot name="description" />
-        </FieldHelp>
-      )
-    }
+    {hasDescription && (
+      <FieldHelp id={descriptionId!}>
+        <slot name="description" />
+      </FieldHelp>
+    )}
   </div>
 
   {!!processedLabel && <Fragment set:html={processedLabel} />}

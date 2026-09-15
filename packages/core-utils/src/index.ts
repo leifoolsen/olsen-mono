@@ -1,4 +1,5 @@
 export { assertNonNullish } from './assert-non-nullish.js';
+export { assertValidSlots } from './assert-valid-slots.js';
 export { createSafeRegex } from './create-safe-regex.js';
 export { debounce } from './debounce.js';
 export { hasOwn } from './has-own.js';
