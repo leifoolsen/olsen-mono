@@ -1,4 +1,3 @@
-// tools/tooling/vitest.base.ts
 import { readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -18,8 +17,8 @@ const packageAliases = packageDirs.reduce<Record<string, string>>((acc, dir) => 
 export const baseConfig = defineConfig({
   test: {
     alias: packageAliases,
+    environment: 'happy-dom',
     globals: true,
-    reporters: ['verbose'],
     setupFiles: [path.resolve(__dirname, './vitest-setup.ts')],
   },
 });

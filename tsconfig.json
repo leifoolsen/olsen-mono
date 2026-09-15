@@ -1,15 +1,12 @@
 {
   "compilerOptions": {
     "allowImportingTsExtensions": true,
-    "composite": false,
-    "declaration": true,
+    "composite": true,
     "emitDeclarationOnly": true,
-    "jsx": "preserve",
-    "jsxImportSource": "astro",
-    "lib": ["ESNext", "DOM"],
+    "lib": ["ESNext", "DOM", "ESNext.Temporal"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "noEmit": true,
+    "noEmit": false,
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
