@@ -9,60 +9,39 @@
   ],
   "exports": {
     "./main.css": {
-      "types": {
-        "development": "./src/main.css.d.ts",
-        "default": "./dist/main.css.d.ts"
-      },
+      "types": "./dist/main.css.d.ts",
       "development": "./src/main.css",
-      "default": "./dist/main.css"
+      "default": "./src/main.css"
     },
     "./colors.css": {
-      "types": {
-        "development": "./src/colors.css.d.ts",
-        "default": "./dist/colors.css.d.ts"
-      },
+      "types": "./dist/colors.css.d.ts",
       "development": "./src/colors.css",
-      "default": "./dist/colors.css"
+      "default": "./src/colors.css"
     },
     "./font-stacks.css": {
-      "types": {
-        "development": "./src/font-stacks.css.d.ts",
-        "default": "./dist/font-stacks.css.d.ts"
-      },
+      "types": "./dist/font-stacks.css.d.ts",
       "development": "./src/font-stacks.css",
-      "default": "./dist/font-stacks.css"
+      "default": "./src/font-stacks.css"
     },
     "./reset.css": {
-      "types": {
-        "development": "./src/reset.css.d.ts",
-        "default": "./dist/reset.css.d.ts"
-      },
+      "types": "./dist/reset.css.d.ts",
       "development": "./src/reset.css",
-      "default": "./dist/reset.css"
+      "default": "./src/reset.css"
     },
     "./typesetting.css": {
-      "types": {
-        "development": "./src/typesetting.css.d.ts",
-        "default": "./dist/typesetting.css.d.ts"
-      },
+      "types": "./dist/typesetting.css.d.ts",
       "development": "./src/typesetting.css",
-      "default": "./dist/typesetting.css"
+      "default": "./src/typesetting.css"
     },
     "./typography.css": {
-      "types": {
-        "development": "./src/typography.css.d.ts",
-        "default": "./dist/typography.css.d.ts"
-      },
+      "types": "./dist/typography.css.d.ts",
       "development": "./src/typography.css",
-      "default": "./dist/typography.css"
+      "default": "./src/typography.css"
     },
     "./layouts.css": {
-      "types": {
-        "development": "./src/layouts.css.d.ts",
-        "default": "./dist/layouts.css.d.ts"
-      },
+      "types": "./dist/layout.css.d.ts",
       "development": "./src/layouts.css",
-      "default": "./dist/layouts.css"
+      "default": "./src/layouts.css"
     },
     "./package.json": "./package.json"
   },
@@ -73,6 +52,7 @@
     "access": "public"
   },
   "files": [
+    "src",
     "dist"
   ],
   "repository": {
@@ -85,10 +65,8 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "clean": "shx rm -rf dist",
-    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-css-to-dist",
-    "copy-css-to-dist": "shx mkdir -p dist && shx cp -r \"src/**/*.{css,d.ts}\" dist",
-    "css-to-dts": "css-to-dts src --camelCase",
+    "compile": "pnpm run css-to-dts",
+    "css-to-dts": "css-to-dts src --camelCase --outDir dist",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "watch-css": "css-to-dts src --camelCase --watch"
   },
