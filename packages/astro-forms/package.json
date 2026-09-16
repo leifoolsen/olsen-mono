@@ -6,7 +6,8 @@
   "type": "module",
   "exports": {
     "./forms.css": {
-      "types": "./src/forms.css.d.ts",
+      "types": "./dist/forms.css.d.ts",
+      "development": "./src/forms.css",
       "default": "./src/forms.css"
     },
     "./InputGroup.astro": "./src/input-group.astro",
@@ -14,7 +15,8 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "src"
+    "src",
+    "dist"
   ],
   "author": "leif.o.olsen@gmail.com",
   "license": "ISC",
@@ -29,7 +31,7 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "compile": "pnpm run css-to-dts",
-    "css-to-dts": "css-to-dts src --camelCase",
+    "css-to-dts": "css-to-dts src --camelCase --outDir dist",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "typecheck": "astro check && tsc --noEmit"
   },
