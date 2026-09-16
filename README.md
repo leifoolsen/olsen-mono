@@ -498,10 +498,10 @@ Run the following commands in the root directory:
 
 ```bash
 # 1. Delete all node_modules recursively across the workspace
-pnpm -r exec shx rm -rf node_modules
+pnpm -r exec shx rm -rf "node_modules"
 
 # 2. Delete the root node_modules and lockfile (optional but recommended for a total reset)
-shx rm -rf node_modules pnpm-lock.yaml
+shx rm -rf "node_modules pnpm-lock.yaml"
 
 # 3. Clear the local pnpm store cache to ensure fresh downloads
 pnpm store prune
@@ -529,4 +529,39 @@ pnpm update astro @astrojs/node -r --latest
 
 # Bypass cache
 pnpm compile --force
+
+# Remove unused dependencies
+pnpm prune
+
+# Remove unused dependencies and lockfile
+pnpm prune --prod
+
+# Remove unused dependencies and lockfile,
+# but keep the lockfile for future installs
+pnpm prune --prod --no-frozen-lockfile
+
+# Remove all node_modules and lockfile
+pnpm clean -r
+
+# Remove all node_modules and lockfile,
+# but keep the lockfile for future installs
+pnpm clean -r --no-frozen-lockfile
+
+# Delete a single file
+shx rm filename.txt
+
+# Force delete a file (ignores non-existent files)
+shx rm -f filename.txt
+
+# Delete an entire directory and all files inside it (Recursive + Force)
+shx rm -rf dist/
+
+# Delete files matching a pattern (using wildcards)
+shx rm -f src/*.js
+
+# Delete files in sub directories using a recursive glob pattern.
+# Wrapping the path in quotes is critical. It prevents your local terminal shell (like Bash or Zsh)
+# from expanding the wildcard prematurely, passing the raw string directly to shx so it can handle
+# the file search reliably across Windows, Mac, and Linux
+shx rm -rf "packages/**/*.d.ts"
 ```
