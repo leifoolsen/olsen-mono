@@ -3,3 +3,8 @@ declare module '*.astro' {
   const Component: AstroComponentFactory;
   export default Component;
 }
+
+declare module '*.css' {
+  const content: Record<string, string>;
+  export default content;
+}
