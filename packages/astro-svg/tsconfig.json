@@ -3,6 +3,6 @@
   "compilerOptions": {
     "types": ["node"]
   },
-  "include": ["src/**/*", "env.d.ts", ".astro/*.d.ts"],
+  "include": ["src/**/*", ".astro/*.d.ts", "../../global.d.ts"],
   "exclude": ["dist/**", "node_modules", "src/**/*.astro"]
 }
