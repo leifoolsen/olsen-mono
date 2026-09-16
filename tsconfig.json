@@ -18,5 +18,8 @@
     "skipLibCheck": true,
     "target": "ESNext",
     "verbatimModuleSyntax": true
-  }
+  },
+  "include": [
+    "global.d.ts"
+  ]
 }
