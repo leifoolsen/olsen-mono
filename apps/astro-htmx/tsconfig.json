@@ -13,6 +13,6 @@
     "plugins": [{ "name": "@astrojs/ts-plugin" }],
     "types": ["node", "astro/client", "astro/container"]
   },
-  "include": [".astro/*.d.ts", "src/**/*", "../../global.d.ts"],
+  "include": ["src/**/*", ".astro/*.d.ts"],
   "exclude": ["dist", "node_modules"]
 }

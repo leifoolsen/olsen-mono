@@ -13,7 +13,6 @@
       },
       "default": "./dist/index.mjs"
     },
-    "./svg.astro": "./src/svg.astro",
     "./package.json": "./package.json"
   },
   "files": [
