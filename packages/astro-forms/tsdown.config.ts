@@ -3,7 +3,4 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   ...baseOptions,
-  deps: {
-    alwaysBundle: ['@olsen-mono/core-utils'],
-  },
 });

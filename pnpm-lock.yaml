@@ -209,13 +209,14 @@ importers:
         version: link:../../tools/css-to-dts
 
   packages/astro-forms:
+    dependencies:
+      '@olsen-mono/core-utils':
+        specifier: workspace:*
+        version: link:../core-utils
     devDependencies:
       '@olsen-mono/astro-test-utils':
         specifier: workspace:*
         version: link:../astro-test-utils
-      '@olsen-mono/core-utils':
-        specifier: workspace:*
-        version: link:../core-utils
       '@olsen-mono/css-to-dts':
         specifier: workspace:*
         version: link:../../tools/css-to-dts

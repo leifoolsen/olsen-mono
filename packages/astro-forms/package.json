@@ -6,26 +6,15 @@
   "type": "module",
   "exports": {
     "./forms.css": {
-      "types": {
-        "development": "./src/forms.css.d.ts",
-        "default": "./dist/forms.css.d.ts"
-      },
-      "development": "./src/forms.css",
-      "default": "./dist/forms.css"
+      "types": "./src/forms.css.d.ts",
+      "default": "./src/forms.css"
     },
-    "./InputGroup.astro": {
-      "development": "./src/input-group.astro",
-      "default": "./dist/input-group.astro"
-    },
-    "./Label.astro": {
-      "development": "./src/label.astro",
-      "default": "./dist/label.astro"
-    },
+    "./InputGroup.astro": "./src/input-group.astro",
+    "./Label.astro": "./src/label.astro",
     "./package.json": "./package.json"
   },
   "files": [
-    "src",
-    "dist"
+    "src"
   ],
   "author": "leif.o.olsen@gmail.com",
   "license": "ISC",
@@ -39,9 +28,7 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "clean": "shx rm -rf dist",
-    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-css-to-dist",
-    "copy-css-to-dist": "shx mkdir -p dist && shx cp -r \"src/**/*.{css,d.ts}\" dist",
+    "compile": "pnpm run css-to-dts",
     "css-to-dts": "css-to-dts src --camelCase",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "typecheck": "astro check && tsc --noEmit"
@@ -49,9 +36,11 @@
   "peerDependencies": {
     "astro": ">=7.0.0"
   },
+  "dependencies": {
+    "@olsen-mono/core-utils": "workspace:*"
+  },
   "devDependencies": {
     "@olsen-mono/astro-test-utils": "workspace:*",
-    "@olsen-mono/core-utils": "workspace:*",
     "@olsen-mono/css-to-dts": "workspace:*",
     "@types/node": "catalog:",
     "astro": "catalog:",
