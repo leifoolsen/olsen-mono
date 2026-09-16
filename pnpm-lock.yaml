@@ -213,6 +213,12 @@ importers:
       '@olsen-mono/astro-test-utils':
         specifier: workspace:*
         version: link:../astro-test-utils
+      '@olsen-mono/core-utils':
+        specifier: workspace:*
+        version: link:../core-utils
+      '@olsen-mono/css-to-dts':
+        specifier: workspace:*
+        version: link:../../tools/css-to-dts
       '@types/node':
         specifier: 'catalog:'
         version: 26.5.0
