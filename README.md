@@ -497,8 +497,9 @@ root `node_modules`, all package-level `node_modules`, and the local pnpm stores
 Run the following commands in the root directory:
 
 ```bash
-# 1. Delete all node_modules recursively across the workspace
+# 1. Delete all node_modules and dist recursively across the workspace
 pnpm -r exec shx rm -rf "node_modules"
+pnpm -r exec shx rm -rf "dist"
 
 # 2. Delete the root node_modules and lockfile (optional but recommended for a total reset)
 shx rm -rf "node_modules pnpm-lock.yaml"
