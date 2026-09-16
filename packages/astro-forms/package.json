@@ -4,18 +4,23 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "main": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
   "exports": {
-    ".": {
-      "types": "./src/index.ts",
-      "import": {
-        "development": "./src/index.ts",
-        "default": "./dist/index.mjs"
+    "./forms.css": {
+      "types": {
+        "development": "./src/forms.css.d.ts",
+        "default": "./dist/forms.css.d.ts"
       },
-      "default": "./dist/index.mjs"
+      "development": "./src/forms.css",
+      "default": "./dist/forms.css"
     },
-    "./svg.astro": "./src/svg.astro",
+    "./InputGroup.astro": {
+      "development": "./src/input-group.astro",
+      "default": "./dist/input-group.astro"
+    },
+    "./Label.astro": {
+      "development": "./src/label.astro",
+      "default": "./dist/label.astro"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -35,9 +40,10 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "clean": "shx rm -rf dist",
-    "compile": "tsdown",
+    "compile": "pnpm run clean && pnpm run css-to-dts && pnpm run copy-css-to-dist",
+    "copy-css-to-dist": "shx mkdir -p dist && shx cp -r \"src/**/*.{css,d.ts}\" dist",
+    "css-to-dts": "css-to-dts src --camelCase",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
-    "test": "vitest run",
     "typecheck": "astro check && tsc --noEmit"
   },
   "peerDependencies": {
@@ -45,6 +51,8 @@
   },
   "devDependencies": {
     "@olsen-mono/astro-test-utils": "workspace:*",
+    "@olsen-mono/core-utils": "workspace:*",
+    "@olsen-mono/css-to-dts": "workspace:*",
     "@types/node": "catalog:",
     "astro": "catalog:",
     "happy-dom": "catalog:"

@@ -1,8 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@olsen-mono/core-utils": ["../core-utils/src"]
+    }
   },
-  "include": ["src/**/*", "env.d.ts", ".astro/*.d.ts"],
+  "include": ["src/**/*", ".astro/*.d.ts", "../../global.d.ts"],
   "exclude": ["dist/**", "node_modules", "src/**/*.astro"]
 }

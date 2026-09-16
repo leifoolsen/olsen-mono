@@ -74,10 +74,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.13",
-    "@changesets/cli": "3.0.2",
+    "@changesets/cli": "3.0.3",
     "@olsen-mono/tooling": "workspace:*",
     "@tsdown/css": "0.23.0",
-    "@turbo/gen": "2.10.12",
+    "@turbo/gen": "2.10.13",
     "@types/css-modules": "1.0.5",
     "@types/node": "catalog:",
     "cross-env": "10.1.0",
@@ -89,6 +89,6 @@
     "tsdown": "0.23.0",
     "turbo": "2.10.13",
     "typescript": "6.0.3",
-    "vitest": "5.0.0"
+    "vitest": "5.0.1"
   }
 }
