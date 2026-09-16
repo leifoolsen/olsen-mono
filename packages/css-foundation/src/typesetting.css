@@ -141,13 +141,6 @@ html {
 }
 
 /* --- Input & Fieldset --- */
-:where(input, textarea, select) {
-  &:disabled + label {
-    cursor: not-allowed;
-    color: var(--muted-text);
-  }
-}
-
 :where(fieldset) {
   border: 1px solid var(--border-color, #ccc);
   border-radius: var(--space-xs, 2px);
