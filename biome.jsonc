@@ -9,7 +9,8 @@
       "!**/dist",
       "!tools/css-to-dts/src/__tests__/__fixtures__/**/*",
       "!**/CHANGELOG.md",
-      "!**/raw/**/*"
+      "!**/raw/**/*",
+      "!**/Biome /**/*"
     ]
   },
   "vcs": {

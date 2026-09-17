@@ -1,3 +1,182 @@
-.hello {
-  color: red;
+/* packages/astro-forms/src/forms.css */
+@layer components {
+  :root {
+    --form-space-s: var(--space-s, 0.5rem);
+    --form-space-xs: var(--space-xs, 0.25rem);
+    --form-space-2xs: var(--space-2xs, 0.15rem);
+    --form-accent-color: var(--accent-color, #2563eb);
+    --form-border-color: var(--border-color, #cccccc);
+    --form-brand-text-color: var(--brand-text-color, #2563eb);
+    --form-muted-text: var(--muted-text, #666666);
+    --form-error-color: oklch(0.6 0.18 20);
+    --form-font-size-s: var(--font-size-s, 0.75rem);
+    --form-input-background-color: oklch(from var(--swatch-color) calc(l + 0.05) c h);
+    --form-input-background-active-color: oklch(from var(--swatch-color) calc(l - 0.05) c h);
+    --form-input-background-hover-color: oklch(from var(--swatch-color) calc(l + 0.02) c h);
+    --form-input-background-disabled-color: oklch(from var(--swatch-color) calc(l + 0.01) c h);
+    --form-input-scale: 1.5;
+    --_form-input-height: calc(1em * var(--form-input-scale));
+    --_form-marker-size: calc(var(--_form-input-height) * 0.55);
+  }
+
+  /* --- Error Message --- */
+  .form-error-message {
+    color: var(--form-error-color);
+    display: none;
+    font-size: var(--form-font-size-s);
+    user-select: none;
+  }
+
+  /* --- Input Group --- */
+  .form-input-group {
+    display: grid;
+    align-items: center;
+    gap: var(--form-space-s);
+    width: 100%;
+
+    & label {
+      grid-area: label;
+    }
+
+    & .form-input-container {
+      grid-area: control;
+    }
+
+    & .form-radio-input,
+    & .form-checkbox-input {
+      grid-area: control;
+    }
+
+    & .form-error-message {
+      grid-area: error;
+    }
+
+    &.layout-top {
+      grid-template-areas:
+        "label"
+        "control"
+        "error";
+      grid-template-columns: 1fr;
+      gap: var(--form-space-xs) var(--form-space-s);
+    }
+
+    &.layout-before {
+      grid-template-areas: "label control";
+      grid-template-columns: max-content 1fr;
+
+      &:has([aria-invalid="true"], :invalid) {
+        grid-template-areas:
+          "label control"
+          ".     error";
+      }
+    }
+
+    &.layout-after {
+      grid-template-areas: "control label";
+      grid-template-columns: max-content 1fr;
+
+      &:has([aria-invalid="true"], :invalid) {
+        grid-template-areas:
+          "control label"
+          ".       error";
+      }
+    }
+
+    &:has(:disabled) label {
+      color: var(--form-muted-text);
+      cursor: not-allowed;
+    }
+
+    &:has(input:focus-visible) label {
+      color: var(--form-brand-text-color);
+    }
+
+    &:has([aria-invalid="true"], :invalid) .form-error-message {
+      display: block;
+    }
+  }
+
+  /* --- Radio and Checkbox --- */
+  input[type="radio"].form-radio-input,
+  input[type="checkbox"].form-checkbox-input {
+    cursor: pointer;
+    font-size: inherit;
+    position: relative;
+    user-select: none;
+    vertical-align: middle;
+  }
+
+  input[type="radio"].form-radio-input,
+  input[type="checkbox"].form-checkbox-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    align-items: center;
+    appearance: none;
+    background-color: var(--form-input-background-color);
+    block-size: var(--_form-input-height);
+    border: 1px solid var(--form-border-color);
+    box-sizing: border-box;
+    display: inline-flex;
+    inline-size: var(--_form-input-height);
+    justify-content: center;
+    margin: 0;
+    order: unset;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  input[type="radio"].form-radio-input {
+    border-radius: 50%;
+  }
+
+  input[type="checkbox"].form-checkbox-input {
+    border-radius: var(--form-space-2xs);
+  }
+
+  input[type="radio"].form-radio-input::before,
+  input[type="checkbox"].form-checkbox-input::before {
+    content: "";
+    inline-size: var(--_form-marker-size);
+    block-size: var(--_form-marker-size);
+    background-color: oklch(from var(--form-brand-text-color) calc(l + 0.05) c h / 90%);
+    transition:
+      transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.15s ease;
+    opacity: 0;
+  }
+
+  input[type="radio"].form-radio-input::before {
+    border-radius: 50%;
+  }
+
+  input[type="checkbox"].form-checkbox-input::before {
+    clip-path: polygon(14% 44%, 0 58%, 38% 96%, 100% 16%, 84% 2%, 38% 68%);
+  }
+
+  input[type="radio"].form-radio-input:checked,
+  input[type="checkbox"].form-checkbox-input:checked {
+    background-color: var(--form-input-background-active-color);
+    border-color: var(--form-accent-color);
+  }
+
+  input[type="radio"].form-radio-input:checked::before,
+  input[type="checkbox"].form-checkbox-input:checked::before {
+    opacity: 1;
+  }
+
+  input[type="radio"].form-radio-input:disabled,
+  input[type="checkbox"].form-checkbox-input:disabled {
+    background-color: var(--form-input-background-disabled-color);
+    cursor: not-allowed;
+    border-color: var(--form-border-color);
+
+    &::before {
+      background-color: oklch(from var(--form-brand-text-color) calc(l + 0.05) c h / 20%);
+    }
+  }
+
+  input[type="checkbox"][aria-invalid="true"]:checked {
+    border-color: var(--form-error-color);
+  }
 }

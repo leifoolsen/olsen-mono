@@ -1,17 +1,16 @@
 ---
 // packages/astro-forms/src/label.astro
-import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'label'> & {
+  htmlFor?: string; // Støtt htmlFor prop
   text?: string;
 };
 
 const { class: className, htmlFor, text, ...rest } = Astro.props;
-
-assertValidSlots(Astro.slots, [], 'Label');
+const finalFor = htmlFor || rest.for;
 ---
 
-<label for={htmlFor} class={className} {...rest}>
+<label for={finalFor} class={className} {...rest}>
   {text ? text : <slot />}
 </label>

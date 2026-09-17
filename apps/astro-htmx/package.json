@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@astrojs/node": "catalog:",
+    "@olsen-mono/astro-forms": "workspace:*",
     "@olsen-mono/astro-svg": "workspace:*",
     "@olsen-mono/core-utils": "workspace:*",
     "@olsen-mono/css-foundation": "workspace:*",
