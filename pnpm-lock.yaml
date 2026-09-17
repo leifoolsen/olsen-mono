@@ -125,7 +125,6 @@ catalogs:
 
 overrides:
   '@astrojs/check>typescript': 6.0.3
-  '@astrojs/ts-plugin>typescript': 6.0.3
 
 importers:
 

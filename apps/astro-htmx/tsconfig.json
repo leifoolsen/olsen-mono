@@ -10,8 +10,7 @@
       "@layouts/*": ["./src/layouts/*"],
       "@styles/*": ["./src/styles/*"]
     },
-    "plugins": [{ "name": "@astrojs/ts-plugin" }],
-    "types": ["node", "astro/client", "astro/container"]
+    "types": ["node", "env", "astro/client", "astro/container"]
   },
   "include": ["src/**/*", ".astro/*.d.ts"],
   "exclude": ["dist", "node_modules"]

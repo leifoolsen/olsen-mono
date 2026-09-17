@@ -1,8 +1,5 @@
 {
   "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "plugins": [{ "name": "@astrojs/ts-plugin" }]
-  },
   "include": ["src/**/*", ".astro/*.d.ts"],
   "exclude": ["dist/**", "node_modules", "src/**/*.astro"]
 }
