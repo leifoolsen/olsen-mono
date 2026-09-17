@@ -1,16 +1,15 @@
 ---
 // packages/astro-forms/src/input-group.astro
-import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import './forms.css';
 
-type Props = HTMLAttributes<'div'> & {};
+type Props = HTMLAttributes<'div'> & {
+  layout?: 'top' | 'before' | 'after';
+};
 
-const { class: className, ...rest } = Astro.props;
-
-assertValidSlots(Astro.slots, [], 'InputGroup');
+const { class: className, layout = 'top', ...rest } = Astro.props;
 ---
 
-<div class:list={['input-group', className]} {...rest}>
+<div class:list={['form-input-group', `layout-${layout}`, className]} {...rest}>
   <slot />
 </div>

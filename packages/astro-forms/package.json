@@ -4,14 +4,19 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     "./forms.css": {
-      "types": "./dist/forms.css.d.ts",
+      "types": "./src/forms.css.d.ts",
       "development": "./src/forms.css",
       "default": "./src/forms.css"
     },
+    "./ErrorMessage.astro": "./src/error-message.astro",
     "./InputGroup.astro": "./src/input-group.astro",
     "./Label.astro": "./src/label.astro",
+    "./RadioButton.astro": "./src/radio-button.astro",
     "./package.json": "./package.json"
   },
   "files": [

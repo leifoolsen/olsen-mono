@@ -1,0 +1,28 @@
+---
+// packages/astro-forms/src/error-message.astro
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'div'> & {
+  text?: string;
+  id?: string;
+};
+
+const { class: className, text, id, ...rest } = Astro.props;
+---
+
+<div id={id} class:list={['form-error-message', className]} role="alert" {...rest}>
+  {text ? text : <slot />}
+</div>
+
+<style>
+  .form-error-message {
+    color: var(--form-error-color);
+    font-size: var(--form-font-size-s);
+    user-select: none;
+    display: none;
+  }
+
+  :global(.input-group:has([aria-invalid='true'], :invalid)) .error-message {
+    display: block;
+  }
+</style>
