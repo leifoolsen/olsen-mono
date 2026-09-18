@@ -127,19 +127,6 @@ html {
   font-weight: var(--font-weight-xl);
 }
 
-:where(label) {
-  display: inline-flex;
-  gap: var(--space-s, 0.5rem);
-  flex-wrap: nowrap;
-  cursor: pointer;
-  user-select: none;
-
-  &:has(:disabled) {
-    cursor: not-allowed;
-    color: var(--muted-text);
-  }
-}
-
 /* --- Input & Fieldset --- */
 :where(fieldset) {
   border: 1px solid var(--border-color, #ccc);
