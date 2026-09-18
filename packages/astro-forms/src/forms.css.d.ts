@@ -22,6 +22,9 @@ export type CssVariables =
   | '--form-space-2xs'
   | '--form-space-s'
   | '--form-space-xs';
-export type CssDataAttributes = never;
+export type DataVariant = string | boolean | undefined;
+export type CssDataAttributes = {
+  'data-variant': DataVariant;
+};
 declare const styles: Record<Css, string>;
 export default styles;
