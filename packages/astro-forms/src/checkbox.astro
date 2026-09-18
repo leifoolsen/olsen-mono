@@ -1,0 +1,35 @@
+---
+// src/components/form-element/radio-button.astro
+import { assertValidSlots } from '@olsen-mono/core-utils';
+import type { HTMLAttributes } from 'astro/types';
+import InputGroup from './input-group.astro';
+import Label from './label.astro';
+
+type Props = HTMLAttributes<'input'> & {
+  id: string;
+  label?: string;
+  labelPosition?: 'after' | 'before';
+};
+
+const { class: className, id, label, labelPosition = 'after', type = 'checkbox', ...rest } = Astro.props;
+
+assertValidSlots(Astro.slots, ['label'], 'RadioButton');
+
+const hasLabelSlot = Astro.slots.has('label');
+const rawSlotContent = hasLabelSlot ? await Astro.slots.render('label') : '';
+const isAlreadyLabel = /^\s*<label(?=[>\s])/i.test(rawSlotContent);
+---
+
+<InputGroup layout={labelPosition} class={className}>
+  <input type={type} class="form-checkbox-input" id={id} {...rest} />
+
+  {!!label && !hasLabelSlot && <Label htmlFor={id} text={label} />}
+
+  {hasLabelSlot && isAlreadyLabel && <Fragment set:html={rawSlotContent.replace(/<label/i, `<label for="${id}"`)} />}
+
+  {hasLabelSlot && !isAlreadyLabel && (
+    <Label htmlFor={id}>
+      <Fragment set:html={rawSlotContent} />
+    </Label>
+  )}
+</InputGroup>

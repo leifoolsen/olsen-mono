@@ -4,7 +4,7 @@
     --form-space-s: var(--space-s, 0.5rem);
     --form-space-xs: var(--space-xs, 0.25rem);
     --form-space-2xs: var(--space-2xs, 0.15rem);
-    --form-accent-color: var(--accent-color, #2563eb);
+    --form-accent-color: var(--accent-color, yellow);
     --form-border-color: var(--border-color, #cccccc);
     --form-brand-text-color: var(--brand-text-color, #2563eb);
     --form-muted-text: var(--muted-text, #666666);
@@ -16,7 +16,7 @@
     --form-input-background-disabled-color: oklch(from var(--swatch-color) calc(l + 0.01) c h);
     --form-input-scale: 1.5;
     --_form-input-height: calc(1em * var(--form-input-scale));
-    --_form-marker-size: calc(var(--_form-input-height) * 0.55);
+    --_form-marker-size: calc(var(--_form-input-height) * 0.52);
   }
 
   /* --- Error Message --- */

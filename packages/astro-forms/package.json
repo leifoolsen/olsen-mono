@@ -13,6 +13,7 @@
       "development": "./src/forms.css",
       "default": "./src/forms.css"
     },
+    "./Checkbox.astro": "./src/checkbox.astro",
     "./ErrorMessage.astro": "./src/error-message.astro",
     "./InputGroup.astro": "./src/input-group.astro",
     "./Label.astro": "./src/label.astro",
