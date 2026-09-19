@@ -1,16 +1,41 @@
 ---
 // packages/astro-forms/src/label.astro
 import type { HTMLAttributes } from 'astro/types';
+import './forms.css';
 
 type Props = HTMLAttributes<'label'> & {
-  htmlFor?: string; // Støtt htmlFor prop
+  htmlFor?: string;
   text?: string;
 };
 
-const { class: className, htmlFor, text, ...rest } = Astro.props;
+const { class: className = '', htmlFor, text, ...rest } = Astro.props;
 const finalFor = htmlFor || rest.for;
+
+let slotContent = '';
+let isAlreadyLabel = false;
+
+if (!text && Astro.slots.has('default')) {
+  slotContent = await Astro.slots.render('default');
+  isAlreadyLabel = /^\s*<label(?=[>\s])/i.test(slotContent);
+}
+
+const cls = ['form-label', className].filter(Boolean).join(' ');
 ---
 
-<label for={finalFor} class={className} {...rest}>
-  {text ? text : <slot />}
-</label>
+{(() => {
+  if (text) {
+    return (
+      <label for={finalFor} class={cls} {...rest}>
+        {text}
+      </label>
+    );
+  }
+  if (isAlreadyLabel) {
+    return <Fragment set:html={slotContent.replace(/<label/i, `<label for="${finalFor}" class="${cls}"`)} />;
+  }
+  return (
+    <label for={finalFor} class={cls} {...rest}>
+      <slot />
+    </label>
+  );
+})()}

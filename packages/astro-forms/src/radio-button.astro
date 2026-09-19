@@ -4,9 +4,10 @@ import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import InputGroup from './input-group.astro';
 import Label from './label.astro';
+import './forms.css';
 
 type Props = HTMLAttributes<'input'> & {
-  id: string;
+  id?: string;
   label?: string;
   labelPosition?: 'after' | 'before';
 };
@@ -15,21 +16,11 @@ const { class: className, id, label, labelPosition = 'after', type = 'radio', ..
 
 assertValidSlots(Astro.slots, ['label'], 'RadioButton');
 
-const hasLabelSlot = Astro.slots.has('label');
-const rawSlotContent = hasLabelSlot ? await Astro.slots.render('label') : '';
-const isAlreadyLabel = /^\s*<label(?=[>\s])/i.test(rawSlotContent);
+const hasLabel = !!label || Astro.slots.has('label');
 ---
 
 <InputGroup layout={labelPosition} class={className}>
   <input type={type} class="form-radio-input" id={id} {...rest} />
 
-  {!!label && !hasLabelSlot && <Label htmlFor={id} text={label} />}
-
-  {hasLabelSlot && isAlreadyLabel && <Fragment set:html={rawSlotContent.replace(/<label/i, `<label for="${id}"`)} />}
-
-  {hasLabelSlot && !isAlreadyLabel && (
-    <Label htmlFor={id}>
-      <Fragment set:html={rawSlotContent} />
-    </Label>
-  )}
+  {hasLabel && <Label htmlFor={id}>{label ? label : <slot name="label" />}</Label>}
 </InputGroup>

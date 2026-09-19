@@ -18,6 +18,7 @@
     "./InputGroup.astro": "./src/input-group.astro",
     "./Label.astro": "./src/label.astro",
     "./RadioButton.astro": "./src/radio-button.astro",
+    "./RadioGroup.astro": "./src/radio-group.astro",
     "./package.json": "./package.json"
   },
   "files": [

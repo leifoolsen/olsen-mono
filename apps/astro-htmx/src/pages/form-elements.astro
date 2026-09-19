@@ -13,6 +13,7 @@ import AppLayout from '@layouts/app-layout.astro';
 import Checkbox from '@olsen-mono/astro-forms/Checkbox.astro';
 import Label from '@olsen-mono/astro-forms/Label.astro';
 import RadioButton from '@olsen-mono/astro-forms/RadioButton.astro';
+import RadioGroup from '@olsen-mono/astro-forms/RadioGroup.astro';
 ---
 
 <AppLayout title="Form Elements">
@@ -180,33 +181,24 @@ import RadioButton from '@olsen-mono/astro-forms/RadioButton.astro';
       </FieldGroup>
 
       <FieldGroup id="forms__radio_styled" bordered>
-        <legend>Radio Buttons</legend>
-
-        <FieldGroup role="radiogroup">
-          <RadioButton id="form-elements-radio-group-1" name="radioOption" value="1" label="Option 1" />
-          <RadioButton id="form-elements-radio-group-2" name="radioOption" value="2" label="Option 2" />
-          <RadioButton id="form-elements-radio-group-3" name="radioOption" value="3">
+        <RadioGroup id="form-elements-radio-group" name="radioOption" layout="stack" label="Select an option" value="5">
+          <RadioButton value="1" label="Option 1" />
+          <RadioButton value="2" label="Option 2" />
+          <RadioButton value="3" label="Option 3">
             <label slot="label">Option 3</label>
           </RadioButton>
-          <RadioButton id="form-elements-radio-group-5" name="radioOption" value="5">
-            <Label slot="label">Option 5</Label>
+          <RadioButton value="4">
+            <Label slot="label">Option 4</Label>
           </RadioButton>
-          <RadioButton
-            id="form-elements-radio-group-6"
-            name="radioOption"
-            value="6"
-            checked
-            disabled
-            label="Disabled Option"
-          />
-        </FieldGroup>
+          <RadioButton disabled value="5" label="Disabled Option" />
+        </RadioGroup>
         <hr />
-        <FieldGroup role="radiogroup" orientation="row">
-          <RadioButton id="testing-1" name="testing" value="1" disabled labelPosition="before" label="Testing 1..." />
-          <RadioButton id="testing-2" name="testing" value="2" disabled checked>
+        <RadioGroup id="testing" layout="inline" name="tesing" label="Testing">
+          <RadioButton value="1" disabled labelPosition="before" label="Testing 1..." />
+          <RadioButton value="2" disabled checked>
             <span slot="label">Testing 2 ...</span>
           </RadioButton>
-        </FieldGroup>
+        </RadioGroup>
       </FieldGroup>
 
       <FieldGroup id="forms__radio_styled" bordered style="min-width: 40ch">

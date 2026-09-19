@@ -1,12 +1,11 @@
 /* packages/astro-forms/src/forms.css */
 @layer components {
   :root,
-  body,
-  [data-variant] {
+  body {
     --form-space-s: var(--space-s, 0.5rem);
     --form-space-xs: var(--space-xs, 0.25rem);
     --form-space-2xs: var(--space-2xs, 0.15rem);
-    --form-accent-color: var(--accent-color, #2563eb);
+    --form-accent-color: var(--accent-color, rebeccapurple);
     --form-border-color: var(--border-color, #cccccc);
     --form-brand-text-color: var(--brand-text-color, #2563eb);
     --form-muted-text: var(--muted-text, #666666);
@@ -27,6 +26,27 @@
     display: none;
     font-size: var(--form-font-size-s);
     user-select: none;
+  }
+
+  /* --- Label --- */
+  .form-label {
+    display: inline-flex;
+    gap: var(--space-s, 0.5rem);
+    flex-wrap: nowrap;
+    cursor: pointer;
+    user-select: none;
+    line-height: 1;
+    font-size: var(--font-size-m);
+    width: fit-content;
+
+    &:has(:disabled) {
+      cursor: not-allowed;
+      color: var(--muted-text);
+    }
+  }
+
+  legend.form-label {
+    cursor: default;
   }
 
   /* --- Input Group --- */
@@ -66,7 +86,7 @@
       grid-template-areas: "label control";
       grid-template-columns: max-content 1fr;
 
-      &:has([aria-invalid="true"], :invalid) {
+      &:has([aria-invalid="true"]) {
         grid-template-areas:
           "label control"
           ".     error";
@@ -77,7 +97,7 @@
       grid-template-areas: "control label";
       grid-template-columns: max-content 1fr;
 
-      &:has([aria-invalid="true"], :invalid) {
+      &:has([aria-invalid="true"]) {
         grid-template-areas:
           "control label"
           ".       error";
@@ -93,8 +113,66 @@
       color: var(--form-brand-text-color);
     }
 
-    &:has([aria-invalid="true"], :invalid) .form-error-message {
+    &:has([aria-invalid="true"]) .form-error-message {
       display: block;
+    }
+
+    &:has(:is(.form-checkbox-input[type="checkbox"][aria-invalid="true"]:checked)) {
+      & > .form-label::after {
+        background-color: var(--form-error-color);
+        content: "";
+        width: 1em;
+        transform: scale(1.2);
+        -webkit-mask-image: url("./raw-svg/warning.svg");
+        mask-image: url("./raw-svg/warning.svg");
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+      }
+    }
+  }
+
+  /* --- Radio Group Container --- */
+  .form-radio-group {
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--form-space-s, 0.5rem);
+    width: 100%;
+
+    /* Sørg for at legend (labelen på toppen) oppfører seg stramt og pent */
+    & legend.form-label {
+      float: left; /* Tvinger legend til å oppføre seg som en blokk i eldre nettlesere */
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Vis feilmeldingen automatisk hvis gruppen inneholder ugyldige valg */
+    &:has(:invalid) .form-error-message {
+      display: block;
+    }
+  }
+
+  /* --- Layout-styring for selve radioknappene --- */
+  .form-radio-group-options {
+    display: flex;
+    gap: var(--form-space-s, 0.5rem);
+
+    /* Vertikal stabling (Standard) */
+    &.layout-stack {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* Horisontal flyt (Inline-modus) */
+    &.layout-inline {
+      flex-direction: row;
+      flex-wrap: wrap; /* Sørger for at de brekker pent på mobilskjermer */
+      align-items: center;
+      gap: var(--form-space-s, 0.5rem) var(--form-space-m, 1rem); /* Mer luft sidelengs */
     }
   }
 
