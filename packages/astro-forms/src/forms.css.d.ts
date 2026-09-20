@@ -3,9 +3,16 @@ export type Css =
   | 'formErrorMessage'
   | 'formInputContainer'
   | 'formInputGroup'
+  | 'formLabel'
+  | 'formLegendBefore'
   | 'formRadioInput'
+  | 'formRadioSet'
+  | 'formRadioSetInlineWrapper'
+  | 'formRadioSetOptions'
   | 'layoutAfter'
   | 'layoutBefore'
+  | 'layoutInline'
+  | 'layoutStack'
   | 'layoutTop';
 export type CssVariables = 
   | '--form-accent-color'
@@ -20,11 +27,12 @@ export type CssVariables =
   | '--form-input-scale'
   | '--form-muted-text'
   | '--form-space-2xs'
+  | '--form-space-3xs'
+  | '--form-space-l'
+  | '--form-space-m'
   | '--form-space-s'
+  | '--form-space-xl'
   | '--form-space-xs';
-export type DataVariant = string | boolean | undefined;
-export type CssDataAttributes = {
-  'data-variant': DataVariant;
-};
+export type CssDataAttributes = never;
 declare const styles: Record<Css, string>;
 export default styles;

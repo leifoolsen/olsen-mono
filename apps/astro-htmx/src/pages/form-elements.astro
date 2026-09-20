@@ -7,13 +7,13 @@ import ListboxGroup from '@components/form-elements/listbox-group.astro';
 import ListboxOption from '@components/form-elements/listbox-option.astro';
 import RangeField from '@components/form-elements/range-field.astro';
 import SelectField from '@components/form-elements/select-field.astro';
-import TextArea from '@components/form-elements/text-area.astro';
 import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
 import AppLayout from '@layouts/app-layout.astro';
 import Checkbox from '@olsen-mono/astro-forms/Checkbox.astro';
 import Label from '@olsen-mono/astro-forms/Label.astro';
 import RadioButton from '@olsen-mono/astro-forms/RadioButton.astro';
 import RadioSet from '@olsen-mono/astro-forms/RadioSet.astro';
+import TextArea2 from '@olsen-mono/astro-forms/TextArea.astro';
 ---
 
 <AppLayout title="Form Elements">
@@ -305,24 +305,24 @@ import RadioSet from '@olsen-mono/astro-forms/RadioSet.astro';
       <FieldGroup id="forms__textareas_styled" bordered style="min-width: 50ch; max-width: 50ch;">
         <legend>Text Areas</legend>
 
-        <TextArea
+        <TextArea2
           id="textarea_styled"
           placeholder="Enter your message here"
           value="Lorem Ipsum Dolar Est!"
           label="Text Area Input"
         />
-        <TextArea id="textarea_styled_required" placeholder="Enter your message here" required>
+        <TextArea2 id="textarea_styled_required" placeholder="Enter your message here" required>
           <span slot="label">Required Text</span>
-        </TextArea>
-        <TextArea id="textarea_styled_readonly" placeholder="Enter your message here" readonly>
+        </TextArea2>
+        <TextArea2 id="textarea_styled_readonly" placeholder="Enter your message here" readonly>
           Lorem Ipsum Dolar Est!
           <label slot="label">Read Only Text</label>
-        </TextArea>
-        <TextArea id="textarea_styled_disabled" placeholder="Enter your message here" disabled>
+        </TextArea2>
+        <TextArea2 id="textarea_styled_disabled" placeholder="Enter your message here" disabled>
           Lorem Ipsum Dolar Est!
           <label slot="label">Disabled Text</label>
-        </TextArea>
-        <TextArea
+        </TextArea2>
+        <TextArea2
           id="textarea_styled_required_invalid"
           placeholder="Enter your message here"
           required
@@ -331,7 +331,7 @@ import RadioSet from '@olsen-mono/astro-forms/RadioSet.astro';
         >
           Lorem Ipsum Dolar Est!
           <span slot="error-message">The input is not valid.</span>
-        </TextArea>
+        </TextArea2>
       </FieldGroup>
 
       <FieldGroup id="forms__selects_styled" bordered style="min-width: 50ch; max-width: 50ch;">

@@ -1,0 +1,53 @@
+---
+// packages/astro-forms/src/TextArea.astro
+// import { assertValidSlots } from '@olsen-mono/core-utils';
+import type { HTMLAttributes } from 'astro/types';
+import ErrorMessage from './error-message.astro';
+import InputGroup from './input-group.astro';
+import Label from './label.astro';
+import './forms.css';
+
+type Props = HTMLAttributes<'textarea'> & {
+  id: string;
+  invalid?: boolean;
+  label?: string;
+  labelPosition?: 'top' | 'before';
+  value?: string;
+};
+
+const {
+  'aria-invalid': ariaInvalid,
+  class: className,
+  id,
+  invalid,
+  label,
+  labelPosition = 'top',
+  value,
+  ...rest
+} = Astro.props;
+
+// assertValidSlots(Astro.slots, ['error-message', 'label'], 'TextArea');
+
+const hasLabel = !!label || Astro.slots.has('label');
+const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const textAreaValue = (
+  value ?? ((Astro.slots.has('default') ? await Astro.slots.render('default') : '') as string)
+).trim();
+---
+
+<InputGroup layout={labelPosition} class={className}>
+  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+
+  <textarea
+    aria-invalid={invalid ?? ariaInvalid ?? undefined}
+    class="form-textarea-input"
+    id={id}
+    {...rest}
+  >{textAreaValue}</textarea>
+
+  {hasErrorMessage && (
+    <ErrorMessage id={`${id}-error`}>
+      <slot name="error-message" />
+    </ErrorMessage>
+  )}
+</InputGroup>
