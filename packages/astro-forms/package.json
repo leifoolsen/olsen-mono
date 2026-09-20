@@ -17,8 +17,9 @@
     "./ErrorMessage.astro": "./src/error-message.astro",
     "./InputGroup.astro": "./src/input-group.astro",
     "./Label.astro": "./src/label.astro",
+    "./LegendLabel.astro": "./src/legend-label.astro",
     "./RadioButton.astro": "./src/radio-button.astro",
-    "./RadioGroup.astro": "./src/radio-group.astro",
+    "./RadioSet.astro": "./src/radio-set.astro",
     "./package.json": "./package.json"
   },
   "files": [

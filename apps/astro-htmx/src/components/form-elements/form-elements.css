@@ -48,7 +48,7 @@
       flex-direction: row;
     }
 
-    & legend {
+    & > legend {
       display: block;
       float: left;
       margin: 0;
@@ -61,7 +61,7 @@
       border-radius: var(--space-2xs, 2px);
       padding: var(--space-m, 1rem) var(--space-l, 1.5rem);
 
-      & legend {
+      & > legend {
         padding: 0 0 0 var(--space-xs, 0.25rem);
         margin: 0 0 0 calc(var(--space-xs, 0.25rem) * -1);
       }

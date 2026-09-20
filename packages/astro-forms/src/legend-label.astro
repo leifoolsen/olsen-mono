@@ -1,0 +1,39 @@
+---
+// packages/astro-forms/src/legend-label.astro
+import type { HTMLAttributes } from 'astro/types';
+import './forms.css';
+
+type Props = HTMLAttributes<'legend'> & {
+  text?: string;
+};
+
+const { class: className = '', text, ...rest } = Astro.props;
+
+let slotContent = '';
+let isAlreadyLegend = false;
+
+if (!text && Astro.slots.has('default')) {
+  slotContent = await Astro.slots.render('default');
+  isAlreadyLegend = /^\s*<legend(?=[>\s])/i.test(slotContent);
+}
+
+const cls = ['form-label', className].filter(Boolean).join(' ');
+---
+
+{(() => {
+  if (!!text) {
+    return (
+      <legend class={cls} {...rest}>
+        {text}
+      </legend>
+    );
+  }
+  if (isAlreadyLegend) {
+    return <Fragment set:html={slotContent.replace(/<legend/i, `<legend class="${cls}"`)} />;
+  }
+  return (
+    <legend class={cls} {...rest}>
+      <slot />
+    </legend>
+  );
+})()}

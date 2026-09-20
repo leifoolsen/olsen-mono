@@ -1,0 +1,151 @@
+---
+// packages/astro-forms/src/RadioSet.astro
+// import { assertValidSlots } from '@olsen-mono/core-utils';
+import type { HTMLAttributes } from 'astro/types';
+import ErrorMessage from './error-message.astro';
+import LegendLabel from './legend-label.astro';
+import './forms.css';
+
+export interface RadioChangeEventDetail {
+  id: string;
+  name: string;
+  value: string;
+}
+
+type Props = HTMLAttributes<'fieldset'> & {
+  id: string;
+  invalid?: boolean;
+  name: string;
+  layout?: 'stack' | 'inline';
+  legend?: string;
+  legendPosition?: 'top' | 'before';
+  required?: boolean;
+  value?: string;
+};
+
+// assertValidSlots(Astro.slots, ['error-message', 'legend'], 'RadioGroup');
+
+const {
+  'aria-invalid': ariaInvalid,
+  'aria-required': ariaRequired,
+  class: className,
+  id,
+  invalid,
+  name,
+  legend,
+  legendPosition = 'top',
+  layout = 'stack',
+  required,
+  value,
+  ...rest
+} = Astro.props;
+const hasLegend = !!legend || Astro.slots.has('legend');
+const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+---
+
+<fieldset
+  aria-invalid={invalid ?? ariaInvalid ?? undefined}
+  aria-required={required ?? ariaRequired ?? undefined}
+  id={id}
+  class:list={['form-radio-set', `form-legend-${legendPosition}`, className]}
+  aria-describedby={hasErrorMessage ? `${id}-error` : undefined}
+  role="radiogroup"
+  {...rest}
+>
+  {legendPosition === 'before' ? (
+    <div class="form-radio-set-inline-wrapper">
+      {hasLegend && <LegendLabel>{!!legend ? legend : <slot name="legend" />}</LegendLabel>}
+      <div
+        class:list={['form-radio-set-options', `layout-${layout}`]}
+        data-group-id={id}
+        data-group-name={name}
+        data-group-value={value}
+      >
+        <slot />
+      </div>
+    </div>
+  ) : (
+    <>
+      {hasLegend && <LegendLabel>{!!legend ? legend : <slot name="legend" />}</LegendLabel>}
+      <div
+        class:list={['form-radio-set-options', `layout-${layout}`]}
+        data-group-id={id}
+        data-group-name={name}
+        data-group-value={value}
+      >
+        <slot />
+      </div>
+    </>
+  )}
+
+  {hasErrorMessage && (
+    <ErrorMessage id={`${id}-error`} style="display: block;">
+      <slot name="error-message" />
+    </ErrorMessage>
+  )}
+</fieldset>
+
+<script>
+  function enrichRadioGroups() {
+    const fieldsets = document.querySelectorAll('.form-radio-set');
+
+    for (const fieldset of fieldsets) {
+      if (!(fieldset instanceof HTMLFieldSetElement)) continue;
+
+      const optionsContainer = fieldset.querySelector('.form-radio-set-options');
+      if (!optionsContainer) continue;
+
+      const groupId = fieldset.id;
+      const groupName = optionsContainer.getAttribute('data-group-name');
+      const groupValue = optionsContainer.getAttribute('data-group-value');
+
+      if (!fieldset.hasAttribute('data-initialized')) {
+        fieldset.addEventListener('change', (e) => {
+          const target = e.target;
+          if (target instanceof HTMLInputElement && target.type === 'radio') {
+            fieldset.dispatchEvent(
+              new CustomEvent('radio-change', {
+                bubbles: true,
+                detail: {
+                  id: fieldset.id,
+                  name: target.name,
+                  value: target.value,
+                },
+              }),
+            );
+          }
+        });
+      }
+
+      const inputs = optionsContainer.querySelectorAll('input[type="radio"]');
+
+      for (const input of inputs) {
+        if (!(input instanceof HTMLInputElement)) continue;
+
+        if (groupName) input.name = groupName;
+
+        if (groupId && (!input.id || input.id.startsWith('form-elements'))) {
+          const cleanValue = input.value.replace(/[^a-zA-Z0-9-_]/g, '');
+          input.id = `${groupId}-${cleanValue}`;
+
+          const wrapper = input.closest('div');
+          if (wrapper) {
+            const label = wrapper.querySelector('label');
+            if (label) {
+              label.setAttribute('for', input.id);
+            }
+          }
+        }
+
+        if (groupValue && input.value === groupValue) {
+          input.checked = true;
+        }
+      }
+
+      fieldset.setAttribute('data-initialized', 'true');
+    }
+  }
+
+  enrichRadioGroups();
+  document.addEventListener('astro:after-swap', enrichRadioGroups);
+</script>

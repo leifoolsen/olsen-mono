@@ -13,7 +13,7 @@ import AppLayout from '@layouts/app-layout.astro';
 import Checkbox from '@olsen-mono/astro-forms/Checkbox.astro';
 import Label from '@olsen-mono/astro-forms/Label.astro';
 import RadioButton from '@olsen-mono/astro-forms/RadioButton.astro';
-import RadioGroup from '@olsen-mono/astro-forms/RadioGroup.astro';
+import RadioSet from '@olsen-mono/astro-forms/RadioSet.astro';
 ---
 
 <AppLayout title="Form Elements">
@@ -145,11 +145,13 @@ import RadioGroup from '@olsen-mono/astro-forms/RadioGroup.astro';
           <Checkbox
             checked
             invalid
+            required
             id="form-elements-checkbox-invalid"
             name="form-elements-checkbox-invalid"
             value="cbinvalid"
           >
-            <label slot="label">Invalid</label>
+            <label slot="label">Invalid, required</label>
+            <span slot="error-message">This is an error!</span>
           </Checkbox>
           <Checkbox disabled id="form-elements-checkbox-disabled" name="form-elements-checkbox-disabled" value="cb3">
             <label slot="label">Unchecked, Disabled</label>
@@ -181,7 +183,9 @@ import RadioGroup from '@olsen-mono/astro-forms/RadioGroup.astro';
       </FieldGroup>
 
       <FieldGroup id="forms__radio_styled" bordered>
-        <RadioGroup id="form-elements-radio-group" name="radioOption" layout="stack" label="Select an option" value="5">
+        <legend>Radiobuttons</legend>
+
+        <RadioSet id="case-1" name="radioOption" layout="stack" legend="Select an option" value="5" required>
           <RadioButton value="1" label="Option 1" />
           <RadioButton value="2" label="Option 2" />
           <RadioButton value="3" label="Option 3">
@@ -191,14 +195,52 @@ import RadioGroup from '@olsen-mono/astro-forms/RadioGroup.astro';
             <Label slot="label">Option 4</Label>
           </RadioButton>
           <RadioButton disabled value="5" label="Disabled Option" />
-        </RadioGroup>
+          <span slot="error-message">The selection is not valid.</span>
+        </RadioSet>
+
+        <script>
+          import type { RadioChangeEventDetail } from '@olsen-mono/astro-forms/RadioSet.astro';
+
+          const element = document.querySelector<HTMLFieldSetElement>('#case-1');
+
+          element?.addEventListener('radio-change', (e) => {
+            console.log('RadioSet:', (e as CustomEvent<RadioChangeEventDetail>).detail);
+          });
+        </script>
         <hr />
-        <RadioGroup id="testing" layout="inline" name="tesing" label="Testing">
-          <RadioButton value="1" disabled labelPosition="before" label="Testing 1..." />
-          <RadioButton value="2" disabled checked>
+        <br />
+        <RadioSet id="case-2" name="case2" legend="Legend before" legendPosition="before" invalid>
+          <RadioButton value="1" label="Testing 1..." />
+          <RadioButton value="2">
             <span slot="label">Testing 2 ...</span>
           </RadioButton>
-        </RadioGroup>
+          <span slot="error-message">The selection is not valid.</span>
+        </RadioSet>
+        <hr />
+        <br />
+        <RadioSet id="case-3" layout="inline" name="case3" legend="Legend top, layout inline" invalid>
+          <RadioButton value="1" label="Testing 1..." />
+          <RadioButton value="2">
+            <span slot="label">Testing 2 ...</span>
+          </RadioButton>
+          <span slot="error-message">The selection is not valid.</span>
+        </RadioSet>
+        <hr />
+        <br />
+        <RadioSet
+          id="case-4"
+          layout="inline"
+          name="case4"
+          legend="Legend before, layout inline"
+          legendPosition="before"
+          invalid
+        >
+          <RadioButton value="1" label="Testing 1..." />
+          <RadioButton value="2">
+            <span slot="label">Testing 2 ...</span>
+          </RadioButton>
+          <span slot="error-message">The selection is not valid.</span>
+        </RadioSet>
       </FieldGroup>
 
       <FieldGroup id="forms__radio_styled" bordered style="min-width: 40ch">

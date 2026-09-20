@@ -2,9 +2,13 @@
 @layer components {
   :root,
   body {
+    --form-space-xl: var(--space-xl, 1.5rem);
+    --form-space-l: var(--space-l, 1.35rem);
+    --form-space-m: var(--space-m, 1rem);
     --form-space-s: var(--space-s, 0.5rem);
     --form-space-xs: var(--space-xs, 0.25rem);
     --form-space-2xs: var(--space-2xs, 0.15rem);
+    --form-space-3xs: var(--space-3xs, 0.1rem);
     --form-accent-color: var(--accent-color, rebeccapurple);
     --form-border-color: var(--border-color, #cccccc);
     --form-brand-text-color: var(--brand-text-color, #2563eb);
@@ -38,22 +42,33 @@
     line-height: 1;
     font-size: var(--font-size-m);
     width: fit-content;
-
-    &:has(:disabled) {
-      cursor: not-allowed;
-      color: var(--muted-text);
-    }
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    position: relative;
   }
 
   legend.form-label {
     cursor: default;
+    float: left;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* ====================================================================================== */
+  /*  Safari does not take gap into account if fieldset container has flex- or grid layout  */
+  /* ====================================================================================== */
+  @supports (hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none) {
+    legend.form-label {
+      margin-bottom: var(--form-space-s, 0.5rem);
+    }
   }
 
   /* --- Input Group --- */
   .form-input-group {
     display: grid;
-    align-items: center;
-    gap: var(--form-space-s);
+    align-items: baseline;
+    column-gap: var(--form-space-s);
     width: 100%;
 
     & label {
@@ -76,17 +91,24 @@
     &.layout-top {
       grid-template-areas:
         "label"
-        "control"
-        "error";
+        "control";
       grid-template-columns: 1fr;
-      gap: var(--form-space-xs) var(--form-space-s);
+      row-gap: var(--form-space-xs);
+
+      &:has(.form-error-message) {
+        grid-template-areas:
+          "label"
+          "control"
+          "error";
+        row-gap: var(--form-space-s);
+      }
     }
 
     &.layout-before {
       grid-template-areas: "label control";
       grid-template-columns: max-content 1fr;
 
-      &:has([aria-invalid="true"]) {
+      &:has(.form-error-message) {
         grid-template-areas:
           "label control"
           ".     error";
@@ -97,7 +119,7 @@
       grid-template-areas: "control label";
       grid-template-columns: max-content 1fr;
 
-      &:has([aria-invalid="true"]) {
+      &:has(.form-error-message) {
         grid-template-areas:
           "control label"
           ".       error";
@@ -113,8 +135,9 @@
       color: var(--form-brand-text-color);
     }
 
-    &:has([aria-invalid="true"]) .form-error-message {
+    &:has(:is([type="checkbox"][aria-invalid="true"]:checked)) .form-error-message {
       display: block;
+      margin-top: var(--form-space-3xs);
     }
 
     &:has(:is(.form-checkbox-input[type="checkbox"][aria-invalid="true"]:checked)) {
@@ -122,7 +145,50 @@
         background-color: var(--form-error-color);
         content: "";
         width: 1em;
-        transform: scale(1.2);
+        transform: scale(1.3);
+        -webkit-mask-image: url("./raw-svg/warning.svg");
+        mask-image: url("./raw-svg/warning.svg");
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+      }
+    }
+
+    &:has(:is(.form-checkbox-input[type="checkbox"]:required:not(:checked))) {
+      & > label::after {
+        content: "*";
+        transform: scale(1.4) translateY(20%);
+      }
+    }
+  }
+
+  /* --- Radio Set Container --- */
+  .form-radio-set {
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--form-space-s, 0.25rem);
+    width: 100%;
+
+    &.form-legend-before {
+      flex-direction: column;
+    }
+
+    &[aria-required="true"] {
+      & legend.form-label::after {
+        content: "*";
+        transform: scale(1.4) translateY(20%);
+      }
+    }
+
+    &[aria-invalid="true"] {
+      & legend.form-label::after {
+        background-color: var(--form-error-color);
+        content: "";
+        width: 1em;
+        transform: scale(1.3);
         -webkit-mask-image: url("./raw-svg/warning.svg");
         mask-image: url("./raw-svg/warning.svg");
         -webkit-mask-size: contain;
@@ -133,46 +199,37 @@
     }
   }
 
-  /* --- Radio Group Container --- */
-  .form-radio-group {
-    border: none;
-    margin: 0;
-    padding: 0;
+  .form-radio-set-inline-wrapper {
     display: flex;
-    flex-direction: column;
-    gap: var(--form-space-s, 0.5rem);
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--form-space-s, 0.5rem) var(--form-space-m, 0.5rem);
     width: 100%;
 
-    /* Sørg for at legend (labelen på toppen) oppfører seg stramt og pent */
     & legend.form-label {
-      float: left; /* Tvinger legend til å oppføre seg som en blokk i eldre nettlesere */
-      padding: 0;
+      width: auto;
       margin: 0;
-    }
-
-    /* Vis feilmeldingen automatisk hvis gruppen inneholder ugyldige valg */
-    &:has(:invalid) .form-error-message {
-      display: block;
     }
   }
 
-  /* --- Layout-styring for selve radioknappene --- */
-  .form-radio-group-options {
+  .form-radio-set-options {
     display: flex;
-    gap: var(--form-space-s, 0.5rem);
+    gap: var(--form-space-s, 0.75rem);
 
-    /* Vertikal stabling (Standard) */
     &.layout-stack {
       flex-direction: column;
       align-items: flex-start;
     }
 
-    /* Horisontal flyt (Inline-modus) */
     &.layout-inline {
       flex-direction: row;
-      flex-wrap: wrap; /* Sørger for at de brekker pent på mobilskjermer */
+      flex-wrap: wrap;
       align-items: center;
       gap: var(--form-space-s, 0.5rem) var(--form-space-m, 1rem); /* Mer luft sidelengs */
+
+      & .form-input-group {
+        width: auto;
+      }
     }
   }
 

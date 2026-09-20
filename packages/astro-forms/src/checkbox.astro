@@ -1,7 +1,8 @@
 ---
 // src/components/form-element/radio-button.astro
-import { assertValidSlots } from '@olsen-mono/core-utils';
+// import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
+import ErrorMessage from './error-message.astro';
 import InputGroup from './input-group.astro';
 import Label from './label.astro';
 import './forms.css';
@@ -14,22 +15,25 @@ type Props = HTMLAttributes<'input'> & {
 };
 
 const {
+  'aria-invalid': ariaInvalid,
   class: className,
   id,
+  invalid,
   label,
   labelPosition = 'after',
   type = 'checkbox',
-  'aria-invalid': ariaInvalid,
-  invalid,
   ...rest
 } = Astro.props;
 
-assertValidSlots(Astro.slots, ['label'], 'RadioButton');
+// assertValidSlots(Astro.slots, ['error-message', 'label'], 'Checkbox');
 
 const hasLabel = !!label || Astro.slots.has('label');
+const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
 ---
 
 <InputGroup layout={labelPosition} class={className}>
+  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+
   <input
     aria-invalid={invalid ?? ariaInvalid ?? undefined}
     class="form-checkbox-input"
@@ -38,5 +42,9 @@ const hasLabel = !!label || Astro.slots.has('label');
     {...rest}
   />
 
-  {hasLabel && <Label htmlFor={id}>{label ? label : <slot name="label" />}</Label>}
+  {hasErrorMessage && (
+    <ErrorMessage id={`${id}-error`}>
+      <slot name="error-message" />
+    </ErrorMessage>
+  )}
 </InputGroup>

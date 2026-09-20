@@ -23,7 +23,7 @@ const cls = ['form-label', className].filter(Boolean).join(' ');
 ---
 
 {(() => {
-  if (text) {
+  if (!!text) {
     return (
       <label for={finalFor} class={cls} {...rest}>
         {text}

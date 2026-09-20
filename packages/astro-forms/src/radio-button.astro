@@ -1,6 +1,6 @@
 ---
 // src/components/form-element/radio-button.astro
-import { assertValidSlots } from '@olsen-mono/core-utils';
+// import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import InputGroup from './input-group.astro';
 import Label from './label.astro';
@@ -14,13 +14,13 @@ type Props = HTMLAttributes<'input'> & {
 
 const { class: className, id, label, labelPosition = 'after', type = 'radio', ...rest } = Astro.props;
 
-assertValidSlots(Astro.slots, ['label'], 'RadioButton');
+// assertValidSlots(Astro.slots, ['error-message', 'label'], 'RadioButton');
 
 const hasLabel = !!label || Astro.slots.has('label');
 ---
 
 <InputGroup layout={labelPosition} class={className}>
-  <input type={type} class="form-radio-input" id={id} {...rest} />
+  {hasLabel && <Label for={id}>{!!label ? label : <slot name="label" />}</Label>}
 
-  {hasLabel && <Label htmlFor={id}>{label ? label : <slot name="label" />}</Label>}
+  <input type={type} class="form-radio-input" id={id} {...rest} />
 </InputGroup>
