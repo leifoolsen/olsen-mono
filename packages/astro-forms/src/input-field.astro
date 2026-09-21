@@ -1,0 +1,128 @@
+---
+// packages/astro-forms/src/input-field.astro
+import { assertValidSlots } from '@olsen-mono/core-utils';
+import type { HTMLAttributes } from 'astro/types';
+import ErrorMessage from './error-message.astro';
+import FieldHelp from './field-help.astro';
+import InputControl from './input-control.astro';
+import InputGroup from './input-group.astro';
+import Label from './label.astro';
+import './forms.css';
+
+type Props = HTMLAttributes<'input'> & {
+  id: string;
+  invalid?: boolean;
+  label?: string;
+  labelPosition?: 'top' | 'before';
+};
+
+const {
+  'aria-describedby': ariaDescribedBy,
+  'aria-invalid': ariaInvalid,
+  class: className,
+  id,
+  invalid,
+  label,
+  labelPosition = 'top',
+  type = 'text',
+  ...rest
+} = Astro.props;
+
+assertValidSlots(Astro.slots, ['description', 'error-message', 'label'], 'InputField');
+
+const hasLabel = !!label || Astro.slots.has('label');
+const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const hasDescriptionSlot = Astro.slots.has('description');
+const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
+const errorId = hasErrorMessage ? `${id}-error` : undefined;
+const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
+---
+
+<InputGroup layout={labelPosition} class={className}>
+  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+
+  <InputControl>
+    <input
+      aria-describedby={describedByList || undefined}
+      aria-invalid={invalid ?? ariaInvalid ?? undefined}
+      class="form-text-input"
+      data-text-input
+      id={id}
+      type={type}
+      {...rest}
+    />
+
+    {type === 'search' && <div style="
+      align-content: center;
+      aspect-ratio: 1;
+      background: none;
+      border: none;
+      box-shadow: none;
+      display: inline-grid;
+      height: 1em;
+      outline: none;
+      z-index: 2;"
+    >🔎</div>}
+
+    <button aria-label="Clear value" class="icon-clear" tabindex="-1" type="button" style="
+      align-content: center;
+      aspect-ratio: 1;
+      background: transparent;
+      box-shadow: none;
+      border: none;
+      cursor: pointer;
+      display: inline-grid;
+      height: 1em;
+      outline: none;
+      padding: 0;
+      place-items: center;
+      user-select: none;
+    ">x</button>
+
+    {type === 'date' && <div class="form-input-icon icon-calendar" />}
+
+    {hasDescriptionSlot && (
+      <FieldHelp id={descriptionId!}>
+        <slot name="description" />
+      </FieldHelp>
+    )}
+  </InputControl>
+
+  {hasErrorMessage && (
+    <ErrorMessage id={errorId}>
+      <slot name="error-message" />
+    </ErrorMessage>
+  )}
+</InputGroup>
+
+<script>
+  function setupInputFields() {
+    const inputs = document.querySelectorAll('[data-text-input]');
+
+    for (const input of inputs) {
+      if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
+      input.setAttribute('data-initialized', 'true');
+
+      const wrapper = input.closest('.form-input-control');
+      if (!wrapper) continue;
+
+      const searchIcon = wrapper.querySelector<HTMLDivElement>('.icon-search');
+      const clearButton = wrapper.querySelector<HTMLButtonElement>('.icon-clear');
+
+      if (searchIcon) {
+        searchIcon.addEventListener('click', () => input.focus());
+      }
+
+      if (clearButton) {
+        clearButton.addEventListener('click', () => {
+          input.value = '';
+          input.focus();
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+      }
+    }
+  }
+
+  setupInputFields();
+  document.addEventListener('astro:after-swap', setupInputFields);
+</script>

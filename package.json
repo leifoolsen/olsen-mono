@@ -73,6 +73,7 @@
     "dev-astro": "pnpm --filter=./apps/astro-htmx... dev"
   },
   "devDependencies": {
+    "@astrojs/ts-plugin": "1.10.9",
     "@biomejs/biome": "2.5.14",
     "@changesets/cli": "3.0.3",
     "@olsen-mono/tooling": "workspace:*",
