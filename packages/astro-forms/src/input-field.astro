@@ -4,7 +4,7 @@ import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './error-message.astro';
 import FieldHelp from './field-help.astro';
-import InputContainer from './input-container.astro';
+import InputControl from './input-control.astro';
 import InputGroup from './input-group.astro';
 import Label from './label.astro';
 import './forms.css';
@@ -41,7 +41,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
 <InputGroup layout={labelPosition} class={className}>
   {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
 
-  <InputContainer>
+  <InputControl>
     <input
       aria-describedby={describedByList || undefined}
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
@@ -86,7 +86,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
         <slot name="description" />
       </FieldHelp>
     )}
-  </InputContainer>
+  </InputControl>
 
   {hasErrorMessage && (
     <ErrorMessage id={errorId}>
@@ -103,7 +103,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
       input.setAttribute('data-initialized', 'true');
 
-      const wrapper = input.closest('.form-input-container');
+      const wrapper = input.closest('.form-input-control');
       if (!wrapper) continue;
 
       const searchIcon = wrapper.querySelector<HTMLDivElement>('.icon-search');

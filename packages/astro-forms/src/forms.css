@@ -317,7 +317,7 @@
   }
 
   /* --- Input Container ---*/
-  .form-input-container {
+  .form-input-control {
     grid-area: control;
     display: inline-flex;
     flex-wrap: nowrap;

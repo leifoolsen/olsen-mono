@@ -1,7 +1,7 @@
 export type Css = 
   | 'formCheckboxInput'
   | 'formErrorMessage'
-  | 'formInputContainer'
+  | 'formInputControl'
   | 'formInputGroup'
   | 'formInputIcon'
   | 'formLabel'
