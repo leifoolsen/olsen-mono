@@ -18,10 +18,7 @@ _tmp_*
 
 # Ignore generated TypeScript Project Reference-artifacts in source code
 *.tsbuildinfo
-packages/**/*.d.ts
-packages/**/*.d.mts
-tools/**/*.d.ts
-tools/**/*.d.mts
+tools/**/*.css.d.ts
 tools/css-to-dts/src/__tests__/__fixtures__/
 
-# ... but keep there *.d.ts files
+# ... but keep these files
