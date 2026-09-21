@@ -18,7 +18,7 @@
     "./ErrorMessage.astro": "./src/error-message.astro",
     "./InputContainer.astro": "./src/input-container.astro",
     "./InputControl.astro": "./src/input-control.astro",
-    "./InputField.astro": "./src/input-field.astro",
+    "./TextInput.astro": "./src/text-input.astro",
     "./Label.astro": "./src/label.astro",
     "./LegendLabel.astro": "./src/legend-label.astro",
     "./RadioButton.astro": "./src/radio-button.astro",

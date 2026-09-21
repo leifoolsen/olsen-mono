@@ -11,12 +11,12 @@ import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
 import AppLayout from '@layouts/app-layout.astro';
 // ------
 import Checkbox from '@olsen-mono/astro-forms/Checkbox.astro';
-import InputField2 from '@olsen-mono/astro-forms/InputField.astro';
 import Label from '@olsen-mono/astro-forms/Label.astro';
 import RadioButton from '@olsen-mono/astro-forms/RadioButton.astro';
 import RadioSet from '@olsen-mono/astro-forms/RadioSet.astro';
 import SelectInput from '@olsen-mono/astro-forms/SelectInput.astro';
 import TextAreaInput from '@olsen-mono/astro-forms/TextAreaInput.astro';
+import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
 ---
 
 <AppLayout title="Form Elements">
@@ -268,23 +268,23 @@ import TextAreaInput from '@olsen-mono/astro-forms/TextAreaInput.astro';
       <FieldGroup id="forms__inputs_styled" bordered style="min-width: 50ch;">
         <legend>Input fields</legend>
 
-        <InputField2 id="input__text_styled" placeholder="Enter Text" label="Text Input">
+        <TextInput id="input__text_styled" placeholder="Enter Text" label="Text Input">
           <span slot="description">This is a description of the input.</span>
-        </InputField2>
-        <InputField2 id="input__number_styled" type="number" placeholder="Enter Number">
+        </TextInput>
+        <TextInput id="input__number_styled" type="number" placeholder="Enter Number">
           <label slot="label">Number Input</label>
-        </InputField2>
+        </TextInput>
         <InputField id="input__password_styled" type="password" placeholder="Type your Password">
           <label slot="label">Password</label>
         </InputField>
-        <InputField2
+        <TextInput
           id="input__required_styled"
           type="search"
           placeholder="Required Input"
           required
           label="Required Input"
         />
-        <InputField2
+        <TextInput
           id="input__text_readonly_styled"
           placeholder="Enter Text"
           value="Read Only"
