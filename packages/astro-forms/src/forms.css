@@ -75,10 +75,6 @@
       grid-area: label;
     }
 
-    & .form-input-container {
-      grid-area: control;
-    }
-
     & .form-radio-input,
     & .form-checkbox-input {
       grid-area: control;
@@ -320,7 +316,71 @@
     border-color: var(--form-error-color);
   }
 
-  /* --- TextArea and Text Inputs --- */
+  /* --- Input Container ---*/
+  .form-input-container {
+    grid-area: control;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--form-space-xs);
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    padding-inline: var(--form-space-s);
+    background-color: var(--form-input-background-color);
+    border: 1px solid var(--form-border-color);
+    border-radius: var(--form-space-2xs);
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      background-color 0.2s;
+
+    &:focus-within {
+      border: 1px solid var(--form-brand-text-color);
+      box-shadow:
+        0 0 0 max(2px, 0.15em) canvas,
+        0 0 0 max(4px, 0.25em) var(--form-brand-text-color);
+      outline: none;
+    }
+
+    &:has([aria-invalid="true"]) {
+      border-color: var(--form-error-color);
+
+      &:focus-within {
+        border-color: var(--form-error-color);
+        box-shadow:
+          0 0 0 max(2px, 0.15em) canvas,
+          0 0 0 max(4px, 0.25em) var(--form-error-color);
+      }
+    }
+
+    &:has(:is(:disabled, [readonly])) {
+      background-color: var(--form-input-background-disabled-color);
+
+      & .icon-clear {
+        background-color: transparent;
+        display: none;
+      }
+
+      & .form-input-icon {
+        color: var(--form-muted-text);
+        cursor: not-allowed;
+      }
+    }
+
+    /* Skjul sletteknappen hvis feltet er tomt (placeholder vises) */
+    &:has(.form-text-input:placeholder-shown) {
+      & .icon-clear {
+        display: none;
+      }
+    }
+
+    &:has([readonly]) {
+      border-style: dashed;
+    }
+  }
+
+  /* --- Text Area --- */
   .form-textarea-input {
     width: 100%;
     box-sizing: border-box;
@@ -363,5 +423,43 @@
 
   .form-input-group .form-textarea-input {
     grid-area: control;
+  }
+
+  /* --- Text Input --- */
+  .form-text-input {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+    flex: 1;
+    font-size: inherit;
+    font-family: inherit;
+    padding-block: var(--form-space-xs);
+    padding-inline: 0;
+    text-overflow: ellipsis;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+
+    &:disabled,
+    &[readonly] {
+      color: var(--form-muted-text);
+      cursor: not-allowed;
+    }
+
+    &[readonly] {
+      cursor: default;
+    }
+
+    &[type="search"] {
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-results-button,
+      &::-webkit-search-results-decoration {
+        -webkit-appearance: none;
+        appearance: none;
+      }
+    }
   }
 }
