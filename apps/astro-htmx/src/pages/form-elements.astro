@@ -16,7 +16,7 @@ import Label from '@olsen-mono/astro-forms/Label.astro';
 import RadioButton from '@olsen-mono/astro-forms/RadioButton.astro';
 import RadioSet from '@olsen-mono/astro-forms/RadioSet.astro';
 import SelectInput from '@olsen-mono/astro-forms/SelectInput.astro';
-import TextArea from '@olsen-mono/astro-forms/TextArea.astro';
+import TextAreaInput from '@olsen-mono/astro-forms/TextAreaInput.astro';
 ---
 
 <AppLayout title="Form Elements">
@@ -308,33 +308,33 @@ import TextArea from '@olsen-mono/astro-forms/TextArea.astro';
       <FieldGroup id="forms__textareas_styled" bordered style="min-width: 50ch; max-width: 50ch;">
         <legend>Text Areas</legend>
 
-        <TextArea
+        <TextAreaInput
           id="textarea_styled"
           placeholder="Enter your message here"
           value="Lorem Ipsum Dolar Est!"
           label="Text Area Input"
         />
-        <TextArea id="textarea_styled_required" placeholder="Enter your message here" required>
+        <TextAreaInput id="textarea_styled_required" placeholder="Enter your message here" required>
           <span slot="label">Required Text</span>
-        </TextArea>
-        <TextArea id="textarea_styled_readonly" placeholder="Enter your message here" readonly>
-          Lorem Ipsum Dolar Est!
+        </TextAreaInput>
+        <TextAreaInput id="textarea_styled_readonly" placeholder="Enter your message here" readonly>
+          <Fragment>Lorem Ipsum Dolar Est!</Fragment>
           <label slot="label">Read Only Text</label>
-        </TextArea>
-        <TextArea id="textarea_styled_disabled" placeholder="Enter your message here" disabled>
-          Lorem Ipsum Dolar Est!
+        </TextAreaInput>
+        <TextAreaInput id="textarea_styled_disabled" placeholder="Enter your message here" disabled>
+          <Fragment>Lorem Ipsum Dolar Est!</Fragment>
           <label slot="label">Disabled Text</label>
-        </TextArea>
-        <TextArea
+        </TextAreaInput>
+        <TextAreaInput
           id="textarea_styled_required_invalid"
           placeholder="Enter your message here"
           required
           invalid
           label="Required Invalid Text"
         >
-          Lorem Ipsum Dolar Est!
+          <Fragment>Lorem Ipsum Dolar Est!</Fragment>
           <span slot="error-message">The input is not valid.</span>
-        </TextArea>
+        </TextAreaInput>
       </FieldGroup>
 
       <FieldGroup id="forms__selects_styled" bordered style="min-width: 50ch; max-width: 50ch;">

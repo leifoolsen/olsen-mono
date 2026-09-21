@@ -24,7 +24,7 @@
     "./RadioButton.astro": "./src/radio-button.astro",
     "./RadioSet.astro": "./src/radio-set.astro",
     "./SelectInput.astro": "./src/select-input.astro",
-    "./TextArea.astro": "./src/text-area.astro",
+    "./TextAreaInput.astro": "./src/text-area-input.astro",
     "./package.json": "./package.json"
   },
   "files": [
