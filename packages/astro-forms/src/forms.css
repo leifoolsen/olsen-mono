@@ -316,7 +316,7 @@
     border-color: var(--form-error-color);
   }
 
-  /* --- Input Container ---*/
+  /* --- Input Control Container ---*/
   .form-input-control {
     grid-area: control;
     display: inline-flex;
@@ -343,6 +343,10 @@
       outline: none;
     }
 
+    &:has(textarea) {
+      padding-inline: 0;
+    }
+
     &:has([aria-invalid="true"]) {
       border-color: var(--form-error-color);
 
@@ -359,7 +363,7 @@
 
       & .icon-clear {
         background-color: transparent;
-        display: none;
+        display: none !important;
       }
 
       & .form-input-icon {
@@ -368,7 +372,6 @@
       }
     }
 
-    /* Skjul sletteknappen hvis feltet er tomt (placeholder vises) */
     &:has(.form-text-input:placeholder-shown) {
       & .icon-clear {
         display: none !important;
@@ -382,7 +385,8 @@
   }
 
   /* --- Text Input --- */
-  .form-text-input {
+  .form-text-input,
+  .form-textarea-input {
     background-color: transparent;
     border: none;
     box-shadow: none;
@@ -421,46 +425,9 @@
 
   /* --- Text Area --- */
   .form-textarea-input {
-    width: 100%;
-    box-sizing: border-box;
-    font-family: inherit;
-    font-size: inherit;
-    padding: var(--form-space-xs) var(--form-space-s);
-    background-color: var(--form-input-background-color);
-    border: 1px solid var(--form-border-color);
-    border-radius: var(--form-space-2xs);
-    color: inherit;
+    padding-inline: var(--form-space-s);
     resize: vertical;
-    min-block-size: calc(var(--_form-input-height) * 5 - 2px);
-    max-height: 12.2lh;
-    transition:
-      border-color 0.2s ease,
-      box-shadow 0.2s ease;
-
-    &:focus-visible {
-      outline: 2px solid var(--form-brand-text-color);
-      outline-offset: 2px;
-      box-shadow: none;
-      border-color: var(--form-brand-text-color);
-    }
-
-    &[aria-invalid="true"]:not(:placeholder-shown) {
-      border-color: var(--form-error-color);
-    }
-
-    &:disabled,
-    &:read-only {
-      background-color: var(--form-input-background-disabled-color);
-      color: var(--form-muted-text);
-      cursor: not-allowed;
-    }
-
-    &:read-only {
-      border-style: dashed;
-    }
-  }
-
-  .form-input-group .form-textarea-input {
-    grid-area: control;
+    min-block-size: calc(var(--_form-input-height) * 5 - var(--form-space-xs) + 1px);
+    max-block-size: 11.94lh;
   }
 }

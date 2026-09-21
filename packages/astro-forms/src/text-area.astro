@@ -3,6 +3,7 @@
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './error-message.astro';
+import InputControl from './input-control.astro';
 import InputGroup from './input-group.astro';
 import Label from './label.astro';
 import './forms.css';
@@ -39,12 +40,14 @@ const textAreaValue = (
 <InputGroup layout={labelPosition} class={className}>
   {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
 
-  <textarea
-    aria-invalid={invalid ?? ariaInvalid ?? undefined}
-    class="form-textarea-input"
-    id={id}
-    {...rest}
-  >{textAreaValue}</textarea>
+  <InputControl>
+    <textarea
+      aria-invalid={invalid ?? ariaInvalid ?? undefined}
+      class="form-textarea-input"
+      id={id}
+      {...rest}
+    >{textAreaValue}</textarea>
+  </InputControl>
 
   {hasErrorMessage && (
     <ErrorMessage id={errorId}>
