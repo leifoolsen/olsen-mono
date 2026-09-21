@@ -10,10 +10,11 @@ import SelectField from '@components/form-elements/select-field.astro';
 import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
 import AppLayout from '@layouts/app-layout.astro';
 import Checkbox from '@olsen-mono/astro-forms/Checkbox.astro';
+import InputField2 from '@olsen-mono/astro-forms/InputField.astro';
 import Label from '@olsen-mono/astro-forms/Label.astro';
 import RadioButton from '@olsen-mono/astro-forms/RadioButton.astro';
 import RadioSet from '@olsen-mono/astro-forms/RadioSet.astro';
-import TextArea2 from '@olsen-mono/astro-forms/TextArea.astro';
+import TextArea from '@olsen-mono/astro-forms/TextArea.astro';
 ---
 
 <AppLayout title="Form Elements">
@@ -265,18 +266,18 @@ import TextArea2 from '@olsen-mono/astro-forms/TextArea.astro';
       <FieldGroup id="forms__inputs_styled" bordered style="min-width: 50ch;">
         <legend>Input fields</legend>
 
-        <InputField id="input__text_styled" placeholder="Enter Text" label="Text Input">
+        <InputField2 id="input__text_styled" placeholder="Enter Text" label="Text Input">
           <span slot="description">This is a description of the input.</span>
-        </InputField>
-        <InputField id="input__number_styled" type="number" placeholder="Enter Number">
+        </InputField2>
+        <InputField2 id="input__number_styled" type="number" placeholder="Enter Number">
           <label slot="label">Number Input</label>
-        </InputField>
+        </InputField2>
         <InputField id="input__password_styled" type="password" placeholder="Type your Password">
           <label slot="label">Password</label>
         </InputField>
-        <InputField
+        <InputField2
           id="input__required_styled"
-          type="text"
+          type="search"
           placeholder="Required Input"
           required
           label="Required Input"
@@ -305,24 +306,24 @@ import TextArea2 from '@olsen-mono/astro-forms/TextArea.astro';
       <FieldGroup id="forms__textareas_styled" bordered style="min-width: 50ch; max-width: 50ch;">
         <legend>Text Areas</legend>
 
-        <TextArea2
+        <TextArea
           id="textarea_styled"
           placeholder="Enter your message here"
           value="Lorem Ipsum Dolar Est!"
           label="Text Area Input"
         />
-        <TextArea2 id="textarea_styled_required" placeholder="Enter your message here" required>
+        <TextArea id="textarea_styled_required" placeholder="Enter your message here" required>
           <span slot="label">Required Text</span>
-        </TextArea2>
-        <TextArea2 id="textarea_styled_readonly" placeholder="Enter your message here" readonly>
+        </TextArea>
+        <TextArea id="textarea_styled_readonly" placeholder="Enter your message here" readonly>
           Lorem Ipsum Dolar Est!
           <label slot="label">Read Only Text</label>
-        </TextArea2>
-        <TextArea2 id="textarea_styled_disabled" placeholder="Enter your message here" disabled>
+        </TextArea>
+        <TextArea id="textarea_styled_disabled" placeholder="Enter your message here" disabled>
           Lorem Ipsum Dolar Est!
           <label slot="label">Disabled Text</label>
-        </TextArea2>
-        <TextArea2
+        </TextArea>
+        <TextArea
           id="textarea_styled_required_invalid"
           placeholder="Enter your message here"
           required
@@ -331,7 +332,7 @@ import TextArea2 from '@olsen-mono/astro-forms/TextArea.astro';
         >
           Lorem Ipsum Dolar Est!
           <span slot="error-message">The input is not valid.</span>
-        </TextArea2>
+        </TextArea>
       </FieldGroup>
 
       <FieldGroup id="forms__selects_styled" bordered style="min-width: 50ch; max-width: 50ch;">

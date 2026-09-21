@@ -1,6 +1,6 @@
 ---
 // packages/astro-forms/src/TextArea.astro
-// import { assertValidSlots } from '@olsen-mono/core-utils';
+import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './error-message.astro';
 import InputGroup from './input-group.astro';
@@ -26,10 +26,11 @@ const {
   ...rest
 } = Astro.props;
 
-// assertValidSlots(Astro.slots, ['error-message', 'label'], 'TextArea');
+assertValidSlots(Astro.slots, ['error-message', 'label'], 'TextArea');
 
 const hasLabel = !!label || Astro.slots.has('label');
 const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const textAreaValue = (
   value ?? ((Astro.slots.has('default') ? await Astro.slots.render('default') : '') as string)
 ).trim();
@@ -46,7 +47,7 @@ const textAreaValue = (
   >{textAreaValue}</textarea>
 
   {hasErrorMessage && (
-    <ErrorMessage id={`${id}-error`}>
+    <ErrorMessage id={errorId}>
       <slot name="error-message" />
     </ErrorMessage>
   )}

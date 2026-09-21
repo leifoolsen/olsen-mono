@@ -35,7 +35,7 @@
   /* --- Label --- */
   .form-label {
     display: inline-flex;
-    gap: var(--space-s, 0.5rem);
+    gap: var(--space-xs, 0.25rem);
     flex-wrap: nowrap;
     cursor: pointer;
     user-select: none;
@@ -157,7 +157,7 @@
     &:has(:is(:required:placeholder-shown, .form-checkbox-input[type="checkbox"]:required:not(:checked))) {
       & > label::after {
         content: "*";
-        transform: scale(1.4) translateY(20%);
+        transform: scale(1.3) translateY(10%);
       }
     }
   }
@@ -178,7 +178,7 @@
     &[aria-required="true"] {
       & legend.form-label::after {
         content: "*";
-        transform: scale(1.4) translateY(20%);
+        transform: scale(1.4) translateY(10%);
       }
     }
 
@@ -371,12 +371,51 @@
     /* Skjul sletteknappen hvis feltet er tomt (placeholder vises) */
     &:has(.form-text-input:placeholder-shown) {
       & .icon-clear {
-        display: none;
+        display: none !important;
+        visibility: hidden;
       }
     }
 
     &:has([readonly]) {
       border-style: dashed;
+    }
+  }
+
+  /* --- Text Input --- */
+  .form-text-input {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+    flex: 1;
+    font-size: inherit;
+    font-family: inherit;
+    padding-block: var(--form-space-xs);
+    padding-inline: 0;
+    text-overflow: ellipsis;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+
+    &:disabled,
+    &[readonly] {
+      color: var(--form-muted-text);
+      cursor: not-allowed;
+    }
+
+    &[readonly] {
+      cursor: default;
+    }
+
+    &[type="search"] {
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-results-button,
+      &::-webkit-search-results-decoration {
+        -webkit-appearance: none;
+        appearance: none;
+      }
     }
   }
 
@@ -423,43 +462,5 @@
 
   .form-input-group .form-textarea-input {
     grid-area: control;
-  }
-
-  /* --- Text Input --- */
-  .form-text-input {
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    outline: none;
-    color: inherit;
-    flex: 1;
-    font-size: inherit;
-    font-family: inherit;
-    padding-block: var(--form-space-xs);
-    padding-inline: 0;
-    text-overflow: ellipsis;
-    width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-
-    &:disabled,
-    &[readonly] {
-      color: var(--form-muted-text);
-      cursor: not-allowed;
-    }
-
-    &[readonly] {
-      cursor: default;
-    }
-
-    &[type="search"] {
-      &::-webkit-search-decoration,
-      &::-webkit-search-cancel-button,
-      &::-webkit-search-results-button,
-      &::-webkit-search-results-decoration {
-        -webkit-appearance: none;
-        appearance: none;
-      }
-    }
   }
 }
