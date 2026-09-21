@@ -1,4 +1,6 @@
 export type Css = 
+  | 'chevronIcon'
+  | 'clearIcon'
   | 'formCheckboxInput'
   | 'formErrorMessage'
   | 'formInputControl'
@@ -10,9 +12,9 @@ export type Css =
   | 'formRadioSet'
   | 'formRadioSetInlineWrapper'
   | 'formRadioSetOptions'
+  | 'formSelectInput'
   | 'formTextInput'
   | 'formTextareaInput'
-  | 'iconClear'
   | 'layoutAfter'
   | 'layoutBefore'
   | 'layoutInline'

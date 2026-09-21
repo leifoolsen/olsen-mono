@@ -361,7 +361,7 @@
     &:has(:is(:disabled, [readonly])) {
       background-color: var(--form-input-background-disabled-color);
 
-      & .icon-clear {
+      & .clear-icon {
         background-color: transparent;
         display: none !important;
       }
@@ -373,7 +373,7 @@
     }
 
     &:has(.form-text-input:placeholder-shown) {
-      & .icon-clear {
+      & .clear-icon {
         display: none !important;
         visibility: hidden;
       }
@@ -386,6 +386,7 @@
 
   /* --- Text Input --- */
   .form-text-input,
+  .form-select-input,
   .form-textarea-input {
     background-color: transparent;
     border: none;
@@ -429,5 +430,28 @@
     resize: vertical;
     min-block-size: calc(var(--_form-input-height) * 5 - var(--form-space-xs) + 1px);
     max-block-size: 11.94lh;
+  }
+
+  /* --- Native SelectInput --- */
+  .form-select-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+  }
+
+  & .chevron-icon {
+    align-content: center;
+    aspect-ratio: 1;
+    background: none;
+    border: none;
+    box-shadow: none;
+    display: inline-grid;
+    outline: none;
+    border-top: 0.13em solid currentColor;
+    border-right: 0.13em solid currentColor;
+    width: 0.6em;
+    height: 0.6em;
+    transform: rotate(135deg) translateY(0.2em);
   }
 }

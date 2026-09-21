@@ -1,5 +1,5 @@
 ---
-// packages/astro-forms/src/input-field.astro
+// packages/astro-forms/src/select-input.astro
 // import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './error-message.astro';
@@ -7,9 +7,8 @@ import FieldHelp from './field-help.astro';
 import InputControl from './input-control.astro';
 import InputGroup from './input-group.astro';
 import Label from './label.astro';
-import './forms.css';
 
-type Props = HTMLAttributes<'input'> & {
+type Props = HTMLAttributes<'select'> & {
   id: string;
   invalid?: boolean;
   label?: string;
@@ -24,11 +23,10 @@ const {
   invalid,
   label,
   labelPosition = 'top',
-  type = 'text',
   ...rest
 } = Astro.props;
 
-// assertValidSlots(Astro.slots, ['description', 'error-message', 'label'], 'InputField');
+// assertValidSlots(Astro.slots, ['description', 'error-message', 'label'], 'SelectField');
 
 const hasLabel = !!label || Astro.slots.has('label');
 const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
@@ -38,37 +36,22 @@ const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
 ---
 
-<InputGroup layout={labelPosition} class={className}>
+<InputGroup layout="top">
   {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
 
   <InputControl>
-    <input
+    <select
+      aria-invalid={invalid ?? undefined}
       aria-describedby={describedByList || undefined}
-      aria-invalid={invalid ?? ariaInvalid ?? undefined}
-      class="form-text-input"
-      data-text-input
+      class="form-select-input"
+      data-select-input
       id={id}
-      type={type}
       {...rest}
-    />
+    >
+      <slot />
+    </select>
 
-    {type === 'search' && (
-      <div
-        class="search-icon"
-        style="
-      align-content: center;
-      aspect-ratio: 1;
-      background: none;
-      border: none;
-      box-shadow: none;
-      display: inline-grid;
-      height: 1em;
-      outline: none;
-      z-index: 2;"
-      >
-        🔎
-      </div>
-    )}
+    <div class="chevron-icon" />
 
     <button
       aria-label="Clear value"
@@ -108,22 +91,27 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
 </InputGroup>
 
 <script>
-  function setupInputFields() {
-    const inputs = document.querySelectorAll('[data-text-input]');
+  function setupSelectFields() {
+    const inputs = document.querySelectorAll('[data-select-input]');
 
     for (const input of inputs) {
-      if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
+      if (!(input instanceof HTMLSelectElement) || input.hasAttribute('data-initialized')) continue;
       input.setAttribute('data-initialized', 'true');
 
       const wrapper = input.closest('.form-input-control');
       if (!wrapper) continue;
 
-      const searchIcon = wrapper.querySelector<HTMLDivElement>('.search-icon');
+      const chevronIcon = wrapper.querySelector<HTMLDivElement>('.chevron-icon');
       const clearButton = wrapper.querySelector<HTMLButtonElement>('.clear-icon');
-      const infoButton = wrapper.querySelector<HTMLButtonElement>('.info-icon');
+      const infoIcon = wrapper.querySelector<HTMLButtonElement>('.info-icon');
 
-      if (searchIcon) {
-        searchIcon.addEventListener('click', () => input.focus());
+      if (chevronIcon) {
+        chevronIcon.addEventListener('click', () => {
+          if (typeof input.showPicker === 'function') {
+            input.showPicker();
+          }
+          input.focus();
+        });
       }
 
       if (clearButton) {
@@ -134,18 +122,18 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
         });
       }
 
-      if (infoButton) {
-        infoButton.addEventListener('click', () => {
+      if (infoIcon) {
+        infoIcon.addEventListener('click', () => {
           if (!input.disabled) {
             input.focus();
           } else {
-            infoButton.disabled = true;
+            infoIcon.disabled = true;
           }
         });
       }
     }
   }
 
-  setupInputFields();
-  document.addEventListener('astro:after-swap', setupInputFields);
+  setupSelectFields();
+  document.addEventListener('astro:after-swap', setupSelectFields);
 </script>

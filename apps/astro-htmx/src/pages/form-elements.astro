@@ -9,11 +9,13 @@ import RangeField from '@components/form-elements/range-field.astro';
 import SelectField from '@components/form-elements/select-field.astro';
 import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
 import AppLayout from '@layouts/app-layout.astro';
+// ------
 import Checkbox from '@olsen-mono/astro-forms/Checkbox.astro';
 import InputField2 from '@olsen-mono/astro-forms/InputField.astro';
 import Label from '@olsen-mono/astro-forms/Label.astro';
 import RadioButton from '@olsen-mono/astro-forms/RadioButton.astro';
 import RadioSet from '@olsen-mono/astro-forms/RadioSet.astro';
+import SelectInput from '@olsen-mono/astro-forms/SelectInput.astro';
 import TextArea from '@olsen-mono/astro-forms/TextArea.astro';
 ---
 
@@ -338,7 +340,7 @@ import TextArea from '@olsen-mono/astro-forms/TextArea.astro';
       <FieldGroup id="forms__selects_styled" bordered style="min-width: 50ch; max-width: 50ch;">
         <legend>Native Select</legend>
 
-        <SelectField id="select_styled" label="Select">
+        <SelectInput id="select_styled" label="Select">
           <optgroup label="Option Group">
             <option value="1">Option One</option>
             <option value="2">Option Two</option>
@@ -348,7 +350,7 @@ import TextArea from '@olsen-mono/astro-forms/TextArea.astro';
             <option value="4">Option Four has a long text description. Lorem Ipsum Dolar Est!</option>
           </optgroup>
           <Fragment slot="description">This is a description of the select.</Fragment>
-        </SelectField>
+        </SelectInput>
 
         <SelectField id="select_styled_required" required>
           <optgroup label="Option Group">
