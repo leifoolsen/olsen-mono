@@ -20,6 +20,5 @@
     "types": ["node", "env"],
     "typeRoots": ["./node_modules/@types", "./@types"],
     "verbatimModuleSyntax": true
-  },
-  "include": ["global.d.ts"]
+  }
 }
