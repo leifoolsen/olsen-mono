@@ -215,6 +215,9 @@ importers:
 
   packages/astro-forms:
     dependencies:
+      '@olsen-mono/astro-svg':
+        specifier: workspace:*
+        version: link:../astro-svg
       '@olsen-mono/core-utils':
         specifier: workspace:*
         version: link:../core-utils
