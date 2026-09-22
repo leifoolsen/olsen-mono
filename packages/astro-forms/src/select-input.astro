@@ -59,7 +59,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
 
     <FormToolButton
       aria-label="Clear value"
-      class="clear-icon"
+      class="form-clear-icon"
     >
       <Svg name="clear" getSvgData={(_name) => ({rawSvg: clearSvg, scale: 1.1})} />
     </FormToolButton>
@@ -90,7 +90,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       if (!wrapper) continue;
 
       const pickerIcon = wrapper.querySelector<HTMLDivElement>('.form-picker-icon');
-      const clearButton = wrapper.querySelector<HTMLButtonElement>('.clear-icon');
+      const clearButton = wrapper.querySelector<HTMLButtonElement>('.form-clear-icon');
       const descriptionButton = wrapper.querySelector<HTMLButtonElement>('[data-form-description-trigger]');
 
       if (pickerIcon) {
