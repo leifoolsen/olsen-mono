@@ -50,6 +50,7 @@ const finalHeight = formatSize(height ?? finalSize, 1);
 
 const sizeStyle = `width: ${finalWidth}; height: ${finalHeight}; aspect-ratio: 1/1; max-inline-size: unset;`;
 svgAttributes.style = userStyle ? `${sizeStyle} ${userStyle}` : sizeStyle;
+svgAttributes.name = name;
 
 if (rest['aria-label'] || rest['aria-labelledby']) {
   svgAttributes.role = rest.role || 'img';
