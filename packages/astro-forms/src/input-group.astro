@@ -1,15 +1,13 @@
 ---
 // packages/astro-forms/src/input-group.astro
 import type { HTMLAttributes } from 'astro/types';
-import ErrorMessage from './error-message.astro';
 import './forms.css';
 
 type Props = HTMLAttributes<'div'> & {
   layout?: 'top' | 'before' | 'after';
-  invalid?: boolean;
 };
 
-const { class: className, id, invalid, layout = 'top', ...rest } = Astro.props;
+const { class: className, layout = 'top', ...rest } = Astro.props;
 ---
 
 <div class:list={['form-input-group', `layout-${layout}`, className]} {...rest}>
