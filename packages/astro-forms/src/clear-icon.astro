@@ -1,0 +1,12 @@
+---
+// packages/astro-forms/src/clear-icon.astro
+import Svg from '@olsen-mono/astro-svg/Svg.astro';
+import type { HTMLAttributes } from 'astro/types';
+import clearSvg from './raw-svg/clear.svg?raw';
+
+type Props = HTMLAttributes<'svg'> & {};
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<Svg name="clear" getSvgData={(_name) => ({rawSvg: clearSvg, scale: 1.1})} />

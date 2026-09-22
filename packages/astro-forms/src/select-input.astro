@@ -3,6 +3,7 @@
 import Svg from '@olsen-mono/astro-svg/Svg.astro';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
+import ClearIcon from './clear-icon.astro';
 import ErrorMessage from './error-message.astro';
 import FormDescription from './form-description.astro';
 import FormToolButton from './form-tool-button.astro';
@@ -10,7 +11,6 @@ import InputControl from './input-control.astro';
 import InputGroup from './input-group.astro';
 import Label from './label.astro';
 import PickerIcon from './picker-icon.astro';
-import clearSvg from './raw-svg/clear.svg?raw';
 
 type Props = HTMLAttributes<'select'> & {
   id: string;
@@ -61,7 +61,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       aria-label="Clear value"
       class="form-clear-icon"
     >
-      <Svg name="clear" getSvgData={(_name) => ({rawSvg: clearSvg, scale: 1.1})} />
+      <ClearIcon />
     </FormToolButton>
 
     {hasDescriptionSlot && (

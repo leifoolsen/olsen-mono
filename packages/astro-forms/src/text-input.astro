@@ -2,8 +2,10 @@
 // packages/astro-forms/src/text-input.astro
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
+import ClearIcon from './clear-icon.astro';
 import ErrorMessage from './error-message.astro';
 import FormDescription from './form-description.astro';
+import FormToolButton from './form-tool-button.astro';
 import InputControl from './input-control.astro';
 import InputGroup from './input-group.astro';
 import Label from './label.astro';
@@ -70,28 +72,13 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       </div>
     )}
 
-    <button
+    <FormToolButton
       aria-label="Clear value"
-      class="clear-icon"
-      tabindex="-1"
-      type="button"
-      style="
-        align-content: center;
-        aspect-ratio: 1;
-        background: transparent;
-        box-shadow: none;
-        border: none;
-        cursor: pointer;
-        display: inline-grid;
-        height: 1em;
-        outline: none;
-        padding: 0;
-        place-items: center;
-        user-select: none;
-      "
+      class="form-clear-icon"
     >
-      x
-    </button>
+      <ClearIcon />
+    </FormToolButton>
+
 
     {hasDescriptionSlot && (
       <FormDescription descriptionId={descriptionId!}>
