@@ -1,12 +1,10 @@
 ---
 import Combobox from '@components/form-elements/combobox.astro';
 import FieldGroup from '@components/form-elements/field-group.astro';
-import InputField from '@components/form-elements/input-field.astro';
 import Listbox from '@components/form-elements/listbox.astro';
 import ListboxGroup from '@components/form-elements/listbox-group.astro';
 import ListboxOption from '@components/form-elements/listbox-option.astro';
 import RangeField from '@components/form-elements/range-field.astro';
-import SelectField from '@components/form-elements/select-field.astro';
 import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
 import AppLayout from '@layouts/app-layout.astro';
 // ------
@@ -274,16 +272,10 @@ import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
         <TextInput id="input__number_styled" type="number" placeholder="Enter Number">
           <label slot="label">Number Input</label>
         </TextInput>
-        <InputField id="input__password_styled" type="password" placeholder="Type your Password">
+        <TextInput id="input__password_styled" type="password" placeholder="Type your Password">
           <label slot="label">Password</label>
-        </InputField>
-        <TextInput
-          id="input__required_styled"
-          type="search"
-          placeholder="Required Input"
-          required
-          label="Required Input"
-        />
+        </TextInput>
+        <TextInput id="input__required_styled" placeholder="Required Input" required label="Required Input" />
         <TextInput
           id="input__text_readonly_styled"
           placeholder="Enter Text"
@@ -291,18 +283,34 @@ import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
           readonly
           label="Read Only Text Input"
         />
-        <InputField id="input__text_disabled_styled" placeholder="Enter Text" value="Lorem Ipsum" disabled>
+        <TextInput id="input__text_disabled_styled" placeholder="Enter Text" value="Lorem Ipsum" disabled>
           <span slot="description">This is a description of the disabled text input.</span>
           <span slot="label">Disabled Text Input</span>
-        </InputField>
-        <InputField id="input__text_invalid_styled" placeholder="Enter Text" value="Lorem Ipsum" invalid required>
+        </TextInput>
+        <TextInput
+          id="input__text_invalid_required_styled"
+          placeholder="Enter Text"
+          value="Lorem Ipsum"
+          invalid
+          required
+        >
           <span slot="label">Invalid Required Text Input</span>
           <span slot="error-message">The input is not valid.</span>
           <span slot="description">This is a description of the invalid required text input.</span>
-        </InputField>
-        <InputField id="input__date_styled" type="date" value="1970-01-01" label="Date Input">
+        </TextInput>
+        <TextInput
+          id="input__text_invalid_styled"
+          label="Invalid Required Text Input"
+          placeholder="Enter Text"
+          value="Lorem Ipsum"
+          invalid
+        >
+          <span slot="error-message">The input is not valid.</span>
+          <span slot="description">This is a description of the invalid required text input.</span>
+        </TextInput>
+        <TextInput id="input__date_styled" type="date" value="1970-01-01" label="Date Input">
           <span slot="description">This is a description of the date input.</span>
-        </InputField>
+        </TextInput>
       </FieldGroup>
 
       <FieldGroup id="forms__textareas_styled" bordered style="min-width: 50ch; max-width: 50ch;">
@@ -513,7 +521,7 @@ import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
               Empty selection
             </button>
           </div>
-          <InputField
+          <TextInput
             id="ms-listbox2-search"
             type="search"
             placeholder="Enter search term..."
@@ -521,7 +529,7 @@ import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
             aria-controls="ms-listbox2"
           >
             <span slot="description">Description of the search field</span>
-          </InputField>
+          </TextInput>
           <Listbox id="ms-listbox2" aria-labelledby="listbox2-label" multiSelectable bordered>
             <ListboxGroup>
               <Fragment slot="label">
@@ -602,7 +610,9 @@ import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
         const searchField = document.querySelector<HTMLInputElement>('#ms-listbox2-search');
 
         searchField?.addEventListener('input', () => {
-          listbox?.filter(searchField.value);
+          if ('value' in searchField) {
+            listbox?.filter(searchField.value);
+          }
         });
 
         selectAllBtn?.addEventListener('click', () => {
