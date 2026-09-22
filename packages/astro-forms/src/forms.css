@@ -444,6 +444,11 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     cursor: pointer;
+
+    & :is(option, optgroup) {
+      color: inherit;
+      background-color: var(--form-input-background-color);
+    }
   }
 
   & .chevron-icon {

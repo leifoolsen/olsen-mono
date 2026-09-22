@@ -1,9 +1,9 @@
 ---
 // packages/astro-forms/src/text-input.astro
-// import { assertValidSlots } from '@olsen-mono/core-utils';
+import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './error-message.astro';
-import FieldHelp from './field-help.astro';
+import FormDescription from './form-description.astro';
 import InputControl from './input-control.astro';
 import InputGroup from './input-group.astro';
 import Label from './label.astro';
@@ -28,7 +28,7 @@ const {
   ...rest
 } = Astro.props;
 
-// assertValidSlots(Astro.slots, ['description', 'error-message', 'label'], 'InputField');
+assertValidSlots(Astro.slots, ['description', 'error-message', 'label'], 'TextInput');
 
 const hasLabel = !!label || Astro.slots.has('label');
 const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
@@ -94,9 +94,9 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
     </button>
 
     {hasDescriptionSlot && (
-      <FieldHelp descriptionId={descriptionId!}>
+      <FormDescription descriptionId={descriptionId!}>
         <slot name="description" />
-      </FieldHelp>
+      </FormDescription>
     )}
   </InputControl>
 
@@ -120,7 +120,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
 
       const searchIcon = wrapper.querySelector<HTMLDivElement>('.search-icon');
       const clearButton = wrapper.querySelector<HTMLButtonElement>('.clear-icon');
-      const infoButton = wrapper.querySelector<HTMLButtonElement>('.info-icon');
+      const descriptionButton = wrapper.querySelector<HTMLButtonElement>('[data-form-description-trigger]');
 
       if (searchIcon) {
         searchIcon.addEventListener('click', () => input.focus());
@@ -134,12 +134,10 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
         });
       }
 
-      if (infoButton) {
-        infoButton.addEventListener('click', () => {
+      if (descriptionButton) {
+        descriptionButton.addEventListener('click', () => {
           if (!input.disabled) {
             input.focus();
-          } else {
-            infoButton.disabled = true;
           }
         });
       }

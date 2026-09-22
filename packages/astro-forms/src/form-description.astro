@@ -1,5 +1,5 @@
 ---
-// packages/astro-forms/src/field-help.astro
+// packages/astro-forms/src/form-description.astro
 import type { HTMLAttributes } from 'astro/types';
 import FormToolButton from './form-tool-button.astro';
 import './forms.css';
@@ -15,7 +15,7 @@ const anchorName = `--anchor-${descriptionId}`;
 
 <FormToolButton
   aria-label="Show help"
-  data-popover-trigger="true"
+  data-form-description-trigger="true"
   popovertarget={descriptionId}
   style={`anchor-name: ${anchorName};`}
 >
@@ -26,7 +26,7 @@ const anchorName = `--anchor-${descriptionId}`;
   data-variant="neutral"
   id={descriptionId}
   popover="auto"
-  class="form-help-popover"
+  class="form-description-popover"
   style={`position-anchor: ${anchorName};`}
 >
   <div class="form-help-description">
@@ -38,7 +38,7 @@ const anchorName = `--anchor-${descriptionId}`;
 </div>
 
 <style>
-  .form-help-popover {
+  .form-description-popover {
     inset: auto;
     margin: 0;
     position: fixed;
@@ -48,7 +48,6 @@ const anchorName = `--anchor-${descriptionId}`;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     max-width: 32ch;
     font-size: var(--form-font-size-s);
-    line-height: 1.4;
     position-area: bottom right;
     margin-block-start: var(--form-space-2xs);
     position-try-fallbacks: flip-block, flip-inline;
@@ -59,7 +58,7 @@ const anchorName = `--anchor-${descriptionId}`;
     }
   }
 
-  [data-popover-trigger='true']:hover ~ .form-help-popover {
+  [data-form-description-trigger='true']:hover + .form-description-popover {
     display: block;
   }
 </style>
