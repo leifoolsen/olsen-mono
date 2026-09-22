@@ -1,6 +1,6 @@
 ---
 // packages/astro-forms/src/form-description.astro
-import Svg from '@olsen-mono/astro-svg/Svg.astro'
+import Svg from '@olsen-mono/astro-svg/Svg.astro';
 import type { HTMLAttributes } from 'astro/types';
 import FormToolButton from './form-tool-button.astro';
 import infoSvg from './raw-svg/info.svg?raw';
@@ -21,7 +21,7 @@ const anchorName = `--anchor-${descriptionId}`;
   popovertarget={descriptionId}
   style={`anchor-name: ${anchorName};`}
 >
-  <Svg name="info" getSvgData={(_name) => ({rawSvg: infoSvg, scale: 1.2})} />
+  <Svg name="info" getSvgData={(_name) => ({ rawSvg: infoSvg, scale: 1.3 })} />
 </FormToolButton>
 
 <div
@@ -32,7 +32,8 @@ const anchorName = `--anchor-${descriptionId}`;
   style={`position-anchor: ${anchorName};`}
 >
   <div class="form-description">
-    <Svg name="info" getSvgData={(_name) => ({rawSvg: infoSvg, scale: 1})} />&nbsp;
+    <Svg name="info" getSvgData={(_name) => ({ rawSvg: infoSvg, scale: 1 })} />
+    &nbsp;
     <span>
       <slot />
     </span>
