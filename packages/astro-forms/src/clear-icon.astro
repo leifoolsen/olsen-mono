@@ -6,7 +6,12 @@ import clearSvg from './raw-svg/clear.svg?raw';
 
 type Props = HTMLAttributes<'svg'> & {};
 
-const { class: className, ...rest } = Astro.props;
+const { class: className, name='clear', ...rest } = Astro.props;
 ---
 
-<Svg name="clear" getSvgData={(_name) => ({rawSvg: clearSvg, scale: 1.1})} />
+<Svg
+  class={className}
+  name={name}
+  getSvgData={(_name) => ({rawSvg: clearSvg, scale: 1.1})}
+  {...rest}
+/>
