@@ -49,6 +49,7 @@
     "astro": ">=7.0.0"
   },
   "dependencies": {
+    "@olsen-mono/astro-svg": "workspace:*",
     "@olsen-mono/core-utils": "workspace:*"
   },
   "devDependencies": {

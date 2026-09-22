@@ -96,7 +96,7 @@
           "label"
           "control"
           "error";
-        row-gap: var(--form-space-s);
+        row-gap: var(--form-space-xs);
       }
     }
 
@@ -131,14 +131,25 @@
       color: var(--form-brand-text-color);
     }
 
-    &:has(:is([type="checkbox"][aria-invalid="true"]:checked)) .form-error-message {
+    &:has(
+        :is(
+            input[aria-invalid="true"],
+            textarea[aria-invalid="true"],
+            select[aria-invalid="true"],
+            [type="checkbox"][aria-invalid="true"]:checked
+          )
+      )
+      .form-error-message {
       display: block;
-      margin-top: var(--form-space-3xs);
     }
 
     &:has(
-        :is(.form-checkbox-input[type="checkbox"][aria-invalid="true"]:checked),
-        textarea[aria-invalid="true"]:not(:placeholder-shown)
+        :is(
+            input[aria-invalid="true"]:not(:placeholder-shown),
+            textarea[aria-invalid="true"]:not(:placeholder-shown),
+            select[aria-invalid="true"]:not(:placeholder-shown),
+            [type="checkbox"][aria-invalid="true"]:checked
+          )
       ) {
       & > .form-label::after {
         background-color: var(--form-error-color);
@@ -154,7 +165,14 @@
       }
     }
 
-    &:has(:is(:required:placeholder-shown, .form-checkbox-input[type="checkbox"]:required:not(:checked))) {
+    &:has(
+        :is(
+            input:required:placeholder-shown,
+            textarea:required:placeholder-shown,
+            select:required,
+            [type="checkbox"]:required:not(:checked)
+          )
+      ) {
       & > label::after {
         content: "*";
         transform: scale(1.3) translateY(10%);
@@ -361,21 +379,19 @@
     &:has(:is(:disabled, [readonly])) {
       background-color: var(--form-input-background-disabled-color);
 
-      & .clear-icon {
-        background-color: transparent;
+      & .form-clear-icon {
         display: none !important;
       }
 
-      & .form-search-icon {
+      & :is(.form-search-icon, .form-picker-icon) {
         color: var(--form-muted-text);
         cursor: not-allowed;
       }
     }
 
     &:has(.form-text-input:placeholder-shown) {
-      & .clear-icon {
-        display: none !important;
-        visibility: hidden;
+      & .form-clear-icon {
+        display: none;
       }
     }
 
@@ -444,20 +460,10 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     cursor: pointer;
-  }
 
-  & .chevron-icon {
-    align-content: center;
-    aspect-ratio: 1;
-    background: none;
-    border: none;
-    box-shadow: none;
-    display: inline-grid;
-    outline: none;
-    border-top: 0.13em solid currentColor;
-    border-right: 0.13em solid currentColor;
-    width: 0.6em;
-    height: 0.6em;
-    transform: rotate(135deg) translateY(0.2em);
+    & :is(option, optgroup) {
+      color: inherit;
+      background-color: var(--form-input-background-color);
+    }
   }
 }

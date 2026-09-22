@@ -1,0 +1,27 @@
+---
+// packages/astro-forms/src/picker-icon.astro
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'div'> & {};
+
+const { class: className, name='picker', ...rest } = Astro.props;
+---
+
+<div class:list={['form-picker-icon', className]} name={name} {...rest} />
+
+<style>
+  .form-picker-icon {
+    align-content: center;
+    aspect-ratio: 1;
+    background: none;
+    border: none;
+    box-shadow: none;
+    display: inline-grid;
+    outline: none;
+    border-top: 0.13em solid currentColor;
+    border-right: 0.13em solid currentColor;
+    width: 0.6em;
+    height: 0.6em;
+    transform: rotate(135deg) translateY(0.2em);
+  }
+</style>
