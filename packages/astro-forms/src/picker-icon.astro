@@ -4,10 +4,10 @@ import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'div'> & {};
 
-const { class: className, ...rest } = Astro.props;
+const { class: className, name='picker', ...rest } = Astro.props;
 ---
 
-<div class:list={['form-picker-icon', className]} {...rest} />
+<div class:list={['form-picker-icon', className]} name={name} {...rest} />
 
 <style>
   .form-picker-icon {
