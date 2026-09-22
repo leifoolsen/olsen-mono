@@ -1,12 +1,16 @@
 ---
 // packages/astro-forms/src/select-input.astro
+import Svg from '@olsen-mono/astro-svg/Svg.astro';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './error-message.astro';
 import FormDescription from './form-description.astro';
+import FormToolButton from './form-tool-button.astro';
 import InputControl from './input-control.astro';
 import InputGroup from './input-group.astro';
 import Label from './label.astro';
+import PickerIcon from './picker-icon.astro';
+import clearSvg from './raw-svg/clear.svg?raw';
 
 type Props = HTMLAttributes<'select'> & {
   id: string;
@@ -51,30 +55,14 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       <slot />
     </select>
 
-    <div class="chevron-icon" />
+    <PickerIcon />
 
-    <button
+    <FormToolButton
       aria-label="Clear value"
       class="clear-icon"
-      tabindex="-1"
-      type="button"
-      style="
-        align-content: center;
-        aspect-ratio: 1;
-        background: transparent;
-        box-shadow: none;
-        border: none;
-        cursor: pointer;
-        display: inline-grid;
-        height: 1em;
-        outline: none;
-        padding: 0;
-        place-items: center;
-        user-select: none;
-      "
     >
-      x
-    </button>
+      <Svg name="clear" getSvgData={(_name) => ({rawSvg: clearSvg, scale: 1.1})} />
+    </FormToolButton>
 
     {hasDescriptionSlot && (
       <FormDescription descriptionId={descriptionId!}>
@@ -101,12 +89,12 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       const wrapper = input.closest('.form-input-control');
       if (!wrapper) continue;
 
-      const chevronIcon = wrapper.querySelector<HTMLDivElement>('.chevron-icon');
+      const pickerIcon = wrapper.querySelector<HTMLDivElement>('.form-picker-icon');
       const clearButton = wrapper.querySelector<HTMLButtonElement>('.clear-icon');
       const descriptionButton = wrapper.querySelector<HTMLButtonElement>('[data-form-description-trigger]');
 
-      if (chevronIcon) {
-        chevronIcon.addEventListener('click', () => {
+      if (pickerIcon) {
+        pickerIcon.addEventListener('click', () => {
           if (typeof input.showPicker === 'function') {
             input.showPicker();
           }
