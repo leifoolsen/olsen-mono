@@ -10,8 +10,9 @@
     --form-space-2xs: var(--space-2xs, 0.15rem);
     --form-space-3xs: var(--space-3xs, 0.1rem);
     --form-accent-color: var(--accent-color, rebeccapurple);
-    --form-border-color: var(--border-color, #cccccc);
     --form-brand-text-color: var(--brand-text-color, #2563eb);
+    --form-border-color: var(--border-color, #cccccc);
+    --form-border-focus-color: var(--form-brand-text-color);
     --form-muted-text: var(--muted-text, #666666);
     --form-error-color: oklch(0.6 0.18 20);
     --form-font-size-s: var(--font-size-s, 0.75rem);
@@ -22,5 +23,7 @@
     --form-input-scale: 1.5;
     --_form-input-height: calc(1em * var(--form-input-scale));
     --_form-marker-size: calc(var(--_form-input-height) * 0.5);
+    --form-slider-height: var(--form-space-xs);
+    --form-slider-thumb-height: calc(var(--form-space-m) * 1.2);
   }
 }

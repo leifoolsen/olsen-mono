@@ -1,0 +1,82 @@
+---
+// packages/astro-forms/src/range-input.astro
+import { assertValidSlots } from '@olsen-mono/core-utils';
+import type { HTMLAttributes } from 'astro/types';
+import FormDescription from './form-description.astro';
+import FormToolButton from './form-tool-button.astro';
+import InputControl from './input-control.astro';
+import InputGroup from './input-group.astro';
+import Label from './label.astro';
+import './forms.css';
+
+type Props = HTMLAttributes<'input'> & {
+  id: string;
+  label?: string;
+  labelPosition?: 'top' | 'before';
+  min: number;
+  max: number;
+  step?: number;
+  value: number;
+};
+
+const {
+  'aria-describedby': ariaDescribedBy,
+  class: className,
+  id,
+  label,
+  labelPosition = 'top',
+  min,
+  max,
+  step = 1,
+  type,
+  value,
+  ...rest
+} = Astro.props;
+
+assertValidSlots(Astro.slots, ['description', 'label'], 'RangeInput');
+
+const hasLabel = !!label || Astro.slots.has('label');
+const hasDescriptionSlot = Astro.slots.has('description');
+const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
+const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
+const numberInputId = `${id}-number`;
+---
+
+<InputGroup layout={labelPosition} class={className}>
+  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+
+  <InputControl>
+    <input
+      aria-describedby={describedByList}
+      class="form-range-input"
+      type="range"
+      id={id}
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      oninput={`document.getElementById('${numberInputId}').value = this.value`}
+      {...rest}
+    />
+
+    <input
+      aria-describedby={describedByList}
+      aria-label="Range input value"
+      class="form-text-input form-range-number-input"
+      type="number"
+      id={numberInputId}
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      oninput={`document.getElementById('${id}').value = this.value`}
+      {...rest}
+    />
+
+    {hasDescriptionSlot && (
+      <FormDescription descriptionId={descriptionId!}>
+        <slot name="description" />
+      </FormDescription>
+    )}
+  </InputControl>
+</InputGroup>

@@ -4,7 +4,6 @@ import FieldGroup from '@components/form-elements/field-group.astro';
 import Listbox from '@components/form-elements/listbox.astro';
 import ListboxGroup from '@components/form-elements/listbox-group.astro';
 import ListboxOption from '@components/form-elements/listbox-option.astro';
-import RangeField from '@components/form-elements/range-field.astro';
 import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
 import AppLayout from '@layouts/app-layout.astro';
 // ------
@@ -12,6 +11,7 @@ import Checkbox from '@olsen-mono/astro-forms/Checkbox.astro';
 import Label from '@olsen-mono/astro-forms/Label.astro';
 import RadioButton from '@olsen-mono/astro-forms/RadioButton.astro';
 import RadioSet from '@olsen-mono/astro-forms/RadioSet.astro';
+import RangeInput from '@olsen-mono/astro-forms/RangeInput.astro';
 import SelectInput from '@olsen-mono/astro-forms/SelectInput.astro';
 import TextAreaInput from '@olsen-mono/astro-forms/TextAreaInput.astro';
 import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
@@ -247,10 +247,10 @@ import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
       <FieldGroup id="forms__radio_styled" bordered style="min-width: 40ch">
         <legend>Range Inputs</legend>
 
-        <RangeField id="range-input" min={0} max={360} step={0.1} value={303.4} label="Range Input">
-          <span slot="description">This is a description of the range field input.</span>
-        </RangeField>
-        <RangeField
+        <RangeInput id="range-input" min={0} max={360} step={0.1} value={303.4} label="Range Input">
+          <span slot="description">This is a description of the range input.</span>
+        </RangeInput>
+        <RangeInput
           disabled
           id="range-input-disabled"
           min={0}

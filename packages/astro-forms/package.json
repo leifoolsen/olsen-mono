@@ -20,6 +20,7 @@
     "./LegendLabel.astro": "./src/legend-label.astro",
     "./RadioButton.astro": "./src/radio-button.astro",
     "./RadioSet.astro": "./src/radio-set.astro",
+    "./RangeInput.astro": "./src/range-input.astro",
     "./SelectInput.astro": "./src/select-input.astro",
     "./TextAreaInput.astro": "./src/text-area-input.astro",
     "./package.json": "./package.json"
