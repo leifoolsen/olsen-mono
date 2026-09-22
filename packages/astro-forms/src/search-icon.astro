@@ -1,0 +1,17 @@
+---
+// packages/astro-forms/src/clear-icon.astro
+import Svg from '@olsen-mono/astro-svg/Svg.astro';
+import type { HTMLAttributes } from 'astro/types';
+import searchSvg from './raw-svg/search.svg?raw';
+
+type Props = HTMLAttributes<'svg'> & {};
+
+const { class: className, name = 'search', ...rest } = Astro.props;
+---
+
+<Svg
+  class:list={['form-search-icon', className]}
+  name={name}
+  getSvgData={(_name) => ({ rawSvg: searchSvg, scale: 1.3 })}
+  style="transform: rotate(90deg)" {...rest}
+/>

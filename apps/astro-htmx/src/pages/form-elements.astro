@@ -352,7 +352,7 @@ import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
           <Fragment slot="description">This is a description of the select.</Fragment>
         </SelectInput>
 
-        <SelectField id="select_styled_required" required>
+        <SelectInput id="select_styled_required" required>
           <optgroup label="Option Group">
             <option>Option One</option>
             <option>Option Two</option>
@@ -360,25 +360,25 @@ import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
             <option value="4">Option Four has a long text description. Lorem Ipsum Dolar Est!</option>
           </optgroup>
           <Fragment slot="label">Select Required</Fragment>
-        </SelectField>
+        </SelectInput>
 
-        <SelectField id="select_styled_disabled" disabled label="Select Disabled">
+        <SelectInput id="select_styled_disabled" disabled label="Select Disabled">
           <optgroup label="Option Group">
             <option>Option One</option>
             <option>Option Two</option>
             <option>Option Three</option>
           </optgroup>
           <Fragment slot="description">This is a description of the disabled select.</Fragment>
-        </SelectField>
+        </SelectInput>
 
-        <SelectField id="select_styled_invalid" invalid label="Select Invalid">
+        <SelectInput id="select_styled_invalid" invalid label="Select Invalid">
           <optgroup label="Option Group">
             <option>Option One</option>
             <option>Option Two</option>
             <option>Option Three</option>
           </optgroup>
           <Fragment slot="error-message">The input is not valid.</Fragment>
-        </SelectField>
+        </SelectInput>
       </FieldGroup>
 
       <FieldGroup id="designsystem__listboxes" bordered style="min-width: 50ch;">

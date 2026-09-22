@@ -9,6 +9,7 @@ import FormToolButton from './form-tool-button.astro';
 import InputControl from './input-control.astro';
 import InputGroup from './input-group.astro';
 import Label from './label.astro';
+import SearchIcon from './search-icon.astro';
 import './forms.css';
 
 type Props = HTMLAttributes<'input'> & {
@@ -55,21 +56,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
     />
 
     {type === 'search' && (
-      <div
-        class="search-icon"
-        style="
-      align-content: center;
-      aspect-ratio: 1;
-      background: none;
-      border: none;
-      box-shadow: none;
-      display: inline-grid;
-      height: 1em;
-      outline: none;
-      z-index: 2;"
-      >
-        🔎
-      </div>
+      <SearchIcon />
     )}
 
     <FormToolButton
@@ -105,8 +92,8 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       const wrapper = input.closest('.form-input-control');
       if (!wrapper) continue;
 
-      const searchIcon = wrapper.querySelector<HTMLDivElement>('.search-icon');
-      const clearButton = wrapper.querySelector<HTMLButtonElement>('.clear-icon');
+      const searchIcon = wrapper.querySelector<HTMLDivElement>('.form-search-icon');
+      const clearButton = wrapper.querySelector<HTMLButtonElement>('.form-clear-icon');
       const descriptionButton = wrapper.querySelector<HTMLButtonElement>('[data-form-description-trigger]');
 
       if (searchIcon) {
