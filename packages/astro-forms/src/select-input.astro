@@ -77,7 +77,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
     </button>
 
     {hasDescriptionSlot && (
-      <FieldHelp id={descriptionId!}>
+      <FieldHelp descriptionId={descriptionId!}>
         <slot name="description" />
       </FieldHelp>
     )}

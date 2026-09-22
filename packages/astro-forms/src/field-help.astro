@@ -1,37 +1,35 @@
 ---
 // packages/astro-forms/src/field-help.astro
 import type { HTMLAttributes } from 'astro/types';
+import FormToolButton from './form-tool-button.astro';
 import './forms.css';
 
-type Props = HTMLAttributes<'button'> & {
-  id: string;
+type Props = HTMLAttributes<'div'> & {
+  descriptionId: string;
 };
 
-const { id, ...rest } = Astro.props;
+const { descriptionId } = Astro.props;
 
-const anchorName = `--anchor-${id}`;
+const anchorName = `--anchor-${descriptionId}`;
 ---
 
-<button
-  tabindex="-1"
-  type="button"
-  class="form-field-help-trigger-btn"
-  popovertarget={id}
+<FormToolButton
   aria-label="Show help"
+  data-popover-trigger="true"
+  popovertarget={descriptionId}
   style={`anchor-name: ${anchorName};`}
-  {...rest}
 >
   ⓘ
-</button>
+</FormToolButton>
 
 <div
   data-variant="neutral"
-  id={id}
+  id={descriptionId}
   popover="auto"
-  class="info-tooltip-popover"
+  class="form-help-popover"
   style={`position-anchor: ${anchorName};`}
 >
-  <div class="popover-description">
+  <div class="form-help-description">
     <span>ⓘ</span>&nbsp;
     <span>
       <slot />
@@ -40,23 +38,7 @@ const anchorName = `--anchor-${id}`;
 </div>
 
 <style>
-  .form-field-help-trigger-btn {
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    user-select: none;
-    height: 1em;
-    aspect-ratio: 1;
-    outline: none;
-    box-shadow: none;
-    display: inline-grid;
-    align-content: center;
-    place-items: center;
-    z-index: 2;
-  }
-
-  .info-tooltip-popover {
+  .form-help-popover {
     inset: auto;
     margin: 0;
     position: fixed;
@@ -70,6 +52,14 @@ const anchorName = `--anchor-${id}`;
     position-area: bottom right;
     margin-block-start: var(--form-space-2xs);
     position-try-fallbacks: flip-block, flip-inline;
-    z-index: 3;
+    z-index: 1;
+
+    & .form-help-description {
+      color: var(--brand-text-color);
+    }
+  }
+
+  [data-popover-trigger='true']:hover ~ .form-help-popover {
+    display: block;
   }
 </style>
