@@ -23,7 +23,10 @@
     --form-input-scale: 1.5;
     --_form-input-height: calc(1em * var(--form-input-scale));
     --_form-marker-size: calc(var(--_form-input-height) * 0.5);
-    --form-slider-height: var(--form-space-xs);
+    --form-range-track-height: var(--form-space-xs);
     --form-slider-thumb-height: calc(var(--form-space-m) * 1.2);
+    --form-switch-width: calc(var(--_form-input-height) * 2);
+    --form-switch-gap: calc(var(--_form-input-height) * 0.1);
+    --form-switch-knob-size: calc(var(--_form-input-height) * 0.76);
   }
 }

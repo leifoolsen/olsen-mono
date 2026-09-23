@@ -1,16 +1,18 @@
 export type Css = 
-  | 'chevronIcon'
-  | 'clearIcon'
   | 'formCheckboxInput'
+  | 'formClearIcon'
   | 'formErrorMessage'
   | 'formInputControl'
   | 'formInputGroup'
   | 'formLabel'
   | 'formLegendBefore'
+  | 'formPickerIcon'
   | 'formRadioInput'
   | 'formRadioSet'
   | 'formRadioSetInlineWrapper'
   | 'formRadioSetOptions'
+  | 'formRangeInput'
+  | 'formRangeNumberInput'
   | 'formSearchIcon'
   | 'formSelectInput'
   | 'formTextInput'
@@ -20,25 +22,7 @@ export type Css =
   | 'layoutInline'
   | 'layoutStack'
   | 'layoutTop';
-export type CssVariables = 
-  | '--form-accent-color'
-  | '--form-border-color'
-  | '--form-brand-text-color'
-  | '--form-error-color'
-  | '--form-font-size-s'
-  | '--form-input-background-active-color'
-  | '--form-input-background-color'
-  | '--form-input-background-disabled-color'
-  | '--form-input-background-hover-color'
-  | '--form-input-scale'
-  | '--form-muted-text'
-  | '--form-space-2xs'
-  | '--form-space-3xs'
-  | '--form-space-l'
-  | '--form-space-m'
-  | '--form-space-s'
-  | '--form-space-xl'
-  | '--form-space-xs';
+export type CssVariables = never;
 export type CssDataAttributes = never;
 declare const styles: Record<Css, string>;
 export default styles;
