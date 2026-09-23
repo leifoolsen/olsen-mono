@@ -45,7 +45,7 @@
   /* --- Input Group --- */
   .form-input-group {
     display: grid;
-    align-items: baseline;
+    align-items: center;
     column-gap: var(--form-space-s);
     width: 100%;
 
@@ -54,7 +54,8 @@
     }
 
     & .form-radio-input,
-    & .form-checkbox-input {
+    & .form-checkbox-input,
+    & .form-toggle-switch {
       grid-area: control;
     }
 
@@ -220,15 +221,6 @@
   /* --- Radio and Checkbox --- */
   input[type="radio"].form-radio-input,
   input[type="checkbox"].form-checkbox-input {
-    cursor: pointer;
-    font-size: inherit;
-    position: relative;
-    user-select: none;
-    vertical-align: middle;
-  }
-
-  input[type="radio"].form-radio-input,
-  input[type="checkbox"].form-checkbox-input {
     align-items: center;
     appearance: none;
     -webkit-appearance: none;
@@ -237,14 +229,18 @@
     block-size: var(--_form-input-height);
     border: 1px solid var(--form-border-color);
     box-sizing: border-box;
+    cursor: pointer;
     display: inline-flex;
+    font-size: inherit;
     inline-size: var(--_form-input-height);
     justify-content: center;
     margin: 0;
-    order: unset;
+    position: relative;
     transition:
       background-color 0.2s ease,
       border-color 0.2s ease;
+    user-select: none;
+    vertical-align: middle;
   }
 
   input[type="radio"].form-radio-input {
@@ -454,7 +450,7 @@
   /* Webkit */
   .form-range-input::-webkit-slider-runnable-track {
     width: 100%;
-    height: var(--form-slider-height);
+    height: var(--form-range-track-height);
     background-color: var(--form-input-background-color);
     border: 1px solid var(--form-border-color);
     border-radius: calc(infinity * 1px);
@@ -469,7 +465,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin-top: calc((var(--form-slider-thumb-height) - var(--form-slider-height)) / -2);
+    margin-top: calc((var(--form-slider-thumb-height) - var(--form-range-track-height)) / -2);
     height: var(--form-slider-thumb-height);
     width: var(--form-slider-thumb-height);
     border-radius: 50%;
@@ -496,7 +492,7 @@
   /* Mozilla */
   .form-range-input::-moz-range-track {
     width: 100%;
-    height: var(--form-slider-height);
+    height: var(--form-range-track-height);
     background-color: var(--form-input-background-color);
     border: 1px solid var(--form-border-color);
     border-radius: calc(infinity * 1px);
@@ -537,6 +533,118 @@
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
+    }
+  }
+
+  /* --- Toggle Switch --- */
+  .form-toggle-switch {
+    align-items: center;
+    block-size: var(--_form-input-height);
+    display: inline-flex;
+    inline-size: var(--form-switch-width);
+    position: relative;
+
+    /* Slide area */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: var(--form-input-background-color);
+      border: 1px solid var(--form-border-color);
+      border-radius: calc(infinity * 1px);
+      transition: background-color 0.2s ease;
+      z-index: 1;
+      box-sizing: content-box;
+    }
+
+    /* Toggle Knob */
+    &::after {
+      content: "";
+      position: absolute;
+      inline-size: var(--form-switch-knob-size);
+      block-size: var(--form-switch-knob-size);
+      top: 50%;
+      transform: translate(var(--form-switch-gap), -50%);
+      background-color: oklch(from var(--form-brand-text-color) calc(l + 0.05) c h / 90%);
+      border-radius: 50%;
+      border: 1px solid var(--form-accent-color);
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 3;
+      box-sizing: border-box;
+    }
+
+    /* Optional on / off icon */
+    & .icon-on,
+    & .icon-off {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      pointer-events: none;
+      line-height: 1;
+      inline-size: var(--_form-input-height);
+      block-size: var(--_form-input-height);
+      box-sizing: border-box;
+      transition: opacity 0.2s;
+    }
+
+    & .icon-on {
+      left: var(--form-switch-gap);
+      opacity: 0;
+    }
+
+    & .icon-off {
+      right: var(--form-switch-gap);
+      opacity: 1;
+    }
+
+    /* State */
+    &:has(:checked) {
+      &::before {
+        background-color: var(--form-input-background-active-color);
+      }
+
+      &::after {
+        transform: translate(calc(var(--_form-input-height) + var(--form-switch-gap)), -50%);
+      }
+
+      & .icon-on {
+        opacity: 1;
+      }
+
+      & .icon-off {
+        opacity: 0;
+      }
+    }
+
+    &:has(:focus-visible)::before {
+      outline: 2px solid var(--form-brand-text-color);
+      outline-offset: 2px;
+      box-shadow: none;
+    }
+
+    &:has(:disabled) {
+      &::before {
+        cursor: not-allowed;
+        background-color: var(--form-input-background-disabled-color);
+      }
+
+      &::after {
+        cursor: not-allowed;
+        background-color: oklch(from var(--form-brand-text-color) calc(l + 0.05) c h / 20%);
+      }
+
+      & .icon-on,
+      & .icon-off {
+        color: var(--form-muted-text);
+      }
+    }
+
+    & input[type="checkbox"].form-toggle-switch-input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
     }
   }
 }

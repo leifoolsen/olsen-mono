@@ -23,6 +23,7 @@
     "./RangeInput.astro": "./src/range-input.astro",
     "./SelectInput.astro": "./src/select-input.astro",
     "./TextAreaInput.astro": "./src/text-area-input.astro",
+    "./ToggleSwitch.astro": "./src/toggle-switch.astro",
     "./package.json": "./package.json"
   },
   "files": [

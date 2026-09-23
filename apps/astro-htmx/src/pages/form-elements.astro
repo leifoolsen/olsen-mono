@@ -4,7 +4,6 @@ import FieldGroup from '@components/form-elements/field-group.astro';
 import Listbox from '@components/form-elements/listbox.astro';
 import ListboxGroup from '@components/form-elements/listbox-group.astro';
 import ListboxOption from '@components/form-elements/listbox-option.astro';
-import ToggleSwitch from '@components/form-elements/toggle-switch.astro';
 import AppLayout from '@layouts/app-layout.astro';
 // ------
 import Checkbox from '@olsen-mono/astro-forms/Checkbox.astro';
@@ -15,6 +14,7 @@ import RangeInput from '@olsen-mono/astro-forms/RangeInput.astro';
 import SelectInput from '@olsen-mono/astro-forms/SelectInput.astro';
 import TextAreaInput from '@olsen-mono/astro-forms/TextAreaInput.astro';
 import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
+import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
 ---
 
 <AppLayout title="Form Elements">
@@ -28,7 +28,6 @@ import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
           id="form-elements-switch-unchecked"
           name="form-elements-switch-unchecked"
           aria-label="Toggle light dark theme"
-          labelPosition="before"
         >
           <label slot="label">Initially Unchecked</label>
         </ToggleSwitch>
@@ -38,7 +37,6 @@ import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
           id="form-elements-switch-checked"
           name="form-elements-switch-checked"
           aria-label="Toggle light dark theme"
-          labelPosition="before"
         >
           <label slot="label">Initially Checked</label>
         </ToggleSwitch>
@@ -300,7 +298,7 @@ import TextInput from '@olsen-mono/astro-forms/TextInput.astro';
         </TextInput>
         <TextInput
           id="input__text_invalid_styled"
-          label="Invalid Required Text Input"
+          label="Invalid Text Input"
           placeholder="Enter Text"
           value="Lorem Ipsum"
           invalid
