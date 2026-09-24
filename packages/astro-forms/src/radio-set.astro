@@ -124,16 +124,16 @@ const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-messa
 
         if (groupName) input.name = groupName;
 
-        if (groupId && (!input.id || input.id.startsWith('form-elements'))) {
+        if (groupId && !input.id) {
           const cleanValue = input.value.replace(/[^a-zA-Z0-9-_]/g, '');
           input.id = `${groupId}-${cleanValue}`;
+        }
 
-          const wrapper = input.closest('div');
-          if (wrapper) {
-            const label = wrapper.querySelector('label');
-            if (label) {
-              label.setAttribute('for', input.id);
-            }
+        const wrapper = input.closest('div.form-input-group');
+        if (wrapper) {
+          const label = wrapper.querySelector('label');
+          if (label) {
+            label.setAttribute('for', input.id);
           }
         }
 

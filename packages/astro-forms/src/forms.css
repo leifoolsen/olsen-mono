@@ -13,12 +13,12 @@
   /* --- Label --- */
   .form-label {
     display: inline-flex;
-    gap: var(--space-xs, 0.25rem);
+    gap: var(--form-space-xs, 0.25rem);
     flex-wrap: nowrap;
     cursor: pointer;
     user-select: none;
     line-height: 1;
-    font-size: var(--font-size-m);
+    font-size: var(--form-font-size-m);
     width: fit-content;
     white-space: nowrap;
     margin: 0;
@@ -49,33 +49,28 @@
     column-gap: var(--form-space-s);
     width: 100%;
 
-    & label {
+    & label:not([role="checkbox"]) {
       grid-area: label;
     }
 
-    & .form-radio-input,
-    & .form-checkbox-input,
-    & .form-toggle-switch {
-      grid-area: control;
-    }
-
-    & .form-error-message {
+    & [role="alert"] {
       grid-area: error;
     }
 
+    /* Grid Templates */
     &.layout-top {
       grid-template-areas:
         "label"
         "control";
+
       grid-template-columns: 1fr;
       row-gap: var(--form-space-xs);
 
-      &:has(.form-error-message) {
+      &:has([role="alert"]) {
         grid-template-areas:
           "label"
           "control"
           "error";
-        row-gap: var(--form-space-xs);
       }
     }
 
@@ -83,7 +78,7 @@
       grid-template-areas: "label control";
       grid-template-columns: max-content 1fr;
 
-      &:has(.form-error-message) {
+      &:has([role="alert"]) {
         grid-template-areas:
           "label control"
           ".     error";
@@ -94,13 +89,20 @@
       grid-template-areas: "control label";
       grid-template-columns: max-content 1fr;
 
-      &:has(.form-error-message) {
+      &:has([role="alert"]) {
+        grid-template-areas:
+          "control label"
+          ".       error";
+      }
+
+      &:has([role="alert"]) {
         grid-template-areas:
           "control label"
           ".       error";
       }
     }
 
+    /* Child States */
     &:has(:disabled) label {
       color: var(--form-muted-text);
       cursor: not-allowed;
@@ -299,22 +301,30 @@
 
   /* --- Input Control Container ---*/
   .form-input-control {
-    grid-area: control;
-    display: inline-flex;
-    flex-wrap: nowrap;
     align-items: center;
-    gap: var(--form-space-xs);
-    width: 100%;
-    position: relative;
     box-sizing: border-box;
-    padding-inline: var(--form-space-s);
+    display: inline-flex;
+    position: relative;
+    width: fit-content;
+  }
+
+  .form-input-control:not(:has(:is([type="checkbox"], [type="radio"], [type="range"]))) {
+    align-items: center;
     background-color: var(--form-input-background-color);
     border: 1px solid var(--form-border-color);
     border-radius: var(--form-space-2xs);
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: var(--form-space-xs);
+    grid-area: control;
+    padding-inline: var(--form-space-s);
+    position: relative;
     transition:
       border-color 0.2s,
       box-shadow 0.2s,
       background-color 0.2s;
+    width: 100%;
 
     &:focus-within {
       border: 1px solid var(--form-brand-text-color);

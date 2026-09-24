@@ -16,6 +16,7 @@
     --form-muted-text: var(--muted-text, #666666);
     --form-error-color: oklch(0.6 0.18 20);
     --form-font-size-s: var(--font-size-s, 0.75rem);
+    --form-font-size-m: var(--font-size-m, 1rem);
     --form-input-background-color: oklch(from var(--swatch-color) calc(l + 0.05) c h);
     --form-input-background-active-color: oklch(from var(--swatch-color) calc(l - 0.05) c h);
     --form-input-background-hover-color: oklch(from var(--swatch-color) calc(l + 0.02) c h);

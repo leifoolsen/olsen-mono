@@ -57,9 +57,11 @@ const offIconHtml = await renderIconSlot('off-icon', 'icon-off');
 <InputGroup layout={labelPosition} class={className}>
   {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
 
-  <label class="form-toggle-switch">
-    <input class="form-toggle-switch-input" id={id} role={role} type={type} {...rest} />
-    {onIconHtml && <Fragment set:html={onIconHtml} />}
-    {offIconHtml && <Fragment set:html={offIconHtml} />}
-  </label>
+  <InputControl>
+    <label role="checkbox" class="form-toggle-switch">
+      <input class="form-toggle-switch-input" id={id} role={role} type={type} {...rest} />
+      {onIconHtml && <Fragment set:html={onIconHtml} />}
+      {offIconHtml && <Fragment set:html={offIconHtml} />}
+    </label>
+  </InputControl>
 </InputGroup>
