@@ -2,6 +2,47 @@
 @import "./forms-tokens.css" layer(components);
 
 @layer components {
+  /* --- Label --- */
+  .form-label {
+    display: inline-flex;
+    gap: var(--form-space-xs, 0.25rem);
+    flex-wrap: nowrap;
+    cursor: pointer;
+    user-select: none;
+    line-height: 1;
+    font-size: var(--form-font-size-m);
+    width: fit-content;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  legend.form-label {
+    cursor: default;
+    float: left;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* --- Error Message --- */
+  .form-error-message {
+    color: var(--form-error-color);
+    display: none;
+    font-size: var(--form-font-size-s);
+    user-select: none;
+    margin-block: calc(var(--form-space-xs) * -1) calc(var(--form-space-2xs) * -1);
+  }
+
+  /* ====================================================================================== */
+  /*  Safari does not take gap into account if fieldset container has flex- or grid layout  */
+  /* ====================================================================================== */
+  @supports (hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none) {
+    legend.form-label {
+      margin-bottom: var(--form-space-s, 0.5rem);
+    }
+  }
+
   /* --- Fieldset --- */
   .form-fieldset {
     border: none;
@@ -30,47 +71,6 @@
         padding: 0 0 0 var(--form-space-xs);
         margin: 0 0 0 calc(var(--form-space-xs) * -1);
       }
-    }
-  }
-
-  /* --- Error Message --- */
-  .form-error-message {
-    color: var(--form-error-color);
-    display: none;
-    font-size: var(--form-font-size-s);
-    user-select: none;
-    margin-block: calc(var(--form-space-xs) * -1) calc(var(--form-space-s) * -1);
-  }
-
-  /* --- Label --- */
-  .form-label {
-    display: inline-flex;
-    gap: var(--form-space-xs, 0.25rem);
-    flex-wrap: nowrap;
-    cursor: pointer;
-    user-select: none;
-    line-height: 1;
-    font-size: var(--form-font-size-m);
-    width: fit-content;
-    white-space: nowrap;
-    margin: 0;
-    padding: 0;
-    position: relative;
-  }
-
-  legend.form-label {
-    cursor: default;
-    float: left;
-    padding: 0;
-    margin: 0;
-  }
-
-  /* ====================================================================================== */
-  /*  Safari does not take gap into account if fieldset container has flex- or grid layout  */
-  /* ====================================================================================== */
-  @supports (hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none) {
-    legend.form-label {
-      margin-bottom: var(--form-space-s, 0.5rem);
     }
   }
 
@@ -131,7 +131,7 @@
         grid-template-areas: "control label" ". error";
         row-gap: var(--form-space-xs);
 
-        &:not(:has(label:not([role="checkbox"]))) {
+        &:not(:has(label:not([role="checkbox"]:checked))) {
           grid-template-areas: "control" "error";
           grid-template-columns: 1fr;
         }
@@ -198,7 +198,7 @@
         mask-repeat: no-repeat;
       }
 
-      & > .form-error-message {
+      & > [role="alert"] {
         display: block;
       }
     }
