@@ -1,0 +1,15 @@
+---
+// packages/astro-forms/src/fieldset.astro
+import type { HTMLAttributes } from 'astro/types';
+import './forms.css';
+
+type Props = HTMLAttributes<'fieldset'> & {
+  bordered?: boolean;
+};
+
+const { bordered, class: className, ...rest } = Astro.props;
+---
+
+<fieldset class:list={['form-fieldset', bordered && 'bordered', className]} {...rest}>
+  <slot />
+</fieldset>

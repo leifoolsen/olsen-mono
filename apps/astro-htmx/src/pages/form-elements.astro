@@ -1,12 +1,12 @@
 ---
 import Combobox from '@components/form-elements/combobox.astro';
-import FieldGroup from '@components/form-elements/field-group.astro';
 import Listbox from '@components/form-elements/listbox.astro';
 import ListboxGroup from '@components/form-elements/listbox-group.astro';
 import ListboxOption from '@components/form-elements/listbox-option.astro';
 import AppLayout from '@layouts/app-layout.astro';
 // ------
 import Checkbox from '@olsen-mono/astro-forms/Checkbox.astro';
+import Fieldset from '@olsen-mono/astro-forms/Fieldset.astro';
 import Label from '@olsen-mono/astro-forms/Label.astro';
 import RadioButton from '@olsen-mono/astro-forms/RadioButton.astro';
 import RadioSet from '@olsen-mono/astro-forms/RadioSet.astro';
@@ -22,7 +22,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
 
   <section data-layout="row" style="gap: var(--space-l)">
     <div style="display: flex; gap: var(--space-m); flex-wrap: wrap;">
-      <FieldGroup id="forms__toggle-switch_styled" bordered>
+      <Fieldset id="forms__toggle-switch_styled" bordered>
         <legend>Toggle Switches</legend>
         <ToggleSwitch
           id="form-elements-switch-unchecked"
@@ -123,12 +123,12 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           </span>
           <label slot="label">Checked, disabled</label>
         </ToggleSwitch>
-      </FieldGroup>
+      </Fieldset>
 
-      <FieldGroup id="forms__checkbox_styled" bordered>
+      <Fieldset id="forms__checkbox_styled" bordered>
         <legend>Checkboxes</legend>
 
-        <FieldGroup>
+        <Fieldset>
           <Checkbox id="form-elements-checkbox" name="form-elements-checkbox" value="cb1" label="Initially Unchecked" />
           <Checkbox checked id="form-elements-checkbox-checked" name="form-elements-checkbox-checked" value="cb2">
             <span slot="label">Initially Checked</span>
@@ -163,9 +163,9 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
             value="cb4"
             label="Checked, Disabled"
           />
-        </FieldGroup>
+        </Fieldset>
         <hr />
-        <FieldGroup orientation="row">
+        <Fieldset orientation="row">
           <Checkbox id="form-elements-checkbox2" name="form-elements-checkbox2" value="cb1" labelPosition="before">
             <span slot="label">Initially Unchecked</span>
           </Checkbox>
@@ -178,10 +178,10 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           >
             <span slot="label">Initially Checked</span>
           </Checkbox>
-        </FieldGroup>
-      </FieldGroup>
+        </Fieldset>
+      </Fieldset>
 
-      <FieldGroup id="forms__radio_styled" bordered>
+      <Fieldset id="forms__radio_styled" bordered>
         <legend>Radiobuttons</legend>
 
         <RadioSet id="case-1" name="radioOption" layout="stack" legend="Select an option" value="5" required>
@@ -240,9 +240,9 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           </RadioButton>
           <span slot="error-message">The selection is not valid.</span>
         </RadioSet>
-      </FieldGroup>
+      </Fieldset>
 
-      <FieldGroup id="forms__radio_styled" bordered style="min-width: 40ch">
+      <Fieldset id="forms__radio_styled" bordered style="min-width: 40ch">
         <legend>Range Inputs</legend>
 
         <RangeInput id="range-input" min={0} max={360} step={0.1} value={303.4} label="Range Input">
@@ -257,11 +257,11 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           value={303.4}
           label="Range Input, disabled"
         />
-      </FieldGroup>
+      </Fieldset>
     </div>
 
     <div style="display: flex; gap: var(--space-m); flex-wrap: wrap;">
-      <FieldGroup id="forms__inputs_styled" bordered style="min-width: 50ch;">
+      <Fieldset id="forms__inputs_styled" bordered style="min-width: 50ch;">
         <legend>Input fields</legend>
 
         <TextInput id="input__text_styled" placeholder="Enter Text" label="Text Input">
@@ -309,9 +309,9 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         <TextInput id="input__date_styled" type="date" value="1970-01-01" label="Date Input">
           <span slot="description">This is a description of the date input.</span>
         </TextInput>
-      </FieldGroup>
+      </Fieldset>
 
-      <FieldGroup id="forms__textareas_styled" bordered style="min-width: 50ch; max-width: 50ch;">
+      <Fieldset id="forms__textareas_styled" bordered style="min-width: 50ch; max-width: 50ch;">
         <legend>Text Areas</legend>
 
         <TextAreaInput
@@ -341,9 +341,9 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           <Fragment>Lorem Ipsum Dolar Est!</Fragment>
           <span slot="error-message">The input is not valid.</span>
         </TextAreaInput>
-      </FieldGroup>
+      </Fieldset>
 
-      <FieldGroup id="forms__selects_styled" bordered style="min-width: 50ch; max-width: 50ch;">
+      <Fieldset id="forms__selects_styled" bordered style="min-width: 50ch; max-width: 50ch;">
         <legend>Native Select</legend>
 
         <SelectInput id="select_styled" label="Select">
@@ -385,9 +385,9 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           </optgroup>
           <Fragment slot="error-message">The input is not valid.</Fragment>
         </SelectInput>
-      </FieldGroup>
+      </Fieldset>
 
-      <FieldGroup id="designsystem__listboxes" bordered style="min-width: 50ch;">
+      <Fieldset id="designsystem__listboxes" bordered style="min-width: 50ch;">
         <legend>Listboxes</legend>
 
         <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
@@ -468,7 +468,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
             </ListboxGroup>
           </Listbox>
         </div>
-      </FieldGroup>
+      </Fieldset>
 
       <script>
         type ListboxType = HTMLElementTagNameMap['ui-listbox'];
@@ -478,7 +478,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           console.log('#listbox2:', e.detail);
         });
       </script>
-      <FieldGroup id="designsystem__listboxes" bordered style="min-width: 50ch;">
+      <Fieldset id="designsystem__listboxes" bordered style="min-width: 50ch;">
         <legend>Multi Select Listboxes</legend>
 
         <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
@@ -592,7 +592,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
             </ListboxGroup>
           </Listbox>
         </div>
-      </FieldGroup>
+      </Fieldset>
 
       <script>
         type ListboxType = HTMLElementTagNameMap['ui-listbox'];
@@ -621,7 +621,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           listbox?.deselectAll();
         });
       </script>
-      <FieldGroup id="designsystem__comboboxes" bordered style="min-width: 50ch;">
+      <Fieldset id="designsystem__comboboxes" bordered style="min-width: 50ch;">
         <legend>Comboboxes</legend>
 
         <Combobox id="combobox" placeholder="Start typing to filter..." label="Select a fish">
@@ -852,14 +852,14 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
             </ListboxGroup>
           </Fragment>
         </Combobox>
-      </FieldGroup>
+      </Fieldset>
     </div>
 
     <h2>Unstyled</h2>
 
     <fieldset id="forms__inputs">
       <legend>Input fields</legend>
-      <FieldGroup>
+      <Fieldset>
         <p>
           <label for="input__text">Text Input</label>
           <input id="input__text" type="text" placeholder="Text Input" />
@@ -892,7 +892,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           <label for="input__file">File Input</label>
           <input id="input__file" type="file" />
         </p>
-      </FieldGroup>
+      </Fieldset>
     </fieldset>
 
     <fieldset id="forms__textareas">

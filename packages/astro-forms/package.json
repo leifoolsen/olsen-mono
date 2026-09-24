@@ -15,6 +15,7 @@
     },
     "./Checkbox.astro": "./src/checkbox.astro",
     "./ErrorMessage.astro": "./src/error-message.astro",
+    "./Fieldset.astro": "./src/fieldset.astro",
     "./TextInput.astro": "./src/text-input.astro",
     "./Label.astro": "./src/label.astro",
     "./LegendLabel.astro": "./src/legend-label.astro",
