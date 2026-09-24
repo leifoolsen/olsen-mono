@@ -1,6 +1,6 @@
 ---
-// packages/astro-forms/src/RadioSet.astro
-// import { assertValidSlots } from '@olsen-mono/core-utils';
+// packages/astro-forms/src/radio-set.astro
+import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './error-message.astro';
 import LegendLabel from './legend-label.astro';
@@ -23,8 +23,6 @@ type Props = HTMLAttributes<'fieldset'> & {
   value?: string;
 };
 
-// assertValidSlots(Astro.slots, ['error-message', 'legend'], 'RadioGroup');
-
 const {
   'aria-invalid': ariaInvalid,
   'aria-required': ariaRequired,
@@ -39,6 +37,9 @@ const {
   value,
   ...rest
 } = Astro.props;
+
+assertValidSlots(Astro.slots, ['error-message', 'legend'], 'RadioGroup');
+
 const hasLegend = !!legend || Astro.slots.has('legend');
 const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
 ---

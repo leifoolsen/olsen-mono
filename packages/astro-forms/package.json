@@ -14,7 +14,9 @@
       "default": "./src/forms.css"
     },
     "./Checkbox.astro": "./src/checkbox.astro",
+    "./ComponentLayout.astro": "./src/component-layout.astro",
     "./ErrorMessage.astro": "./src/error-message.astro",
+    "./Fieldset.astro": "./src/fieldset.astro",
     "./TextInput.astro": "./src/text-input.astro",
     "./Label.astro": "./src/label.astro",
     "./LegendLabel.astro": "./src/legend-label.astro",
