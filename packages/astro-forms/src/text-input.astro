@@ -55,17 +55,11 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       {...rest}
     />
 
-    {type === 'search' && (
-      <SearchIcon />
-    )}
+    {type === 'search' && <SearchIcon />}
 
-    <FormToolButton
-      aria-label="Clear value"
-      class="form-clear-icon"
-    >
+    <FormToolButton aria-label="Clear value" class="form-clear-icon">
       <ClearIcon />
     </FormToolButton>
-
 
     {hasDescriptionSlot && (
       <FormDescription descriptionId={descriptionId!}>
@@ -105,6 +99,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
           input.value = '';
           input.focus();
           input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.dispatchEvent(new Event('change', { bubbles: true }));
         });
       }
 

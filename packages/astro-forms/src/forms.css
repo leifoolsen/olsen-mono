@@ -105,11 +105,15 @@
       }
 
       &:has([role="alert"]) {
-        grid-template-areas: "label control" ". error";
+        grid-template-areas:
+          "label control"
+          ".     error";
         row-gap: var(--form-space-s);
 
         &:not(:has(label:not([role="checkbox"]))) {
-          grid-template-areas: "control" "error";
+          grid-template-areas:
+            "control"
+            "error";
           grid-template-columns: 1fr;
         }
       }
@@ -128,11 +132,15 @@
       }
 
       &:has([role="alert"]) {
-        grid-template-areas: "control label" ". error";
+        grid-template-areas:
+          "control label"
+          ".       error";
         row-gap: var(--form-space-xs);
 
         &:not(:has(label:not([role="checkbox"]:checked))) {
-          grid-template-areas: "control" "error";
+          grid-template-areas:
+            "control"
+            "error";
           grid-template-columns: 1fr;
         }
       }
@@ -145,17 +153,24 @@
       row-gap: 0;
 
       &:has(label:not([role="checkbox"])) {
-        grid-template-areas: "label" "control";
+        grid-template-areas:
+          "label"
+          "control";
         row-gap: var(--form-space-xs);
       }
 
       &:has([role="alert"]):not(:has(label:not([role="checkbox"]))) {
-        grid-template-areas: "control" "error";
+        grid-template-areas:
+          "control"
+          "error";
         row-gap: var(--form-space-xs);
       }
 
       &:has([role="alert"]):has(label:not([role="checkbox"])) {
-        grid-template-areas: "label" "control" "error";
+        grid-template-areas:
+          "label"
+          "control"
+          "error";
         row-gap: var(--form-space-xs);
       }
     }

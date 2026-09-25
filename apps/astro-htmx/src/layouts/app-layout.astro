@@ -30,8 +30,18 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
 
       <div class="app-header-right" id="app-header-right">
         <ToggleSwitch id="density-toggle" name="density" checked={isCondensed} aria-label="Toggle font size">
-          <span slot="on-icon"><small><small>A</small></small>A</span>
-          <span slot="off-icon">A<small><small>A</small></small></span>
+          <span slot="on-icon">
+            <small>
+              <small>A</small>
+            </small>
+            A
+          </span>
+          <span slot="off-icon">
+            A
+            <small>
+              <small>A</small>
+            </small>
+          </span>
         </ToggleSwitch>
         <ToggleSwitch id="theme-switcher" name="theme" checked={isLight} aria-label="Toggle light dark theme">
           <span slot="on-icon">☀️</span>
@@ -78,7 +88,7 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
     container.addEventListener('change', (event) => {
       const input = event.target as HTMLInputElement;
 
-      if (!input.classList.contains('switch')) return;
+      if (!input.type === 'checkbox') return;
 
       const name = input.name;
       const checked = input.checked;

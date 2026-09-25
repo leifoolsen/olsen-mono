@@ -1,0 +1,121 @@
+---
+// packages/astro-forms/src/InputSet.astro
+import { assertValidSlots } from '@olsen-mono/core-utils';
+import type { HTMLAttributes } from 'astro/types';
+import ErrorMessage from './error-message.astro';
+import FormDescription from './form-description.astro';
+import './forms.css';
+
+type Props = HTMLAttributes<'div'> & {
+  id: string;
+  invalid?: boolean;
+  showClearAll?: boolean;
+  showInfo?: boolean;
+};
+
+assertValidSlots(Astro.slots, ['error-message', 'description'], 'InputSet');
+
+const {
+  'aria-invalid': ariaInvalid,
+  id,
+  invalid,
+  showClearAll = false,
+  showInfo = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const hasErrorMessage = invalid && Astro.slots.has('error-message');
+const hasDescriptionSlot = Astro.slots.has('description');
+const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
+---
+
+<div
+  aria-invalid={invalid ?? ariaInvalid ?? undefined}
+  id={id}
+  class:list={['form-input-set', className]}
+  aria-describedby={hasDescriptionSlot ? descriptionId : undefined}
+  role="group"
+  {...rest}
+>
+  {(showClearAll || showInfo || invalid) && (
+    <div class="form-input-set-tools">
+      <div class="form-input-set-status-icon" />
+      {showClearAll && (
+        <button type="button" class="form-tool-btn input-set-clear-btn">
+          Clear all
+        </button>
+      )}
+      {showInfo && (
+        <button type="button" class="form-tool-btn input-set-info-btn">
+          <i>i</i>
+        </button>
+      )}
+    </div>
+  )}
+
+  <div class="form-input-set-content">
+    <slot />
+  </div>
+
+  {hasDescriptionSlot && (
+    <div class="form-input-set-description-wrapper">
+      <FormDescription descriptionId={descriptionId!}>
+        <slot name="description" />
+      </FormDescription>
+    </div>
+  )}
+
+  {hasErrorMessage && (
+    <ErrorMessage id={`${id}-error`}>
+      <slot name="error-message" />
+    </ErrorMessage>
+  )}
+</div>
+
+<script>
+  function setupInputSets() {
+    const inputSets = document.querySelectorAll('.form-input-set');
+
+    for (const set of inputSets) {
+      if (set.hasAttribute('data-initialized')) continue;
+      set.setAttribute('data-initialized', 'true');
+
+      const clearBtn = set.querySelector('.input-set-clear-btn');
+      const infoBtn = set.querySelector('.input-set-info-btn');
+      const descWrapper = set.querySelector('.form-input-set-description-wrapper');
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          const inputs = set.querySelectorAll('input, textarea, select');
+          for (const input of inputs) {
+            if (input instanceof HTMLInputElement) {
+              if (input.type === 'button') continue;
+
+              if (input.type === 'checkbox' || input.type === 'radio') {
+                input.checked = false;
+              } else {
+                input.value = '';
+              }
+              input.dispatchEvent(new Event('input', { bubbles: true }));
+              input.dispatchEvent(new Event('change', { bubbles: true }));
+            } else if (input instanceof HTMLTextAreaElement || input instanceof HTMLSelectElement) {
+              input.value = '';
+              input.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          }
+        });
+      }
+
+      if (infoBtn && descWrapper) {
+        descWrapper.classList.add('is-hidden');
+        infoBtn.addEventListener('click', () => {
+          descWrapper.classList.toggle('is-hidden');
+        });
+      }
+    }
+  }
+
+  setupInputSets();
+  document.addEventListener('astro:after-swap', setupInputSets);
+</script>

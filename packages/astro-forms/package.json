@@ -17,7 +17,7 @@
     "./ComponentLayout.astro": "./src/component-layout.astro",
     "./ErrorMessage.astro": "./src/error-message.astro",
     "./Fieldset.astro": "./src/fieldset.astro",
-    "./TextInput.astro": "./src/text-input.astro",
+    "./InputSet.astro": "./src/input-set.astro",
     "./Label.astro": "./src/label.astro",
     "./LegendLabel.astro": "./src/legend-label.astro",
     "./RadioButton.astro": "./src/radio-button.astro",
@@ -25,6 +25,7 @@
     "./RangeInput.astro": "./src/range-input.astro",
     "./SelectInput.astro": "./src/select-input.astro",
     "./TextAreaInput.astro": "./src/text-area-input.astro",
+    "./TextInput.astro": "./src/text-input.astro",
     "./ToggleSwitch.astro": "./src/toggle-switch.astro",
     "./package.json": "./package.json"
   },

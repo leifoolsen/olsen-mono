@@ -25,107 +25,105 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
       <Fieldset id="forms__toggle-switch_styled" bordered>
         <legend>Toggle Switches</legend>
 
-        <div style="width: 500px; column-gap: 1rem; row-gap: 0.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
-          <ToggleSwitch
-            id="form-elements-switch-unchecked"
-            name="form-elements-switch-unchecked"
-            aria-label="Toggle light dark theme"
-          >
-            <label slot="label">Initially Unchecked</label>
-          </ToggleSwitch>
+        <ToggleSwitch
+          id="form-elements-switch-unchecked"
+          name="form-elements-switch-unchecked"
+          aria-label="Toggle light dark theme"
+        >
+          <label slot="label">Initially Unchecked</label>
+        </ToggleSwitch>
 
-          <ToggleSwitch
-            checked
-            id="form-elements-switch-checked"
-            name="form-elements-switch-checked"
-            aria-label="Toggle light dark theme"
-          >
-            <label slot="label">Initially Checked</label>
-          </ToggleSwitch>
+        <ToggleSwitch
+          checked
+          id="form-elements-switch-checked"
+          name="form-elements-switch-checked"
+          aria-label="Toggle light dark theme"
+        >
+          <label slot="label">Initially Checked</label>
+        </ToggleSwitch>
 
-          <ToggleSwitch
-            id="form-elements-switch-unchecked-disabled"
-            name="form-elements-switch-unchecked-disabled"
-            disabled
-            aria-label="Toggle light dark theme"
-          >
-            <label slot="label">Disabled, Unchecked</label>
-          </ToggleSwitch>
+        <ToggleSwitch
+          id="form-elements-switch-unchecked-disabled"
+          name="form-elements-switch-unchecked-disabled"
+          disabled
+          aria-label="Toggle light dark theme"
+        >
+          <label slot="label">Disabled, Unchecked</label>
+        </ToggleSwitch>
 
-          <ToggleSwitch
-            id="form-elements-switch-checked-disabled"
-            name="form-elements-switch-checked-disabled"
-            checked
-            disabled
-            aria-label="Toggle light dark theme"
-          >
-            <label slot="label">Disabled, Checked</label>
-          </ToggleSwitch>
+        <ToggleSwitch
+          id="form-elements-switch-checked-disabled"
+          name="form-elements-switch-checked-disabled"
+          checked
+          disabled
+          aria-label="Toggle light dark theme"
+        >
+          <label slot="label">Disabled, Checked</label>
+        </ToggleSwitch>
 
-          <ToggleSwitch
-            id="form-elements-switch-icon-unchecked"
-            name="form-elements-switch-icon-unchecked"
-            aria-label="Toggle light dark theme"
-          >
-            <span slot="on-icon">☀️</span>
-            <span slot="off-icon">🌙</span>
-            <label slot="label">Initially Unchecked</label>
-          </ToggleSwitch>
+        <ToggleSwitch
+          id="form-elements-switch-icon-unchecked"
+          name="form-elements-switch-icon-unchecked"
+          aria-label="Toggle light dark theme"
+        >
+          <span slot="on-icon">☀️</span>
+          <span slot="off-icon">🌙</span>
+          <label slot="label">Initially Unchecked</label>
+        </ToggleSwitch>
 
-          <ToggleSwitch
-            id="form-elements-switch-icon-checked"
-            name="form-elements-switch-icon-checked"
-            checked
-            aria-label="Toggle light dark theme"
-          >
-            <span slot="on-icon">
-              <small class="baz">
-                <small>A</small>
-              </small>
-              A
-            </span>
-            <span slot="off-icon">
-              A
-              <small>
-                <small>A</small>
-              </small>
-            </span>
-            <label slot="label">Initially Checked</label>
-          </ToggleSwitch>
+        <ToggleSwitch
+          id="form-elements-switch-icon-checked"
+          name="form-elements-switch-icon-checked"
+          checked
+          aria-label="Toggle light dark theme"
+        >
+          <span slot="on-icon">
+            <small class="baz">
+              <small>A</small>
+            </small>
+            A
+          </span>
+          <span slot="off-icon">
+            A
+            <small>
+              <small>A</small>
+            </small>
+          </span>
+          <label slot="label">Initially Checked</label>
+        </ToggleSwitch>
 
-          <ToggleSwitch
-            id="form-elements-switch-icon-disabled-unchecked"
-            name="form-elements-switch-icon-disabled-unchecked"
-            disabled
-            aria-label="Toggle light dark theme"
-          >
-            <span slot="on-icon">☀️</span>
-            <span slot="off-icon">🌙</span>
-            <label slot="label">Unchecked, disabled</label>
-          </ToggleSwitch>
+        <ToggleSwitch
+          id="form-elements-switch-icon-disabled-unchecked"
+          name="form-elements-switch-icon-disabled-unchecked"
+          disabled
+          aria-label="Toggle light dark theme"
+        >
+          <span slot="on-icon">☀️</span>
+          <span slot="off-icon">🌙</span>
+          <label slot="label">Unchecked, disabled</label>
+        </ToggleSwitch>
 
-          <ToggleSwitch
-            id="form-elements-switch-icon-disabled-checked"
-            name="form-elements-switch-icon-disabled-checked"
-            disabled
-            checked
-            aria-label="Toggle light dark theme"
-          >
-            <span slot="on-icon">
-              <small>
-                <small>A</small>
-              </small>
-              A
-            </span>
-            <span slot="off-icon">
-              A
-              <small>
-                <small>A</small>
-              </small>
-            </span>
-            <label slot="label">Checked, disabled</label>
-          </ToggleSwitch>
-        </div>
+        <ToggleSwitch
+          id="form-elements-switch-icon-disabled-checked"
+          name="form-elements-switch-icon-disabled-checked"
+          disabled
+          checked
+          aria-label="Toggle light dark theme"
+        >
+          <span slot="on-icon">
+            <small>
+              <small>A</small>
+            </small>
+            A
+          </span>
+          <span slot="off-icon">
+            A
+            <small>
+              <small>A</small>
+            </small>
+          </span>
+          <label slot="label">Checked, disabled</label>
+        </ToggleSwitch>
       </Fieldset>
 
       <Fieldset id="forms__checkbox_styled" bordered>
