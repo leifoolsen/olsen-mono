@@ -104,7 +104,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       }
 
       if (descriptionButton) {
-        descriptionButton.addEventListener('click', () => {
+        descriptionButton.addEventListener('click', (e) => {
           if (!input.disabled) {
             input.focus();
           }

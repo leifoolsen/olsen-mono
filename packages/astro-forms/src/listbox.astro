@@ -1,9 +1,9 @@
 ---
-// src/components/form-element/listbox.astro
+// packages/astro-forms/src/listbox.astro
 
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
-import './form-elements.css';
+import './listbox.css'
 
 type Props = HTMLAttributes<'div'> & {
   activeDescendantId?: string;
