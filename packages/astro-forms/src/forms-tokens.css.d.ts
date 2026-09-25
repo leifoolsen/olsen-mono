@@ -5,6 +5,7 @@ export type CssVariables =
   | '--form-border-focus-color'
   | '--form-brand-text-color'
   | '--form-error-color'
+  | '--form-font-size-m'
   | '--form-font-size-s'
   | '--form-input-background-active-color'
   | '--form-input-background-color'
@@ -12,7 +13,7 @@ export type CssVariables =
   | '--form-input-background-hover-color'
   | '--form-input-scale'
   | '--form-muted-text'
-  | '--form-slider-height'
+  | '--form-range-track-height'
   | '--form-slider-thumb-height'
   | '--form-space-2xs'
   | '--form-space-3xs'
@@ -20,7 +21,10 @@ export type CssVariables =
   | '--form-space-m'
   | '--form-space-s'
   | '--form-space-xl'
-  | '--form-space-xs';
+  | '--form-space-xs'
+  | '--form-switch-gap'
+  | '--form-switch-knob-size'
+  | '--form-switch-width';
 export type CssDataAttributes = never;
 declare const styles: string;
 export default styles;
