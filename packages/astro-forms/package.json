@@ -8,6 +8,17 @@
     "**/*.css"
   ],
   "exports": {
+    ".": {
+      "types": {
+        "development": "./src/index.ts",
+        "default": "./dist/index.d.ts"
+      },
+      "import": {
+        "development": "./src/index.ts",
+        "default": "./dist/index.mjs"
+      },
+      "default": "./dist/index.mjs"
+    },
     "./forms.css": {
       "types": "./src/forms.css.d.ts",
       "development": "./src/forms.css",
@@ -49,7 +60,7 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "compile": "pnpm run css-to-dts",
+    "compile": "tsdown && pnpm run css-to-dts",
     "css-to-dts": "css-to-dts src --camelCase --outDir dist",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "typecheck": "astro check && tsc --noEmit"
