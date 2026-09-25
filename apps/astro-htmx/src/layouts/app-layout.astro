@@ -86,28 +86,27 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
     if (!container) return;
 
     container.addEventListener('change', (event) => {
-      const input = event.target as HTMLInputElement;
+      const input = event.target as HTMLInputElement | null;
+      if (input instanceof HTMLInputElement && input.type === 'checkbox') {
+        const name = input.name;
+        const checked = input.checked;
 
-      if (!input.type === 'checkbox') return;
+        let cookieValue = '';
+        let htmlAttribute = '';
 
-      const name = input.name;
-      const checked = input.checked;
+        if (name === 'density') {
+          cookieValue = checked ? 'condensed' : 'default';
+          htmlAttribute = 'data-density';
+        } else if (name === 'theme') {
+          cookieValue = checked ? 'light' : 'dark';
+          htmlAttribute = 'data-theme';
+        }
 
-      let cookieValue = '';
-      let htmlAttribute = '';
+        if (!cookieValue || !htmlAttribute) return;
 
-      if (name === 'density') {
-        cookieValue = checked ? 'condensed' : 'default';
-        htmlAttribute = 'data-density';
-      } else if (name === 'theme') {
-        cookieValue = checked ? 'light' : 'dark';
-        htmlAttribute = 'data-theme';
+        document.documentElement.setAttribute(htmlAttribute, cookieValue);
+        document.cookie = `${name}=${cookieValue}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Strict`;
       }
-
-      if (!cookieValue || !htmlAttribute) return;
-
-      document.documentElement.setAttribute(htmlAttribute, cookieValue);
-      document.cookie = `${name}=${cookieValue}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Strict`;
     });
   }
 

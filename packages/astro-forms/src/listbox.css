@@ -1,0 +1,200 @@
+/* packages/astro-forms/src/listbox.css */
+@import "./forms-tokens.css" layer(components);
+
+@layer components {
+  /* --- Listbox ---*/
+  .listbox-option {
+    padding: var(--space-xs) var(--space-s);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.1s ease;
+    position: relative;
+    scroll-margin-top: calc(var(--_form-input-height) + var(--space-xs) * 2);
+    scroll-margin-bottom: var(--space-xs);
+
+    &[aria-selected="true"] {
+      font-weight: 600;
+      background-color: oklch(from var(--system-brand-color) calc(l + 0.1) c h / 5%);
+
+      &::after {
+        position: absolute;
+        left: var(--space-xs);
+        color: var(--system-brand-color);
+        content: "";
+        inline-size: var(--_form-marker-size);
+        block-size: var(--_form-marker-size);
+        background-color: oklch(from var(--brand-text-color) calc(l + 0.05) c h / 90%);
+        transition:
+          transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.15s ease;
+        clip-path: polygon(14% 44%, 0 58%, 38% 96%, 100% 16%, 84% 2%, 38% 68%);
+        transform: scale(0.9) translateY(-6%);
+      }
+    }
+
+    &[aria-disabled="true"] {
+      color: var(--muted-text);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    &.is-active,
+    &:focus-visible {
+      background-color: var(--form-input-background-active-color);
+      color: var(--brand-text-color);
+      outline: none;
+    }
+
+    &:hover:not(.is-active) {
+      background-color: var(--form-input-background-hover-color);
+    }
+  }
+
+  .listbox-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .listbox-group-label {
+    position: sticky;
+    top: 0;
+    background-color: oklch(from var(--form-input-background-color) calc(l - 0.05) c h / 95%);
+    padding: var(--space-xs) var(--space-s);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted-text);
+    font-weight: var(--font-weight-l);
+    user-select: none;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.1s ease;
+  }
+
+  .listbox-group-label ~ li {
+    padding-left: var(--space-l);
+  }
+
+  .listbox {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: inherit;
+    font-size: inherit;
+    outline: none;
+    background-color: var(--form-input-background-color);
+
+    /* TODO: A container should be responsible for the listbox height */
+    max-height: 40ch;
+    overflow-y: auto;
+
+    &:focus-visible {
+      box-shadow: none;
+      outline: var(--outline-size) solid var(--brand-text-color);
+      outline-offset: var(--outline-size);
+
+      transition: outline-color 0.5s;
+    }
+
+    &.bordered {
+      border: 1px solid var(--form-border-color);
+      border-radius: var(--space-2xs);
+
+      &:focus-visible {
+        border-color: var(--brand-text-color);
+      }
+    }
+  }
+
+  .listbox[aria-multiselectable="true"] {
+    & .listbox-option {
+      padding-left: var(--space-xl);
+
+      &::before {
+        position: absolute;
+        left: var(--space-xs, 0.5rem);
+        content: "";
+        display: inline-block;
+        width: var(--_form-input-height);
+        height: var(--_form-input-height);
+        border: 1px solid var(--form-border-color);
+        border-radius: var(--space-3xs);
+        background-color: var(--form-input-background-color);
+        transform: scale(0.75) translateY(-6%);
+        transition:
+          background-color 0.15s,
+          border-color 0.15s;
+      }
+
+      &[aria-selected="true"]::before {
+        background-color: var(--form-input-background-active-color);
+        border-color: var(--accent-color);
+      }
+
+      &[aria-selected="true"]::after {
+        left: calc(var(--space-m) * 0.8);
+      }
+    }
+  }
+
+  /* aria-multiselectable is required, so it's safe to test for "false */
+  .listbox[aria-multiselectable="false"][data-show-marker="true"] {
+    & .listbox-option {
+      padding-left: var(--space-l);
+    }
+  }
+
+  .listbox[aria-multiselectable="false"]:not([data-show-marker="true"]) {
+    & .listbox-option[aria-selected="true"]::after {
+      display: none;
+    }
+  }
+
+  /* --- Combobox ---*/
+  [role="group"].combobox-control {
+    &:has([readonly]) {
+      background-color: var(--form-input-background-color);
+      border-style: solid;
+
+      &:has(:not(:disabled)) {
+        [name="picker"] {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .combobox-input[readonly] {
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .combobox-results-popover {
+    inset: auto;
+    margin: 0;
+    position: fixed;
+    border: 0;
+    background-color: var(--form-input-background-color);
+    color: inherit;
+    border-radius: var(--space-2xs);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    font-size: var(--font-size-s, 0.9em);
+    top: anchor(bottom);
+    left: anchor(left);
+    min-inline-size: anchor-size(width);
+    margin-block-start: var(--space-xs);
+    position-try-fallbacks: flip-block;
+  }
+
+  .combobox-results-popover .listbox {
+    max-height: 15lh;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+}

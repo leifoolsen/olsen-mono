@@ -1,9 +1,9 @@
 ---
-// src/components/form-element/listbox-group.astro
+// packages/astro-forms/src/listbox-group.astro
 
 import { assertValidSlots, matchAsync } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
-import './form-elements.css';
+import './listbox.css';
 
 type Props = HTMLAttributes<'ul'> & {
   label?: string;

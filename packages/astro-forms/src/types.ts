@@ -1,4 +1,4 @@
-// src/components/form-element/types.ts
+// src/components/form-elements/types.ts
 
 export type ListboxItem = {
   id: string;

@@ -1,11 +1,17 @@
 ---
-// src/components/form-element/combobox.astro
-
-import { assertValidSlots, matchAsync } from '@olsen-mono/core-utils';
+// packages/astro-forms/src/combobox.astro
+import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
-import FieldHelp from './field-help.astro';
+import ClearIcon from "./clear-icon.astro";
+import ErrorMessage from "./error-message.astro";
+import FormDescription from "./form-description.astro";
+import FormToolButton from "./form-tool-button.astro";
+import InputControl from './input-control.astro';
+import Label from './label.astro';
 import Listbox from './listbox.astro';
-import './form-elements.css';
+import PickerIcon from "./picker-icon.astro";
+import SearchIcon from "./search-icon.astro";
+import './listbox.css';
 
 type Props = HTMLAttributes<'input'> & {
   id: string;
@@ -38,32 +44,20 @@ const ALLOWED_SLOTS = ['label', 'options', 'description', 'error-message'] as co
 assertValidSlots(Astro.slots, ALLOWED_SLOTS, 'Combobox');
 
 const inputId = `${id}-input`;
-
 const hasDescriptionSlot = Astro.slots.has('description');
 const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
-
 const hasOptionsSlot = Astro.slots.has('options');
-const hasErrorSlot = Astro.slots.has('error-message');
-
-const showErrorMessage = invalid && hasErrorSlot;
-
 const resultsPopoverId = `${id}-results-popover`;
 const uniqueAnchorName = `--anchor-list-${id}`;
-
-const processedLabel = await matchAsync()
-  .on(!!label, () => `<label for="${inputId}">${label}</label>`)
-  .on(Astro.slots.has('label'), async () => {
-    const rawLabel = await Astro.slots.render('label');
-    const isLabelTag = rawLabel ? /^\s*<label(?=[>\s])/i.test(rawLabel) : false;
-    return isLabelTag
-      ? rawLabel.replace('<label', `<label for="${inputId}"`)
-      : `<label for="${inputId}">${rawLabel}</label>`;
-  })
-  .otherwise(() => null);
+const hasLabel = !!label || Astro.slots.has('label');
+const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const errorId = hasErrorMessage ? `${id}-error` : undefined;
 ---
 
-<ui-combobox class:list={['input-group', labelPosition === 'top' ? 'label-top' : 'label-before', className]} id={id}>
-  <div class="input-container combobox-container" style={`anchor-name: ${uniqueAnchorName};`}>
+<ui-combobox class:list={['form-input-group', `layout-${labelPosition}`, className]} id={id}>
+  {hasLabel && <Label for={inputId}>{label ? label : <slot name="label" />}</Label>}
+
+  <InputControl class="combobox-control" style={`anchor-name: ${uniqueAnchorName};`}>
     <input
       aria-controls={resultsPopoverId}
       aria-describedby={descriptionId ?? ariaDescribedBy ?? undefined}
@@ -71,7 +65,7 @@ const processedLabel = await matchAsync()
       aria-haspopup={ariaHasPopup}
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
       autocomplete={autocomplete}
-      class:list={['text-input', 'combobox-input']}
+      class:list={['form-text-input', 'combobox-input']}
       data-combobox-input
       id={inputId}
       readonly={readonly}
@@ -80,25 +74,28 @@ const processedLabel = await matchAsync()
       {...rest}
     />
 
-    {type === 'search' && <div class="icon search-icon" />}
+    {type === 'search' && <SearchIcon />}
 
-    {type === 'text' && <div class="icon chevron-icon" />}
+    {type === 'text' && <PickerIcon />}
 
-    <button aria-label="Clear" class="tool-btn icon clear-icon" tabindex="-1" type="button"></button>
+    <FormToolButton
+      aria-label="Clear value"
+      class="form-clear-icon"
+    >
+      <ClearIcon />
+    </FormToolButton>
 
     {hasDescriptionSlot && (
-      <FieldHelp id={descriptionId!}>
+      <FormDescription descriptionId={descriptionId!}>
         <slot name="description" />
-      </FieldHelp>
+      </FormDescription>
     )}
-  </div>
+  </InputControl>
 
-  {!!processedLabel && <Fragment set:html={processedLabel} />}
-
-  {showErrorMessage && (
-    <div class="error-message" role="alert">
+  {hasErrorMessage && (
+    <ErrorMessage id={errorId}>
       <slot name="error-message" />
-    </div>
+    </ErrorMessage>
   )}
 
   {hasOptionsSlot && (
@@ -208,8 +205,6 @@ const processedLabel = await matchAsync()
       infoIcon?.addEventListener('click', () => {
         if (!this.input.disabled) {
           this.input.focus();
-        } else if (infoIcon instanceof HTMLButtonElement) {
-          infoIcon.disabled = true;
         }
       });
     }
