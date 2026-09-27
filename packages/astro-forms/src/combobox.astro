@@ -2,15 +2,15 @@
 // packages/astro-forms/src/combobox.astro
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
-import ClearIcon from "./clear-icon.astro";
-import ErrorMessage from "./error-message.astro";
-import FormDescription from "./form-description.astro";
-import FormToolButton from "./form-tool-button.astro";
+import ClearIcon from './clear-icon.astro';
+import ErrorMessage from './error-message.astro';
+import FormDescription from './form-description.astro';
+import FormToolButton from './form-tool-button.astro';
 import InputControl from './input-control.astro';
 import Label from './label.astro';
 import Listbox from './listbox.astro';
-import PickerIcon from "./picker-icon.astro";
-import SearchIcon from "./search-icon.astro";
+import PickerIcon from './picker-icon.astro';
+import SearchIcon from './search-icon.astro';
 import './listbox.css';
 
 type Props = HTMLAttributes<'input'> & {
@@ -78,10 +78,7 @@ const errorId = hasErrorMessage ? `${id}-error` : undefined;
 
     {type === 'text' && <PickerIcon />}
 
-    <FormToolButton
-      aria-label="Clear value"
-      class="form-clear-icon"
-    >
+    <FormToolButton aria-label="Clear value" class="form-clear-icon">
       <ClearIcon />
     </FormToolButton>
 
@@ -117,7 +114,7 @@ const errorId = hasErrorMessage ? `${id}-error` : undefined;
   import { match } from '@olsen-mono/core-utils';
   import type { ComboboxChangeEventDetail, ListboxChangeEventDetail } from './types';
 
-  class UIComboboxElement extends HTMLElement {
+  export class UIComboboxElement extends HTMLElement {
     private input!: HTMLInputElement;
     private popoverEl!: HTMLElement;
     private listbox!: HTMLElementTagNameMap['ui-listbox'];
@@ -334,14 +331,5 @@ const errorId = hasErrorMessage ? `${id}-error` : undefined;
 
   if (!customElements.get('ui-combobox')) {
     customElements.define('ui-combobox', UIComboboxElement);
-  }
-
-  declare global {
-    interface HTMLElementTagNameMap {
-      'ui-combobox': UIComboboxElement;
-    }
-    interface HTMLElementEventMap {
-      'combobox-change': CustomEvent<ComboboxChangeEventDetail>;
-    }
   }
 </script>

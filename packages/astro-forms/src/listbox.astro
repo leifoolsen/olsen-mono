@@ -3,7 +3,7 @@
 
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
-import './listbox.css'
+import './listbox.css';
 
 type Props = HTMLAttributes<'div'> & {
   activeDescendantId?: string;
@@ -46,7 +46,7 @@ assertValidSlots(Astro.slots, [], 'Listbox');
   import { debounce, match } from '@olsen-mono/core-utils';
   import type { ListboxItem, ListboxChangeEventDetail } from './types';
 
-  class UIListboxElement extends HTMLElement {
+  export class UIListboxElement extends HTMLElement {
     private lastSelectedIndex = -1;
     private isMulti = false;
 
@@ -351,15 +351,5 @@ assertValidSlots(Astro.slots, [], 'Listbox');
 
   if (!customElements.get('ui-listbox')) {
     customElements.define('ui-listbox', UIListboxElement);
-  }
-
-  declare global {
-    interface HTMLElementTagNameMap {
-      'ui-listbox': UIListboxElement;
-    }
-
-    interface HTMLElementEventMap {
-      'listbox-change': CustomEvent<ListboxChangeEventDetail>;
-    }
   }
 </script>

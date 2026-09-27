@@ -214,17 +214,16 @@ importers:
         version: link:../../tools/css-to-dts
 
   packages/astro-forms:
-    dependencies:
+    devDependencies:
       '@olsen-mono/astro-svg':
         specifier: workspace:*
         version: link:../astro-svg
-      '@olsen-mono/core-utils':
-        specifier: workspace:*
-        version: link:../core-utils
-    devDependencies:
       '@olsen-mono/astro-test-utils':
         specifier: workspace:*
         version: link:../astro-test-utils
+      '@olsen-mono/core-utils':
+        specifier: workspace:*
+        version: link:../core-utils
       '@olsen-mono/css-to-dts':
         specifier: workspace:*
         version: link:../../tools/css-to-dts
@@ -234,9 +233,6 @@ importers:
       astro:
         specifier: 'catalog:'
         version: 7.3.3(@emnapi/core@1.11.3)(@emnapi/runtime@1.11.3)(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1)
-      happy-dom:
-        specifier: 'catalog:'
-        version: 20.14.5
 
   packages/astro-svg:
     devDependencies:

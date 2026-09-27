@@ -8,4 +8,5 @@ export type ListboxItem = {
 };
 
 export type ListboxChangeEventDetail = ListboxItem | ListboxItem[] | null;
+
 export type ComboboxChangeEventDetail = ListboxChangeEventDetail & {};
