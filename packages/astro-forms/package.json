@@ -35,7 +35,7 @@
     "./LegendLabel.astro": "./src/LegendLabel.astro",
     "./Listbox.astro": "./src/Listbox.astro",
     "./ListboxGroup.astro": "./src/ListboxGroup.astro",
-    "./ListboxOption.astro": "./src/listbox-option.astro",
+    "./ListboxOption.astro": "./src/ListboxOption.astro",
     "./RadioButton.astro": "./src/radio-button.astro",
     "./RadioSet.astro": "./src/radio-set.astro",
     "./RangeInput.astro": "./src/range-input.astro",
