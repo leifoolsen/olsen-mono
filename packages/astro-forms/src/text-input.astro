@@ -35,9 +35,9 @@ assertValidSlots(Astro.slots, ['description', 'error-message', 'label'], 'TextIn
 
 const hasLabel = !!label || Astro.slots.has('label');
 const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const hasDescriptionSlot = Astro.slots.has('description');
 const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
-const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
 ---
 
@@ -46,7 +46,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
 
   <InputControl>
     <input
-      aria-describedby={describedByList || undefined}
+      aria-describedby={describedByList ?? undefined}
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
       class="form-text-input"
       data-text-input

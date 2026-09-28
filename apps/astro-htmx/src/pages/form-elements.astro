@@ -412,11 +412,12 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         </div>
 
         <script>
-          type ListboxType = HTMLElementTagNameMap['ui-listbox'];
-          const element = document.querySelector<ListboxType>('#listbox');
+          import type { ListboxElement } from '@olsen-mono/astro-forms';
+
+          const element = document.querySelector<ListboxElement>('#listbox');
 
           element?.addEventListener('listbox-change', (e) => {
-            console.log('#listbox:', e.detail);
+            console.log('RadioSet:', e.detail);
           });
         </script>
         <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
@@ -472,11 +473,12 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
       </Fieldset>
 
       <script>
-        type ListboxType = HTMLElementTagNameMap['ui-listbox'];
-        const element = document.querySelector<ListboxType>('#listbox2');
+        import type { ListboxElement } from '@olsen-mono/astro-forms';
+
+        const element = document.querySelector<ListboxElement>('#listbox2');
 
         element?.addEventListener('listbox-change', (e) => {
-          console.log('#listbox2:', e.detail);
+          console.log('RadioSet:', e.detail);
         });
       </script>
       <Fieldset id="designsystem__listboxes" bordered style="min-width: 50ch;">
@@ -503,11 +505,12 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         </div>
 
         <script>
-          type ListboxType = HTMLElementTagNameMap['ui-listbox'];
-          const element = document.querySelector<ListboxType>('#ms-listbox');
+          import type { ListboxElement } from '@olsen-mono/astro-forms';
+
+          const element = document.querySelector<ListboxElement>('#ms-listbox');
 
           element?.addEventListener('listbox-change', (e) => {
-            console.log('#ms-listbox:', e.detail);
+            console.log('RadioSet:', e.detail);
           });
         </script>
         <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
@@ -596,14 +599,14 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
       </Fieldset>
 
       <script>
-        type ListboxType = HTMLElementTagNameMap['ui-listbox'];
-        const listbox = document.querySelector<ListboxType>('#ms-listbox2');
+        import type { ListboxElement } from '@olsen-mono/astro-forms';
 
+        const listbox = document.querySelector<ListboxElement>('#ms-listbox2');
         const selectAllBtn = document.getElementById('ms-listbox2-select-all') as HTMLButtonElement;
         const emptySelectionBtn = document.getElementById('ms-listbox2-empty-selection') as HTMLButtonElement;
 
         listbox?.addEventListener('listbox-change', (e) => {
-          console.log('#ms-listbox2:', e.detail);
+          console.log('RadioSet:', e.detail);
         });
 
         const searchField = document.querySelector<HTMLInputElement>('#ms-listbox2-search');
@@ -656,8 +659,9 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         </Combobox>
 
         <script>
-          type ComboboxType = HTMLElementTagNameMap['ui-combobox'];
-          const cb = document.querySelector<ComboboxType>('#combobox');
+          import type { ComboboxElement } from '@olsen-mono/astro-forms';
+
+          const cb = document.querySelector<ComboboxElement>('#combobox');
 
           cb?.addEventListener('combobox-change', (e) => {
             console.log('#combobox:', e.detail);
@@ -784,8 +788,9 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         </Combobox>
 
         <script>
-          type ComboboxType = HTMLElementTagNameMap['ui-combobox'];
-          const cb3 = document.querySelector<ComboboxType>('#combobox3');
+          import type { ComboboxElement } from '@olsen-mono/astro-forms';
+
+          const cb3 = document.querySelector<ComboboxElement>('#combobox3');
 
           cb3?.addEventListener('combobox-change', (e) => {
             console.log('#combobox3:', e.detail);
