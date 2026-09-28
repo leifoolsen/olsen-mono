@@ -1,17 +1,17 @@
 ---
-// packages/astro-forms/src/combobox.astro
+// packages/astro-forms/src/Combobox.astro
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
-import ClearIcon from './clear-icon.astro';
-import ErrorMessage from './error-message.astro';
-import FormDescription from './form-description.astro';
-import FormToolButton from './form-tool-button.astro';
-import InputControl from './input-control.astro';
-import InputGroup from './input-group.astro';
+import ClearIcon from './ClearIcon.astro';
+import ErrorMessage from './ErrorMessage.astro';
+import FormDescription from './FormDescription.astro';
+import FormToolButton from './FormToolButton.astro';
+import InputControl from './InputControl.astro';
+import InputGroup from './InputGroup.astro';
+import Label from './Label.astro';
 import Listbox from './Listbox.astro';
-import Label from './label.astro';
-import PickerIcon from './picker-icon.astro';
-import SearchIcon from './search-icon.astro';
+import PickerIcon from './PickerIcon.astro';
+import SearchIcon from './SearchIcon.astro';
 import './listbox.css';
 
 type Props = HTMLAttributes<'input'> & {

@@ -47,7 +47,7 @@ export function createCombobox(input: HTMLInputElement) {
       id: opt.id,
       name: opt.getAttribute('data-name') ?? '',
       value: opt.getAttribute('data-value') ?? '',
-      text: opt instanceof HTMLElement ? opt.innerText : '',
+      text: opt instanceof HTMLElement ? opt.innerText.trim() : '',
     }));
 
     if (isMultiSelectable) {

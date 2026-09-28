@@ -1,15 +1,15 @@
 ---
-// packages/astro-forms/src/text-input.astro
+// packages/astro-forms/src/TextInput.astro
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
-import ClearIcon from './clear-icon.astro';
-import ErrorMessage from './error-message.astro';
-import FormDescription from './form-description.astro';
-import FormToolButton from './form-tool-button.astro';
-import InputControl from './input-control.astro';
-import InputGroup from './input-group.astro';
-import Label from './label.astro';
-import SearchIcon from './search-icon.astro';
+import ClearIcon from './ClearIcon.astro';
+import ErrorMessage from './ErrorMessage.astro';
+import FormDescription from './FormDescription.astro';
+import FormToolButton from './FormToolButton.astro';
+import InputControl from './InputControl.astro';
+import InputGroup from './InputGroup.astro';
+import Label from './Label.astro';
+import SearchIcon from './SearchIcon.astro';
 import './forms.css';
 
 type Props = HTMLAttributes<'input'> & {
@@ -104,7 +104,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       }
 
       if (descriptionButton) {
-        descriptionButton.addEventListener('click', (e) => {
+        descriptionButton.addEventListener('click', () => {
           if (!input.disabled) {
             input.focus();
           }
