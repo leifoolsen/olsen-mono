@@ -16,7 +16,7 @@
       },
       "default": "./dist/index.mjs"
     },
-    "./Svg.astro": "./src/svg.astro",
+    "./Svg.astro": "./src/Svg.astro",
     "./package.json": "./package.json"
   },
   "files": [

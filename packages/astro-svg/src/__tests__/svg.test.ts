@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { renderAstro } from '@olsen-mono/astro-test-utils';
 import { describe, expect, it } from 'vitest';
-import SvgComponent from '../svg.astro';
+import SvgComponent from '../Svg.astro';
 
 describe('svg.astro', () => {
   const mockSvgData = {
