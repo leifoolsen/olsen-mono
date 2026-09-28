@@ -32,7 +32,7 @@
     "./FormDescription.astro": "./src/FormDescription.astro",
     "./InputSet.astro": "./src/InputSet.astro",
     "./Label.astro": "./src/Label.astro",
-    "./LegendLabel.astro": "./src/legend-label.astro",
+    "./LegendLabel.astro": "./src/LegendLabel.astro",
     "./Listbox.astro": "./src/Listbox.astro",
     "./ListboxGroup.astro": "./src/listbox-group.astro",
     "./ListboxOption.astro": "./src/listbox-option.astro",
