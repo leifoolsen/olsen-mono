@@ -29,6 +29,7 @@
     "./ComponentLayout.astro": "./src/ComponentLayout.astro",
     "./ErrorMessage.astro": "./src/ErrorMessage.astro",
     "./Fieldset.astro": "./src/Fieldset.astro",
+    "./FormDescription.astro": "./src/FormDescription.astro",
     "./InputSet.astro": "./src/input-set.astro",
     "./Label.astro": "./src/label.astro",
     "./LegendLabel.astro": "./src/legend-label.astro",
