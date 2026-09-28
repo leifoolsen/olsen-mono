@@ -305,12 +305,30 @@ export function createListbox(element: HTMLElement) {
     filterDebounced,
   });
 
-  return {
+  const api = {
     selectAll,
     deselectAll,
     filter,
     filterDebounced,
   };
+
+  setTimeout(
+    () =>
+      element.dispatchEvent(
+        new CustomEvent('listbox-ready', {
+          bubbles: true,
+          composed: true,
+          detail: {
+            id: element.id,
+            isMultiSelectable: isMultiSelectable,
+            api,
+          },
+        }),
+      ),
+    0,
+  );
+
+  return api;
 }
 
 export type ListboxElement = HTMLDivElement &
@@ -318,6 +336,15 @@ export type ListboxElement = HTMLDivElement &
     addEventListener(
       type: 'listbox-change',
       listener: (this: ListboxElement, ev: CustomEvent<ListboxChangeEventDetail>) => void,
+      options?: boolean | AddEventListenerOptions,
+    ): void;
+
+    addEventListener(
+      type: 'listbox-ready',
+      listener: (
+        this: ListboxElement,
+        ev: CustomEvent<{ id: string; isMultiSelectable: boolean; api: ReturnType<typeof createListbox> }>,
+      ) => void,
       options?: boolean | AddEventListenerOptions,
     ): void;
 

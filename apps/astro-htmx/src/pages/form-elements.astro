@@ -416,8 +416,12 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
 
           const element = document.querySelector<ListboxElement>('#listbox');
 
+          element?.addEventListener('listbox-ready', (e) => {
+            console.log('listbox-ready:', e.detail);
+          });
+
           element?.addEventListener('listbox-change', (e) => {
-            console.log('RadioSet:', e.detail);
+            console.log('Listbox:', e.detail);
           });
         </script>
         <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
@@ -478,7 +482,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         const element = document.querySelector<ListboxElement>('#listbox2');
 
         element?.addEventListener('listbox-change', (e) => {
-          console.log('RadioSet:', e.detail);
+          console.log('Listbox:', e.detail);
         });
       </script>
       <Fieldset id="designsystem__listboxes" bordered style="min-width: 50ch;">
@@ -510,7 +514,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           const element = document.querySelector<ListboxElement>('#ms-listbox');
 
           element?.addEventListener('listbox-change', (e) => {
-            console.log('RadioSet:', e.detail);
+            console.log('Listbox:', e.detail);
           });
         </script>
         <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
@@ -606,7 +610,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         const emptySelectionBtn = document.getElementById('ms-listbox2-empty-selection') as HTMLButtonElement;
 
         listbox?.addEventListener('listbox-change', (e) => {
-          console.log('RadioSet:', e.detail);
+          console.log('Listbox:', e.detail);
         });
 
         const searchField = document.querySelector<HTMLInputElement>('#ms-listbox2-search');
@@ -625,13 +629,14 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           listbox?.deselectAll();
         });
       </script>
+
       <Fieldset id="designsystem__comboboxes" bordered style="min-width: 50ch;">
         <legend>Comboboxes</legend>
 
         <Combobox id="combobox" placeholder="Start typing to filter..." label="Select a fish">
           <span slot="description">Description of the combobox</span>
 
-          <Fragment slot="options">
+          <Listbox slot="options">
             <ListboxGroup>
               <ListboxOption id="cb-option-6" name="fish" value="dolphin">
                 Dolphin
@@ -655,7 +660,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
                 Humuhumunukunukuāpuaʻa
               </ListboxOption>
             </ListboxGroup>
-          </Fragment>
+          </Listbox>
         </Combobox>
 
         <script>
@@ -668,7 +673,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           });
         </script>
         <Combobox id="combobox2" placeholder="Start typing to filter..." label="Select a land animal">
-          <Fragment slot="options">
+          <Listbox slot="options">
             <ListboxGroup>
               <ListboxOption id="cb2-option-1" name="land" value="cat">
                 Cat
@@ -686,7 +691,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
                 Raccoon
               </ListboxOption>
             </ListboxGroup>
-          </Fragment>
+          </Listbox>
         </Combobox>
 
         <Combobox
@@ -695,7 +700,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           label="Multi selectable combobox"
           multiSelectable
         >
-          <Fragment slot="options">
+          <Listbox slot="options">
             <ListboxGroup>
               <Fragment slot="label">
                 <span>Land Animals</span>
@@ -784,7 +789,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
                 Buzzard
               </ListboxOption>
             </ListboxGroup>
-          </Fragment>
+          </Listbox>
         </Combobox>
 
         <script>
@@ -799,7 +804,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         <Combobox id="combobox4" placeholder="Select a bird..." label="Select only" readonly>
           <span slot="description">Description of the select only</span>
 
-          <Fragment slot="options">
+          <Listbox slot="options">
             <ListboxGroup>
               <ListboxOption id="cb4-option-1" name="bird" value="falcon">
                 Falcon
@@ -827,18 +832,17 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
                 Penguin
               </ListboxOption>
             </ListboxGroup>
-          </Fragment>
+          </Listbox>
         </Combobox>
 
         <Combobox id="combobox5" placeholder="Select a bird..." label="Disabled combobox" disabled>
-          <Fragment slot="options">
+          <Listbox slot="options">
             <ListboxGroup>
               <ListboxOption id="cb5-option-1" name="bird" value="falcon">
                 Falcon
               </ListboxOption>
               <ListboxOption id="cb5--option-2" disabled name="bird" value="winged-horse">
-                {' '}
-                Winged Horse{' '}
+                Winged Horse
               </ListboxOption>
               <ListboxOption id="cb5--option-3" name="bird" value="owl">
                 Owl
@@ -856,7 +860,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
                 Penguin
               </ListboxOption>
             </ListboxGroup>
-          </Fragment>
+          </Listbox>
         </Combobox>
       </Fieldset>
     </div>

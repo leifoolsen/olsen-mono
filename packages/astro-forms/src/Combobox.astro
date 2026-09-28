@@ -9,7 +9,6 @@ import FormToolButton from './FormToolButton.astro';
 import InputControl from './InputControl.astro';
 import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
-import Listbox from './Listbox.astro';
 import PickerIcon from './PickerIcon.astro';
 import SearchIcon from './SearchIcon.astro';
 import './listbox.css';
@@ -28,6 +27,7 @@ const {
   'aria-expanded': ariaExpanded = 'false',
   'aria-haspopup': ariaHasPopup = 'true',
   'aria-invalid': ariaInvalid,
+  'aria-multiselectable': ariaMultiSelectable,
   autocomplete = 'off',
   class: className,
   id,
@@ -62,6 +62,7 @@ const uniqueAnchorName = `--anchor-list-${id}`;
       aria-expanded={ariaExpanded}
       aria-haspopup={ariaHasPopup}
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
+      aria-multiselectable={multiSelectable ?? ariaMultiSelectable ?? 'false'}
       autocomplete={autocomplete}
       class:list={['form-text-input', 'combobox-input']}
       data-combobox-input
@@ -101,9 +102,7 @@ const uniqueAnchorName = `--anchor-list-${id}`;
       popover="auto"
       style={`position-anchor: ${uniqueAnchorName};`}
     >
-      <Listbox id={`${id}-listbox`} multiSelectable={multiSelectable} data-combobox-listbox bordered showMarker>
-        <slot name="options" />
-      </Listbox>
+      <slot name="options" />
     </div>
   )}
 </InputGroup>
