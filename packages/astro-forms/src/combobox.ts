@@ -6,61 +6,21 @@ import type { ComboboxChangeEventDetail, ListboxChangeEventDetail } from './type
 export function createCombobox(input: HTMLInputElement) {
   const comboboxGroup = input.closest('[data-combobox]');
   const popover = comboboxGroup?.querySelector('[data-combobox-popover]');
-  const listbox = comboboxGroup?.querySelector<ListboxElement>('[data-combobox-listbox]');
 
-  if (
-    !(comboboxGroup instanceof HTMLDivElement) ||
-    !(popover instanceof HTMLDivElement) ||
-    !(listbox instanceof HTMLDivElement)
-  ) {
+  if (!(comboboxGroup instanceof HTMLDivElement) || !(popover instanceof HTMLDivElement)) {
     match<boolean, void>()
       .on(!comboboxGroup, () => {
         console.warn(`[Combobox] Could not find data-combobox element for #${input.id}`);
       })
       .on(!popover, () => {
         console.warn(`[Combobox] Could not find data-combobox-popover element for #${input.id}`);
-      })
-      .on(!listbox, () => {
-        console.warn(`[Combobox] Could not find data-combobox-listbox element for #${input.id}`);
       });
 
     return;
   }
 
-  const isMultiSelectable = listbox.getAttribute('aria-multiselectable') === 'true';
-
-  const openPopover = () => {
-    popover.showPopover();
-    input.setAttribute('aria-expanded', 'true');
-  };
-
-  const closePopover = () => {
-    popover.hidePopover();
-    input.setAttribute('aria-expanded', 'false');
-    input.focus();
-  };
-
-  const syncInputValue = () => {
-    const selectedOptions = Array.from(listbox.querySelectorAll('[role="option"][aria-selected="true"]'));
-
-    const data = selectedOptions.map((opt) => ({
-      id: opt.id,
-      name: opt.getAttribute('data-name') ?? '',
-      value: opt.getAttribute('data-value') ?? '',
-      text: opt instanceof HTMLElement ? opt.innerText.trim() : '',
-    }));
-
-    if (isMultiSelectable) {
-      input.value = data.map((item) => item.text).join(', ');
-      input.setAttribute('data-value', data.map((item) => item.value).join(', '));
-    } else if (data[0]) {
-      input.value = data[0].text;
-      input.setAttribute('data-value', data[0].value);
-    } else {
-      input.value = '';
-      input.setAttribute('data-value', '');
-    }
-  };
+  let listbox: ListboxElement | null = null;
+  let isMultiSelectable = false;
 
   const setupIcons = () => {
     const searchIcon = comboboxGroup.querySelector('.form-search-icon');
@@ -84,8 +44,8 @@ export function createCombobox(input: HTMLInputElement) {
       input.value = '';
       input.setAttribute('data-value', '');
 
-      listbox.deselectAll();
-      listbox.filter('');
+      listbox?.deselectAll();
+      listbox?.filter('');
 
       input.focus();
     });
@@ -98,6 +58,61 @@ export function createCombobox(input: HTMLInputElement) {
   };
 
   const setupEventListeners = () => {
+    input.addEventListener('blur', () => {
+      listbox?.filterDebounced.flush();
+    });
+
+    input.addEventListener('click', () => {
+      if (input.getAttribute('aria-expanded') !== 'true') {
+        openPopover();
+      } else {
+        closePopover();
+      }
+    });
+
+    input.addEventListener('input', () => {
+      openPopover();
+
+      if (input.value.trim() === '') {
+        listbox?.filterDebounced.cancel();
+        listbox?.filter('');
+      } else {
+        listbox?.filterDebounced(input.value);
+      }
+    });
+
+    input.addEventListener('keydown', (e: KeyboardEvent) => {
+      match(e)
+        .on(
+          (e) => e.key === 'ArrowDown' || e.key === 'ArrowUp',
+          (e) => {
+            e.preventDefault();
+            openPopover();
+            listbox?.focus();
+          },
+        )
+        .on(
+          (e) => e.key === 'Escape',
+          () => {
+            e.preventDefault();
+            closePopover();
+          },
+        )
+        .on(
+          (e) => e.key === 'Tab',
+          () => {
+            closePopover();
+          },
+        );
+    });
+  };
+
+  const registerListbox = (targetListbox: ListboxElement) => {
+    listbox = targetListbox;
+    if (!listbox) return;
+
+    isMultiSelectable = listbox.getAttribute('aria-multiselectable') === 'true';
+
     listbox.addEventListener('keydown', (e: KeyboardEvent) => {
       match(e)
         .on(
@@ -119,7 +134,7 @@ export function createCombobox(input: HTMLInputElement) {
     });
 
     listbox.addEventListener('blur', () => {
-      listbox.filterDebounced.flush();
+      listbox?.filterDebounced.flush();
       closePopover();
     });
 
@@ -157,54 +172,47 @@ export function createCombobox(input: HTMLInputElement) {
       }
     });
 
-    input.addEventListener('blur', () => {
-      listbox.filterDebounced.flush();
-    });
-
-    input.addEventListener('click', () => {
-      if (input.getAttribute('aria-expanded') !== 'true') {
-        openPopover();
-      } else {
-        closePopover();
-      }
-    });
-
-    input.addEventListener('input', () => {
-      openPopover();
-
-      if (input.value.trim() === '') {
-        listbox.filterDebounced.cancel();
-        listbox.filter('');
-      } else {
-        listbox.filterDebounced(input.value);
-      }
-    });
-
-    input.addEventListener('keydown', (e: KeyboardEvent) => {
-      match(e)
-        .on(
-          (e) => e.key === 'ArrowDown' || e.key === 'ArrowUp',
-          (e) => {
-            e.preventDefault();
-            openPopover();
-            listbox.focus();
-          },
-        )
-        .on(
-          (e) => e.key === 'Escape',
-          () => {
-            e.preventDefault();
-            closePopover();
-          },
-        )
-        .on(
-          (e) => e.key === 'Tab',
-          () => {
-            closePopover();
-          },
-        );
-    });
+    syncInputValue();
   };
+
+  const openPopover = () => {
+    popover.showPopover();
+    input.setAttribute('aria-expanded', 'true');
+  };
+
+  const closePopover = () => {
+    popover.hidePopover();
+    input.setAttribute('aria-expanded', 'false');
+    input.focus();
+  };
+
+  const syncInputValue = () => {
+    if (!listbox) return;
+    const selectedOptions = Array.from(listbox.querySelectorAll('[role="option"][aria-selected="true"]'));
+
+    const data = selectedOptions.map((opt) => ({
+      id: opt.id,
+      name: opt.getAttribute('data-name') ?? '',
+      value: opt.getAttribute('data-value') ?? '',
+      text: opt instanceof HTMLElement ? opt.innerText.trim() : '',
+    }));
+
+    if (isMultiSelectable) {
+      input.value = data.map((item) => item.text).join(', ');
+      input.setAttribute('data-value', data.map((item) => item.value).join(', '));
+    } else if (data[0]) {
+      input.value = data[0].text;
+      input.setAttribute('data-value', data[0].value);
+    } else {
+      input.value = '';
+      input.setAttribute('data-value', '');
+    }
+  };
+
+  comboboxGroup.addEventListener('listbox-ready', (e: Event) => {
+    const customEvent = e as CustomEvent<ListboxElement>;
+    registerListbox(customEvent.detail);
+  });
 
   setupIcons();
   setupEventListeners();
