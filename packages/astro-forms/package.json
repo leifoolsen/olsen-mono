@@ -40,7 +40,7 @@
     "./RadioSet.astro": "./src/RadioSet.astro",
     "./RangeInput.astro": "./src/RangeInput.astro",
     "./SelectInput.astro": "./src/SelectInput.astro",
-    "./TextAreaInput.astro": "./src/text-area-input.astro",
+    "./TextAreaInput.astro": "./src/TextAreaInput.astro",
     "./TextInput.astro": "./src/text-input.astro",
     "./ToggleSwitch.astro": "./src/toggle-switch.astro",
     "./package.json": "./package.json"
