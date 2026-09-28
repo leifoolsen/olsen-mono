@@ -24,7 +24,7 @@
       "development": "./src/forms.css",
       "default": "./src/forms.css"
     },
-    "./Checkbox.astro": "./src/checkbox.astro",
+    "./Checkbox.astro": "./src/Checkbox.astro",
     "./Combobox.astro": "./src/Combobox.astro",
     "./ComponentLayout.astro": "./src/component-layout.astro",
     "./ErrorMessage.astro": "./src/error-message.astro",
