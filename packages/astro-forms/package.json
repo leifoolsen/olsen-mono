@@ -37,7 +37,7 @@
     "./ListboxGroup.astro": "./src/ListboxGroup.astro",
     "./ListboxOption.astro": "./src/ListboxOption.astro",
     "./RadioButton.astro": "./src/RadioButton.astro",
-    "./RadioSet.astro": "./src/radio-set.astro",
+    "./RadioSet.astro": "./src/RadioSet.astro",
     "./RangeInput.astro": "./src/range-input.astro",
     "./SelectInput.astro": "./src/select-input.astro",
     "./TextAreaInput.astro": "./src/text-area-input.astro",
