@@ -27,7 +27,7 @@
     "./Checkbox.astro": "./src/Checkbox.astro",
     "./Combobox.astro": "./src/Combobox.astro",
     "./ComponentLayout.astro": "./src/ComponentLayout.astro",
-    "./ErrorMessage.astro": "./src/error-message.astro",
+    "./ErrorMessage.astro": "./src/ErrorMessage.astro",
     "./Fieldset.astro": "./src/fieldset.astro",
     "./InputSet.astro": "./src/input-set.astro",
     "./Label.astro": "./src/label.astro",
