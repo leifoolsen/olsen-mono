@@ -227,13 +227,13 @@ export type ComboboxElement = HTMLInputElement &
   ReturnType<typeof createCombobox> & {
     addEventListener(
       type: 'combobox-change',
-      listener: (this: ComboboxElement, ev: CustomEvent<ComboboxChangeEventDetail>) => any,
+      listener: (this: ComboboxElement, ev: CustomEvent<ComboboxChangeEventDetail>) => void,
       options?: boolean | AddEventListenerOptions,
     ): void;
 
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
-      listener: (this: HTMLInputElement, ev: HTMLElementEventMap[K]) => any,
+      listener: (this: HTMLInputElement, ev: HTMLElementEventMap[K]) => void,
       options?: boolean | AddEventListenerOptions,
     ): void;
 
