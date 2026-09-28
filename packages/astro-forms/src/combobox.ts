@@ -98,7 +98,6 @@ export function createCombobox(input: HTMLInputElement) {
   };
 
   const setupEventListeners = () => {
-    // --- Listbox Events ---
     listbox.addEventListener('keydown', (e: KeyboardEvent) => {
       match(e)
         .on(
@@ -158,7 +157,6 @@ export function createCombobox(input: HTMLInputElement) {
       }
     });
 
-    // --- Input Events ---
     input.addEventListener('blur', () => {
       listbox.filterDebounced.flush();
     });
@@ -229,13 +227,13 @@ export type ComboboxElement = HTMLInputElement &
   ReturnType<typeof createCombobox> & {
     addEventListener(
       type: 'combobox-change',
-      listener: (this: ComboboxElement, ev: CustomEvent<ComboboxChangeEventDetail>) => any,
+      listener: (this: ComboboxElement, ev: CustomEvent<ComboboxChangeEventDetail>) => void,
       options?: boolean | AddEventListenerOptions,
     ): void;
 
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
-      listener: (this: HTMLDivElement, ev: HTMLElementEventMap[K]) => any,
+      listener: (this: HTMLInputElement, ev: HTMLElementEventMap[K]) => void,
       options?: boolean | AddEventListenerOptions,
     ): void;
 

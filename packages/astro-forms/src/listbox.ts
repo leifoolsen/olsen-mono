@@ -317,13 +317,13 @@ export type ListboxElement = HTMLDivElement &
   ReturnType<typeof createListbox> & {
     addEventListener(
       type: 'listbox-change',
-      listener: (this: ListboxElement, ev: CustomEvent<ListboxChangeEventDetail>) => any,
+      listener: (this: ListboxElement, ev: CustomEvent<ListboxChangeEventDetail>) => void,
       options?: boolean | AddEventListenerOptions,
     ): void;
 
     addEventListener<K extends keyof HTMLElementEventMap>(
       type: K,
-      listener: (this: HTMLDivElement, ev: HTMLElementEventMap[K]) => any,
+      listener: (this: HTMLDivElement, ev: HTMLElementEventMap[K]) => void,
       options?: boolean | AddEventListenerOptions,
     ): void;
 
