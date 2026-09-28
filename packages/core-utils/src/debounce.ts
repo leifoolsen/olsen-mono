@@ -1,7 +1,7 @@
 // biome-ignore lint/suspicious/noExplicitAny: any is required to  for generics and Parameters<T> to behave as intended.
 type AnyFunction = (...args: any[]) => void;
 
-type DebouncedFunction<T extends AnyFunction> = {
+export type DebouncedFunction<T extends AnyFunction> = {
   (...args: Parameters<T>): void;
   cancel(): void;
   flush(): void;
