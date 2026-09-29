@@ -10,28 +10,23 @@ type Props = HTMLAttributes<'button'> & {
   descriptionId: string;
 };
 
-const { descriptionId } = Astro.props;
+const { descriptionId, ...rest } = Astro.props;
 
 const anchorName = `--anchor-${descriptionId}`;
 ---
 
 <FormToolButton
   aria-label="Show help"
-  data-form-description-trigger="true"
+  data-form-description="true"
   popovertarget={descriptionId}
   style={`anchor-name: ${anchorName};`}
+  {...rest}
 >
-  <Svg name="info" getSvgData={(_name) => ({ rawSvg: infoSvg, scale: 1.2 })} />
+  <Svg
+    name="info"
+    getSvgData={(_name) => ({ rawSvg: infoSvg, scale: 1.2 })}
+  />
 </FormToolButton>
-
-<!--<Svg-->
-<!--  aria-label="Show help"-->
-<!--  data-form-description-trigger="true"-->
-<!--  popovertarget={descriptionId}-->
-<!--  style={`anchor-name: ${anchorName};`}-->
-<!--  name="info"-->
-<!--  getSvgData={(_name) => ({ rawSvg: infoSvg, scale: 1.3 })}-->
-<!--/>-->
 
 <div
   data-variant="neutral"
@@ -72,7 +67,7 @@ const anchorName = `--anchor-${descriptionId}`;
     }
   }
 
-  [data-form-description-trigger='true']:hover + .form-description-popover {
+  [data-form-description='true']:hover + .form-description-popover {
     display: block;
   }
 </style>

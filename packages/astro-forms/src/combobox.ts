@@ -29,10 +29,9 @@ export function createCombobox(input: HTMLInputElement) {
   }
 
   const setupIcons = () => {
-    const searchIcon = comboboxGroup.querySelector('.form-search-icon');
-    const pickerIcon = comboboxGroup.querySelector('.form-picker-icon');
-    const clearIcon = comboboxGroup.querySelector('.form-clear-icon');
-    const infoIcon = comboboxGroup.querySelector('.info-icon');
+    const searchIcon = comboboxGroup.querySelector('[data-search]');
+    const pickerIcon = comboboxGroup.querySelector('[data-picker]');
+    const clearIcon = comboboxGroup.querySelector('[data-clear]');
 
     searchIcon?.addEventListener('click', () => {
       input.focus();
@@ -54,12 +53,6 @@ export function createCombobox(input: HTMLInputElement) {
       listboxApi?.filter('');
 
       input.focus();
-    });
-
-    infoIcon?.addEventListener('click', () => {
-      if (!input.disabled) {
-        input.focus();
-      }
     });
   };
 

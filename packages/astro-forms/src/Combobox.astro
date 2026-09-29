@@ -71,11 +71,11 @@ const uniqueAnchorName = `--anchor-list-${id}`;
       {...rest}
     />
 
-    {type === 'search' && <SearchIcon />}
+    {type === 'search' && <SearchIcon data-search />}
 
-    {type === 'text' && <PickerIcon />}
+    {type === 'text' && <PickerIcon data-picker />}
 
-    <FormToolButton aria-label="Clear value" class="form-clear-icon">
+    <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
       <ClearIcon />
     </FormToolButton>
 
