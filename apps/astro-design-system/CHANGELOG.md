@@ -1,5 +1,11 @@
 # astro-htmx
 
+## 0.0.13
+
+### Patch Changes
+
+- c34d46e: Renamed astro-htmx to astro-design-system
+
 ## 0.0.12
 
 ### Patch Changes
