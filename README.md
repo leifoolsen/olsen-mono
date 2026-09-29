@@ -361,11 +361,13 @@ internal tooling package, keeping individual workspace definitions "anemic" and 
 ```text
 olsen-mono/
 ├── apps/
-│   └── astro-htmx/          # Astro + HTMX web application
+│   └── astro-design-system/ # Web application documenting components in packages
 ├── packages/
+│   ├── astro-forms/         # Astro form components
+│   ├── astro-svg/           # Astro Svg component
+│   ├── astro-test-utils/    # Astro test utilities
 │   ├── core-utils/          # Shared utility functions
 │   ├── css-foundation/      # Modern css reset and type setting utilizing the W3C Design Tokens Standard via Open Props
-│   ├── css-to-dts/          # CLI tool tailored for `pnpm` monorepos to automatically generate TypeScript definitions (`*.css.d.ts`) from CSS files
 │   ├── object-builder/      # Typesafe builder pattern for object literals
 │   ├── reactive-state/      # Reactive state factory
 │   └── ... /
@@ -406,7 +408,7 @@ All core processes are optimized to utilize single-command global hot-reloading 
 - **`pnpm lint`**: Triggers immediate macro-analysis across all packages, configurations, and core root files (`--max-warnings 10`).
 - **`pnpm test`**: Parallel test runner utilizing `Vitest` scoped natively inside isolated directories using internal workspace aliases.
 - **`pnpm test-watch`**: Global live-updating testing environment capturing code state modifications continuously.
-- **`pnpm build` / `pnpm compile`**: Compiles shared library workspaces down to production targets and bundles astro-htmx into an standalone Server-Side Rendered (SSR) binary package.
+- **`pnpm build` / `pnpm compile`**: Compiles shared library workspaces down to production targets and bundles astro-design-system into an standalone Server-Side Rendered (SSR) binary package.
 
 ---
 

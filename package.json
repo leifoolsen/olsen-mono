@@ -70,7 +70,7 @@
     "typecheck": "turbo run typecheck",
     "version-packages": "changeset version && pnpm install",
     "watch-css": "pnpm -r --parallel --if-present watch-css",
-    "dev-astro": "pnpm --filter=./apps/astro-htmx... dev"
+    "dev-ds": "pnpm --filter=./apps/astro-design-system... dev"
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "1.10.12",
