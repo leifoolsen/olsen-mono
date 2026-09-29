@@ -55,11 +55,12 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       <slot />
     </select>
 
-    <PickerIcon />
+    <PickerIcon data-picker />
 
     <FormToolButton
       aria-label="Clear value"
       class="form-clear-icon"
+      data-clear
     >
       <ClearIcon />
     </FormToolButton>
@@ -89,9 +90,8 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       const wrapper = input.closest('.form-input-control');
       if (!wrapper) continue;
 
-      const pickerIcon = wrapper.querySelector<HTMLDivElement>('.form-picker-icon');
-      const clearButton = wrapper.querySelector<HTMLButtonElement>('.form-clear-icon');
-      const descriptionButton = wrapper.querySelector<HTMLButtonElement>('[data-form-description-trigger]');
+      const pickerIcon = wrapper.querySelector('[data-picker]');
+      const clearButton = wrapper.querySelector<HTMLButtonElement>('[data-clear]');
 
       if (pickerIcon) {
         pickerIcon.addEventListener('click', () => {
@@ -107,14 +107,6 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
           input.value = '';
           input.focus();
           input.dispatchEvent(new Event('input', { bubbles: true }));
-        });
-      }
-
-      if (descriptionButton) {
-        descriptionButton.addEventListener('click', () => {
-          if (!input.disabled) {
-            input.focus();
-          }
         });
       }
     }

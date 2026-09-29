@@ -146,8 +146,8 @@ importers:
         specifier: 0.23.0
         version: 0.23.0(jiti@2.7.0)(postcss@8.5.28)(tsdown@0.23.0)(yaml@2.9.1)
       '@turbo/gen':
-        specifier: 2.11.4
-        version: 2.11.4(@types/node@26.6.3)
+        specifier: 2.11.5
+        version: 2.11.5(@types/node@26.6.3)
       '@types/css-modules':
         specifier: 1.0.5
         version: 1.0.5
@@ -1402,8 +1402,8 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-  '@turbo/gen@2.11.4':
-    resolution: {integrity: sha512-HrqKIhIPM4ZEOBQkg+3PV1i9X4Kyi/leiSJs9XgI/uHNCqTZwPezyK9DyWPP++CLh0smC1Q1TFD7BZvQpMXCOA==}
+  '@turbo/gen@2.11.5':
+    resolution: {integrity: sha512-E4d0nUZvnb82rBI9CfTxk8Ne6PDfyvm7kjqx2nMYQDXTas4u32QIRK/g/6I+cJE4CCbNkzAQgxN4lPG1QHJomQ==}
     hasBin: true
 
   '@turbo/linux-64@2.11.5':
@@ -4202,7 +4202,7 @@ snapshots:
   '@turbo/darwin-arm64@2.11.5':
     optional: true
 
-  '@turbo/gen@2.11.4(@types/node@26.6.3)':
+  '@turbo/gen@2.11.5(@types/node@26.6.3)':
     dependencies:
       '@inquirer/prompts': 7.10.1(@types/node@26.6.3)
       esbuild: 0.28.2

@@ -29,7 +29,6 @@ const {
   aria-activedescendant={activeDescendantId ?? ariaActiveDescendant ?? undefined}
   aria-multiselectable={multiSelectable ?? ariaMultiSelectable ?? 'false'}
   class:list={['listbox', bordered && 'bordered', className]}
-  data-listbox
   data-show-marker={showMarker}
   id={id}
   role="listbox"
@@ -43,13 +42,15 @@ const {
   import { createListbox, type ListboxElement } from './listbox.ts';
 
   const setupListboxes = () => {
-    const elements = document.querySelectorAll('[data-listbox]');
+    const elements = document.querySelectorAll('[role="listbox"]');
 
     for (const element of elements) {
-      if (!(element instanceof HTMLDivElement) || element.hasAttribute('data-initialized')) continue;
+      if (!(element instanceof HTMLDivElement) || element.hasAttribute('data-initialized')) {
+        continue;
+      }
 
-      element.setAttribute('data-initialized', 'true');
       createListbox(element);
+      element.setAttribute('data-initialized', 'true');
     }
   };
 

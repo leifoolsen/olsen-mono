@@ -78,7 +78,7 @@
     "@changesets/cli": "3.0.3",
     "@olsen-mono/tooling": "workspace:*",
     "@tsdown/css": "0.23.0",
-    "@turbo/gen": "2.11.4",
+    "@turbo/gen": "2.11.5",
     "@types/css-modules": "1.0.5",
     "@types/node": "catalog:",
     "cross-env": "10.1.0",

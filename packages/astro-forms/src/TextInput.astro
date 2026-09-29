@@ -55,14 +55,14 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       {...rest}
     />
 
-    {type === 'search' && <SearchIcon />}
+    {type === 'search' && <SearchIcon data-search />}
 
-    <FormToolButton aria-label="Clear value" class="form-clear-icon">
+    <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
       <ClearIcon />
     </FormToolButton>
 
     {hasDescriptionSlot && (
-      <FormDescription descriptionId={descriptionId!}>
+      <FormDescription descriptionId={descriptionId!} controlId={id}>
         <slot name="description" />
       </FormDescription>
     )}
@@ -86,28 +86,18 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       const wrapper = input.closest('.form-input-control');
       if (!wrapper) continue;
 
-      const searchIcon = wrapper.querySelector<HTMLDivElement>('.form-search-icon');
-      const clearButton = wrapper.querySelector<HTMLButtonElement>('.form-clear-icon');
-      const descriptionButton = wrapper.querySelector<HTMLButtonElement>('[data-form-description-trigger]');
-
+      const searchIcon = wrapper.querySelector('[data-search]');
       if (searchIcon) {
         searchIcon.addEventListener('click', () => input.focus());
       }
 
+      const clearButton = wrapper.querySelector<HTMLButtonElement>('[data-clear]');
       if (clearButton) {
         clearButton.addEventListener('click', () => {
           input.value = '';
           input.focus();
           input.dispatchEvent(new Event('input', { bubbles: true }));
           input.dispatchEvent(new Event('change', { bubbles: true }));
-        });
-      }
-
-      if (descriptionButton) {
-        descriptionButton.addEventListener('click', () => {
-          if (!input.disabled) {
-            input.focus();
-          }
         });
       }
     }

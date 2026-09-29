@@ -560,7 +560,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
             </ListboxGroup>
             <ListboxGroup>
               <Fragment slot="label">
-                Water Animals <span style="transform: scale(1.6)">𓆟</span>
+                Water Animals <span style="transform: scale(1.6) translateY(-25%); line-height: 1;">𓆜</span>
               </Fragment>
               <ListboxOption id="ms-listbox2-option-6" name="dolphin" value="dolphin">
                 Dolphin
@@ -635,7 +635,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         <Combobox id="combobox" placeholder="Start typing to filter..." label="Select a fish">
           <span slot="description">Description of the combobox</span>
 
-          <Listbox slot="options">
+          <Listbox id="combobox-list" slot="options">
             <ListboxGroup>
               <ListboxOption id="cb-option-6" name="fish" value="dolphin">
                 Dolphin
@@ -672,7 +672,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           });
         </script>
         <Combobox id="combobox2" placeholder="Start typing to filter..." label="Select a land animal">
-          <Listbox slot="options">
+          <Listbox id="combobox2-options" slot="options">
             <ListboxGroup>
               <ListboxOption id="cb2-option-1" name="land" value="cat">
                 Cat
@@ -697,9 +697,8 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           id="combobox3"
           placeholder="Start typing to filter..."
           label="Multi selectable combobox"
-          multiSelectable
         >
-          <Listbox slot="options">
+          <Listbox id="combobox3-options" slot="options" multiSelectable>
             <ListboxGroup>
               <Fragment slot="label">
                 <span>Land Animals</span>
@@ -723,7 +722,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
             </ListboxGroup>
             <ListboxGroup>
               <Fragment slot="label">
-                Water Animals <span style="transform: scale(1.6)">𓆟</span>
+                Water Animals <span style="transform: scale(1.6) translateY(-25%); line-height: 1;">𓆜</span>
               </Fragment>
               <ListboxOption id="cb3--option-6" name="dolphin" value="dolphin">
                 Dolphin
@@ -803,7 +802,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         <Combobox id="combobox4" placeholder="Select a bird..." label="Select only" readonly>
           <span slot="description">Description of the select only</span>
 
-          <Listbox slot="options">
+          <Listbox id="combobox4-options" slot="options">
             <ListboxGroup>
               <ListboxOption id="cb4-option-1" name="bird" value="falcon">
                 Falcon
@@ -835,7 +834,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         </Combobox>
 
         <Combobox id="combobox5" placeholder="Select a bird..." label="Disabled combobox" disabled>
-          <Listbox slot="options">
+          <Listbox id="combobox5-options" slot="options">
             <ListboxGroup>
               <ListboxOption id="cb5-option-1" name="bird" value="falcon">
                 Falcon
