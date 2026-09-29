@@ -1,5 +1,5 @@
 {
-  "name": "astro-htmx",
+  "name": "astro-design-system",
   "version": "0.0.12",
   "private": true,
   "type": "module",
@@ -11,7 +11,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/olsen-mono/olsen-mono.git",
-    "directory": "apps/astro-htmx"
+    "directory": "apps/astro-design-system"
   },
   "bugs": {
     "url": "https://github.com/olsen-mono/olsen-mono/issues"
