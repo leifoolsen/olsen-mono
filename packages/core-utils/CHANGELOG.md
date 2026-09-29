@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.24
+
+### Patch Changes
+
+- 5d9dd63: Moved form elements to packages/astro-forms
+
 ## 0.0.23
 
 ### Patch Changes
