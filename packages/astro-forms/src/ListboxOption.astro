@@ -1,0 +1,38 @@
+---
+// packages/astro-forms/src/ListboxOption.astro
+
+import type { HTMLAttributes } from 'astro/types';
+import './listbox.css';
+
+type Props = HTMLAttributes<'li'> & {
+  disabled?: boolean;
+  id: string;
+  name: string;
+  value: string;
+};
+
+const {
+  'aria-disabled': ariaDisabled,
+  'aria-selected': ariaSelected = 'false',
+  class: className,
+  disabled,
+  id,
+  name,
+  role = 'option',
+  value,
+  ...rest
+} = Astro.props;
+---
+
+<li
+  aria-disabled={disabled ?? ariaDisabled ?? undefined}
+  aria-selected={ariaSelected}
+  class:list={['listbox-option', className]}
+  data-name={name}
+  data-value={value}
+  id={id}
+  role={role}
+  {...rest}
+>
+  <slot />
+</li>

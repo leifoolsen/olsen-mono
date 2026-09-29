@@ -1,0 +1,124 @@
+---
+// packages/astro-forms/src/Combobox.astro
+import { assertValidSlots } from '@olsen-mono/core-utils';
+import type { HTMLAttributes } from 'astro/types';
+import ClearIcon from './ClearIcon.astro';
+import ErrorMessage from './ErrorMessage.astro';
+import FormDescription from './FormDescription.astro';
+import FormToolButton from './FormToolButton.astro';
+import InputControl from './InputControl.astro';
+import InputGroup from './InputGroup.astro';
+import Label from './Label.astro';
+import PickerIcon from './PickerIcon.astro';
+import SearchIcon from './SearchIcon.astro';
+import './listbox.css';
+
+type Props = HTMLAttributes<'input'> & {
+  id: string;
+  invalid?: boolean;
+  label?: string;
+  labelPosition?: 'top' | 'before';
+};
+
+const {
+  'aria-controls': _ariaControls,
+  'aria-describedby': ariaDescribedBy,
+  'aria-expanded': ariaExpanded = 'false',
+  'aria-haspopup': ariaHasPopup = 'true',
+  'aria-invalid': ariaInvalid,
+  'aria-multiselectable': _ariaMultiSelectable,
+  autocomplete = 'off',
+  class: className,
+  id,
+  invalid,
+  label,
+  labelPosition = 'top',
+  readonly,
+  role = 'combobox',
+  type = readonly ? 'text' : 'search',
+  ...rest
+} = Astro.props;
+
+assertValidSlots(Astro.slots, ['label', 'options', 'description', 'error-message'], 'Combobox');
+
+const hasLabel = !!label || Astro.slots.has('label');
+const errorId = (invalid ?? ariaInvalid) && Astro.slots.has('error-message') ? `${id}-error` : undefined;
+const descriptionId = Astro.slots.has('description') ? `${id}-description` : undefined;
+const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
+const hasOptionsSlot = Astro.slots.has('options');
+const resultsPopoverId = `${id}-results-popover`;
+const uniqueAnchorName = `--anchor-list-${id}`;
+---
+
+<InputGroup layout={labelPosition} class={className} data-combobox>
+  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+
+  <InputControl class="combobox-control" style={`anchor-name: ${uniqueAnchorName};`}>
+    <input
+      aria-controls={resultsPopoverId}
+      aria-describedby={describedByList ?? undefined}
+      aria-expanded={ariaExpanded}
+      aria-haspopup={ariaHasPopup}
+      aria-invalid={invalid ?? ariaInvalid ?? undefined}
+      aria-multiselectable="false"
+      autocomplete={autocomplete}
+      class:list={['form-text-input', 'combobox-input']}
+      data-combobox-input
+      id={id}
+      readonly={readonly}
+      role={role}
+      type={type}
+      {...rest}
+    />
+
+    {type === 'search' && <SearchIcon data-search />}
+
+    {type === 'text' && <PickerIcon data-picker />}
+
+    <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
+      <ClearIcon />
+    </FormToolButton>
+
+    {descriptionId && (
+      <FormDescription descriptionId={descriptionId!}>
+        <slot name="description" />
+      </FormDescription>
+    )}
+  </InputControl>
+
+  {errorId && (
+    <ErrorMessage id={errorId}>
+      <slot name="error-message" />
+    </ErrorMessage>
+  )}
+
+  {hasOptionsSlot && (
+    <div
+      class="combobox-results-popover"
+      data-combobox-popover
+      id={resultsPopoverId}
+      popover="auto"
+      style={`position-anchor: ${uniqueAnchorName};`}
+    >
+      <slot name="options" />
+    </div>
+  )}
+</InputGroup>
+
+<script>
+  import { createCombobox, type ComboboxElement } from './combobox.ts';
+
+  const setupComboboxes = () => {
+    const inputs = document.querySelectorAll<HTMLInputElement>('[data-combobox-input]');
+
+    for (const input of inputs) {
+      if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
+      input.setAttribute('data-initialized', 'true');
+
+      createCombobox(input);
+    }
+  };
+
+  setupComboboxes();
+  document.addEventListener('astro:after-swap', setupComboboxes);
+</script>

@@ -1,0 +1,117 @@
+---
+// packages/astro-forms/src/SelectInput.astro
+import Svg from '@olsen-mono/astro-svg/Svg.astro';
+import { assertValidSlots } from '@olsen-mono/core-utils';
+import type { HTMLAttributes } from 'astro/types';
+import ClearIcon from './ClearIcon.astro';
+import ErrorMessage from './ErrorMessage.astro';
+import FormDescription from './FormDescription.astro';
+import FormToolButton from './FormToolButton.astro';
+import InputControl from './InputControl.astro';
+import InputGroup from './InputGroup.astro';
+import Label from './Label.astro';
+import PickerIcon from './PickerIcon.astro';
+
+type Props = HTMLAttributes<'select'> & {
+  id: string;
+  invalid?: boolean;
+  label?: string;
+  labelPosition?: 'top' | 'before';
+};
+
+const {
+  'aria-describedby': ariaDescribedBy,
+  'aria-invalid': ariaInvalid,
+  class: className,
+  id,
+  invalid,
+  label,
+  labelPosition = 'top',
+  ...rest
+} = Astro.props;
+
+assertValidSlots(Astro.slots, ['description', 'error-message', 'label'], 'SelectInput');
+
+const hasLabel = !!label || Astro.slots.has('label');
+const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const hasDescriptionSlot = Astro.slots.has('description');
+const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
+const errorId = hasErrorMessage ? `${id}-error` : undefined;
+const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
+---
+
+<InputGroup layout="top">
+  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+
+  <InputControl>
+    <select
+      aria-invalid={invalid ?? undefined}
+      aria-describedby={describedByList || undefined}
+      class="form-select-input"
+      data-select-input
+      id={id}
+      {...rest}
+    >
+      <slot />
+    </select>
+
+    <PickerIcon data-picker />
+
+    <FormToolButton
+      aria-label="Clear value"
+      class="form-clear-icon"
+      data-clear
+    >
+      <ClearIcon />
+    </FormToolButton>
+
+    {hasDescriptionSlot && (
+      <FormDescription descriptionId={descriptionId!}>
+        <slot name="description" />
+      </FormDescription>
+    )}
+  </InputControl>
+
+  {hasErrorMessage && (
+    <ErrorMessage id={errorId}>
+      <slot name="error-message" />
+    </ErrorMessage>
+  )}
+</InputGroup>
+
+<script>
+  function setupSelectFields() {
+    const inputs = document.querySelectorAll('[data-select-input]');
+
+    for (const input of inputs) {
+      if (!(input instanceof HTMLSelectElement) || input.hasAttribute('data-initialized')) continue;
+      input.setAttribute('data-initialized', 'true');
+
+      const wrapper = input.closest('.form-input-control');
+      if (!wrapper) continue;
+
+      const pickerIcon = wrapper.querySelector('[data-picker]');
+      const clearButton = wrapper.querySelector<HTMLButtonElement>('[data-clear]');
+
+      if (pickerIcon) {
+        pickerIcon.addEventListener('click', () => {
+          if (typeof input.showPicker === 'function') {
+            input.showPicker();
+          }
+          input.focus();
+        });
+      }
+
+      if (clearButton) {
+        clearButton.addEventListener('click', () => {
+          input.value = '';
+          input.focus();
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+      }
+    }
+  }
+
+  setupSelectFields();
+  document.addEventListener('astro:after-swap', setupSelectFields);
+</script>

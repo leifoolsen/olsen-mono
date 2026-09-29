@@ -6,21 +6,11 @@ type ViteGlobResult =
   | Record<string, () => Promise<unknown>>;
 
 /**
- * A registry for managing and retrieving SVG assets and related data.
- *
- * @property {function(string): {rawSvg: string, scale?: (string|number)}} getSvgData - Fetches the SVG data by name.
- *     The returned object contains the raw SVG string and an optional scale value.
- * @property {function(string): string} getIconMask - Retrieves the icon mask as a string based on the provided name.
- */
-
-/**
  * Represents a registry for managing and retrieving SVG assets and icon masks by name.
  *
  * This type is used to encapsulate methods for accessing raw SVG data and icon masks
  * associated with specific names. The registry provides mechanisms to handle both the raw
  * SVG content and additional scaling information if applicable.
- *
- * @typedef {Object} SvgRegistry
  *
  * @property {function(string): { rawSvg: string, scale?: string | number }} getSvgData
  * Retrieves raw SVG data and optional scale information associated with a given name.

@@ -1,0 +1,15 @@
+---
+// packages/astro-forms/src/InputGroup.astro
+import type { HTMLAttributes } from 'astro/types';
+import './forms.css';
+
+type Props = HTMLAttributes<'div'> & {
+  layout?: 'top' | 'before' | 'after';
+};
+
+const { class: className, layout = 'top', ...rest } = Astro.props;
+---
+
+<div class:list={['form-input-group', `layout-${layout}`, className]} {...rest}>
+  <slot />
+</div>

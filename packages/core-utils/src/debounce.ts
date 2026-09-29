@@ -1,7 +1,7 @@
-// biome-ignore lint/suspicious/noExplicitAny: any is required to  for generics and Parameters<T> to behave as intended.
+// biome-ignore lint/suspicious/noExplicitAny: any is required for generics and Parameters<T> to behave as intended.
 type AnyFunction = (...args: any[]) => void;
 
-type DebouncedFunction<T extends AnyFunction> = {
+export type DebouncedFunction<T extends AnyFunction> = {
   (...args: Parameters<T>): void;
   cancel(): void;
   flush(): void;
@@ -24,7 +24,7 @@ type DebouncedFunction<T extends AnyFunction> = {
  *   - flush() - Execute the function immediately with the most recent arguments (if any are pending)
  *
  * @example
- * // Basic usage: execute after user stops typing
+ * // Basic usage: execute after the user stops typing
  * const searchFn = debounce((query: string) => {
  *   console.log('Searching for:', query);
  * }, 300);
@@ -39,20 +39,20 @@ type DebouncedFunction<T extends AnyFunction> = {
  *   console.log('Validating:', value);
  * }, 500, true);
  *
- * validate('user input');      // Executes immediately
- * validate('more input');      // Queued, not executed yet
- * validate('even more');       // Resets timer
+ * validate('user input'); // Executes immediately
+ * validate('more input'); // Queued, not executed yet
+ * validate('even more'); // Resets timer
  * // After 500ms of no calls: final 'even more' is executed
  *
  * @example
  * // Using cancel and flush
  * const debounced = debounce(() => console.log('done'), 300);
  * debounced();
- * debounced.cancel();          // Prevent execution
+ * debounced.cancel(); // Prevent execution
  *
  * const debounced2 = debounce(() => console.log('done'), 300);
  * debounced2();
- * debounced2.flush();          // Execute immediately
+ * debounced2.flush(); // Execute immediately
  *
  * @warning
  * Do not call the debounced function from within its own callback.

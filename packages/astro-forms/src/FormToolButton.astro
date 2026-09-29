@@ -1,0 +1,33 @@
+---
+// packages/astro-forms/src/FormToolButton.astro
+import type { HTMLAttributes } from 'astro/types';
+import './forms.css';
+
+type Props = HTMLAttributes<'button'> & {};
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<button class:list={['form-tool-button', className]} tabindex="-1" type="button" {...rest}>
+  <slot />
+</button>
+
+<style>
+  .form-tool-button {
+    align-content: center;
+    appearance: none;
+    aspect-ratio: 1;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    display: inline-grid;
+    inset: auto;
+    min-block-size: 1em;
+    min-inline-size: 1em;
+    outline: none;
+    padding: 0;
+    place-items: center;
+    user-select: none;
+  }
+</style>

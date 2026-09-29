@@ -1,0 +1,53 @@
+---
+// src/components/form-element/Checkbox.astro
+import { assertValidSlots } from '@olsen-mono/core-utils';
+import type { HTMLAttributes } from 'astro/types';
+import ErrorMessage from './ErrorMessage.astro';
+import InputControl from './InputControl.astro';
+import InputGroup from './InputGroup.astro';
+import Label from './Label.astro';
+import './forms.css';
+
+type Props = HTMLAttributes<'input'> & {
+  id: string;
+  invalid?: boolean;
+  label?: string;
+  labelPosition?: 'after' | 'before';
+};
+
+const {
+  'aria-invalid': ariaInvalid,
+  class: className,
+  id,
+  invalid,
+  label,
+  labelPosition = 'after',
+  type = 'checkbox',
+  ...rest
+} = Astro.props;
+
+assertValidSlots(Astro.slots, ['error-message', 'label'], 'Checkbox');
+
+const hasLabel = !!label || Astro.slots.has('label');
+const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+---
+
+<InputGroup layout={labelPosition} class={className}>
+  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+
+  <InputControl>
+    <input
+      aria-invalid={invalid ?? ariaInvalid ?? undefined}
+      class="form-checkbox-input"
+      id={id}
+      type="checkbox"
+      {...rest}
+    />
+  </InputControl>
+
+  {hasErrorMessage && (
+    <ErrorMessage id={`${id}-error`}>
+      <slot name="error-message" />
+    </ErrorMessage>
+  )}
+</InputGroup>

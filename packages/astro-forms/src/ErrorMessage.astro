@@ -1,0 +1,15 @@
+---
+// packages/astro-forms/src/ErrorMessage.astro
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'div'> & {
+  text?: string;
+  id?: string;
+};
+
+const { class: className, text, id, ...rest } = Astro.props;
+---
+
+<div id={id} class:list={['form-error-message', className]} role="alert" {...rest}>
+  {text ? text : <slot />}
+</div>

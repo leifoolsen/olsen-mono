@@ -1,0 +1,59 @@
+---
+// packages/astro-forms/src/listbox.astro
+
+import type { HTMLAttributes } from 'astro/types';
+import './listbox.css';
+
+type Props = HTMLAttributes<'div'> & {
+  activeDescendantId?: string;
+  bordered?: boolean;
+  id: string;
+  multiSelectable?: boolean;
+  showMarker?: boolean;
+};
+
+const {
+  'aria-activedescendant': ariaActiveDescendant,
+  'aria-multiselectable': ariaMultiSelectable,
+  activeDescendantId,
+  bordered,
+  class: className,
+  id,
+  multiSelectable,
+  showMarker,
+  ...rest
+} = Astro.props;
+---
+
+<div
+  aria-activedescendant={activeDescendantId ?? ariaActiveDescendant ?? undefined}
+  aria-multiselectable={multiSelectable ?? ariaMultiSelectable ?? 'false'}
+  class:list={['listbox', bordered && 'bordered', className]}
+  data-show-marker={showMarker}
+  id={id}
+  role="listbox"
+  tabindex="0"
+  {...rest}
+>
+  <slot />
+</div>
+
+<script>
+  import { createListbox, type ListboxElement } from './listbox.ts';
+
+  const setupListboxes = () => {
+    const elements = document.querySelectorAll('[role="listbox"]');
+
+    for (const element of elements) {
+      if (!(element instanceof HTMLDivElement) || element.hasAttribute('data-initialized')) {
+        continue;
+      }
+
+      createListbox(element);
+      element.setAttribute('data-initialized', 'true');
+    }
+  };
+
+  setupListboxes();
+  document.addEventListener('astro:after-swap', setupListboxes);
+</script>
