@@ -1,5 +1,11 @@
 # @olsen-mono/reactive-state
 
+## 0.0.8
+
+### Patch Changes
+
+- 5d9dd63: Moved form elements to packages/astro-forms
+
 ## 0.0.7
 
 ### Patch Changes

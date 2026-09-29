@@ -1,5 +1,16 @@
 # astro-htmx
 
+## 0.0.12
+
+### Patch Changes
+
+- 5d9dd63: Moved form elements to packages/astro-forms
+- Updated dependencies [5d9dd63]
+  - @olsen-mono/astro-forms@0.0.1
+  - @olsen-mono/astro-svg@0.0.2
+  - @olsen-mono/core-utils@0.0.24
+  - @olsen-mono/css-foundation@0.0.17
+
 ## 0.0.11
 
 ### Patch Changes
