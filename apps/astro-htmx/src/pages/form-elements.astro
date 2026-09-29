@@ -416,11 +416,11 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
 
           const element = document.querySelector<ListboxElement>('#listbox');
 
-          element?.addEventListener('listbox-ready', (e) => {
-            console.log('listbox-ready:', e.detail);
+          element?.addEventListener('ui:listbox-ready', (e) => {
+            console.log('ui:listbox-ready:', e.detail);
           });
 
-          element?.addEventListener('listbox-change', (e) => {
+          element?.addEventListener('ui:listbox-change', (e) => {
             console.log('Listbox:', e.detail);
           });
         </script>
@@ -481,7 +481,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
 
         const element = document.querySelector<ListboxElement>('#listbox2');
 
-        element?.addEventListener('listbox-change', (e) => {
+        element?.addEventListener('ui:listbox-change', (e) => {
           console.log('Listbox:', e.detail);
         });
       </script>
@@ -513,7 +513,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
 
           const element = document.querySelector<ListboxElement>('#ms-listbox');
 
-          element?.addEventListener('listbox-change', (e) => {
+          element?.addEventListener('ui:listbox-change', (e) => {
             console.log('Listbox:', e.detail);
           });
         </script>
@@ -609,7 +609,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         const selectAllBtn = document.getElementById('ms-listbox2-select-all') as HTMLButtonElement;
         const emptySelectionBtn = document.getElementById('ms-listbox2-empty-selection') as HTMLButtonElement;
 
-        listbox?.addEventListener('listbox-change', (e) => {
+        listbox?.addEventListener('ui:listbox-change', (e) => {
           console.log('Listbox:', e.detail);
         });
 
@@ -629,7 +629,6 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           listbox?.deselectAll();
         });
       </script>
-
       <Fieldset id="designsystem__comboboxes" bordered style="min-width: 50ch;">
         <legend>Comboboxes</legend>
 
@@ -668,7 +667,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
 
           const cb = document.querySelector<ComboboxElement>('#combobox');
 
-          cb?.addEventListener('combobox-change', (e) => {
+          cb?.addEventListener('ui:combobox-change', (e) => {
             console.log('#combobox:', e.detail);
           });
         </script>
@@ -797,7 +796,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
 
           const cb3 = document.querySelector<ComboboxElement>('#combobox3');
 
-          cb3?.addEventListener('combobox-change', (e) => {
+          cb3?.addEventListener('ui:combobox-change', (e) => {
             console.log('#combobox3:', e.detail);
           });
         </script>

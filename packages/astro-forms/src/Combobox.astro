@@ -18,7 +18,6 @@ type Props = HTMLAttributes<'input'> & {
   invalid?: boolean;
   label?: string;
   labelPosition?: 'top' | 'before';
-  multiSelectable?: boolean;
 };
 
 const {
@@ -27,14 +26,13 @@ const {
   'aria-expanded': ariaExpanded = 'false',
   'aria-haspopup': ariaHasPopup = 'true',
   'aria-invalid': ariaInvalid,
-  'aria-multiselectable': ariaMultiSelectable,
+  'aria-multiselectable': _ariaMultiSelectable,
   autocomplete = 'off',
   class: className,
   id,
   invalid,
   label,
   labelPosition = 'top',
-  multiSelectable = false,
   readonly,
   role = 'combobox',
   type = readonly ? 'text' : 'search',
@@ -62,7 +60,7 @@ const uniqueAnchorName = `--anchor-list-${id}`;
       aria-expanded={ariaExpanded}
       aria-haspopup={ariaHasPopup}
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
-      aria-multiselectable={multiSelectable ?? ariaMultiSelectable ?? 'false'}
+      aria-multiselectable="false"
       autocomplete={autocomplete}
       class:list={['form-text-input', 'combobox-input']}
       data-combobox-input

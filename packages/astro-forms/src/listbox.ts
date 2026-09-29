@@ -1,5 +1,5 @@
 import { debounce, match } from '@olsen-mono/core-utils';
-import type { ListboxChangeEventDetail, ListboxItem } from './types';
+import type { ListboxApi, ListboxChangeEventDetail, ListboxItem, ListboxReadyDetail } from './types';
 
 export function createListbox(element: HTMLElement) {
   let lastSelectedIndex = -1;
@@ -21,7 +21,7 @@ export function createListbox(element: HTMLElement) {
     }));
 
     element.dispatchEvent(
-      new CustomEvent('listbox-change', {
+      new CustomEvent('ui:listbox-change', {
         bubbles: true,
         detail: isMultiSelectable ? data : data[0] || null,
       }),
@@ -305,7 +305,7 @@ export function createListbox(element: HTMLElement) {
     filterDebounced,
   });
 
-  const api = {
+  const api: ListboxApi = {
     selectAll,
     deselectAll,
     filter,
@@ -315,7 +315,7 @@ export function createListbox(element: HTMLElement) {
   setTimeout(
     () =>
       element.dispatchEvent(
-        new CustomEvent('listbox-ready', {
+        new CustomEvent('ui:listbox-ready', {
           bubbles: true,
           composed: true,
           detail: {
@@ -332,19 +332,16 @@ export function createListbox(element: HTMLElement) {
 }
 
 export type ListboxElement = HTMLDivElement &
-  ReturnType<typeof createListbox> & {
+  ListboxApi & {
     addEventListener(
-      type: 'listbox-change',
+      type: 'ui:listbox-change',
       listener: (this: ListboxElement, ev: CustomEvent<ListboxChangeEventDetail>) => void,
       options?: boolean | AddEventListenerOptions,
     ): void;
 
     addEventListener(
-      type: 'listbox-ready',
-      listener: (
-        this: ListboxElement,
-        ev: CustomEvent<{ id: string; isMultiSelectable: boolean; api: ReturnType<typeof createListbox> }>,
-      ) => void,
+      type: 'ui:listbox-ready',
+      listener: (this: ListboxElement, ev: CustomEvent<ListboxReadyDetail>) => void,
       options?: boolean | AddEventListenerOptions,
     ): void;
 

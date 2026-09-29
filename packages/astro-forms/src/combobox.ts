@@ -1,7 +1,6 @@
 // packages/astro-forms/src/combobox.ts
 import { match } from '@olsen-mono/core-utils';
-import type { ListboxElement } from './listbox.ts';
-import type { ComboboxChangeEventDetail, ListboxChangeEventDetail } from './types.ts';
+import type { ComboboxChangeEventDetail, ListboxApi, ListboxChangeEventDetail, ListboxReadyDetail } from './types';
 
 export function createCombobox(input: HTMLInputElement) {
   const comboboxGroup = input.closest('[data-combobox]');
@@ -19,7 +18,7 @@ export function createCombobox(input: HTMLInputElement) {
     return;
   }
 
-  let listbox: ListboxElement | null = null;
+  let listboxApi: ListboxApi | null = null;
   let isMultiSelectable = false;
 
   const setupIcons = () => {
@@ -44,8 +43,8 @@ export function createCombobox(input: HTMLInputElement) {
       input.value = '';
       input.setAttribute('data-value', '');
 
-      listbox?.deselectAll();
-      listbox?.filter('');
+      listboxApi?.deselectAll();
+      listboxApi?.filter('');
 
       input.focus();
     });
@@ -59,7 +58,7 @@ export function createCombobox(input: HTMLInputElement) {
 
   const setupEventListeners = () => {
     input.addEventListener('blur', () => {
-      listbox?.filterDebounced.flush();
+      listboxApi?.filterDebounced.flush();
     });
 
     input.addEventListener('click', () => {
@@ -74,10 +73,10 @@ export function createCombobox(input: HTMLInputElement) {
       openPopover();
 
       if (input.value.trim() === '') {
-        listbox?.filterDebounced.cancel();
-        listbox?.filter('');
+        listboxApi?.filterDebounced.cancel();
+        listboxApi?.filter('');
       } else {
-        listbox?.filterDebounced(input.value);
+        listboxApi?.filterDebounced(input.value);
       }
     });
 
@@ -88,7 +87,7 @@ export function createCombobox(input: HTMLInputElement) {
           (e) => {
             e.preventDefault();
             openPopover();
-            listbox?.focus();
+            popover.focus(); // TODO
           },
         )
         .on(
@@ -107,11 +106,52 @@ export function createCombobox(input: HTMLInputElement) {
     });
   };
 
-  const registerListbox = (targetListbox: ListboxElement) => {
-    listbox = targetListbox;
-    if (!listbox) return;
+  const openPopover = () => {
+    popover.showPopover();
+    input.setAttribute('aria-expanded', 'true');
+  };
 
-    isMultiSelectable = listbox.getAttribute('aria-multiselectable') === 'true';
+  const closePopover = () => {
+    popover.hidePopover();
+    input.setAttribute('aria-expanded', 'false');
+    input.focus();
+  };
+
+  const syncInputValue = () => {
+    const selectedOptions = Array.from(
+      popover.querySelectorAll('[role="listbox"] > [role="option"][aria-selected="true"]'),
+    );
+
+    const data = selectedOptions.map((opt) => ({
+      id: opt.id,
+      name: opt.getAttribute('data-name') ?? '',
+      value: opt.getAttribute('data-value') ?? '',
+      text: opt instanceof HTMLElement ? opt.innerText.trim() : '',
+    }));
+
+    if (isMultiSelectable) {
+      input.value = data.map((item) => item.text).join(', ');
+      input.setAttribute('data-value', data.map((item) => item.value).join(', '));
+    } else if (data[0]) {
+      input.value = data[0].text;
+      input.setAttribute('data-value', data[0].value);
+    } else {
+      input.value = '';
+      input.setAttribute('data-value', '');
+    }
+  };
+
+  const registerListbox = ({ isMultiSelectable: isMulti, api }: ListboxReadyDetail) => {
+    const listbox = popover.querySelector<HTMLDivElement>(`[role="listbox"]`);
+
+    if (!(listbox instanceof HTMLDivElement)) {
+      console.warn(`[Combobox] Could not find listbox element for #${input.id}`);
+      return;
+    }
+
+    listboxApi = api;
+    isMultiSelectable = isMulti;
+    input.setAttribute('aria-multiselectable', isMultiSelectable ? 'true' : 'false');
 
     listbox.addEventListener('keydown', (e: KeyboardEvent) => {
       match(e)
@@ -134,7 +174,7 @@ export function createCombobox(input: HTMLInputElement) {
     });
 
     listbox.addEventListener('blur', () => {
-      listbox?.filterDebounced.flush();
+      api.filterDebounced.flush();
       closePopover();
     });
 
@@ -144,7 +184,7 @@ export function createCombobox(input: HTMLInputElement) {
       }
     });
 
-    listbox.addEventListener('listbox-change', (e: Event) => {
+    listbox.addEventListener('ui:listbox-change', (e: Event) => {
       e.stopPropagation();
       const customEvent = e as CustomEvent<ListboxChangeEventDetail>;
       const data = customEvent.detail;
@@ -161,7 +201,7 @@ export function createCombobox(input: HTMLInputElement) {
       }
 
       input.dispatchEvent(
-        new CustomEvent('combobox-change', {
+        new CustomEvent('ui:combobox-change', {
           bubbles: true,
           detail: data,
         }),
@@ -175,42 +215,8 @@ export function createCombobox(input: HTMLInputElement) {
     syncInputValue();
   };
 
-  const openPopover = () => {
-    popover.showPopover();
-    input.setAttribute('aria-expanded', 'true');
-  };
-
-  const closePopover = () => {
-    popover.hidePopover();
-    input.setAttribute('aria-expanded', 'false');
-    input.focus();
-  };
-
-  const syncInputValue = () => {
-    if (!listbox) return;
-    const selectedOptions = Array.from(listbox.querySelectorAll('[role="option"][aria-selected="true"]'));
-
-    const data = selectedOptions.map((opt) => ({
-      id: opt.id,
-      name: opt.getAttribute('data-name') ?? '',
-      value: opt.getAttribute('data-value') ?? '',
-      text: opt instanceof HTMLElement ? opt.innerText.trim() : '',
-    }));
-
-    if (isMultiSelectable) {
-      input.value = data.map((item) => item.text).join(', ');
-      input.setAttribute('data-value', data.map((item) => item.value).join(', '));
-    } else if (data[0]) {
-      input.value = data[0].text;
-      input.setAttribute('data-value', data[0].value);
-    } else {
-      input.value = '';
-      input.setAttribute('data-value', '');
-    }
-  };
-
-  comboboxGroup.addEventListener('listbox-ready', (e: Event) => {
-    const customEvent = e as CustomEvent<ListboxElement>;
+  comboboxGroup.addEventListener('ui:listbox-ready', (e: Event) => {
+    const customEvent = e as CustomEvent<ListboxReadyDetail>;
     registerListbox(customEvent.detail);
   });
 
@@ -234,7 +240,7 @@ export function createCombobox(input: HTMLInputElement) {
 export type ComboboxElement = HTMLInputElement &
   ReturnType<typeof createCombobox> & {
     addEventListener(
-      type: 'combobox-change',
+      type: 'ui:combobox-change',
       listener: (this: ComboboxElement, ev: CustomEvent<ComboboxChangeEventDetail>) => void,
       options?: boolean | AddEventListenerOptions,
     ): void;
