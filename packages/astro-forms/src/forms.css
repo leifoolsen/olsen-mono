@@ -226,6 +226,15 @@
     display: inline-flex;
     position: relative;
     width: fit-content;
+
+    & .form-picker-icon {
+      cursor: pointer;
+    }
+
+    &:has(:disabled) .form-picker-icon {
+      cursor: not-allowed;
+      color: var(--form-muted-text);
+    }
   }
 
   .form-input-control:not(:has(:is([type="checkbox"], [type="radio"], [type="range"]))) {
@@ -276,7 +285,7 @@
         display: none !important;
       }
 
-      & :is(.form-search-icon, .form-picker-icon) {
+      & :is(.form-search-icon) {
         color: var(--form-muted-text);
         cursor: not-allowed;
       }

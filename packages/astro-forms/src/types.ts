@@ -1,4 +1,4 @@
-// src/components/form-elements/types.ts
+// astro-forms/src/types.ts
 
 import type { DebouncedFunction } from '@olsen-mono/core-utils';
 
@@ -14,7 +14,7 @@ export type ListboxChangeEventDetail = ListboxItem | ListboxItem[] | null;
 export type ComboboxChangeEventDetail = ListboxChangeEventDetail & {};
 
 export type ListboxApi = {
-  selectAll: (query: string) => void;
+  selectAll: () => void;
   deselectAll: () => void;
   filter: (query: string) => void;
   filterDebounced: DebouncedFunction<(query: string) => void>;

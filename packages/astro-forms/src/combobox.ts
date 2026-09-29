@@ -5,21 +5,28 @@ import type { ComboboxChangeEventDetail, ListboxApi, ListboxChangeEventDetail, L
 export function createCombobox(input: HTMLInputElement) {
   const comboboxGroup = input.closest('[data-combobox]');
   const popover = comboboxGroup?.querySelector('[data-combobox-popover]');
+  const listbox = comboboxGroup?.querySelector('[role="listbox"]');
+  let listboxApi: ListboxApi | null = null;
+  let isMultiSelectable = false;
 
-  if (!(comboboxGroup instanceof HTMLDivElement) || !(popover instanceof HTMLDivElement)) {
+  if (
+    !(comboboxGroup instanceof HTMLDivElement) ||
+    !(popover instanceof HTMLDivElement) ||
+    !(listbox instanceof HTMLDivElement)
+  ) {
     match<boolean, void>()
-      .on(!comboboxGroup, () => {
-        console.warn(`[Combobox] Could not find data-combobox element for #${input.id}`);
+      .on(!(comboboxGroup instanceof HTMLDivElement), () => {
+        console.warn(`[Combobox] Could not find combobox element for #${input.id}`);
       })
-      .on(!popover, () => {
-        console.warn(`[Combobox] Could not find data-combobox-popover element for #${input.id}`);
+      .on(!(popover instanceof HTMLDivElement), () => {
+        console.warn(`[Combobox] Could not find popover element for #${input.id}`);
+      })
+      .on(!(listbox instanceof HTMLDivElement), () => {
+        console.warn(`[Combobox] Could not find listbox element for #${input.id}`);
       });
 
     return;
   }
-
-  let listboxApi: ListboxApi | null = null;
-  let isMultiSelectable = false;
 
   const setupIcons = () => {
     const searchIcon = comboboxGroup.querySelector('.form-search-icon');
@@ -87,7 +94,7 @@ export function createCombobox(input: HTMLInputElement) {
           (e) => {
             e.preventDefault();
             openPopover();
-            popover.focus(); // TODO
+            listbox.focus();
           },
         )
         .on(
@@ -119,7 +126,7 @@ export function createCombobox(input: HTMLInputElement) {
 
   const syncInputValue = () => {
     const selectedOptions = Array.from(
-      popover.querySelectorAll('[role="listbox"] > [role="option"][aria-selected="true"]'),
+      popover.querySelectorAll('[role="listbox"] [role="option"][aria-selected="true"]'),
     );
 
     const data = selectedOptions.map((opt) => ({
@@ -142,13 +149,6 @@ export function createCombobox(input: HTMLInputElement) {
   };
 
   const registerListbox = ({ isMultiSelectable: isMulti, api }: ListboxReadyDetail) => {
-    const listbox = popover.querySelector<HTMLDivElement>(`[role="listbox"]`);
-
-    if (!(listbox instanceof HTMLDivElement)) {
-      console.warn(`[Combobox] Could not find listbox element for #${input.id}`);
-      return;
-    }
-
     listboxApi = api;
     isMultiSelectable = isMulti;
     input.setAttribute('aria-multiselectable', isMultiSelectable ? 'true' : 'false');
