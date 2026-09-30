@@ -114,8 +114,9 @@
   --letter-spacing-4xl: -0.03em;
 
   /* --- Font Weights --- */
-  --font-weight-xs: 300;
-  --font-weight-s: 400;
+  --font-weight-2xs: 100;
+  --font-weight-xs: 200;
+  --font-weight-s: 300;
   --font-weight-m: 400;
   --font-weight-l: 500;
   --font-weight-xl: 600;
