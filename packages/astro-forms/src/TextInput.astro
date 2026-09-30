@@ -62,7 +62,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
     </FormToolButton>
 
     {hasDescriptionSlot && (
-      <FormDescription descriptionId={descriptionId!} controlId={id}>
+      <FormDescription descriptionId={descriptionId!}>
         <slot name="description" />
       </FormDescription>
     )}

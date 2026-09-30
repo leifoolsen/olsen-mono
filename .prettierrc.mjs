@@ -6,7 +6,7 @@ const config = {
   trailingComma: 'all',
   printWidth: 120,
   overrides: [
-    // Prettier is used for formatting Astro and MD files, until Biome's formatter fully supports Astro and MarkDown
+    // Prettier is used for formatting Astro and MD files, until Biome's formatter fully supports Astro and Markdown
     {
       files: '*',
       options: {

@@ -17,8 +17,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "ESNext",
-    "types": ["node", "env"],
-    "typeRoots": ["./node_modules/@types", "./@types"],
+    "types": ["node"],
     "verbatimModuleSyntax": true
   }
 }

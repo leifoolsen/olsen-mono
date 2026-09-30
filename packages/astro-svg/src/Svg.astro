@@ -3,11 +3,11 @@
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'svg'> & {
-  getSvgData: (name: any) => { rawSvg: string; scale?: string | number };
-  fill?: string;
-  name: string;
-  size?: string | number;
-  stroke?: string;
+  getSvgData: (name?: string | null) => { rawSvg: string; scale?: string | number };
+  fill?: string | null;
+  name: string | null;
+  size?: string | number | null;
+  stroke?: string | null;
 };
 
 const {
@@ -50,7 +50,6 @@ const finalHeight = formatSize(height ?? finalSize, 1);
 
 const sizeStyle = `width: ${finalWidth}; height: ${finalHeight}; aspect-ratio: 1/1; max-inline-size: unset;`;
 svgAttributes.style = userStyle ? `${sizeStyle} ${userStyle}` : sizeStyle;
-svgAttributes.name = name;
 
 if (rest['aria-label'] || rest['aria-labelledby']) {
   svgAttributes.role = rest.role || 'img';
