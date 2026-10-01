@@ -124,7 +124,7 @@ html {
 }
 
 :where(label, legend) {
-  font-weight: var(--font-weight-xl);
+  font-weight: var(--font-weight-l);
 }
 
 /* --- Input & Fieldset --- */
