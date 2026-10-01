@@ -116,13 +116,13 @@
   /* --- Font Weights --- */
   --font-weight-2xs: 100;
   --font-weight-xs: 200;
-  --font-weight-s: 300;
-  --font-weight-m: 400;
-  --font-weight-l: 500;
-  --font-weight-xl: 600;
-  --font-weight-2xl: 700;
-  --font-weight-3xl: 800;
-  --font-weight-4xl: 900;
+  --font-weight-s: 200;
+  --font-weight-m: 300;
+  --font-weight-l: 400;
+  --font-weight-xl: 500;
+  --font-weight-2xl: 600;
+  --font-weight-3xl: 700;
+  --font-weight-4xl: 800;
 
   /* --- Fluid Spacing --- */
   --_space-scale-ratio: 1.5;
