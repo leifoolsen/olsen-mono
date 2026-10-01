@@ -13,17 +13,22 @@ export default defineConfig({
   fonts: [
     {
       name: 'Titillium Web',
-      cssVariable: '--titillium',
+      weights: [300, 400, 500, 600, 700, 800, 900],
+      cssVariable: '--font-family-heading',
+      fallbacks: ['Arial', 'sans-serif'],
       provider: fontProviders.google(),
     },
     {
       name: 'Open Sans',
-      cssVariable: '--open-sans',
+      weights: [200, 300, 400, 500, 600, 700, 800, 900],
+      cssVariable: '--font-family-main',
+      fallbacks: ['Arial', 'sans-serif'],
       provider: fontProviders.google(),
     },
     {
-      name: 'Inconsolata',
-      cssVariable: '--inconsolata',
+      name: 'SUSE Mono',
+      cssVariable: '--font-family-mono',
+      fallbacks: ['monospace', 'Arial', 'sans-serif'],
       provider: fontProviders.google(),
     },
   ],
