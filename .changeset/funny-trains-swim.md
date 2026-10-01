@@ -7,4 +7,8 @@
 'astro-design-system': patch
 ---
 
-Added local fonts, Removed redundant dependencies, to astro-design-system. Removed redundant dependencies. Fixed astro check errors. Improved TS configuration and Astro check.
+- Addded custom Google fonts: Titillum Web, Open Sans and SUSE Mono
+- Removed redundant dependencies
+- Removed redundant dependencies
+- Fixed astro check errors
+- Improved TS configuration and Astro check.
