@@ -1,5 +1,19 @@
 # astro-htmx
 
+## 0.0.14
+
+### Patch Changes
+
+- f65a88b: - Addded custom Google fonts: Titillum Web, Open Sans and SUSE Mono
+  - Removed redundant dependencies
+  - Removed redundant dependencies
+  - Fixed astro check errors
+  - Improved TS configuration and Astro check.
+- Updated dependencies [f65a88b]
+  - @olsen-mono/astro-forms@0.0.2
+  - @olsen-mono/astro-svg@0.0.3
+  - @olsen-mono/css-foundation@0.0.18
+
 ## 0.0.13
 
 ### Patch Changes
