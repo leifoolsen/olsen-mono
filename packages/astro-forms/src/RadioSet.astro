@@ -87,7 +87,7 @@ const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-messa
 </fieldset>
 
 <script>
-  function enrichRadioGroups() {
+  function setupRadioSets() {
     const fieldsets = document.querySelectorAll('.form-radio-set');
 
     for (const fieldset of fieldsets) {
@@ -147,6 +147,6 @@ const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-messa
     }
   }
 
-  enrichRadioGroups();
-  document.addEventListener('astro:after-swap', enrichRadioGroups);
+  setupRadioSets();
+  document.addEventListener('astro:after-swap', setupRadioSets);
 </script>
