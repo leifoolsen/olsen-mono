@@ -3,7 +3,7 @@
   /* --- Font families --- */
   --font-family-heading: var(--font-geometric-humanist, sans-serif);
   --font-family-main: var(--font-classical-humanist, sans-serif);
-  --font-family-mono: var(--font-monospace-slab-serif, monospace);
+  --font-family-mono: var(--font-monospace-slab-serif, serif);
 
   /* Musical Ratios */
   --minor-second: 1.06666667;
