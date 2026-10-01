@@ -1,6 +1,5 @@
 ---
 import AppLayout from '@layouts/app-layout.astro';
-import '@olsen-mono/astro-forms';
 import Checkbox from '@olsen-mono/astro-forms/Checkbox.astro';
 import Combobox from '@olsen-mono/astro-forms/Combobox.astro';
 import Fieldset from '@olsen-mono/astro-forms/Fieldset.astro';
@@ -197,19 +196,9 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           <RadioButton disabled value="5" label="Disabled Option" />
           <span slot="error-message">The selection is not valid.</span>
         </RadioSet>
-
-        <script>
-          import type { RadioChangeEventDetail } from '@olsen-mono/astro-forms/RadioSet.astro';
-
-          const element = document.querySelector<HTMLFieldSetElement>('#case-1');
-
-          element?.addEventListener('radio-change', (e) => {
-            console.log('RadioSet:', (e as CustomEvent<RadioChangeEventDetail>).detail);
-          });
-        </script>
         <hr />
         <br />
-        <RadioSet id="case-2" name="case2" legend="Legend before" legendPosition="before" invalid>
+        <RadioSet id="case-2" name="case2" legend="Legend before" legendPosition="before" invalid value="2">
           <RadioButton value="1" label="Testing 1..." />
           <RadioButton value="2">
             <span slot="label">Testing 2 ...</span>

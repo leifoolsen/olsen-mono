@@ -14,5 +14,4 @@
 
 # misc
 .idea/
-debug-storybook.log*
 npm-debug.log*

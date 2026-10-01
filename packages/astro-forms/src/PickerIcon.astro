@@ -5,13 +5,13 @@ import arrowForwardSvg from './raw-svg/MaterialSymbolsArrowForwardIosRounded.svg
 
 type Props = HTMLAttributes<'svg'> & {};
 
-const { class: className, name = 'arrow-down', ...rest } = Astro.props;
+const { class: className, ...rest } = Astro.props;
 ---
 
 <Svg
   class:list={['form-picker-icon', className]}
-  name={name}
-  getSvgData={(_name) => ({ rawSvg: arrowForwardSvg, scale: 1.1 })}
+  name="arrow-down"
+  getSvgData={() => ({ rawSvg: arrowForwardSvg, scale: 1.1 })}
   style="transform: rotate(90deg)"
   {...rest}
 />

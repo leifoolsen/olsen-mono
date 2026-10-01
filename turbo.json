@@ -18,7 +18,15 @@
     },
     "test": {
       "cache": true,
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.css", "test/**/*.ts", "test/**/*.tsx"]
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.css",
+        "src/**/*.astro",
+        "**/__tests__/**/*",
+        "test/**/*.ts",
+        "test/**/*.tsx"
+      ]
     },
     "dev": {
       "cache": false,

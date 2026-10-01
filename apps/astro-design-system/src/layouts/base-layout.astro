@@ -1,6 +1,7 @@
 ---
 // src/layouts/BaseLayout.astro
 import '@styles/style.css';
+import { Font } from 'astro:assets';
 
 type Props = {
   title: string;
@@ -19,6 +20,9 @@ const density = Astro.cookies.get('density')?.value || 'default';
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <Font cssVariable="--font-family-heading" />
+    <Font cssVariable="--font-family-main" />
+    <Font cssVariable="--font-family-mono" />
     <style is:inline>
       @layer reset, tokens, base, layout, components;
     </style>

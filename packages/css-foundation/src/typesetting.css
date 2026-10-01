@@ -107,7 +107,7 @@ html {
 }
 
 :where(code, pre, kbd, samp, output) {
-  font-family: var(--font-family-mono) monospace;
+  font-family: var(--font-family-mono), monospace;
 }
 
 :where(code, kbd, samp) {
@@ -124,7 +124,7 @@ html {
 }
 
 :where(label, legend) {
-  font-weight: var(--font-weight-xl);
+  font-weight: var(--font-weight-l);
 }
 
 /* --- Input & Fieldset --- */
