@@ -20,16 +20,11 @@ const density = Astro.cookies.get('density')?.value || 'default';
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
-    <Font cssVariable="--titillium" />
-    <Font cssVariable="--open-sans" />
-    <Font cssVariable="--inconsolata" />
+    <Font cssVariable="--font-family-heading" />
+    <Font cssVariable="--font-family-main" />
+    <Font cssVariable="--font-family-mono" />
     <style is:inline>
       @layer reset, tokens, base, layout, components;
-      :root {
-        --font-family-heading: var(--titillium, sans-serif);
-        --font-family-main: var(--open-sans, sans-serif);
-        --font-family-mono: var(--inconsolata, monospace);
-      }
     </style>
   </head>
   <body>
