@@ -1,6 +1,6 @@
 // @ts-check
 import node from '@astrojs/node';
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 // See: https://astro.build/config
 
@@ -10,4 +10,21 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
+  fonts: [
+    {
+      name: 'Titillium Web',
+      cssVariable: '--titillium',
+      provider: fontProviders.google(),
+    },
+    {
+      name: 'Open Sans',
+      cssVariable: '--open-sans',
+      provider: fontProviders.google(),
+    },
+    {
+      name: 'Inconsolata',
+      cssVariable: '--inconsolata',
+      provider: fontProviders.google(),
+    },
+  ],
 });

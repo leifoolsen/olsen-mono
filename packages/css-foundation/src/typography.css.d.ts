@@ -18,6 +18,7 @@ export type CssVariables =
   | '--font-size-xl'
   | '--font-size-xs'
   | '--font-weight-2xl'
+  | '--font-weight-2xs'
   | '--font-weight-3xl'
   | '--font-weight-4xl'
   | '--font-weight-l'
