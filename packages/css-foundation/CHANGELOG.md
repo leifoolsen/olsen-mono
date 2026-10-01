@@ -1,5 +1,15 @@
 # @olsen-mono/css-foundation
 
+## 0.0.18
+
+### Patch Changes
+
+- f65a88b: - Addded custom Google fonts: Titillum Web, Open Sans and SUSE Mono
+  - Removed redundant dependencies
+  - Removed redundant dependencies
+  - Fixed astro check errors
+  - Improved TS configuration and Astro check.
+
 ## 0.0.17
 
 ### Patch Changes
