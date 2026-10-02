@@ -1,0 +1,100 @@
+---
+// packages/astro-icons/src/MorphIcon.astro
+import type { HTMLAttributes } from 'astro/types';
+import type { LineCoords } from './types.ts';
+
+type Props = HTMLAttributes<'svg'> & {
+  active?: boolean;
+  fromLines: LineCoords[];
+  toLines: LineCoords[];
+  duration?: string;
+};
+
+const {
+  'aria-checked': ariaChecked,
+  active = false,
+  fromLines,
+  toLines,
+  duration = '0.4s',
+  class: className,
+  ...rest
+} = Astro.props;
+
+const maxLines = Math.max(fromLines.length, toLines.length);
+---
+
+<svg
+  aria-checked={active ?? ariaChecked ?? undefined}
+  class={className}
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  stroke-width="2"
+  stroke="currentColor"
+  fill="none"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  style={{ '--morph-duration': duration }}
+  {...rest}
+>
+  {Array.from({ length: maxLines }).map((_, index) => {
+    const from = fromLines[index] || { x1: 12, y1: 12, x2: 12, y2: 12 }; // Fallback hvis ulik lengde
+    const to = toLines[index] || { x1: 12, y1: 12, x2: 12, y2: 12 };
+
+    // Beregn senterpunktet for hver unike linje i fra-tilstanden slik at rotasjonen skjer rundt eget sentrum
+    const originX = (from.x1 + from.x2) / 2;
+    const originY = (from.y1 + from.y2) / 2;
+
+    // Siden CSS ikke kan animere x1/y1 direkte i alle nettlesere ennå,
+    // regner vi ut differansen i posisjon som CSS transform overtar
+    const moveX = (to.x1 + to.x2) / 2 - originX;
+    const moveY = (to.y1 + to.y2) / 2 - originY;
+
+    // Enkel beregning av lengdeendring (skalering) hvis linjene har ulik lengde
+    const fromLength = Math.hypot(from.x2 - from.x1, from.y2 - from.y1) || 1;
+    const toLength = Math.hypot(to.x2 - to.x1, to.y2 - to.y1);
+    const scale = toLength / fromLength;
+
+    // Beregn vinkel-forskjell mellom de to linjene
+    const fromAngle = Math.atan2(from.y2 - from.y1, from.x2 - from.x1);
+    const toAngle = Math.atan2(to.y2 - to.y1, to.x2 - to.x1);
+    let angleDiff = (toAngle - fromAngle) * (180 / Math.PI);
+
+    // Hvis mållinjen har 0 lengde (skal skjules), setter vi opacity til 0 i stedet
+    const targetOpacity = toLength === 0 ? '0' : '1';
+
+    return (
+      <line
+        x1={from.x1}
+        y1={from.y1}
+        x2={from.x2}
+        y2={from.y2}
+        style={{
+          '--origin': `${originX}px ${originY}px`,
+          '--target-transform': `translate(${moveX}px, ${moveY}px) rotate(${angleDiff}deg) scale(${scale})`,
+          '--target-opacity': targetOpacity,
+        }}
+      />
+    );
+  })}
+</svg>
+
+<style>
+  svg {
+    & line {
+      --origin: center;
+      --morph-duration: 0.4s;
+      --target-transform: "";
+      --target-opacity: 1;
+
+      transform-origin: var(--origin);
+      transition: transform var(--morph-duration) cubic-bezier(0.9, 0, 0.1, 1), opacity var(--morph-duration) ease;
+    }
+
+    &[aria-checked='true'] line {
+      transform: var(--target-transform);
+      opacity: var(--target-opacity);
+    }
+  }
+</style>

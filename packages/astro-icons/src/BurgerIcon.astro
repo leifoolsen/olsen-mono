@@ -1,0 +1,67 @@
+---
+// packages/astro-forms/src/BurgerIcon.astro
+
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'svg'> & {
+  checked?: boolean;
+};
+
+const { 'aria-checked': ariaChecked, checked, class: className, ...rest } = Astro.props;
+---
+
+<svg
+  aria-checked={checked ?? ariaChecked ?? undefined}
+  class={className}
+  xmlns="http://www.w3.org/2000/svg"
+  width="1em"
+  height="1em"
+  viewBox="0 0 24 24"
+  stroke-width="2"
+  stroke="currentColor"
+  fill="none"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  {...rest}
+>
+  <line x1="4" y1="6" x2="20" y2="6" />
+  <line x1="4" y1="12" x2="20" y2="12" />
+  <line x1="4" y1="18" x2="20" y2="18" />
+</svg>
+
+<style>
+  svg {
+    & line {
+      transition-duration: 0.3s;
+      transition-property: stroke, opacity, transform;
+      transition-timing-function: cubic-bezier(0.9, 0, 0.1, 1);
+    }
+
+    & line:nth-of-type(1) {
+      transform-origin: center 6px;
+    }
+
+    & line:nth-of-type(2) {
+      transform-origin: center 12px;
+    }
+
+    & line:nth-of-type(3) {
+      transform-origin: center 18px;
+    }
+
+    &[aria-checked='true'] {
+      & line:nth-of-type(1) {
+        transform: translate(0, 6px) rotate(45deg);
+      }
+
+      & line:nth-of-type(2) {
+        opacity: 0;
+        transform: scale(0.2);
+      }
+
+      & line:nth-of-type(3) {
+        transform: translate(0, -6px) rotate(-45deg);
+      }
+    }
+  }
+</style>

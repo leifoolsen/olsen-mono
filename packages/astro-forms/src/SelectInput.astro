@@ -1,8 +1,8 @@
 ---
 // packages/astro-forms/src/SelectInput.astro
+import ClearIcon from '@olsen-mono/astro-icons/ClearIcon.astro';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
-import ClearIcon from './ClearIcon.astro';
 import ErrorMessage from './ErrorMessage.astro';
 import FormDescription from './FormDescription.astro';
 import FormToolButton from './FormToolButton.astro';
@@ -56,11 +56,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
 
     <PickerIcon data-picker />
 
-    <FormToolButton
-      aria-label="Clear value"
-      class="form-clear-icon"
-      data-clear
-    >
+    <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
       <ClearIcon />
     </FormToolButton>
 
