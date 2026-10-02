@@ -24,6 +24,7 @@
       "development": "./src/forms.css",
       "default": "./src/forms.css"
     },
+    "./BurgerIcon.astro": "./src/BurgerIcon.astro",
     "./Checkbox.astro": "./src/Checkbox.astro",
     "./Combobox.astro": "./src/Combobox.astro",
     "./ComponentLayout.astro": "./src/ComponentLayout.astro",

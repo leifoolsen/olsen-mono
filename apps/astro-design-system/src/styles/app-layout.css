@@ -41,8 +41,9 @@
   .app-sidebar-toggle {
     background: none;
     border: none;
+    border-radius: var(--space-2xs);
     cursor: pointer;
-    padding: var(--space-xs);
+    padding: 0;
     font-size: var(--font-size-xl);
     line-height: 1;
     display: flex;

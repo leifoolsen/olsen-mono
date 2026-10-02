@@ -1,5 +1,6 @@
 ---
 import '@styles/app-layout.css';
+import BurgerIcon from '@olsen-mono/astro-forms/BurgerIcon.astro';
 import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
 import BaseLayout from './base-layout.astro';
 
@@ -19,11 +20,11 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
         <button
           id="sidebar-toggle"
           class="app-sidebar-toggle"
-          aria-label="Toggle meny"
+          aria-label="Toggle menu"
           type="button"
           data-border-radius="xs"
         >
-          ≡
+          <BurgerIcon />
         </button>
         <div data-font-size="xl">Astro Design System</div>
       </div>
