@@ -18,6 +18,7 @@
     },
     "./BurgerIcon.astro": "./src/BurgerIcon.astro",
     "./ClearIcon.astro": "./src/ClearIcon.astro",
+    "./MorphIcon.astro": "./src/MorphIcon.astro",
     "./package.json": "./package.json"
   },
   "files": [

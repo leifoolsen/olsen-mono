@@ -1,6 +1,2 @@
-export type LineCoords = {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-};
+export { hamburgerLines, xLines } from './line-icons.js';
+export type { LineCoords } from './types.js';
