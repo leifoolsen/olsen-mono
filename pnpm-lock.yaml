@@ -184,6 +184,9 @@ importers:
       '@olsen-mono/astro-forms':
         specifier: workspace:*
         version: link:../../packages/astro-forms
+      '@olsen-mono/astro-icons':
+        specifier: workspace:*
+        version: link:../../packages/astro-icons
       '@olsen-mono/astro-svg':
         specifier: workspace:*
         version: link:../../packages/astro-svg
@@ -206,6 +209,9 @@ importers:
 
   packages/astro-forms:
     devDependencies:
+      '@olsen-mono/astro-icons':
+        specifier: workspace:*
+        version: link:../astro-icons
       '@olsen-mono/astro-svg':
         specifier: workspace:*
         version: link:../astro-svg
@@ -224,6 +230,22 @@ importers:
       astro:
         specifier: 'catalog:'
         version: 7.3.5(@types/node@26.6.3)(jiti@2.7.0)(yaml@2.9.1)
+
+  packages/astro-icons:
+    dependencies:
+      '@olsen-mono/astro-svg':
+        specifier: workspace:*
+        version: link:../astro-svg
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.6.3
+      astro:
+        specifier: 'catalog:'
+        version: 7.3.5(@types/node@26.6.3)(jiti@2.7.0)(yaml@2.9.1)
+      happy-dom:
+        specifier: 'catalog:'
+        version: 20.14.5
 
   packages/astro-svg:
     devDependencies:

@@ -1,7 +1,7 @@
 ---
 import '@styles/app-layout.css';
-import BurgerIcon from '@olsen-mono/astro-forms/BurgerIcon.astro';
 import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
+import BurgerIcon from '@olsen-mono/astro-icons/BurgerIcon.astro';
 import BaseLayout from './base-layout.astro';
 
 type Props = {
@@ -74,19 +74,32 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
 </BaseLayout>
 
 <script>
-  const toggleBtn = document.getElementById('sidebar-toggle');
-  const container = document.getElementById('app-container');
+  const appContainer = document.getElementById('app-container');
 
-  toggleBtn?.addEventListener('click', () => {
-    const isCollapsed = container?.getAttribute('data-sidebar-collapsed') === 'true';
-    container?.setAttribute('data-sidebar-collapsed', isCollapsed ? 'false' : 'true');
-  });
+  function setupListeners() {
+    if (!appContainer || appContainer.hasAttribute('data-initialized')) return;
+    appContainer.setAttribute('data-initialized', 'true');
 
-  function initNativeToggleListener() {
-    const container = document.getElementById('app-header-right');
-    if (!container) return;
+    const toggleBtn = document.getElementById('sidebar-toggle');
 
-    container.addEventListener('change', (event) => {
+    if (toggleBtn) {
+      const svg = toggleBtn.querySelector('svg');
+
+      if (appContainer?.getAttribute('data-sidebar-collapsed') !== 'true') {
+        svg?.setAttribute('aria-checked', 'true');
+      }
+
+      toggleBtn?.addEventListener('click', () => {
+        const isCollapsed = appContainer?.getAttribute('data-sidebar-collapsed') === 'true';
+        appContainer?.setAttribute('data-sidebar-collapsed', isCollapsed ? 'false' : 'true');
+        svg && svg.setAttribute('aria-checked', Boolean(isCollapsed).toString());
+      });
+    }
+
+    const headerRight = document.getElementById('app-header-right');
+    if (!headerRight) return;
+
+    headerRight.addEventListener('change', (event) => {
       const input = event.target as HTMLInputElement | null;
       if (input instanceof HTMLInputElement && input.type === 'checkbox') {
         const name = input.name;
@@ -111,6 +124,6 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
     });
   }
 
-  initNativeToggleListener();
-  document.addEventListener('astro:after-swap', initNativeToggleListener);
+  setupListeners();
+  document.addEventListener('astro:after-swap', setupListeners);
 </script>
