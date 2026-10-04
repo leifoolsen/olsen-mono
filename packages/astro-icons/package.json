@@ -16,7 +16,6 @@
       },
       "default": "./dist/index.mjs"
     },
-    "./ClearIcon.astro": "./src/ClearIcon.astro",
     "./MorphIcon.astro": "./src/MorphIcon.astro",
     "./package.json": "./package.json"
   },
@@ -39,7 +38,7 @@
     "clean": "shx rm -rf dist",
     "compile": "tsdown",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
-    "test-x": "vitest run",
+    "test": "vitest run",
     "typecheck": "astro check && tsc --noEmit"
   },
   "peerDependencies": {

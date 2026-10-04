@@ -2,7 +2,7 @@
 // packages/astro-icons/src/MorphIcon.astro
 import type { HTMLAttributes } from 'astro/types';
 import type { LineSegment } from './types.ts';
-import { matchLines, scaleLines } from './utils.ts';
+import { computeLineMorph, matchLines, scaleLines } from './utils.ts';
 
 type Props = HTMLAttributes<'svg'> & {
   /** If true, the `toLines` line segments are rendered, otherwise the `fromLines` line segments are rendered. */
@@ -55,12 +55,12 @@ const {
   airy,
   class: className,
   duration = '0.2s',
-  fromLines: rawFromLines,
+  fromLines: rawFromLines = [],
   hover = false,
   rotate = '0deg',
   size = '1em',
   stagger = '0.04s',
-  toLines: rawToLines,
+  toLines: rawToLines = [],
   ...rest
 } = Astro.props;
 
@@ -68,7 +68,7 @@ const fromScaled = scaleLines(rawFromLines, airy ? 0.75 : 1);
 const toScaled = scaleLines(rawToLines, airy ? 0.75 : 1);
 
 const { fromLines, toLines } = matchLines(fromScaled, toScaled);
-const maxLines = fromLines.length;
+const morphs = fromLines.map((from, index) => computeLineMorph(from, toLines[index] ?? from));
 
 const iconSize = typeof size === 'number' ? `${size}em` : size;
 ---
@@ -91,69 +91,22 @@ const iconSize = typeof size === 'number' ? `${size}em` : size;
   xmlns="http://www.w3.org/2000/svg"
   {...rest}
 >
-  {Array.from({ length: maxLines }).map((_, index) => {
-    const from = fromLines[index];
-    const to = toLines[index];
-
-    // Check if the line actually existed in the processed arrays (not as a 12,12 fallback from matchLines).
-    const hasFrom = fromScaled.some(
-      (l) => l.x1 === from.x1 && l.y1 === from.y1 && l.x2 === from.x2 && l.y2 === from.y2,
-    );
-
-    const hasTo = toScaled.some((l) => l.x1 === to.x1 && l.y1 === to.y1 && l.x2 === to.x2 && l.y2 === to.y2);
-
-    // Check whether the line is originally a zero point (hidden in the raw data).
-    const isFromPoint = from.x1 === from.x2 && from.y1 === from.y2;
-    const isToPoint = to.x1 === to.x2 && to.y1 === to.y2;
-
-    // If the line is a point, we assign it an artificial minimum length of 2px for stable rotation.
-    const fX1 = isFromPoint ? from.x1 - 1 : from.x1;
-    const fX2 = isFromPoint ? from.x2 + 1 : from.x2;
-    const tX1 = isToPoint ? to.x1 - 1 : to.x1;
-    const tX2 = isToPoint ? to.x2 + 1 : to.x2;
-
-    const fromX = (fX1 + fX2) / 2;
-    const fromY = (from.y1 + from.y2) / 2;
-    const toX = (tX1 + tX2) / 2;
-    const toY = (to.y1 + to.y2) / 2;
-
-    const fromLength = Math.hypot(fX2 - fX1, from.y2 - from.y1) || 1;
-    const toLength = Math.hypot(tX2 - tX1, to.y2 - to.y1) || 1;
-
-    // If the target is an invisible point or missing entirely, it should shrink to 0
-    const scale = !hasTo || isToPoint ? 0 : toLength / fromLength;
-
-    const fromAngle = Math.atan2(from.y2 - from.y1, fX2 - fX1);
-    const toAngle = Math.atan2(to.y2 - to.y1, tX2 - tX1);
-    let angleDiff = (toAngle - fromAngle) * (180 / Math.PI);
-
-    if (angleDiff > 180) angleDiff -= 360;
-    if (angleDiff < -180) angleDiff += 360;
-
-    const moveX = toX - fromX;
-    const moveY = toY - fromY;
-
-    // Set opacity based on whether the lines actually exist as real segments.
-    const startOpacity = hasFrom && !isFromPoint ? '1' : '0';
-    const targetOpacity = hasTo && !isToPoint ? '1' : '0';
-
-    return (
-      <line
-        x1={fX1}
-        y1={from.y1}
-        x2={fX2}
-        y2={from.y2}
-        vector-effect="non-scaling-stroke"
-        style={{
-          '--origin': `${fromX}px ${fromY}px`,
-          '--start-opacity': startOpacity,
-          '--target-transform': `translate(${moveX}px, ${moveY}px) rotate(${angleDiff}deg) scale(${scale})`,
-          '--target-opacity': targetOpacity,
-          '--line-index': index.toString(),
-        }}
-      />
-    );
-  })}
+  {morphs.map(({ line, origin, moveX, moveY, angle, scale, startOpacity, targetOpacity }, index) => (
+    <line
+      x1={line.x1}
+      y1={line.y1}
+      x2={line.x2}
+      y2={line.y2}
+      vector-effect="non-scaling-stroke"
+      style={{
+        '--origin': `${origin.x}px ${origin.y}px`,
+        '--start-opacity': startOpacity.toString(),
+        '--target-transform': `translate(${moveX}px, ${moveY}px) rotate(${angle}deg) scale(${scale})`,
+        '--target-opacity': targetOpacity.toString(),
+        '--line-index': index.toString(),
+      }}
+    />
+  ))}
 </svg>
 
 <style>
