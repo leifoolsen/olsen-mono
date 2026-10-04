@@ -1,5 +1,16 @@
 # astro-htmx
 
+## 0.0.15
+
+### Patch Changes
+
+- f925ac5: Created astro-morph-icons package
+- Updated dependencies [f925ac5]
+  - @olsen-mono/astro-forms@0.0.3
+  - @olsen-mono/astro-morph-icons@0.0.1
+  - @olsen-mono/astro-svg@0.0.4
+  - @olsen-mono/css-foundation@0.0.19
+
 ## 0.0.14
 
 ### Patch Changes

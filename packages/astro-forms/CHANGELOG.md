@@ -1,5 +1,14 @@
 # @olsen-mono/astro-forms
 
+## 0.0.3
+
+### Patch Changes
+
+- f925ac5: Created astro-morph-icons package
+- Updated dependencies [f925ac5]
+  - @olsen-mono/astro-morph-icons@0.0.1
+  - @olsen-mono/astro-svg@0.0.4
+
 ## 0.0.2
 
 ### Patch Changes
