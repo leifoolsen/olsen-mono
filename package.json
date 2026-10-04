@@ -74,11 +74,11 @@
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "1.10.12",
-    "@biomejs/biome": "2.5.14",
+    "@biomejs/biome": "2.5.15",
     "@changesets/cli": "3.0.3",
     "@olsen-mono/tooling": "workspace:*",
     "@tsdown/css": "0.23.0",
-    "@turbo/gen": "2.11.5",
+    "@turbo/gen": "2.11.7",
     "@types/node": "catalog:",
     "cross-env": "10.1.0",
     "prettier": "3.9.9",
@@ -87,6 +87,6 @@
     "tsdown": "0.23.0",
     "turbo": "2.11.7",
     "typescript": "6.0.3",
-    "vitest": "5.0.2"
+    "vitest": "5.0.3"
   }
 }
