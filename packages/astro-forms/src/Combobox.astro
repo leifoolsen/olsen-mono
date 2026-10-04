@@ -1,15 +1,15 @@
 ---
 // packages/astro-forms/src/Combobox.astro
+import { chevronPointingDownLines, xLines } from '@olsen-mono/astro-morph-icons';
+import MorphIcon from '@olsen-mono/astro-morph-icons/MorphIcon.astro';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
-import ClearIcon from './ClearIcon.astro';
 import ErrorMessage from './ErrorMessage.astro';
 import FormDescription from './FormDescription.astro';
 import FormToolButton from './FormToolButton.astro';
 import InputControl from './InputControl.astro';
 import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
-import PickerIcon from './PickerIcon.astro';
 import SearchIcon from './SearchIcon.astro';
 import './listbox.css';
 
@@ -73,10 +73,18 @@ const uniqueAnchorName = `--anchor-list-${id}`;
 
     {type === 'search' && <SearchIcon data-search />}
 
-    {type === 'text' && <PickerIcon data-picker />}
+    {type === 'text' && (
+      <MorphIcon
+        class="form-picker-icon"
+        data-picker
+        fromLines={chevronPointingDownLines}
+        toLines={chevronPointingDownLines}
+        size={1.2}
+      />
+    )}
 
     <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
-      <ClearIcon />
+      <MorphIcon fromLines={xLines} toLines={xLines} />
     </FormToolButton>
 
     {descriptionId && (

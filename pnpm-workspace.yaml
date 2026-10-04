@@ -11,22 +11,13 @@ allowBuilds:
 catalog:
   '@astrojs/check': 0.9.10
   '@astrojs/node': 11.1.6
-  '@types/node': 26.6.3
+  '@types/node': 26.6.4
   astro: 7.3.5
   happy-dom: 20.14.5
   htmx.org: 2.0.10
   vite: 8.0.10
 
 engineStrict: true
-
-minimumReleaseAgeExclude:
-  - '@turbo/darwin-64@2.11.5'
-  - '@turbo/darwin-arm64@2.11.5'
-  - '@turbo/linux-64@2.11.5'
-  - '@turbo/linux-arm64@2.11.5'
-  - '@turbo/windows-64@2.11.5'
-  - '@turbo/windows-arm64@2.11.5'
-  - turbo@2.11.5
 
 minimumReleaseAgeExcludePrune: true
 

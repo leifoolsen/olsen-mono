@@ -1,0 +1,171 @@
+---
+// packages/astro-icons/src/MorphIcon.astro
+import type { HTMLAttributes } from 'astro/types';
+import type { LineSegment } from './types.ts';
+import { computeLineMorph, matchLines, scaleLines } from './utils.ts';
+
+type Props = HTMLAttributes<'svg'> & {
+  /** If true, the `toLines` line segments are rendered, otherwise the `fromLines` line segments are rendered. */
+  active?: boolean;
+
+  /** If true, the lines will be scaled by a factor of 0.75 to make the icon appear more airy. */
+  airy?: boolean;
+
+  /** If true, the icon will be disabled and not interactive, i.e., no morph effect. */
+  disabled?: boolean;
+
+  /** Duration of the morph animation. Default 0.2s */
+  duration?: string;
+
+  /**
+   * Array of line segments to morph from.
+   * Each segment should be an object with x1, y1, x2, and y2 properties.
+   * If the array is shorter than the toLines array, the missing segments will be filled with a 12,12 point.
+   */
+  fromLines: LineSegment[];
+
+  /** If true, the icon will be interactive and morph to the toLines segments on hover. */
+  hover?: boolean;
+
+  /** Rotation of the active SVG in degrees. Default 0deg. */
+  rotate?: string;
+
+  /** Size of the SVG in em. Default 1em. */
+  size?: number | string;
+
+  /**
+   * The sequential delay interval multiplier applied natively across matching line indexes so they don't animate at
+   * exactly the same time. Default 0.04s.
+   */
+  stagger?: string;
+
+  /**
+   * Array of line segments to morph to.
+   * Each segment should be an object with x1, y1, x2, and y2 properties.
+   * If the array is shorter than the toLines array, the missing segments will be filled with a 12,12 point.
+   */
+  toLines: LineSegment[];
+};
+
+const {
+  'aria-checked': ariaChecked,
+  'aria-disabled': ariaDisabled,
+  disabled,
+  active = false,
+  airy,
+  class: className,
+  duration = '0.2s',
+  fromLines: rawFromLines = [],
+  hover = false,
+  rotate = '0deg',
+  size = '1em',
+  stagger = '0.04s',
+  toLines: rawToLines = [],
+  ...rest
+} = Astro.props;
+
+const fromScaled = scaleLines(rawFromLines, airy ? 0.75 : 1);
+const toScaled = scaleLines(rawToLines, airy ? 0.75 : 1);
+
+const { fromLines, toLines } = matchLines(fromScaled, toScaled);
+const morphs = fromLines.map((from, index) => computeLineMorph(from, toLines[index] ?? from));
+
+const iconSize = typeof size === 'number' ? `${size}em` : size;
+---
+
+<svg
+  aria-checked={active ?? ariaChecked ?? undefined}
+  aria-disabled={disabled ?? ariaDisabled ?? undefined}
+  class={className}
+  data-morph-icon
+  data-hover={hover ? '' : undefined}
+  width=`${iconSize}`
+  height=`${iconSize}`
+  viewBox="0 0 24 24"
+  stroke-width="2"
+  stroke="currentColor"
+  fill="none"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  style={{ '--morph-duration': duration, '--stagger-base': stagger, '--svg-rotate': rotate }}
+  xmlns="http://www.w3.org/2000/svg"
+  {...rest}
+>
+  {morphs.map(({ line, origin, moveX, moveY, angle, scale, startOpacity, targetOpacity }, index) => (
+    <line
+      x1={line.x1}
+      y1={line.y1}
+      x2={line.x2}
+      y2={line.y2}
+      vector-effect="non-scaling-stroke"
+      style={{
+        '--origin': `${origin.x}px ${origin.y}px`,
+        '--start-opacity': startOpacity.toString(),
+        '--target-transform': `translate(${moveX}px, ${moveY}px) rotate(${angle}deg) scale(${scale})`,
+        '--target-opacity': targetOpacity.toString(),
+        '--line-index': index.toString(),
+      }}
+    />
+  ))}
+</svg>
+
+<style>
+  svg {
+    --svg-rotate: 0deg;
+
+    transition: transform var(--morph-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    transform: rotate(0deg) scale(1);
+
+    & line {
+      --origin: center;
+      --morph-duration: 0.2s;
+      --stagger-base: 0.04s;
+      --line-index: 0;
+      --start-opacity: 1;
+      --target-transform: none;
+      --target-opacity: 1;
+
+      /* Initial state */
+      transform-origin: var(--origin);
+      transform: none;
+      opacity: var(--start-opacity);
+
+      /* Calculates stagger delay */
+      transition-delay: calc(var(--line-index) * var(--stagger-base));
+      transition-property: transform, opacity;
+      transition-duration: var(--morph-duration);
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Active / Checked state */
+    &[aria-checked='true'] {
+      transform: rotate(var(--svg-rotate)) scale(1);
+
+      & line {
+        transform: var(--target-transform);
+        opacity: var(--target-opacity);
+      }
+    }
+
+    @media (hover: hover) {
+      /* Desktop :hover effect if hover is true */
+      &[data-hover]:hover:not([aria-disabled='true']) {
+        transform: rotate(var(--svg-rotate)) scale(1);
+
+        & line {
+          transform: var(--target-transform);
+          opacity: var(--target-opacity);
+        }
+      }
+
+      &[aria-checked='true']&[data-hover]:hover:not([aria-disabled='true']) {
+        transform: rotate(0deg) scale(1);
+
+        & line {
+          transform: none;
+          opacity: var(--start-opacity);
+        }
+      }
+    }
+  }
+</style>

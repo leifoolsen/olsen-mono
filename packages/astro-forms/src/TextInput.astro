@@ -1,8 +1,9 @@
 ---
 // packages/astro-forms/src/TextInput.astro
+import { xLines } from '@olsen-mono/astro-morph-icons';
+import MorphIcon from '@olsen-mono/astro-morph-icons/MorphIcon.astro';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
-import ClearIcon from './ClearIcon.astro';
 import ErrorMessage from './ErrorMessage.astro';
 import FormDescription from './FormDescription.astro';
 import FormToolButton from './FormToolButton.astro';
@@ -58,7 +59,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
     {type === 'search' && <SearchIcon data-search />}
 
     <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
-      <ClearIcon />
+      <MorphIcon fromLines={xLines} toLines={xLines} />
     </FormToolButton>
 
     {hasDescriptionSlot && (

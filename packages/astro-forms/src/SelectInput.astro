@@ -1,15 +1,15 @@
 ---
 // packages/astro-forms/src/SelectInput.astro
+import { chevronPointingDownLines, xLines } from '@olsen-mono/astro-morph-icons';
+import MorphIcon from '@olsen-mono/astro-morph-icons/MorphIcon.astro';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
-import ClearIcon from './ClearIcon.astro';
 import ErrorMessage from './ErrorMessage.astro';
 import FormDescription from './FormDescription.astro';
 import FormToolButton from './FormToolButton.astro';
 import InputControl from './InputControl.astro';
 import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
-import PickerIcon from './PickerIcon.astro';
 
 type Props = HTMLAttributes<'select'> & {
   id: string;
@@ -39,7 +39,7 @@ const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
 ---
 
-<InputGroup layout="top">
+<InputGroup class={className} layout={labelPosition}>
   {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
 
   <InputControl>
@@ -54,14 +54,16 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       <slot />
     </select>
 
-    <PickerIcon data-picker />
+    <MorphIcon
+      class="form-picker-icon"
+      data-picker
+      fromLines={chevronPointingDownLines}
+      toLines={chevronPointingDownLines}
+      size={1.2}
+    />
 
-    <FormToolButton
-      aria-label="Clear value"
-      class="form-clear-icon"
-      data-clear
-    >
-      <ClearIcon />
+    <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
+      <MorphIcon fromLines={xLines} toLines={xLines} />
     </FormToolButton>
 
     {hasDescriptionSlot && (

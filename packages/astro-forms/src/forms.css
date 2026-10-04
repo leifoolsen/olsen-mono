@@ -664,7 +664,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin-top: calc((var(--form-slider-thumb-height) - var(--form-range-track-height)) / -2);
+    margin-top: calc((var(--form-slider-thumb-height) - var(--form-range-track-height) + 1px) / -2);
     height: var(--form-slider-thumb-height);
     width: var(--form-slider-thumb-height);
     border-radius: 50%;
