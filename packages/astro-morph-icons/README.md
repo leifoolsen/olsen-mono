@@ -23,8 +23,8 @@ by discrete straight coordinates on a standard `24x24` grid.
 Within your monorepo, import the component and types into your target Astro workspace:
 
 ```tsx
-import { MorphIcon } from '@olsen-mono/astro-morph-icon';
-import type { LineSegment } from '@olsen-mono/astro-morph-icon/types';
+import { MorphIcon } from '@olsen-mono/astro-morph-icons';
+import type { LineSegment } from '@olsen-mono/astro-morph-icons/types';
 ```
 
 ---

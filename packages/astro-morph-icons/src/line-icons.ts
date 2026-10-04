@@ -1,4 +1,10 @@
 // packages/astro-icons/src/line-icons.ts
+
+/*
+ * Morph icons are SVG line segments that can be used to morph/transform shapes from one set of line segments
+ * to another set of line segments.
+ */
+
 import type { LineSegment } from './types';
 
 /**
