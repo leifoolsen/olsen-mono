@@ -1,6 +1,7 @@
 ---
 // packages/astro-forms/src/Combobox.astro
-import ClearIcon from '@olsen-mono/astro-icons/ClearIcon.astro';
+import MorphIcon from '@olsen-mono/astro-icons/MorphIcon.astro';
+import { xLines } from '@olsen-mono/astro-icons';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './ErrorMessage.astro';
@@ -76,7 +77,7 @@ const uniqueAnchorName = `--anchor-list-${id}`;
     {type === 'text' && <PickerIcon data-picker />}
 
     <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
-      <ClearIcon />
+      <MorphIcon fromLines={xLines} toLines={xLines} />
     </FormToolButton>
 
     {descriptionId && (

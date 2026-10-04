@@ -232,11 +232,10 @@ importers:
         version: 7.3.5(@types/node@26.6.3)(jiti@2.7.0)(yaml@2.9.1)
 
   packages/astro-icons:
-    dependencies:
+    devDependencies:
       '@olsen-mono/astro-svg':
         specifier: workspace:*
         version: link:../astro-svg
-    devDependencies:
       '@types/node':
         specifier: 'catalog:'
         version: 26.6.3
