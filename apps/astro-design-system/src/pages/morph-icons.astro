@@ -1,0 +1,29 @@
+---
+// src/pages/morph-icons.astro
+
+import AppLayout from '@layouts/app-layout.astro';
+import { lineIcons } from '@olsen-mono/astro-morph-icons';
+import MorphIcon from '@olsen-mono/astro-morph-icons/MorphIcon.astro';
+---
+
+<AppLayout title="HTML Test Page">
+  <h1 id="top">Morph Icons</h1>
+  <p>
+    A MorphIcon is a custom Astro component that animates SVG line segments from one shape to another. It's designed to
+    be used with a button or toggle, and can be customized with various properties to control the animation. It is a
+    highly performant, accessible, and mathematically sound SVG <strong>micro-interaction icon component</strong>.
+  </p>
+
+  <h2>Available "Morphable" Line Icons</h2>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr)); gap: 0.5rem;">
+    {Array.from(lineIcons.entries()).map((data) => (
+      <div style="display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; align-items: center">
+        <span>{data[0]}</span>
+        <span style="font-size: 2rem; display: grid; place-items: center; width: 3rem;">
+          <MorphIcon fromLines={data[1]} toLines={data[1]} airy />
+        </span>
+      </div>
+    ))}
+  </div>
+</AppLayout>

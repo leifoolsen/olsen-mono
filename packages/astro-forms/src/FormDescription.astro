@@ -22,10 +22,7 @@ const anchorName = `--anchor-${descriptionId}`;
   style={`anchor-name: ${anchorName};`}
   {...rest}
 >
-  <Svg
-    name="info"
-    getSvgData={(_name) => ({ rawSvg: infoSvg, scale: 1.2 })}
-  />
+  <Svg name="info" getSvgData={() => ({ rawSvg: infoSvg, scale: 1.2 })} />
 </FormToolButton>
 
 <div
@@ -36,7 +33,7 @@ const anchorName = `--anchor-${descriptionId}`;
   style={`position-anchor: ${anchorName};`}
 >
   <div class="form-description">
-    <Svg name="info" getSvgData={(_name) => ({ rawSvg: infoSvg, scale: 1 })} />
+    <Svg name="info" getSvgData={() => ({ rawSvg: infoSvg, scale: 1 })} />
     &nbsp;
     <span>
       <slot />
