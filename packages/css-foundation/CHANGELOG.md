@@ -1,5 +1,11 @@
 # @olsen-mono/css-foundation
 
+## 0.0.19
+
+### Patch Changes
+
+- f925ac5: Created astro-morph-icons package
+
 ## 0.0.18
 
 ### Patch Changes

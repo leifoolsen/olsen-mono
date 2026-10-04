@@ -1,5 +1,11 @@
 # @olsen-mono/astro-svg
 
+## 0.0.4
+
+### Patch Changes
+
+- f925ac5: Created astro-morph-icons package
+
 ## 0.0.3
 
 ### Patch Changes
