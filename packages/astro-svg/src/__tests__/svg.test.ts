@@ -66,7 +66,7 @@ describe('svg.astro', () => {
       expect(svg?.getAttribute('style')).toContain('height: 2rem');
     });
 
-    it('should remove original fill, stroke, width, and height attributes', async () => {
+    it('should remove original width, and height attributes', async () => {
       const { container } = await renderAstro(SvgComponent, {
         name: 'test-icon',
         getSvgData: mockGetSvgData,
@@ -74,8 +74,6 @@ describe('svg.astro', () => {
 
       const svg = container.querySelector('svg');
 
-      expect(svg?.outerHTML).not.toContain('fill="#333"');
-      expect(svg?.outerHTML).not.toContain('stroke="#666"');
       expect(svg?.outerHTML).not.toContain('width="24"');
       expect(svg?.outerHTML).not.toContain('height="24"');
     });
