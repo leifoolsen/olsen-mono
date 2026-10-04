@@ -1,7 +1,7 @@
 // packages/astro-icons/src/line-icons.ts
 
 /*
- * Morph icons are SVG line segments that can be used to morph/transform shapes from one set of line segments
+ * Line icons are SVG line segments that can be used to morph/transform shapes from one set of line segments
  * to another set of line segments.
  */
 
@@ -347,7 +347,7 @@ export const infoLines: LineSegment[] = [
  *
  * @type {LineSegment[]}
  */
-export const questionLines: LineSegment[] = [
+export const questionMarkLines: LineSegment[] = [
   { x1: 8, y1: 7, x2: 16, y2: 7 },
   { x1: 16, y1: 7, x2: 16, y2: 12 },
   { x1: 16, y1: 12, x2: 12, y2: 15 },
@@ -394,9 +394,91 @@ export const shoppingCartLines: LineSegment[] = [
  *
  * @type {LineSegment[]}
  */
+// En samlet matrise for Ekstern Lenke (Boks + Pil opp/høyre)
 export const externalLinkLines: LineSegment[] = [
-  { x1: 12, y1: 5, x2: 5, y2: 5 }, // box top line (half)
-  { x1: 5, y1: 5, x2: 5, y2: 19 }, // left box
-  { x1: 5, y1: 19, x2: 19, y2: 19 }, // bottom box
-  { x1: 19, y1: 19, x2: 19, y2: 12 }, // right boks (half)
+  // Selve boksen (krympet litt inn for å gi plass til pilen)
+  { x1: 12, y1: 7, x2: 5, y2: 7 }, // box top line (half)
+  { x1: 5, y1: 7, x2: 5, y2: 19 }, // left box
+  { x1: 5, y1: 19, x2: 17, y2: 19 }, // bottom box
+  { x1: 17, y1: 19, x2: 17, y2: 12 }, // right boks (half)
+
+  // Arrow pointing up/right
+  { x1: 10, y1: 14, x2: 19, y2: 5 },
+  { x1: 14, y1: 5, x2: 19, y2: 5 },
+  { x1: 19, y1: 5, x2: 19, y2: 10 },
 ];
+
+/**
+ * A Map object that associates string keys with arrays of `LineSegment` objects representing different line-based
+ * icon shapes. Each key corresponds to a unique line-based icon descriptor, and each value is an array of
+ * `LineSegment` objects that define the geometric representation of the respective icon.
+ *
+ * The following keys are available:
+ * - `arrowPointingDownLines`: Represents an arrow icon pointing downward.
+ * - `arrowPointingLeftLines`: Represents an arrow icon pointing leftward.
+ * - `arrowPointingUpRightLines`: Represents an arrow icon pointing upward and to the right.
+ * - `arrowPointingUpLines`: Represents an arrow icon pointing upward.
+ * - `checkMarkLines`: Represents a checkmark icon.
+ * - `chevronPointingDownLines`: Represents a chevron icon pointing downward.
+ * - `chevronPointingLeftLines`: Represents a chevron icon pointing leftward.
+ * - `chevronPointingRightLines`: Represents a chevron icon pointing rightward.
+ * - `chevronPointingUpLines`: Represents a chevron icon pointing upward.
+ * - `doubleLines`: Represents a double-line icon.
+ * - `externalLinkLines`: Represents an icon indicating an external link.
+ * - `filterLines`: Represents an icon indicating a filter.
+ * - `firstPageLines`: Represents an icon for navigating to the first page.
+ * - `firstPagePointingUpLines`: Represents a variation of the first-page icon with an upward orientation.
+ * - `gridLines`: Represents an icon indicating a grid structure.
+ * - `infoLines`: Represents an icon for informational content.
+ * - `kebabMenuLines`: Represents a kebab menu icon.
+ * - `lastPageLines`: Represents an icon for navigating to the last page.
+ * - `lastPagePointingDownLines`: Represents a variation of the last-page icon with a downward orientation.
+ * - `plusLines`: Represents a plus (+) icon.
+ * - `questionMarkLines`: Represents a question mark icon.
+ * - `searchLines`: Represents a magnifying glass icon indicating search functionality.
+ * - `shoppingCartLines`: Represents a shopping cart icon.
+ * - `singleLine`: Represents a single horizontal line icon.
+ * - `stopSquareLines`: Represents a stop square icon.
+ * - `trianglePointingUpLines`: Represents a triangle icon pointing upward.
+ * - `tripleLines`: Represents a triple-line icon.
+ * - `verticalDoubleLines`: Represents a vertical double-line icon.
+ * - `verticalTripleLines`: Represents a vertical triple-line icon.
+ * - `vertialSingleLine`: Represents a single vertical line icon.
+ * - `xLines`: Represents an X-shaped icon.
+ *
+ * The `LineSegment` objects comprising each array define the individual segments that make up the respective icon's shape.
+ */
+export const lineIcons = new Map<string, LineSegment[]>([
+  ['arrowPointingDownLines', arrowPointingDownLines],
+  ['arrowPointingLeftLines', arrowPointingLeftLines],
+  ['arrowPointingUpRightLines', arrowPointingUpRightLines],
+  ['arrowPointingUpLines', arrowPointingUpLines],
+  ['arrowPointingUpRightLines', arrowPointingUpRightLines],
+  ['checkMarkLines', checkMarkLines],
+  ['chevronPointingDownLines', chevronPointingDownLines],
+  ['chevronPointingLeftLines', chevronPointingLeftLines],
+  ['chevronPointingRightLines', chevronPointingRightLines],
+  ['chevronPointingUpLines', chevronPointingUpLines],
+  ['doubleLines', doubleLines],
+  ['externalLinkLines', externalLinkLines],
+  ['filterLines', filterLines],
+  ['firstPageLines', firstPageLines],
+  ['firstPagePointingUpLines', firstPagePointingUpLines],
+  ['gridLines', gridLines],
+  ['infoLines', infoLines],
+  ['kebabMenuLines', kebabMenuLines],
+  ['lastPageLines', lastPageLines],
+  ['lastPagePointingDownLines', lastPagePointingDownLines],
+  ['plusLines', plusLines],
+  ['questionMarkLines', questionMarkLines],
+  ['searchLines', searchLines],
+  ['shoppingCartLines', shoppingCartLines],
+  ['singleLine', singleLine],
+  ['stopSquareLines', stopSquareLines],
+  ['trianglePointingUpLines', trianglePointingUpLines],
+  ['tripleLines', tripleLines],
+  ['verticalDoubleLines', verticalDoubleLines],
+  ['verticalTripleLines', verticalTripleLines],
+  ['vertialSingleLine', verticalSingleLine],
+  ['xLines', xLines],
+]);
