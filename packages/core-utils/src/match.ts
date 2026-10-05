@@ -113,25 +113,6 @@ type MatchWithResultAsync<X, R, Y = unknown> = {
 };
 
 /**
- * Creates an asynchronous match handler that processes a value of type `R` or a promise resolving to type `R`.
- *
- * The `matchedAsync` function returns an object implementing methods for handling conditional flows
- * in a fluent and asynchronous manner. It allows chaining of actions with `on` and `otherwise` methods,
- * enabling deferred evaluation of logic depending on the matched criteria.
- *
- * @template X The input type used for pattern matching conditions.
- * @template R The resolved type of the input value or promise.
- * @template Y The type of the value returned by the "otherwise" method in cases where no patterns match.
- * @param {R | Promise<R>} value The value to be processed, which can either be a resolved result or a promise resolving to it.
- * @returns {MatchWithResultAsync<X, R, Y>} An object containing methods `on` for conditional matching
- * and `otherwise` for default resolution.
- */
-const matchedAsync = <X, R, Y>(value: R | Promise<R>): MatchWithResultAsync<X, R, Y> => ({
-  on: () => matchedAsync<X, R, Y>(value),
-  otherwise: async () => value as unknown as unknown extends Y ? R : Y,
-});
-
-/**
  * Provides an asynchronous matching mechanism for handling values based on specified conditions.
  * Allows chaining of match cases with predicates and corresponding handler functions,
  * and an optional fallback/default handler for unmatched cases.
