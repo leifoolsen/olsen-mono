@@ -2,7 +2,11 @@
 // src/pages/morph-icons.astro
 
 import AppLayout from '@layouts/app-layout.astro';
-import { lineIcons } from '@olsen-mono/astro-morph-icons';
+import Combobox from '@olsen-mono/astro-forms/Combobox.astro';
+import Listbox from '@olsen-mono/astro-forms/Listbox.astro';
+import ListboxGroup from '@olsen-mono/astro-forms/ListboxGroup.astro';
+import ListboxOption from '@olsen-mono/astro-forms/ListboxOption.astro';
+import { chevronPointingRightLines, lineIcons, xLines } from '@olsen-mono/astro-morph-icons';
 import MorphIcon from '@olsen-mono/astro-morph-icons/MorphIcon.astro';
 ---
 
@@ -14,16 +18,105 @@ import MorphIcon from '@olsen-mono/astro-morph-icons/MorphIcon.astro';
     highly performant, accessible, and mathematically sound SVG <strong>micro-interaction icon component</strong>.
   </p>
 
-  <h2>Available "Morphable" Line Icons</h2>
+  <h2>Morph Icons Tester</h2>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr)); gap: 0.5rem;">
+  <div id="morph-inputs" style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+    <div>
+      <Combobox id="morph-from" placeholder="Select an icon..." label="Select the start icon" readonly>
+        <Listbox id="morph-from-options" slot="options" showMarker>
+          <ListboxGroup>
+            {Array.from(lineIcons.entries()).map((data) => (
+              <ListboxOption id={`morph-from-${data[0]}`} name="morph-from" value={data[0]}>
+                <span>{data[0]}</span>
+                <MorphIcon fromLines={data[1]} toLines={data[1]} />
+              </ListboxOption>
+            ))}
+          </ListboxGroup>
+        </Listbox>
+      </Combobox>
+    </div>
+
+    <div>
+      <Combobox id="morph-to" placeholder="Select an icon..." label="Select the stop icon" readonly>
+        <Listbox id="morph-to-options" slot="options" showMarker>
+          <ListboxGroup>
+            {Array.from(lineIcons.entries()).map((data) => (
+              <ListboxOption id={`morph-to-${data[0]}`} name="morph-to" value={data[0]}>
+                <span>{data[0]}</span>
+                <MorphIcon fromLines={data[1]} toLines={data[1]} />
+              </ListboxOption>
+            ))}
+          </ListboxGroup>
+        </Listbox>
+      </Combobox>
+    </div>
+    <div>
+      <button
+        id="morph-button"
+        class="app-sidebar-toggle"
+        aria-label="Toggle menu"
+        type="button"
+        data-border-radius="xs"
+        style="height: 3rem; width: 3rem; font-size: 3rem; margin-top: 1rem; border: 1px solid currentColor;"
+      >
+        <MorphIcon fromLines={chevronPointingRightLines} toLines={xLines} />
+      </button>
+    </div>
+    <div
+      id="morph-hover"
+      style="
+      height: 3rem;
+      width: 3rem;
+      font-size: 3rem;
+      display: grid;
+      place-items: center;
+      margin-top: 1rem;
+      border: 1px solid currentColor;
+      border-radius: 5px;"
+    >
+      <MorphIcon fromLines={chevronPointingRightLines} toLines={xLines} hover />
+    </div>
+  </div>
+
+  <br />
+  <div
+    style="display: grid;
+	  grid-template-columns: repeat(auto-fit, 2rem);
+	  gap: 0.5rem;
+	  max-width: 40em;"
+  >
     {Array.from(lineIcons.entries()).map((data) => (
-      <div style="display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; align-items: center">
-        <span>{data[0]}</span>
-        <span style="font-size: 2rem; display: grid; place-items: center; width: 3rem;">
-          <MorphIcon fromLines={data[1]} toLines={data[1]} airy />
-        </span>
-      </div>
+      <span style="font-size: 2rem; display: grid; place-items: center; width: 2rem;">
+        <MorphIcon fromLines={data[1]} toLines={data[1]} />
+      </span>
     ))}
   </div>
 </AppLayout>
+
+<script>
+  const inputContainer = document.getElementById('morph-inputs');
+
+  function setupContainer() {
+    if (!inputContainer || inputContainer.hasAttribute('data-initialized')) return;
+
+    inputContainer.addEventListener('ui:combobox-change', (e) => {
+      console.log('***', e);
+    });
+
+    const morphButton = document.getElementById('morph-button');
+
+    if (morphButton) {
+      const svg = morphButton.querySelector('svg');
+
+      morphButton.addEventListener('click', () => {
+        const isChecked = svg?.getAttribute('aria-checked') === 'true';
+        svg && svg.setAttribute('aria-checked', Boolean(!isChecked).toString());
+      });
+    }
+
+    inputContainer.setAttribute('data-initialized', 'true');
+  }
+
+  setupContainer();
+  document.addEventListener('astro:after-swap', setupContainer);
+</script>
