@@ -211,6 +211,18 @@ export const arrowPointingUpRightLines: LineSegment[] = [
 ];
 
 /**
+ * Line segments for a triangle icon pointing right.
+ * Each object specifies the start and end points of a line segment with x and y coordinates.
+ *
+ * @type {LineSegment[]}
+ */
+export const trianglePointingRightLines: LineSegment[] = [
+  { x1: 4, y1: 4, x2: 4, y2: 18 },
+  { x1: 4, y1: 18, x2: 18, y2: 12 },
+  { x1: 4, y1: 4, x2: 18, y2: 12 },
+];
+
+/**
  * Line segments for a triangle icon pointing up.
  * Each object specifies the start and end points of a line segment with x and y coordinates.
  *
@@ -220,6 +232,18 @@ export const trianglePointingUpLines: LineSegment[] = [
   { x1: 12, y1: 4, x2: 20, y2: 18 },
   { x1: 20, y1: 18, x2: 4, y2: 18 },
   { x1: 4, y1: 18, x2: 12, y2: 4 },
+];
+
+/**
+ * Line segments for a triangle icon pointing down.
+ * Each object specifies the start and end points of a line segment with x and y coordinates.
+ *
+ * @type {LineSegment[]}
+ */
+export const trianglePointingDownLines: LineSegment[] = [
+  { x1: 20, y1: 4, x2: 4, y2: 4 },
+  { x1: 4, y1: 4, x2: 12, y2: 18 },
+  { x1: 12, y1: 18, x2: 20, y2: 4 },
 ];
 
 /**
@@ -439,6 +463,8 @@ export const externalLinkLines: LineSegment[] = [
  * - `shoppingCartLines`: Represents a shopping cart icon.
  * - `singleLine`: Represents a single horizontal line icon.
  * - `stopSquareLines`: Represents a stop square icon.
+ * - `trianglePointingDownLines`: Represents a triangle icon pointing down.
+ * - `trianglePointingRightLines`: Represents a triangle icon pointing right.
  * - `trianglePointingUpLines`: Represents a triangle icon pointing upward.
  * - `tripleLines`: Represents a triple-line icon.
  * - `verticalDoubleLines`: Represents a vertical double-line icon.
@@ -475,6 +501,8 @@ export const lineIcons = new Map<string, LineSegment[]>([
   ['shoppingCartLines', shoppingCartLines],
   ['singleLine', singleLine],
   ['stopSquareLines', stopSquareLines],
+  ['trianglePointingDownLines', trianglePointingDownLines],
+  ['trianglePointingRightLines', trianglePointingRightLines],
   ['trianglePointingUpLines', trianglePointingUpLines],
   ['tripleLines', tripleLines],
   ['verticalDoubleLines', verticalDoubleLines],

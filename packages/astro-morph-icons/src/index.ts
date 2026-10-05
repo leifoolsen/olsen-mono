@@ -26,6 +26,8 @@ export {
   shoppingCartLines,
   singleLine,
   stopSquareLines,
+  trianglePointingDownLines,
+  trianglePointingRightLines,
   trianglePointingUpLines,
   tripleLines,
   verticalDoubleLines,
