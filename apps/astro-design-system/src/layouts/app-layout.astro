@@ -52,7 +52,7 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
       </div>
     </header>
 
-    <aside class="app-sidebar">
+    <aside class="app-sidebar" id="app-sidebar">
       <nav>
         <ul class="app-sidebar-nav-list" data-font-size="m">
           <li>
@@ -71,7 +71,7 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
       </nav>
     </aside>
 
-    <main class="app-main">
+    <main class="app-main" id="app-main">
       <slot />
     </main>
   </div>
