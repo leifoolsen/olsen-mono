@@ -1,7 +1,7 @@
 ---
 import '@styles/app-layout.css';
 import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
-import { chevronPointingRightLines, xLines } from '@olsen-mono/astro-morph-icons';
+import { chevronPointingLeftLines, chevronPointingRightLines } from '@olsen-mono/astro-morph-icons';
 import MorphIcon from '@olsen-mono/astro-morph-icons/MorphIcon.astro';
 import BaseLayout from './base-layout.astro';
 
@@ -25,9 +25,9 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
           type="button"
           data-border-radius="xs"
         >
-          <MorphIcon fromLines={chevronPointingRightLines} toLines={xLines} active />
+          <MorphIcon fromLines={chevronPointingRightLines} toLines={chevronPointingLeftLines} active size="1.5" />
         </button>
-        <div data-font-size="xl">Astro Design System</div>
+        <div data-font-size="xl">@olsen-mono Design System</div>
       </div>
 
       <div class="app-header-right" id="app-header-right">
