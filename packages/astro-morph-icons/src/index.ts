@@ -35,4 +35,5 @@ export {
   verticalTripleLines,
   xLines,
 } from './line-icons.js';
+export type { MorphIconElement } from './morph-icon.js';
 export type { LineSegment } from './types.js';

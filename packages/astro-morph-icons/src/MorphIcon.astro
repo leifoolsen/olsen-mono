@@ -8,7 +8,7 @@ type Props = HTMLAttributes<'svg'> & {
   /** If true, the `toLines` line segments are rendered, otherwise the `fromLines` line segments are rendered. */
   active?: boolean;
 
-  /** If true, the lines will be scaled by a factor of 0.75 to make the icon appear more airy. */
+  /** If true, the lines will be scaled by a factor of 0.75 to make the icon appear more "airy". */
   airy?: boolean;
 
   /** If true, the icon will be disabled and not interactive, i.e., no morph effect. */
@@ -60,6 +60,7 @@ const {
   rotate = '0deg',
   size = '1em',
   stagger = '0.04s',
+  style: userStyle,
   toLines: rawToLines = [],
   ...rest
 } = Astro.props;
@@ -70,7 +71,15 @@ const toScaled = scaleLines(rawToLines, airy ? 0.75 : 1);
 const { fromLines, toLines } = matchLines(fromScaled, toScaled);
 const morphs = fromLines.map((from, index) => computeLineMorph(from, toLines[index] ?? from));
 
-const iconSize = typeof size === 'number' ? `${size}em` : size;
+const iconSize = typeof size === 'number' ? `${size}em` : Number.isFinite(Number(size)) ? `${size}em` : size;
+
+const style =
+  typeof userStyle === 'string'
+    ? userStyle
+    : Object.entries(userStyle ?? {})
+        .map(([key, value]) => `${key}: ${value}; `)
+        .join('')
+        .trimEnd();
 ---
 
 <svg
@@ -78,6 +87,7 @@ const iconSize = typeof size === 'number' ? `${size}em` : size;
   aria-disabled={disabled ?? ariaDisabled ?? undefined}
   class={className}
   data-morph-icon
+  data-airy={airy ? '' : undefined}
   data-hover={hover ? '' : undefined}
   width=`${iconSize}`
   height=`${iconSize}`
@@ -87,7 +97,7 @@ const iconSize = typeof size === 'number' ? `${size}em` : size;
   fill="none"
   stroke-linecap="round"
   stroke-linejoin="round"
-  style={{ '--morph-duration': duration, '--stagger-base': stagger, '--svg-rotate': rotate }}
+  style={`--morph-duration: ${duration}; --stagger-base: ${stagger}; --svg-rotate: ${rotate}; ${style}`}
   xmlns="http://www.w3.org/2000/svg"
   {...rest}
 >
@@ -169,3 +179,23 @@ const iconSize = typeof size === 'number' ? `${size}em` : size;
     }
   }
 </style>
+
+<script>
+  import { createMorphIcon } from './morph-icon';
+
+  const setupMorphIcons = () => {
+    const elements = document.querySelectorAll('[data-morph-icon]');
+
+    for (const element of elements) {
+      if (!(element instanceof SVGElement) || element.hasAttribute('data-initialized')) {
+        continue;
+      }
+
+      createMorphIcon(element);
+      element.setAttribute('data-initialized', 'true');
+    }
+  };
+
+  setupMorphIcons();
+  document.addEventListener('astro:after-swap', setupMorphIcons);
+</script>
