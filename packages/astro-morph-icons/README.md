@@ -1,10 +1,10 @@
-# MorphIcon
+# MorphLineIcon
 
-A MorphIcon is a custom Astro component that animates SVG line segments from one shape to another. It's designed to be used
+A MorphLineIcon is a custom Astro component that animates SVG line segments from one shape to another. It's designed to be used
 with a button or toggle, and can be customized with various properties to control the animation. It is a highly
 performant, accessible, and mathematically sound SVG **micro-interaction icon component** built exclusively for **Astro**.
 
-`MorphIcon` enables seamless, staggered, and organic line-shifting animations between any two geometric shapes defined
+`MorphLineIcon` enables seamless, staggered, and organic line-shifting animations between any two geometric shapes defined
 by discrete straight coordinates on a standard `24x24` grid.
 
 ## Key Features
@@ -23,7 +23,7 @@ by discrete straight coordinates on a standard `24x24` grid.
 Within your monorepo, import the component and types into your target Astro workspace:
 
 ```tsx
-import { MorphIcon } from '@olsen-mono/astro-morph-icons';
+import { MorphLineIcon } from '@olsen-mono/astro-morph-icons';
 import type { LineSegment } from '@olsen-mono/astro-morph-icons/types';
 ```
 
@@ -56,7 +56,7 @@ Perfect for toggle buttons requiring a fluid rotation coupled with a line struct
 
 ```astro
 ---
-import { MorphIcon } from '@packages/astro-icons';
+import { MorphLineIcon } from '@packages/astro-icons';
 
 // Data definitions mapped to standard 24x24 canvas
 const tripleLines = [
@@ -75,7 +75,7 @@ const isMenuOpen = true; // Controlled via state management
 ---
 
 <button class="nav-toggle" aria-expanded={isMenuOpen}>
-  <MorphIcon fromLines={tripleLines} toLines={xLines} active={isMenuOpen} rotate="180deg" stagger="0.03s" />
+  <MorphLineIcon fromLines={tripleLines} toLines={xLines} active={isMenuOpen} rotate="180deg" stagger="0.03s" />
 </button>
 
 <style>
@@ -100,13 +100,13 @@ Fades and transforms a search magnifying glass into an action close (`X`) indica
 
 ```astro
 ---
-import { MorphIcon } from '@packages/astro-icons';
+import { MorphLineIcon } from '@packages/astro-icons';
 import { searchLines, xLines } from '../data/icon-library';
 ---
 
 <div class="search-wrapper">
   <input type="text" placeholder="Search system..." />
-  <MorphIcon fromLines={searchLines} toLines={xLines} hover={true} airy={true} size="1.25em" />
+  <MorphLineIcon fromLines={searchLines} toLines={xLines} hover={true} airy={true} size="1.25em" />
 </div>
 ```
 

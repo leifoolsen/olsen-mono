@@ -14,9 +14,10 @@
     position: relative;
     scroll-margin-top: calc(var(--_form-input-height) + var(--space-xs) * 2);
     scroll-margin-bottom: var(--space-xs);
+    gap: var(--space-s);
 
     &[aria-selected="true"] {
-      font-weight: 600;
+      font-weight: var(--font-weight-m);
       background-color: oklch(from var(--system-brand-color) calc(l + 0.1) c h / 5%);
 
       &::after {

@@ -15,3 +15,7 @@ export type LineSegment = {
   x2: number;
   y2: number;
 };
+
+export type MorphIconApi = {
+  setFromToLines: (fromLines: LineSegment[], toLines: LineSegment[]) => void;
+};

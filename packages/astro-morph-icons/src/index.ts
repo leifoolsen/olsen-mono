@@ -1,3 +1,4 @@
+export type { MorphIconElement } from './create-morph-line-icon.ts';
 export {
   arrowPointingDownLines,
   arrowPointingLeftLines,
@@ -21,11 +22,10 @@ export {
   lastPagePointingDownLines,
   lineIcons,
   plusLines,
-  questionMarkLines,
-  searchLines,
-  shoppingCartLines,
   singleLine,
   stopSquareLines,
+  trianglePointingDownLines,
+  trianglePointingRightLines,
   trianglePointingUpLines,
   tripleLines,
   verticalDoubleLines,

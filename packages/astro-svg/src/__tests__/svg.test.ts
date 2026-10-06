@@ -281,7 +281,6 @@ describe('svg.astro', () => {
       });
 
       const svg = container.querySelector('svg');
-      expect(svg?.outerHTML).toContain('aspect-ratio: 1/1');
       expect(svg?.outerHTML).toContain('max-inline-size: unset');
     });
   });

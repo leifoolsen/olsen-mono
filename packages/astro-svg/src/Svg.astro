@@ -44,8 +44,15 @@ const finalSize = size ?? defaultScale;
 const finalWidth = formatSize(width ?? finalSize, 1);
 const finalHeight = formatSize(height ?? finalSize, 1);
 
-const sizeStyle = `width: ${finalWidth}; height: ${finalHeight}; aspect-ratio: 1/1; max-inline-size: unset;`;
-svgAttributes.style = userStyle ? `${sizeStyle} ${userStyle}` : sizeStyle;
+const style =
+  typeof userStyle === 'string'
+    ? userStyle
+    : Object.entries(userStyle ?? {})
+        .map(([key, value]) => `${key}: ${value}; `)
+        .join('')
+        .trimEnd();
+
+svgAttributes.style = `width: ${finalWidth}; height: ${finalHeight}; max-inline-size: unset; ${style}`;
 svgAttributes.name = name ?? undefined;
 
 if (rest['aria-label'] || rest['aria-labelledby']) {
