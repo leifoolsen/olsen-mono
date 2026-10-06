@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/core-utils",
   "description": "Core Utils",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "private": true,
   "type": "module",
   "exports": {
