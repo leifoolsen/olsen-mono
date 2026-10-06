@@ -1,3 +1,4 @@
+export type { MorphIconElement } from './create-morph-line-icon.ts';
 export {
   arrowPointingDownLines,
   arrowPointingLeftLines,
@@ -32,5 +33,4 @@ export {
   verticalTripleLines,
   xLines,
 } from './line-icons.js';
-export type { MorphIconElement } from './morph-icon.js';
 export type { LineSegment } from './types.js';

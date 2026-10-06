@@ -181,7 +181,7 @@ const style =
 </style>
 
 <script>
-  import { createMorphIcon } from './morph-icon';
+  import { createMorphLineIcon } from './create-morph-line-icon.ts';
 
   const setupMorphIcons = () => {
     const elements = document.querySelectorAll('[data-morph-icon]');
@@ -191,7 +191,7 @@ const style =
         continue;
       }
 
-      createMorphIcon(element);
+      createMorphLineIcon(element);
       element.setAttribute('data-initialized', 'true');
     }
   };
