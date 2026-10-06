@@ -16,7 +16,7 @@
       },
       "default": "./dist/index.mjs"
     },
-    "./MorphIcon.astro": "./src/MorphIcon.astro",
+    "./MorphLineIcon.astro": "./src/MorphLineIcon.astro",
     "./package.json": "./package.json"
   },
   "files": [
