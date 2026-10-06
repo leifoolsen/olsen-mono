@@ -28,7 +28,7 @@ export const asteriskLines: LineSegment[] = [
  */
 export const checkMarkLines: LineSegment[] = [
   { x1: 4, y1: 12, x2: 9, y2: 17 },
-  { x1: 9, y1: 17, x2: 20, y2: 6 },
+  { x1: 9, y1: 17, x2: 18, y2: 6 },
 ];
 
 /**
@@ -50,9 +50,9 @@ export const tripleLines: LineSegment[] = [
  * @type {LineSegment[]}
  */
 export const verticalTripleLines: LineSegment[] = [
-  { x1: 4, y1: 4, x2: 4, y2: 20 },
+  { x1: 5, y1: 4, x2: 5, y2: 20 },
   { x1: 12, y1: 4, x2: 12, y2: 20 },
-  { x1: 20, y1: 4, x2: 20, y2: 20 },
+  { x1: 19, y1: 4, x2: 19, y2: 20 },
 ];
 
 /**
