@@ -1,5 +1,11 @@
 # @olsen-mono/astro-svg
 
+## 0.0.5
+
+### Patch Changes
+
+- 80dad0e: Renamed MorphIcon to MorphLineIcon. Added interactive page for morph line icons.
+
 ## 0.0.4
 
 ### Patch Changes

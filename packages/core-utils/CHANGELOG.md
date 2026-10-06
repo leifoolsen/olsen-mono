@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.25
+
+### Patch Changes
+
+- 80dad0e: Renamed MorphIcon to MorphLineIcon. Added interactive page for morph line icons.
+
 ## 0.0.24
 
 ### Patch Changes

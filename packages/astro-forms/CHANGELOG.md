@@ -1,5 +1,15 @@
 # @olsen-mono/astro-forms
 
+## 0.0.4
+
+### Patch Changes
+
+- 80dad0e: Renamed MorphIcon to MorphLineIcon. Added interactive page for morph line icons.
+- Updated dependencies [80dad0e]
+  - @olsen-mono/astro-morph-icons@0.0.2
+  - @olsen-mono/astro-svg@0.0.5
+  - @olsen-mono/core-utils@0.0.25
+
 ## 0.0.3
 
 ### Patch Changes
