@@ -8,6 +8,19 @@
 import type { LineSegment } from './types';
 
 /**
+ * Line segments for an asterisk icon.
+ * Each object specifies the start and end points of a line segment with x and y coordinates.
+ *
+ * @type {LineSegment[]}
+ */
+export const asteriskLines: LineSegment[] = [
+  { x1: 4, y1: 12, x2: 20, y2: 12 },
+  { x1: 12, y1: 4, x2: 12, y2: 20 },
+  { x1: 6, y1: 6, x2: 18, y2: 18 },
+  { x1: 6, y1: 18, x2: 18, y2: 6 },
+];
+
+/**
  * Line segments for a check mark icon.
  * Each object specifies the start and end points of a line segment with x and y coordinates.
  *
@@ -366,51 +379,6 @@ export const infoLines: LineSegment[] = [
 ];
 
 /**
- * Line segments for a question mark icon.
- * Each line is defined by its start and end points.
- *
- * @type {LineSegment[]}
- */
-export const questionMarkLines: LineSegment[] = [
-  { x1: 8, y1: 7, x2: 16, y2: 7 },
-  { x1: 16, y1: 7, x2: 16, y2: 12 },
-  { x1: 16, y1: 12, x2: 12, y2: 15 },
-  { x1: 12, y1: 19, x2: 12, y2: 19.01 },
-];
-
-/**
- * Line segments for a search icon.
- * Each line is defined by its start and end points.
- *
- * Try e.g., morphing from/to xLines to this.
- *
- * @type {LineSegment[]}
- */
-export const searchLines: LineSegment[] = [
-  { x1: 10, y1: 4, x2: 16, y2: 10 },
-  { x1: 16, y1: 10, x2: 10, y2: 16 },
-  { x1: 10, y1: 16, x2: 4, y2: 10 },
-  { x1: 4, y1: 10, x2: 10, y2: 4 },
-  { x1: 14, y1: 14, x2: 20, y2: 20 },
-];
-
-/**
- * Line segments for a shopping cart icon.
- * Each line is defined by its start and end points.
- *
- * Try e.g., morphing from/to checkMarkLines to this.
- *
- * @type {LineSegment[]}
- */
-export const shoppingCartLines: LineSegment[] = [
-  { x1: 4, y1: 5, x2: 7, y2: 5 }, // handle
-  { x1: 7, y1: 5, x2: 9, y2: 14 }, // back
-  { x1: 9, y1: 14, x2: 19, y2: 14 }, // bottom
-  { x1: 19, y1: 14, x2: 21, y2: 7 }, // front
-  { x1: 21, y1: 7, x2: 7, y2: 7 }, // basket top line
-];
-
-/**
  * Line segments for an external link icon.
  * Each line is defined by its start and end points.
  *
@@ -442,6 +410,7 @@ export const externalLinkLines: LineSegment[] = [
  * - `arrowPointingLeftLines`: Represents an arrow icon pointing leftward.
  * - `arrowPointingUpRightLines`: Represents an arrow icon pointing upward and to the right.
  * - `arrowPointingUpLines`: Represents an arrow icon pointing upward.
+ * - `asteriskLines`: Represents an asterisk icon.
  * - `checkMarkLines`: Represents a checkmark icon.
  * - `chevronPointingDownLines`: Represents a chevron icon pointing downward.
  * - `chevronPointingLeftLines`: Represents a chevron icon pointing leftward.
@@ -458,9 +427,6 @@ export const externalLinkLines: LineSegment[] = [
  * - `lastPageLines`: Represents an icon for navigating to the last page.
  * - `lastPagePointingDownLines`: Represents a variation of the last-page icon with a downward orientation.
  * - `plusLines`: Represents a plus (+) icon.
- * - `questionMarkLines`: Represents a question mark icon.
- * - `searchLines`: Represents a magnifying glass icon indicating search functionality.
- * - `shoppingCartLines`: Represents a shopping cart icon.
  * - `singleLine`: Represents a single horizontal line icon.
  * - `stopSquareLines`: Represents a stop square icon.
  * - `trianglePointingDownLines`: Represents a triangle icon pointing down.
@@ -480,6 +446,7 @@ export const lineIcons = new Map<string, LineSegment[]>([
   ['arrowPointingUpRightLines', arrowPointingUpRightLines],
   ['arrowPointingUpLines', arrowPointingUpLines],
   ['arrowPointingUpRightLines', arrowPointingUpRightLines],
+  ['asteriskLines', asteriskLines],
   ['checkMarkLines', checkMarkLines],
   ['chevronPointingDownLines', chevronPointingDownLines],
   ['chevronPointingLeftLines', chevronPointingLeftLines],
@@ -496,9 +463,6 @@ export const lineIcons = new Map<string, LineSegment[]>([
   ['lastPageLines', lastPageLines],
   ['lastPagePointingDownLines', lastPagePointingDownLines],
   ['plusLines', plusLines],
-  ['questionMarkLines', questionMarkLines],
-  ['searchLines', searchLines],
-  ['shoppingCartLines', shoppingCartLines],
   ['singleLine', singleLine],
   ['stopSquareLines', stopSquareLines],
   ['trianglePointingDownLines', trianglePointingDownLines],
