@@ -2,7 +2,7 @@
 import type { LineSegment, MorphIconApi } from './types.ts';
 import { computeLineMorph, matchLines, scaleLines } from './utils.ts';
 
-export function createMorphLineIcon(svgElement: SVGElement) {
+export function createMorphLinesIcon(svgElement: SVGElement) {
   const isAiry = svgElement.hasAttribute('data-airy');
 
   const setFromToLines = (rawFromLines: LineSegment[], rawToLines: LineSegment[]) => {

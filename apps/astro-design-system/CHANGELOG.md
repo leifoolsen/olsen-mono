@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 80dad0e: Renamed MorphIcon to MorphLineIcon. Added interactive page for morph line icons.
+- 80dad0e: Renamed MorphIcon to MorphLinesIcon. Added interactive page for morph line icons.
 - Updated dependencies [80dad0e]
   - @olsen-mono/astro-forms@0.0.4
   - @olsen-mono/astro-morph-icons@0.0.2

@@ -146,7 +146,7 @@ export function matchLines(from: LineSegment[], to: LineSegment[]): FromToLineSe
   return { fromLines, toLines };
 }
 
-/** Values needed to render and animate a single line in the MorphLineIcon. */
+/** Values needed to render and animate a single line in the MorphLinesIcon. */
 export type LineMorph = {
   /** The line to render. Points are widened to a minimum length of 2 for stable rotation. */
   line: LineSegment;

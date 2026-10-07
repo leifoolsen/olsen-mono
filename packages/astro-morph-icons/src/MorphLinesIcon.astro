@@ -1,5 +1,5 @@
 ---
-// packages/astro-icons/src/MorphLineIcon.astro
+// packages/astro-icons/src/MorphLinesIcon.astro
 import type { HTMLAttributes } from 'astro/types';
 import type { LineSegment } from './types.ts';
 import { computeLineMorph, matchLines, scaleLines } from './utils.ts';
@@ -181,7 +181,7 @@ const style =
 </style>
 
 <script>
-  import { createMorphLineIcon } from './create-morph-line-icon.ts';
+  import { createMorphLinesIcon } from './create-morph-lines-icon.ts';
 
   const setupMorphIcons = () => {
     const elements = document.querySelectorAll('[data-morph-icon]');
@@ -191,7 +191,7 @@ const style =
         continue;
       }
 
-      createMorphLineIcon(element);
+      createMorphLinesIcon(element);
       element.setAttribute('data-initialized', 'true');
     }
   };
