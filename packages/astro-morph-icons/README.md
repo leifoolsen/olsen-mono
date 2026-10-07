@@ -1,7 +1,7 @@
 # MorphLinesIcon
 
 A MorphLinesIcon is a custom Astro component that animates SVG line segments from one shape to another. It's designed to be used
-with a button or toggle, and can be customized with various properties to control the animation. It is a highly
+with a button or toggle and can be customized with various properties to control the animation. It is a highly
 performant, accessible, and mathematically sound SVG **micro-interaction icon component** built exclusively for **Astro**.
 
 `MorphLinesIcon` enables seamless, staggered, and organic line-shifting animations between any two geometric shapes defined

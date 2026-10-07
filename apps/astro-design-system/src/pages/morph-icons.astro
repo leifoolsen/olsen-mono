@@ -10,8 +10,8 @@ import { arrowPointingDownLines, arrowPointingLeftLines, lineIcons } from '@olse
 import MorphLinesIcon from '@olsen-mono/astro-morph-icons/MorphLinesIcon.astro';
 ---
 
-<AppLayout title="HTML Test Page">
-  <h1 id="top">Morph Icons</h1>
+<AppLayout title="Morph Lines Icons">
+  <h1 id="top">Morph Lines Icons</h1>
   <p>
     A MorphLinesIcon is a custom Astro component that animates SVG line segments from one shape to another. It's
     designed to be used with a button or toggle, and can be customized with various properties to control the animation.
@@ -19,7 +19,7 @@ import MorphLinesIcon from '@olsen-mono/astro-morph-icons/MorphLinesIcon.astro';
     <strong>micro-interaction icon component</strong>.
   </p>
 
-  <h2>Morph Icons Test Bench</h2>
+  <h2>Morph Lines Icons Test Bench</h2>
 
   <div id="morph-inputs" style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
     <div>
@@ -101,11 +101,11 @@ import MorphLinesIcon from '@olsen-mono/astro-morph-icons/MorphLinesIcon.astro';
 
 <script>
   import type { ComboboxChangeEventDetail, ListboxItem } from '@olsen-mono/astro-forms';
-  import { lineIcons, type LineSegment, type MorphIconElement } from '@olsen-mono/astro-morph-icons';
+  import { lineIcons, type LineSegment, type MorphLinesIconElement } from '@olsen-mono/astro-morph-icons';
 
   const inputContainer = document.getElementById('morph-inputs');
 
-  const updateMorphIcon = (svg: MorphIconElement | null, fromLines: LineSegment[], toLines: LineSegment[]) => {
+  const updateMorphIcon = (svg: MorphLinesIconElement | null, fromLines: LineSegment[], toLines: LineSegment[]) => {
     if (svg && typeof svg.setFromToLines === 'function') {
       svg.setFromToLines(fromLines, toLines);
     }
@@ -131,8 +131,8 @@ import MorphLinesIcon from '@olsen-mono/astro-morph-icons/MorphLinesIcon.astro';
       const value = data?.value;
       state[name] = lineIcons.get(value!);
 
-      const morphButtonSvg = morphButton && morphButton.querySelector<MorphIconElement>('svg');
-      const morphToggleSvg = morphToggle && morphToggle.querySelector<MorphIconElement>('svg');
+      const morphButtonSvg = morphButton && morphButton.querySelector<MorphLinesIconElement>('svg');
+      const morphToggleSvg = morphToggle && morphToggle.querySelector<MorphLinesIconElement>('svg');
 
       updateMorphIcon(morphButtonSvg, state.morphFrom!, state.morphTo!);
       updateMorphIcon(morphToggleSvg, state.morphFrom!, state.morphTo!);
