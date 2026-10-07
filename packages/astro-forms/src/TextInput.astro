@@ -12,6 +12,7 @@ import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
 import SearchIcon from './SearchIcon.astro';
 import './forms.css';
+import { injectForAttribute } from './utils.ts';
 
 type Props = HTMLAttributes<'input'> & {
   id: string;
@@ -40,10 +41,16 @@ const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const hasDescriptionSlot = Astro.slots.has('description');
 const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
 const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
+
+let labelContent = '';
+if (!label && Astro.slots.has('label')) {
+  const slotContent = await Astro.slots.render('label');
+  labelContent = injectForAttribute(slotContent, id);
+}
 ---
 
 <InputGroup layout={labelPosition} class={className}>
-  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+  {hasLabel && !!label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
 
   <InputControl>
     <input

@@ -5,6 +5,7 @@ import InputControl from './InputControl.astro';
 import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
 import './forms.css';
+import { injectForAttribute } from './utils.ts';
 
 type Props = HTMLAttributes<'input'> & {
   id: string;
@@ -52,10 +53,16 @@ assertValidSlots(Astro.slots, [...SLOT_NAMES, 'label'], 'ToggleSwitch');
 const hasLabel = !!label || Astro.slots.has('label');
 const onIconHtml = await renderIconSlot('on-icon', 'icon-on');
 const offIconHtml = await renderIconSlot('off-icon', 'icon-off');
+
+let labelContent = '';
+if (!label && Astro.slots.has('label')) {
+  const slotContent = await Astro.slots.render('label');
+  labelContent = injectForAttribute(slotContent, id);
+}
 ---
 
 <InputGroup layout={labelPosition} class={className}>
-  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+  {hasLabel && !!label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
 
   <InputControl>
     <label role="checkbox" class="form-toggle-switch">

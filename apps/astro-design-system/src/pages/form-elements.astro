@@ -29,7 +29,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           name="form-elements-switch-unchecked"
           aria-label="Toggle light dark theme"
         >
-          <label slot="label">Initially Unchecked</label>
+          <Label slot="label">Initially Unchecked</Label>
         </ToggleSwitch>
 
         <ToggleSwitch
@@ -38,7 +38,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           name="form-elements-switch-checked"
           aria-label="Toggle light dark theme"
         >
-          <label slot="label">Initially Checked</label>
+          <Label slot="label">Initially Checked</Label>
         </ToggleSwitch>
 
         <ToggleSwitch
@@ -47,7 +47,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           disabled
           aria-label="Toggle light dark theme"
         >
-          <label slot="label">Disabled, Unchecked</label>
+          <Label slot="label">Disabled, Unchecked</Label>
         </ToggleSwitch>
 
         <ToggleSwitch
@@ -57,7 +57,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           disabled
           aria-label="Toggle light dark theme"
         >
-          <label slot="label">Disabled, Checked</label>
+          <Label slot="label">Disabled, Checked</Label>
         </ToggleSwitch>
 
         <ToggleSwitch
@@ -67,7 +67,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         >
           <span slot="on-icon">☀️</span>
           <span slot="off-icon">🌙</span>
-          <label slot="label">Initially Unchecked</label>
+          <Label slot="label">Initially Unchecked</Label>
         </ToggleSwitch>
 
         <ToggleSwitch
@@ -88,7 +88,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
               <small>A</small>
             </small>
           </span>
-          <label slot="label">Initially Checked</label>
+          <Label slot="label">Initially Checked</Label>
         </ToggleSwitch>
 
         <ToggleSwitch
@@ -99,7 +99,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         >
           <span slot="on-icon">☀️</span>
           <span slot="off-icon">🌙</span>
-          <label slot="label">Unchecked, disabled</label>
+          <Label slot="label">Unchecked, disabled</Label>
         </ToggleSwitch>
 
         <ToggleSwitch
@@ -121,7 +121,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
               <small>A</small>
             </small>
           </span>
-          <label slot="label">Checked, disabled</label>
+          <Label slot="label">Checked, disabled</Label>
         </ToggleSwitch>
       </Fieldset>
 
@@ -149,11 +149,11 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
             name="form-elements-checkbox-invalid"
             value="cbinvalid"
           >
-            <label slot="label">Invalid, required</label>
+            <Label slot="label">Invalid, required</Label>
             <span slot="error-message">This is an error!</span>
           </Checkbox>
           <Checkbox disabled id="form-elements-checkbox-disabled" name="form-elements-checkbox-disabled" value="cb3">
-            <label slot="label">Unchecked, Disabled</label>
+            <Label slot="label">Unchecked, Disabled</Label>
           </Checkbox>
           <Checkbox
             disabled
@@ -188,7 +188,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           <RadioButton value="1" label="Option 1" />
           <RadioButton value="2" label="Option 2" />
           <RadioButton value="3" label="Option 3">
-            <label slot="label">Option 3</label>
+            <Label slot="label">Option 3</Label>
           </RadioButton>
           <RadioButton value="4">
             <Label slot="label">Option 4</Label>
@@ -258,10 +258,10 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           <span slot="description">This is a description of the input.</span>
         </TextInput>
         <TextInput id="input__number_styled" type="number" placeholder="Enter Number">
-          <label slot="label">Number Input</label>
+          <Label slot="label">Number Input</Label>
         </TextInput>
         <TextInput id="input__password_styled" type="password" placeholder="Type your Password">
-          <label slot="label">Password</label>
+          <Label slot="label">Password</Label>
         </TextInput>
         <TextInput id="input__required_styled" placeholder="Required Input" required label="Required Input" />
         <TextInput
@@ -311,15 +311,15 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           label="Text Area Input"
         />
         <TextAreaInput id="textarea_styled_required" placeholder="Enter your message here" required>
-          <span slot="label">Required Text</span>
+          <Label slot="label">Required Text</Label>
         </TextAreaInput>
         <TextAreaInput id="textarea_styled_readonly" placeholder="Enter your message here" readonly>
           <Fragment>Lorem Ipsum Dolar Est!</Fragment>
-          <label slot="label">Read Only Text</label>
+          <Label slot="label">Read Only Text</Label>
         </TextAreaInput>
         <TextAreaInput id="textarea_styled_disabled" placeholder="Enter your message here" disabled>
           <Fragment>Lorem Ipsum Dolar Est!</Fragment>
-          <label slot="label">Disabled Text</label>
+          <Label slot="label">Disabled Text</Label>
         </TextAreaInput>
         <TextAreaInput
           id="textarea_styled_required_invalid"
