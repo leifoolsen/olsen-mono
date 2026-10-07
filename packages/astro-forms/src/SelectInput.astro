@@ -1,7 +1,7 @@
 ---
 // packages/astro-forms/src/SelectInput.astro
 import { chevronPointingDownLines, xLines } from '@olsen-mono/astro-morph-icons';
-import MorphLineIcon from '@olsen-mono/astro-morph-icons/MorphLineIcon.astro';
+import MorphLinesIcon from '@olsen-mono/astro-morph-icons/MorphLinesIcon.astro';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './ErrorMessage.astro';
@@ -54,7 +54,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
       <slot />
     </select>
 
-    <MorphLineIcon
+    <MorphLinesIcon
       class="form-picker-icon"
       data-picker
       fromLines={chevronPointingDownLines}
@@ -63,7 +63,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
     />
 
     <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
-      <MorphLineIcon fromLines={xLines} toLines={xLines} />
+      <MorphLinesIcon fromLines={xLines} toLines={xLines} />
     </FormToolButton>
 
     {hasDescriptionSlot && (

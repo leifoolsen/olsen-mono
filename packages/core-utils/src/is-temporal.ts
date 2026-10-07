@@ -1,4 +1,4 @@
-import type { TemporalObject } from './types.ts';
+import type { TemporalObject } from './types';
 
 /**
  * Determines if a given value is a Temporal object.

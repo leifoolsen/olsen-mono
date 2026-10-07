@@ -1,4 +1,4 @@
-export type { MorphIconElement } from './create-morph-line-icon.ts';
+export type { MorphLinesIconElement } from './create-morph-lines-icon.js';
 export {
   arrowPointingDownLines,
   arrowPointingLeftLines,

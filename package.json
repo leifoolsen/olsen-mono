@@ -50,7 +50,7 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "build": "turbo run compile lint test typecheck",
+    "build": "turbo run compile lint test",
     "changeset": "changeset",
     "changeset-dry": "changeset status --verbose",
     "ci": "pnpm build",

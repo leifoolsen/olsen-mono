@@ -1,6 +1,6 @@
 {
   "name": "@olsen-mono/astro-morph-icons",
-  "description": "Astro SVG component",
+  "description": "Astro Morph Icons",
   "version": "0.0.2",
   "private": true,
   "type": "module",
@@ -16,7 +16,7 @@
       },
       "default": "./dist/index.mjs"
     },
-    "./MorphLineIcon.astro": "./src/MorphLineIcon.astro",
+    "./MorphLinesIcon.astro": "./src/MorphLinesIcon.astro",
     "./package.json": "./package.json"
   },
   "files": [

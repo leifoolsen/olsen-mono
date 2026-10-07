@@ -16,6 +16,17 @@ export type LineSegment = {
   y2: number;
 };
 
-export type MorphIconApi = {
+/**
+ * Represents an API for morphing lines between two sets of line segments.
+ *
+ * This type defines an interface for setting the "from" and "to" line segments,
+ * which are used to create a morphing animation between them.
+ *
+ * Properties:
+ * - `setFromToLines` - A function that takes two arrays of `LineSegment` objects
+ *                       representing the "from" and "to" line segments, respectively.
+ *                       It sets these line segments for the morphing animation.
+ */
+export type MorphLinesIconApi = {
   setFromToLines: (fromLines: LineSegment[], toLines: LineSegment[]) => void;
 };

@@ -1,4 +1,4 @@
-import type { LineSegment } from './types.ts';
+import type { LineSegment } from './types';
 
 /**
  * Adjusts the positions of line segments by scaling their coordinates towards or away from a central point in a
@@ -146,7 +146,7 @@ export function matchLines(from: LineSegment[], to: LineSegment[]): FromToLineSe
   return { fromLines, toLines };
 }
 
-/** Values needed to render and animate a single line in the MorphLineIcon. */
+/** Values needed to render and animate a single line in the MorphLinesIcon. */
 export type LineMorph = {
   /** The line to render. Points are widened to a minimum length of 2 for stable rotation. */
   line: LineSegment;
@@ -186,7 +186,7 @@ function widenPoint(line: LineSegment): LineSegment {
  *
  * @param from - The line segment to morph from.
  * @param to - The line segment to morph to.
- * @return The rendered line, its transform origin, and the target translation, rotation, scale and opacities.
+ * @return The rendered line, its transform origin, and the target translation, rotation, scale, and opacities.
  */
 export function computeLineMorph(from: LineSegment, to: LineSegment): LineMorph {
   const f = widenPoint(from);

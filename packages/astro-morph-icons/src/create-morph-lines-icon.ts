@@ -1,8 +1,8 @@
-// packages/astro-icons/src/morph-icon.ts
-import type { LineSegment, MorphIconApi } from './types.ts';
-import { computeLineMorph, matchLines, scaleLines } from './utils.ts';
+// packages/astro-morph-icons/src/create-morph-lines-icon.ts
+import type { LineSegment, MorphLinesIconApi } from './types';
+import { computeLineMorph, matchLines, scaleLines } from './utils';
 
-export function createMorphLineIcon(svgElement: SVGElement) {
+export function createMorphLinesIcon(svgElement: SVGElement) {
   const isAiry = svgElement.hasAttribute('data-airy');
 
   const setFromToLines = (rawFromLines: LineSegment[], rawToLines: LineSegment[]) => {
@@ -48,11 +48,11 @@ export function createMorphLineIcon(svgElement: SVGElement) {
     setFromToLines,
   });
 
-  const api: MorphIconApi = {
+  const api: MorphLinesIconApi = {
     setFromToLines,
   };
 
   return api;
 }
 
-export type MorphIconElement = SVGSVGElement & MorphIconApi;
+export type MorphLinesIconElement = SVGSVGElement & MorphLinesIconApi;
