@@ -4,38 +4,13 @@ import type { HTMLAttributes } from 'astro/types';
 import './forms.css';
 
 type Props = HTMLAttributes<'label'> & {
-  htmlFor?: string;
-  text?: string;
+  for?: string;
 };
 
-const { class: className = '', htmlFor, text, ...rest } = Astro.props;
-const finalFor = htmlFor || rest.for;
-
-let slotContent = '';
-let isAlreadyLabel = false;
-
-if (!text && Astro.slots.has('default')) {
-  slotContent = await Astro.slots.render('default');
-  isAlreadyLabel = /^\s*<label(?=[>\s])/i.test(slotContent);
-}
-
-const cls = ['form-label', className].filter(Boolean).join(' ');
+const { for: htmlFor, class: className, ...rest } = Astro.props;
+const classes = ['form-label', className].filter(Boolean).join(' ');
 ---
 
-{(() => {
-  if (!!text) {
-    return (
-      <label for={finalFor} class={cls} {...rest}>
-        {text}
-      </label>
-    );
-  }
-  if (isAlreadyLabel) {
-    return <Fragment set:html={slotContent.replace(/<label/i, `<label for="${finalFor}" class="${cls}"`)} />;
-  }
-  return (
-    <label for={finalFor} class={cls} {...rest}>
-      <slot />
-    </label>
-  );
-})()}
+<label for={htmlFor} class={classes} {...rest}>
+  <slot />
+</label>
