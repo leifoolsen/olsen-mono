@@ -1,5 +1,11 @@
 # @olsen-mono/astro-svg
 
+## 0.0.6
+
+### Patch Changes
+
+- 1f3f246: Renamed MorphLineIcon to MorphLinesIcon. Added typecheck to lint step. Removed unnecessary .ts from imports.
+
 ## 0.0.5
 
 ### Patch Changes
