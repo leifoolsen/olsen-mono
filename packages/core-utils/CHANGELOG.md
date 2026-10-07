@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.26
+
+### Patch Changes
+
+- 1f3f246: Renamed MorphLineIcon to MorphLinesIcon. Added typecheck to lint step. Removed unnecessary .ts from imports.
+
 ## 0.0.25
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @olsen-mono/astro-morph-icons
 
+## 0.0.3
+
+### Patch Changes
+
+- 1f3f246: Renamed MorphLineIcon to MorphLinesIcon. Added typecheck to lint step. Removed unnecessary .ts from imports.
+
 ## 0.0.2
 
 ### Patch Changes
