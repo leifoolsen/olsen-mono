@@ -1,5 +1,5 @@
 import { isTemporal } from './is-temporal';
-import type { AtomicObject } from './types.ts';
+import type { AtomicObject } from './types';
 
 /**
  * Determines whether the given value is considered atomic.

@@ -1,8 +1,8 @@
 ---
 // packages/astro-icons/src/MorphLinesIcon.astro
 import type { HTMLAttributes } from 'astro/types';
-import type { LineSegment } from './types.ts';
-import { computeLineMorph, matchLines, scaleLines } from './utils.ts';
+import type { LineSegment } from './types';
+import { computeLineMorph, matchLines, scaleLines } from './utils';
 
 type Props = HTMLAttributes<'svg'> & {
   /** If true, the `toLines` line segments are rendered, otherwise the `fromLines` line segments are rendered. */
