@@ -84,7 +84,7 @@
     }
 
     .app-grid[data-sidebar-collapsed="false"] {
-      --_sidebar-width: 100dvb;
+      --_sidebar-width: 100dvi;
       position: fixed;
       inset: 0;
       z-index: 200;
