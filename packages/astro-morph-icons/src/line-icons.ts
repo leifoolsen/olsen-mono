@@ -408,6 +408,7 @@ export const externalLinkLines: LineSegment[] = [
  * The following keys are available:
  * - `arrowPointingDownLines`: Represents an arrow icon pointing downward.
  * - `arrowPointingLeftLines`: Represents an arrow icon pointing leftward.
+ * - `arrowPointingRightLines`: Represents an arrow icon pointing rightward.
  * - `arrowPointingUpRightLines`: Represents an arrow icon pointing upward and to the right.
  * - `arrowPointingUpLines`: Represents an arrow icon pointing upward.
  * - `asteriskLines`: Represents an asterisk icon.
@@ -443,6 +444,7 @@ export const externalLinkLines: LineSegment[] = [
 export const lineIcons = new Map<string, LineSegment[]>([
   ['arrowPointingDownLines', arrowPointingDownLines],
   ['arrowPointingLeftLines', arrowPointingLeftLines],
+  ['arrowPointingRightLines', arrowPointingRightLines],
   ['arrowPointingUpRightLines', arrowPointingUpRightLines],
   ['arrowPointingUpLines', arrowPointingUpLines],
   ['arrowPointingUpRightLines', arrowPointingUpRightLines],
