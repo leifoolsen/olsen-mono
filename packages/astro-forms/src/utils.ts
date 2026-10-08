@@ -15,5 +15,8 @@
 export function injectForAttribute(html: string, forId: string): string {
   // Regex finds <label> tags without an existing `for` attribute
   // (?<!for=["'][^"']*["']) is a negative lookbehind to skip labels that already have `for`
-  return html.replace(/<label([^>]*)(?<!for=["'][^"']*["'])\s*>/g, `<label for="${forId}"$1>`);
+  return html.replace(
+    /<label\b(?![^>]*\sfor\s*=)([^>]*)>/gi,
+    (_, attributes: string) => `<label for="${forId}"${attributes}>`,
+  );
 }
