@@ -25,7 +25,9 @@ const {
 
 const { rawSvg, scale: defaultScale } = getSvgData(name);
 
-const cleanedSvg = rawSvg.replace(/width="[^"]+"/g, '').replace(/height="[^"]+"/g, '');
+const cleanedSvg = rawSvg.replace(/<svg\b[^>]*>/i, (tag) =>
+  tag.replace(/\s+(?:width|height)=(?:"[^"]*"|'[^']*')/gi, ''),
+);
 
 const svgAttributes: Record<string, any> = { ...rest };
 
