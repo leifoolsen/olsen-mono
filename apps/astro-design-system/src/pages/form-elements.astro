@@ -131,7 +131,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         <Fieldset>
           <Checkbox id="form-elements-checkbox" name="form-elements-checkbox" value="cb1" label="Initially Unchecked" />
           <Checkbox checked id="form-elements-checkbox-checked" name="form-elements-checkbox-checked" value="cb2">
-            <span slot="label">Initially Checked</span>
+            <Label slot="label">Initially Checked</Label>
           </Checkbox>
           <Checkbox
             checked
@@ -167,7 +167,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         <hr />
         <Fieldset>
           <Checkbox id="form-elements-checkbox2" name="form-elements-checkbox2" value="cb1" labelPosition="before">
-            <span slot="label">Initially Unchecked</span>
+            <Label slot="label">Initially Unchecked</Label>
           </Checkbox>
           <Checkbox
             checked
@@ -176,7 +176,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
             value="cb2"
             labelPosition="before"
           >
-            <span slot="label">Initially Checked</span>
+            <Label slot="label">Initially Checked</Label>
           </Checkbox>
         </Fieldset>
       </Fieldset>
@@ -201,7 +201,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         <RadioSet id="case-2" name="case2" legend="Legend before" legendPosition="before" invalid value="2">
           <RadioButton value="1" label="Testing 1..." />
           <RadioButton value="2">
-            <span slot="label">Testing 2 ...</span>
+            <Label slot="label">Testing 2 ...</Label>
           </RadioButton>
           <span slot="error-message">The selection is not valid.</span>
         </RadioSet>
@@ -210,7 +210,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         <RadioSet id="case-3" layout="inline" name="case3" legend="Legend top, layout inline" invalid>
           <RadioButton value="1" label="Testing 1..." />
           <RadioButton value="2">
-            <span slot="label">Testing 2 ...</span>
+            <Label slot="label">Testing 2 ...</Label>
           </RadioButton>
           <span slot="error-message">The selection is not valid.</span>
         </RadioSet>
@@ -226,7 +226,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         >
           <RadioButton value="1" label="Testing 1..." />
           <RadioButton value="2">
-            <span slot="label">Testing 2 ...</span>
+            <Label slot="label">Testing 2 ...</Label>
           </RadioButton>
           <span slot="error-message">The selection is not valid.</span>
         </RadioSet>
@@ -273,7 +273,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         />
         <TextInput id="input__text_disabled_styled" placeholder="Enter Text" value="Lorem Ipsum" disabled>
           <span slot="description">This is a description of the disabled text input.</span>
-          <span slot="label">Disabled Text Input</span>
+          <Label slot="label">Disabled Text Input</Label>
         </TextInput>
         <TextInput
           id="input__text_invalid_required_styled"
@@ -282,7 +282,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           invalid
           required
         >
-          <span slot="label">Invalid Required Text Input</span>
+          <Label slot="label">Invalid Required Text Input</Label>
           <span slot="error-message">The input is not valid.</span>
           <span slot="description">This is a description of the invalid required text input.</span>
         </TextInput>
