@@ -42,15 +42,11 @@ export const isEqual = (a: unknown, b: unknown): boolean => {
 
   if (a instanceof Map && b instanceof Map) {
     if (a.size !== b.size) return false;
+    const unmatched = Array.from(b);
     for (const [keyA, valA] of a) {
-      let foundMatch = false;
-      for (const [keyB, valB] of b) {
-        if (isEqual(keyA, keyB) && isEqual(valA, valB)) {
-          foundMatch = true;
-          break;
-        }
-      }
-      if (!foundMatch) return false;
+      const index = unmatched.findIndex(([keyB, valB]) => isEqual(keyA, keyB) && isEqual(valA, valB));
+      if (index === -1) return false;
+      unmatched.splice(index, 1);
     }
     return true;
   }
