@@ -51,7 +51,7 @@ if (!label && Astro.slots.has('label')) {
 
   <InputControl>
     <select
-      aria-invalid={invalid ?? undefined}
+      aria-invalid={invalid ?? ariaInvalid ?? undefined}
       aria-describedby={describedByList || undefined}
       class="form-select-input"
       data-select-input
