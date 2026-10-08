@@ -57,15 +57,11 @@ export const isEqual = (a: unknown, b: unknown): boolean => {
 
   if (a instanceof Set && b instanceof Set) {
     if (a.size !== b.size) return false;
+    const unmatched = Array.from(b);
     for (const itemA of a) {
-      let foundMatch = false;
-      for (const itemB of b) {
-        if (isEqual(itemA, itemB)) {
-          foundMatch = true;
-          break;
-        }
-      }
-      if (!foundMatch) return false;
+      const index = unmatched.findIndex((itemB) => isEqual(itemA, itemB));
+      if (index === -1) return false;
+      unmatched.splice(index, 1);
     }
     return true;
   }
