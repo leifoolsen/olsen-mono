@@ -97,7 +97,7 @@ export const isEqual = (a: unknown, b: unknown): boolean => {
 
   for (const key of keysA) {
     // biome-ignore lint/suspicious/noExplicitAny: any is fine here
-    if (!Reflect.has(b, key) || !isEqual((a as any)[key], (b as any)[key])) {
+    if (!Object.hasOwn(b, key) || !isEqual((a as any)[key], (b as any)[key])) {
       return false;
     }
   }
