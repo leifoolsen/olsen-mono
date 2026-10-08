@@ -15,6 +15,7 @@ describe('isInt', () => {
     expect(isInt(42n)).toBe(true);
     expect(isInt(0n)).toBe(true);
     expect(isInt(-100n)).toBe(true);
+    expect(isInt(BigInt('9007199254740991'))).toBe(true);
   });
 
   it('should not be an integer', () => {
