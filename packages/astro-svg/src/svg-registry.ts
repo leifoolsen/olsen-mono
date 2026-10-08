@@ -1,9 +1,6 @@
 // packages/astro-svg/src/svg-registry.ts
 
-type ViteGlobResult =
-  | Record<string, string>
-  | Record<string, { default: string }>
-  | Record<string, () => Promise<unknown>>;
+export type ViteGlobResult = Record<string, string> | Record<string, { default: string } | string>;
 
 /**
  * Represents a registry for managing and retrieving SVG assets and icon masks by name.
@@ -29,8 +26,8 @@ export type SvgRegistry = {
  * Creates an SVG registry that maps SVG icon names to their raw SVG data and provides utility methods for retrieving
  * the data and generating icon masks.
  *
- * @param {TMapping} mapping - A record of icon names mapped to their corresponding file and optional scale information.
- * @param {ViteGlobResult} globResult - The result of a Vite-specific file globbing operation, used to resolve and load SVG files.
+ * @param mapping - A record of icon names mapped to their corresponding file and optional scale information.
+ * @param globResult - The result of a Vite-specific file globbing operation, used to resolve and load SVG files.
  * @return {SvgRegistry} An object containing methods to retrieve raw SVG data or an icon mask for use in styles.
  */
 export function createSvgRegistry<TMapping extends Record<string, { file: string; scale?: string | number }>>(
@@ -44,14 +41,18 @@ export function createSvgRegistry<TMapping extends Record<string, { file: string
     if (!fileName) continue;
 
     const module = globResult[path];
+    let svgContent: string | undefined;
 
-    // Only process objects with the 'default' property (Vite's default export format)
-    if (typeof module === 'object' && module !== null && 'default' in module) {
-      const svgContent = module.default;
-
-      if (typeof svgContent === 'string' && svgContent.trim()) {
-        svgRegistry.set(fileName, svgContent);
+    if (typeof module === 'string') {
+      svgContent = module;
+    } else if (typeof module === 'object' && module !== null && 'default' in module) {
+      if (typeof module.default === 'string') {
+        svgContent = module.default;
       }
+    }
+
+    if (svgContent?.trim()) {
+      svgRegistry.set(fileName, svgContent);
     }
   }
 
@@ -83,15 +84,6 @@ export function createSvgRegistry<TMapping extends Record<string, { file: string
   function getIconMask(name: keyof TMapping): string {
     const { rawSvg } = getSvgData(name);
 
-    // // Remove styling attributes and dimensions, then add black fill for masking
-    // const processedSvg = rawSvg
-    //   .replace(/\s*stroke="[^"]*"/g, '')
-    //   .replace(/\s*fill="[^"]*"/g, '')
-    //   .replace(/\s*width="[^"]*"/g, '')
-    //   .replace(/\s*height="[^"]*"/g, '')
-    //   .replace('<svg', '<svg fill="#000000"');
-
-    // Preserve child geometry and paint; remove only the root dimensions.
     const processedSvg = rawSvg.replace(/<svg\b[^>]*>/i, (tag) =>
       tag.replace(/\swidth="[^"]*"/g, '').replace(/\sheight="[^"]*"/g, ''),
     );

@@ -42,26 +42,24 @@ describe('createSvgRegistry', () => {
       expect(result.scale).toBe(2);
     });
 
-    it('should skip string values in glob result (not objects with default)', () => {
+    it('should accept raw string values in glob result', () => {
       const mapping = {
         arrow: { file: 'arrow' },
         home: { file: 'home' },
       };
 
       const globResult = {
-        '/icons/arrow.svg': mockSvgContent, // This will be skipped (string, not object)
-        '/icons/home.svg': { default: mockSvgContent2 }, // This will work
+        '/icons/arrow.svg': mockSvgContent,
+        '/icons/home.svg': { default: mockSvgContent2 },
       };
 
-      // @ts-expect-error - testing runtime error
       const registry = createSvgRegistry(mapping, globResult);
 
-      expect(() => {
-        registry.getSvgData('arrow');
-      }).toThrow('"arrow.svg" was not found in the registry.');
+      const arrowResult = registry.getSvgData('arrow');
+      expect(arrowResult.rawSvg).toBe(mockSvgContent);
 
-      const result = registry.getSvgData('home');
-      expect(result.rawSvg).toBe(mockSvgContent2);
+      const homeResult = registry.getSvgData('home');
+      expect(homeResult.rawSvg).toBe(mockSvgContent2);
     });
 
     it('should throw error when SVG name not in mapping', () => {
@@ -110,6 +108,23 @@ describe('createSvgRegistry', () => {
 
       expect(result.rawSvg).toBe(mockSvgContent);
     });
+
+    it('should accept raw string values in glob result', () => {
+      const mapping = {
+        arrow: { file: 'arrow' },
+        home: { file: 'home' },
+      };
+
+      const globResult = {
+        '/icons/arrow.svg': mockSvgContent,
+        '/icons/home.svg': { default: mockSvgContent2 },
+      };
+
+      const registry = createSvgRegistry(mapping, globResult);
+
+      expect(registry.getSvgData('arrow').rawSvg).toBe(mockSvgContent);
+      expect(registry.getSvgData('home').rawSvg).toBe(mockSvgContent2);
+    });
   });
 
   describe('getIconMask', () => {
@@ -126,7 +141,6 @@ describe('createSvgRegistry', () => {
       const mask = registry.getIconMask('star');
 
       expect(mask).toContain('url("data:image/svg+xml,');
-      // expect(mask).toContain('fill%3D%22%23000000%22');
     });
 
     it('should remove width, and height attributes', () => {
@@ -143,9 +157,6 @@ describe('createSvgRegistry', () => {
 
       const decodedMask = decodeURIComponent(mask.replace('url("data:image/svg+xml,', '').replace('")', ''));
 
-      // expect(decodedMask).not.toContain('stroke="#666"');
-      // expect(decodedMask).not.toContain('fill="#333"');
-      // expect(decodedMask).toContain('fill="#000000"');
       expect(decodedMask).not.toContain('width="24"');
       expect(decodedMask).not.toContain('height="24"');
     });
