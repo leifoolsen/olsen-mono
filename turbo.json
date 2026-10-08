@@ -9,8 +9,8 @@
         "src/**/*.ts",
         "src/**/*.tsx",
         "!src/**/*.d.ts",
-        "packages/**/src/**/*.astro",
-        "packages/**/src/**/*.svg",
+        "src/**/*.astro",
+        "src/**/*.svg",
         "tsconfig.json"
       ],
       "outputs": ["dist/**"]
@@ -18,13 +18,7 @@
     "typecheck": {
       "dependsOn": ["^compile", "compile"],
       "cache": true,
-      "inputs": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "packages/**/src/**/*.astro",
-        "packages/**/src/**/*.svg",
-        "tsconfig.json"
-      ]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.svg", "tsconfig.json"]
     },
     "lint": {
       "cache": true,
