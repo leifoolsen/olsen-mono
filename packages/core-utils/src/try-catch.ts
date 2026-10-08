@@ -10,17 +10,6 @@ type Failure<E> = readonly [E, undefined?];
 type Result<T, E = Error> = Success<T> | Failure<E>;
 
 /**
- * Synchronously executes a function and captures any thrown errors.
- * It imitates the concept of the scala.util.Try monad or the Go programming language’s approach to error handling.
- *
- * @param input - A synchronous function to execute.
- * @returns A [Result] tuple containing `[undefined, data]` on success or `[error]` on failure.
- * Error first encourages error handling. Returning a tuple makes renaming
- * error and data easier, especially useful if you call it many times.
- */
-export function tryCatch<T, E = Error>(input: () => T): Result<T, E>;
-
-/**
  * Asynchronously handles a Promise or a function returning a Promise.
  * It imitates the concept of the scala.util.Try monad or the Go programming language’s approach to error handling.
  *
@@ -30,6 +19,17 @@ export function tryCatch<T, E = Error>(input: () => T): Result<T, E>;
  * error and data easier, especially useful if you call it many times.
  */
 export function tryCatch<T, E = Error>(input: PromiseLike<T> | (() => PromiseLike<T>)): PromiseLike<Result<T, E>>;
+
+/**
+ * Synchronously executes a function and captures any thrown errors.
+ * It imitates the concept of the scala.util.Try monad or the Go programming language’s approach to error handling.
+ *
+ * @param input - A synchronous function to execute.
+ * @returns A [Result] tuple containing `[undefined, data]` on success or `[error]` on failure.
+ * Error first encourages error handling. Returning a tuple makes renaming
+ * error and data easier, especially useful if you call it many times.
+ */
+export function tryCatch<T, E = Error>(input: () => T): Result<T, E>;
 
 /**
  * Wrapper to handle both synchronous and asynchronous executions without traditional try/catch blocks.
