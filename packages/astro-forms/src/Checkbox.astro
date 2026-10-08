@@ -16,6 +16,7 @@ type Props = HTMLAttributes<'input'> & {
 };
 
 const {
+  'aria-describedby': ariaDescribedBy,
   'aria-invalid': ariaInvalid,
   class: className,
   id,
@@ -30,6 +31,8 @@ assertValidSlots(Astro.slots, ['error-message', 'label'], 'Checkbox');
 
 const hasLabel = !!label || Astro.slots.has('label');
 const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const errorId = hasErrorMessage ? `${id}-error` : undefined;
+const describedByList = [errorId, ariaDescribedBy].filter(Boolean).join(' ');
 ---
 
 <InputGroup layout={labelPosition} class={className}>
@@ -37,6 +40,7 @@ const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-messa
 
   <InputControl>
     <input
+      aria-describedby={describedByList ?? undefined}
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
       class="form-checkbox-input"
       id={id}
@@ -46,7 +50,7 @@ const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-messa
   </InputControl>
 
   {hasErrorMessage && (
-    <ErrorMessage id={`${id}-error`}>
+    <ErrorMessage id={errorId}>
       <slot name="error-message" />
     </ErrorMessage>
   )}
