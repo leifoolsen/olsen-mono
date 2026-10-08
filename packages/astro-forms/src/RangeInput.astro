@@ -10,12 +10,10 @@ import './forms.css';
 
 type Props = HTMLAttributes<'input'> & {
   id: string;
-  label?: string;
   labelPosition?: 'top' | 'before';
   min: number;
   max: number;
-  step?: number;
-  value: number;
+  step: number;
 };
 
 const {
@@ -26,6 +24,7 @@ const {
   labelPosition = 'top',
   min,
   max,
+  name,
   step = 1,
   type,
   value,
@@ -52,6 +51,7 @@ const numberInputId = `${id}-number`;
       id={id}
       min={min}
       max={max}
+      name={name}
       step={step}
       value={value}
       oninput={`document.getElementById('${numberInputId}').value = this.value`}
