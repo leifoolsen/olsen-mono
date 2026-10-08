@@ -126,10 +126,10 @@ describe('createSvgRegistry', () => {
       const mask = registry.getIconMask('star');
 
       expect(mask).toContain('url("data:image/svg+xml,');
-      expect(mask).toContain('fill%3D%22%23000000%22');
+      // expect(mask).toContain('fill%3D%22%23000000%22');
     });
 
-    it('should remove stroke, fill, width, and height attributes', () => {
+    it('should remove width, and height attributes', () => {
       const mapping = {
         icon: { file: 'icon' },
       };
@@ -143,11 +143,11 @@ describe('createSvgRegistry', () => {
 
       const decodedMask = decodeURIComponent(mask.replace('url("data:image/svg+xml,', '').replace('")', ''));
 
-      expect(decodedMask).not.toContain('stroke="#666"');
-      expect(decodedMask).not.toContain('fill="#333"');
+      // expect(decodedMask).not.toContain('stroke="#666"');
+      // expect(decodedMask).not.toContain('fill="#333"');
+      // expect(decodedMask).toContain('fill="#000000"');
       expect(decodedMask).not.toContain('width="24"');
       expect(decodedMask).not.toContain('height="24"');
-      expect(decodedMask).toContain('fill="#000000"');
     });
 
     it('should properly encode SVG for use in CSS', () => {

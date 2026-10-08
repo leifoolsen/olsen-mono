@@ -83,13 +83,18 @@ export function createSvgRegistry<TMapping extends Record<string, { file: string
   function getIconMask(name: keyof TMapping): string {
     const { rawSvg } = getSvgData(name);
 
-    // Remove styling attributes and dimensions, then add black fill for masking
-    const processedSvg = rawSvg
-      .replace(/\s*stroke="[^"]*"/g, '')
-      .replace(/\s*fill="[^"]*"/g, '')
-      .replace(/\s*width="[^"]*"/g, '')
-      .replace(/\s*height="[^"]*"/g, '')
-      .replace('<svg', '<svg fill="#000000"');
+    // // Remove styling attributes and dimensions, then add black fill for masking
+    // const processedSvg = rawSvg
+    //   .replace(/\s*stroke="[^"]*"/g, '')
+    //   .replace(/\s*fill="[^"]*"/g, '')
+    //   .replace(/\s*width="[^"]*"/g, '')
+    //   .replace(/\s*height="[^"]*"/g, '')
+    //   .replace('<svg', '<svg fill="#000000"');
+
+    // Preserve child geometry and paint; remove only the root dimensions.
+    const processedSvg = rawSvg.replace(/<svg\b[^>]*>/i, (tag) =>
+      tag.replace(/\swidth="[^"]*"/g, '').replace(/\sheight="[^"]*"/g, ''),
+    );
 
     return `url("data:image/svg+xml,${encodeURIComponent(processedSvg)}")`;
   }
