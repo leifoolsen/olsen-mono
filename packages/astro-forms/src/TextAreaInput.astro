@@ -18,6 +18,7 @@ type Props = HTMLAttributes<'textarea'> & {
 };
 
 const {
+  'aria-describedby': ariaDescribedBy,
   'aria-invalid': ariaInvalid,
   class: className,
   id,
@@ -34,6 +35,7 @@ const hasLabel = !!label || Astro.slots.has('label');
 const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
 const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const textAreaValue = value ?? ((Astro.slots.has('default') ? await Astro.slots.render('default') : '') as string); // .trim();
+const describedByList = [errorId, ariaDescribedBy].filter(Boolean).join(' ');
 
 let labelContent = '';
 if (!label && Astro.slots.has('label')) {
@@ -47,6 +49,7 @@ if (!label && Astro.slots.has('label')) {
 
   <InputControl>
     <textarea
+      aria-describedby={describedByList || undefined}
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
       class="form-textarea-input"
       id={id}

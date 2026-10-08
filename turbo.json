@@ -4,13 +4,21 @@
   "tasks": {
     "compile": {
       "dependsOn": ["^compile"],
-      "inputs": ["src/**/*.css", "src/**/*.ts", "src/**/*.tsx", "!src/**/*.d.ts", "tsconfig.json"],
+      "inputs": [
+        "src/**/*.css",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "!src/**/*.d.ts",
+        "src/**/*.astro",
+        "src/**/*.svg",
+        "tsconfig.json"
+      ],
       "outputs": ["dist/**"]
     },
     "typecheck": {
       "dependsOn": ["^compile", "compile"],
       "cache": true,
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.svg", "tsconfig.json"]
     },
     "lint": {
       "cache": true,

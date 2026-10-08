@@ -45,7 +45,7 @@ assertValidSlots(Astro.slots, ['label', 'options', 'description', 'error-message
 const hasLabel = !!label || Astro.slots.has('label');
 const errorId = (invalid ?? ariaInvalid) && Astro.slots.has('error-message') ? `${id}-error` : undefined;
 const descriptionId = Astro.slots.has('description') ? `${id}-description` : undefined;
-const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
+const describedByList = [errorId, descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
 const hasOptionsSlot = Astro.slots.has('options');
 const resultsPopoverId = `${id}-results-popover`;
 const uniqueAnchorName = `--anchor-list-${id}`;

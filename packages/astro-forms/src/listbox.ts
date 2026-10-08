@@ -243,7 +243,7 @@ export function createListbox(element: HTMLElement) {
       for (const opt of options) {
         if (!(opt instanceof HTMLElement)) continue;
         opt.hidden = false;
-        opt.setAttribute('aria-selected', 'false');
+        if (!isMultiSelectable) opt.setAttribute('aria-selected', 'false');
       }
     } else {
       for (const opt of options) {
@@ -251,7 +251,7 @@ export function createListbox(element: HTMLElement) {
         const value = (opt.getAttribute('data-value') ?? '').toLowerCase();
         const text = (opt.innerText ?? '').toLowerCase();
         opt.hidden = !(value.includes(cleanQuery) || text.includes(cleanQuery));
-        if (opt.hidden) opt.setAttribute('aria-selected', 'false');
+        if (opt.hidden && !isMultiSelectable) opt.setAttribute('aria-selected', 'false');
       }
     }
 

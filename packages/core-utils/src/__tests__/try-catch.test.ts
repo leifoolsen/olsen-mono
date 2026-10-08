@@ -24,11 +24,11 @@ describe('tryCatch', () => {
       expect(data).toBe('Success');
     });
 
-    it('should fail', () => {
+    it('should fail', async () => {
       const fail = () => {
         throw new Error('Fail');
       };
-      const [err, data] = tryCatch(() => fail());
+      const [err, data] = await tryCatch(() => fail());
       expect(err).toBeInstanceOf(Error);
       expect(data).toBeUndefined();
     });

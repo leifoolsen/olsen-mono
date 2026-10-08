@@ -64,6 +64,7 @@
     "compile": "tsdown && pnpm run css-to-dts",
     "css-to-dts": "css-to-dts src --camelCase --outDir dist",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
+    "test": "vitest run",
     "typecheck": "astro check && tsc --noEmit"
   },
   "peerDependencies": {

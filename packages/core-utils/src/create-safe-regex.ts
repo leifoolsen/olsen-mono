@@ -108,7 +108,7 @@ const validateRegexFlags = (flags?: string): void => {
 export const createSafeRegex = <P extends string>(config: SafeRegexConfig<P>): RegExp => {
   validateRegexFlags(config.flags);
 
-  const escapeRegExp = (str: string) => str.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&');
+  const escapeRegExp = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/-/g, '\\x2d');
   const terms = config.terms || {};
 
   const finalPattern = Object.entries(terms).reduce<string>((currentPattern, [key, value]) => {

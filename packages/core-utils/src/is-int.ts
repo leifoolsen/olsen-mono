@@ -9,7 +9,7 @@
  * isInt('23'); // -> true
  * isInt('A'); // -> false
  */
-export const isInt = (value: unknown): value is number | string => {
+export const isInt = (value: unknown): value is number | string | bigint => {
   if (typeof value === 'bigint') {
     return true;
   }
