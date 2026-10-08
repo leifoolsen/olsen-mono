@@ -61,8 +61,12 @@ if (rest['aria-label'] || rest['aria-labelledby']) {
   svgAttributes['aria-hidden'] = 'true';
 }
 
+const escapeAttribute = (value: unknown) =>
+  String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+
 const attributesString = Object.entries(svgAttributes)
-  .map(([key, value]) => (value === true ? key : `${key}="${value}"`))
+  .filter(([key, value]) => /^[a-zA-Z_:][a-zA-Z0-9_.:-]*$/.test(key) && value != null)
+  .map(([key, value]) => `${key}="${escapeAttribute(value)}"`)
   .join(' ');
 
 const svgWithAttributes = cleanedSvg.replace('<svg', `<svg ${attributesString}`);
