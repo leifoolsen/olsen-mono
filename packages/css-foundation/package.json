@@ -36,7 +36,7 @@
       "default": "./src/typography.css"
     },
     "./layouts.css": {
-      "types": "./dist/layout.css.d.ts",
+      "types": "./dist/layouts.css.d.ts",
       "development": "./src/layouts.css",
       "default": "./src/layouts.css"
     },
