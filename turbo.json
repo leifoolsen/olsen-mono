@@ -10,7 +10,7 @@
     "typecheck": {
       "dependsOn": ["^compile", "compile"],
       "cache": true,
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "packages/**/src/**/*.astro", "tsconfig.json"]
     },
     "lint": {
       "cache": true,
