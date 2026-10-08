@@ -9,7 +9,7 @@
  * isNumeric('a.b'); // -> false
  * isNumeric(' '); // -> false
  */
-export const isNumeric = (value: unknown): value is number | string => {
+export const isNumeric = (value: unknown): value is number | string | bigint => {
   if (typeof value === 'bigint') {
     return true;
   }
