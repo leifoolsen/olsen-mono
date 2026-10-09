@@ -50,9 +50,9 @@ export const tripleLines: LineSegment[] = [
  * @type {LineSegment[]}
  */
 export const verticalTripleLines: LineSegment[] = [
-  { x1: 5, y1: 4, x2: 5, y2: 20 },
+  { x1: 6, y1: 4, x2: 6, y2: 20 },
   { x1: 12, y1: 4, x2: 12, y2: 20 },
-  { x1: 19, y1: 4, x2: 19, y2: 20 },
+  { x1: 18, y1: 4, x2: 18, y2: 20 },
 ];
 
 /**
