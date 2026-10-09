@@ -25,7 +25,6 @@ const {
   'aria-controls': _ariaControls,
   'aria-describedby': ariaDescribedBy,
   'aria-expanded': ariaExpanded = 'false',
-  'aria-haspopup': ariaHasPopup = 'true',
   'aria-invalid': ariaInvalid,
   'aria-multiselectable': _ariaMultiSelectable,
   autocomplete = 'off',
@@ -65,7 +64,6 @@ if (!label && Astro.slots.has('label')) {
       aria-controls={resultsPopoverId}
       aria-describedby={describedByList ?? undefined}
       aria-expanded={ariaExpanded}
-      aria-haspopup={ariaHasPopup}
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
       aria-multiselectable="false"
       autocomplete={autocomplete}
