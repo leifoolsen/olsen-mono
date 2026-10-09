@@ -15,7 +15,7 @@ type Props = HTMLAttributes<'input'> & {
 
 const { class: className, id, label, labelPosition = 'after', type = 'radio', ...rest } = Astro.props;
 
-assertValidSlots(Astro.slots, ['error-message', 'label'], 'RadioButton');
+assertValidSlots(Astro.slots, ['label'], 'RadioButton');
 
 const hasLabel = !!label || Astro.slots.has('label');
 ---
