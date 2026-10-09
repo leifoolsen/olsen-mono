@@ -125,7 +125,7 @@ import MorphLinesIcon from '@olsen-mono/astro-morph-icons/MorphLinesIcon.astro';
       const customEvent = e as CustomEvent<ComboboxChangeEventDetail>;
       const data = !Array.isArray(customEvent.detail) ? customEvent.detail : ({} as ListboxItem);
 
-      const name = data?.name;
+      const name = data?.name!;
       const value = data?.value;
       state[name] = lineIcons.get(value!);
 
