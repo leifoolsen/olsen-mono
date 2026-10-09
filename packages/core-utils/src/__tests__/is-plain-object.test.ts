@@ -12,12 +12,14 @@ describe('#isPlainObject', () => {
     this.x = x;
   }
 
-  function ObjectConstructor() {
-    /* empty */
-  }
+  const createMockObjectConstructor = () => {
+    function ObjectConstructor() {
+      /* empty */
+    }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  ObjectConstructor.prototype.constructor = Object;
+    ObjectConstructor.prototype.constructor = Object;
+    return ObjectConstructor;
+  };
 
   it('is a plain object', () => {
     expect(isPlainObject({})).toBeTruthy();
@@ -25,14 +27,24 @@ describe('#isPlainObject', () => {
     expect(isPlainObject({ constructor: MyClass })).toBeTruthy();
     expect(isPlainObject({ valueOf: 0 })).toBeTruthy();
     expect(isPlainObject(Object.create(null))).toBeTruthy();
-    expect(isPlainObject(JSON)).toBeTruthy();
-    expect(isPlainObject(Math)).toBeTruthy();
+
+    // Disguised plain objects using Symbol.toStringTag
+    expect(isPlainObject({ [Symbol.toStringTag]: 'Math' })).toBeTruthy();
+    expect(isPlainObject({ [Symbol.toStringTag]: 'JSON' })).toBeTruthy();
+
+    const IsolatedConstructor = createMockObjectConstructor();
 
     // @ts-expect-error Ok for testing
-    expect(isPlainObject(new ObjectConstructor())).toBeTruthy();
+    expect(isPlainObject(new IsolatedConstructor())).toBeTruthy();
   });
 
   it('is not a plain object', () => {
+    expect(isPlainObject(Atomics)).toBeFalsy();
+    expect(isPlainObject(Reflect)).toBeFalsy();
+
+    expect(isPlainObject(JSON)).toBeFalsy();
+    expect(isPlainObject(Math)).toBeFalsy();
+
     expect(isPlainObject(['foo', 'bar'])).toBeFalsy();
 
     // @ts-expect-error Ok for testing
