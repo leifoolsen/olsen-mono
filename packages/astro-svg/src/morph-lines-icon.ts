@@ -1,6 +1,7 @@
 // packages/astro-morph-icons/src/create-morph-lines-icon.ts
+
+import { computeLineMorph, matchLines, scaleLines } from './morph-lines-utils.ts';
 import type { LineSegment, MorphLinesIconApi } from './types';
-import { computeLineMorph, matchLines, scaleLines } from './utils';
 
 export function createMorphLinesIcon(svgElement: SVGElement) {
   const isAiry = svgElement.hasAttribute('data-airy');

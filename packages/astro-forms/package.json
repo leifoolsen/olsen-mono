@@ -68,13 +68,11 @@
     "typecheck": "astro check && tsc --noEmit"
   },
   "peerDependencies": {
-    "@olsen-mono/astro-morph-icons": "workspace:*",
     "@olsen-mono/astro-svg": "workspace:*",
     "@olsen-mono/core-utils": "workspace:*",
     "astro": ">=7.0.0"
   },
   "devDependencies": {
-    "@olsen-mono/astro-morph-icons": "workspace:*",
     "@olsen-mono/astro-svg": "workspace:*",
     "@olsen-mono/astro-test-utils": "workspace:*",
     "@olsen-mono/core-utils": "workspace:*",
