@@ -8,4 +8,4 @@
  * @returns {val is Temporal.PlainTime} `true` if the value is an instance of `Temporal.PlainTime`; otherwise, `false`.
  */
 export const isPlainTime = (val: unknown): val is Temporal.PlainTime =>
-  val != null && typeof val === 'object' && val instanceof Temporal.PlainTime;
+  typeof Temporal !== 'undefined' && val != null && typeof val === 'object' && val instanceof Temporal.PlainTime;
