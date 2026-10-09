@@ -1,20 +1,24 @@
+import { isPrimitive } from './is-primitive';
 import { isTemporal } from './is-temporal';
-import type { AtomicObject } from './types';
+import type { AtomicValue } from './types';
 
 /**
  * Determines whether the given value is considered atomic.
- * An atomic value is a primitive value (string, number, boolean, symbol, null, undefined)
- * or an object that is treated as a single, indivisible unit such as Date, Error, RegExp,
+ * An atomic value is a primitive value (string, number, bigint, boolean, symbol, null, undefined)
+ * or an object treated as a single, indivisible unit such as Date, Error, RegExp,
  * ArrayBuffer, Set, Map, WeakSet, WeakMap, or other view types of ArrayBuffer,
- * including Temporal objects if applicable.
+ * including Temporal objects if applicable. Functions are not atomic.
  *
  * @param {unknown} val - The value to check for atomicity.
- * @returns {val is AtomicObject | string | number | boolean | symbol | null | undefined}
- * A boolean indicating whether the provided value is atomic.
+ * @returns {val is AtomicValue} A boolean indicating whether the provided value is atomic.
  */
-export const isAtomic = (val: unknown): val is AtomicObject | string | number | boolean | symbol | null | undefined => {
-  if (val == null || typeof val !== 'object') {
+export const isAtomic = (val: unknown): val is AtomicValue => {
+  if (isPrimitive(val)) {
     return true;
+  }
+
+  if (typeof val !== 'object') {
+    return false;
   }
 
   return (
