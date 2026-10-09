@@ -1,5 +1,14 @@
 # astro-htmx
 
+## 0.0.19
+
+### Patch Changes
+
+- 41fd28f: Merged @olsen-mono/astro-morph-icons into @olsen-mono/astro-svg and updated package.json references.
+- Updated dependencies [41fd28f]
+  - @olsen-mono/astro-forms@0.0.7
+  - @olsen-mono/astro-svg@0.0.8
+
 ## 0.0.18
 
 ### Patch Changes
