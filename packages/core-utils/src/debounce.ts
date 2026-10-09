@@ -10,13 +10,14 @@ export type DebouncedFunction<T extends AnyFunction> = {
 /**
  * Creates a debounced function that delays execution until after a specified wait time has elapsed
  * without further invocations. If the debounced function is called again before the wait time elapses,
- * the timeout is reset and the wait time starts over.
+ * the timeout is reset and the wait time starts over. If leading is true, the function executes immediately without
+ * waiting for the wait time to elapse on the first call.
  *
  * @template T - The function type to debounce
  * @param func - The function to debounce
  * @param wait - Time in milliseconds to wait before executing. Default: 300ms
- * @param leading - If true, the function executes on the first call, then again after wait time elapses
- *                  on subsequent calls. Default: false
+ * @param leading - If leading is true, the function executes immediately without
+ *                  waiting for the wait time to elapse on the first call. Default: false
  *
  * @returns A debounced function with the following methods:
  *   - (...args) - Call to trigger the debounced execution
