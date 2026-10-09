@@ -18,7 +18,7 @@ export type ViteGlobResult = Record<string, string> | Record<string, { default: 
  * The `name` parameter corresponds to the identifier of the icon mask.
  */
 export type SvgRegistry = {
-  getSvgData: (name: string) => { rawSvg: string; scale?: string | number };
+  getSvgData: (name?: string | null) => { rawSvg: string; scale?: string | number };
   getIconMask: (name: string) => string;
 };
 
@@ -56,7 +56,11 @@ export function createSvgRegistry<TMapping extends Record<string, { file: string
     }
   }
 
-  function getSvgData(name: keyof TMapping): { rawSvg: string; scale?: string | number } {
+  function getSvgData(name?: keyof TMapping | null): { rawSvg: string; scale?: string | number } {
+    if (name === null || name === undefined) {
+      throw new Error('Please check your mapping. The "name" parameter must be a non empty string.');
+    }
+
     const svgConfig = mapping[name];
 
     if (!svgConfig) {
