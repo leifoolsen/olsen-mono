@@ -26,11 +26,11 @@ const {
   ...rest
 } = Astro.props;
 
-const hasErrorMessage = invalid && Astro.slots.has('error-message');
+const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
 const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const hasDescriptionSlot = Astro.slots.has('description');
 const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
-const describedByList = [errorId, ariaDescribedBy].filter(Boolean).join(' ');
+const describedByList = [errorId, descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
 ---
 
 <div

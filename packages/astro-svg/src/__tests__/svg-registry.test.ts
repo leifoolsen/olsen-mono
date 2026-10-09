@@ -78,6 +78,27 @@ describe('createSvgRegistry', () => {
       }).toThrow('Please check your mapping. "nonexistent" was not found in the registry.');
     });
 
+    it('should throw error when name is empty', () => {
+      const mapping = {
+        home: { file: 'home' },
+      };
+
+      const globResult = {
+        '/icons/home.svg': { default: mockSvgContent },
+      };
+
+      const registry = createSvgRegistry(mapping, globResult);
+
+      const expected = 'Please check your mapping. The "name" parameter must be a non empty string.';
+      expect(() => {
+        registry.getSvgData();
+      }).toThrow(expected);
+
+      expect(() => {
+        registry.getSvgData(null);
+      }).toThrow(expected);
+    });
+
     it('should throw error when SVG file not in registry', () => {
       const mapping = {
         home: { file: 'missing-file' },

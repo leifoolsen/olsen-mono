@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { tryCatch } from '../try-catch';
+import { describe, expect, it, test } from 'vitest';
+import { tryCatch, tryCatchAsync } from '../try-catch';
 
 describe('tryCatch', () => {
   const getData = (id?: number) => {
@@ -24,11 +24,11 @@ describe('tryCatch', () => {
       expect(data).toBe('Success');
     });
 
-    it('should fail', async () => {
+    it('should fail', () => {
       const fail = () => {
         throw new Error('Fail');
       };
-      const [err, data] = await tryCatch(() => fail());
+      const [err, data] = tryCatch(() => fail());
       expect(err).toBeInstanceOf(Error);
       expect(data).toBeUndefined();
     });
@@ -44,10 +44,10 @@ describe('tryCatch', () => {
     });
   });
 
-  describe('tryCatch asynchronous', () => {
+  describe('tryCatchAsync', () => {
     it('should succeed', async () => {
       const success = async () => Promise.resolve('Success');
-      const [err, data] = await tryCatch<string>(() => success());
+      const [err, data] = await tryCatchAsync<string>(() => success());
       expect(err).toBeUndefined();
       expect(data).toBe('Success');
     });
@@ -57,21 +57,64 @@ describe('tryCatch', () => {
         await new Promise((resolve) => setTimeout(resolve, 1));
         throw new Error('Fail');
       };
-      const [err, data] = await tryCatch<string>(() => fail());
+      const [err, data] = await tryCatchAsync<string>(() => fail());
       expect(err).toBeInstanceOf(Error);
       expect(data).toBeUndefined();
     });
   });
 
-  describe('tryCatch promise like', () => {
+  describe('tryCatchAsync, promise like', () => {
     it('should succeed or fail', async () => {
-      const [noErr, data] = await tryCatch<number[]>(getAsyncData(2));
+      const [noErr, data] = await tryCatchAsync<number[]>(() => getAsyncData(2));
       expect(noErr).toBeUndefined();
       expect(data).toEqual([1, 3, 5, 7, 9]);
 
-      const [err, noData] = await tryCatch(getAsyncData());
+      const [err, noData] = await tryCatchAsync(() => getAsyncData());
       expect(err).toBeInstanceOf(Error);
       expect(noData).toBeUndefined();
+    });
+  });
+
+  describe('tryCatch, edge cases', () => {
+    test('throws synchronous error before a promise is returned', async () => {
+      const fn = (flag: boolean) => {
+        if (flag) throw new Error('Synchronous exception thrown outside Promise.resolve');
+        return Promise.resolve('suksess');
+      };
+
+      const resultPromise = tryCatchAsync(() => fn(true));
+
+      // biome-ignore lint/suspicious/noExplicitAny: any is ok for tests
+      expect(typeof (resultPromise as any).then).toBe('function');
+
+      const [err] = await resultPromise;
+      expect(err?.message).toBe('Synchronous exception thrown outside Promise.resolve');
+    });
+
+    test('should work for both bound and unbound async function', async () => {
+      const arrowAsync = async () => 'arrow';
+      async function normalAsync() {
+        return 'normal';
+      }
+
+      const [_err1, res1] = await tryCatchAsync(arrowAsync);
+      const [_err2, res2] = await tryCatchAsync(normalAsync);
+
+      expect(res1).toBe('arrow');
+      expect(res2).toBe('normal');
+    });
+
+    test('custom thenables', async () => {
+      const thenable = {
+        // biome-ignore lint/suspicious/noThenProperty: OK for tests
+        // biome-ignore lint/suspicious/noExplicitAny: OK for tests
+        then: (onFulfilled: any) => onFulfilled('custom-thenable'),
+      };
+
+      const result = tryCatchAsync(() => thenable);
+      expect(typeof result.then).toBe('function');
+      const [_err, data] = await result;
+      expect(data).toBe('custom-thenable');
     });
   });
 });

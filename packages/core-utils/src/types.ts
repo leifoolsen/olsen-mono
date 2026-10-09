@@ -54,6 +54,16 @@ export type AtomicObject =
   | TemporalObject;
 
 /**
+ * Every JavaScript primitive type, i.e. all values for which `typeof` is not `'object'` or `'function'` (plus `null`).
+ */
+export type Primitive = string | number | bigint | boolean | symbol | null | undefined;
+
+/**
+ * Any value that is treated as a single, indivisible unit: a primitive or an {@link AtomicObject}.
+ */
+export type AtomicValue = Primitive | AtomicObject;
+
+/**
  * A utility type that recursively makes all properties of a given type `T` optional.
  * This is particularly useful for scenarios where partial updates of deeply nested structures
  * are needed.
