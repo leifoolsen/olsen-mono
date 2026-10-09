@@ -123,4 +123,131 @@ describe('isEqual', () => {
       expect(isEqual(arr, obj)).toBe(false);
     });
   });
+
+  describe('binary data', () => {
+    it('should compare ArrayBuffers by content', () => {
+      expect(isEqual(new Uint8Array([1, 2]).buffer, new Uint8Array([1, 2]).buffer)).toBe(true);
+      expect(isEqual(new ArrayBuffer(1), new ArrayBuffer(8))).toBe(false);
+      expect(isEqual(new Uint8Array([1]).buffer, new Uint8Array([2]).buffer)).toBe(false);
+    });
+
+    it('should compare typed arrays by type and content', () => {
+      expect(isEqual(new Uint8Array([1, 2]), new Uint8Array([1, 2]))).toBe(true);
+      expect(isEqual(new Uint8Array([1, 2]), new Uint8Array([1, 3]))).toBe(false);
+      expect(isEqual(new Uint8Array([1, 2]), new Int8Array([1, 2]))).toBe(false);
+    });
+
+    it('should only compare the viewed region of a typed array', () => {
+      const buffer = new Uint8Array([9, 1, 2, 9]).buffer;
+      expect(isEqual(new Uint8Array(buffer, 1, 2), new Uint8Array([1, 2]))).toBe(true);
+    });
+
+    it('should compare DataViews by content', () => {
+      expect(isEqual(new DataView(new Uint8Array([1]).buffer), new DataView(new Uint8Array([1]).buffer))).toBe(true);
+      expect(isEqual(new DataView(new Uint8Array([1]).buffer), new DataView(new Uint8Array([2]).buffer))).toBe(false);
+    });
+  });
+
+  describe('other built-ins', () => {
+    it('should treat two invalid Dates as equal', () => {
+      expect(isEqual(new Date(NaN), new Date(NaN))).toBe(true);
+      expect(isEqual(new Date(NaN), new Date(0))).toBe(false);
+    });
+
+    it('should compare Errors by message and cause, ignoring stack', () => {
+      expect(isEqual(new Error('x', { cause: 1 }), new Error('x', { cause: 1 }))).toBe(true);
+      expect(isEqual(new Error('x', { cause: 1 }), new Error('x', { cause: 2 }))).toBe(false);
+      expect(isEqual(new Error('x'), new Error('y'))).toBe(false);
+      expect(isEqual(new Error('x'), new TypeError('x'))).toBe(false);
+    });
+
+    it('should compare boxed primitives by value', () => {
+      expect(isEqual(new Number(1), new Number(1))).toBe(true);
+      expect(isEqual(new Number(1), new Number(2))).toBe(false);
+      expect(isEqual(new Boolean(true), new Boolean(false))).toBe(false);
+      expect(isEqual(new Number(1), 1)).toBe(false);
+    });
+
+    it('should compare opaque objects by identity only', () => {
+      const weakMap = new WeakMap();
+      expect(isEqual(weakMap, weakMap)).toBe(true);
+      expect(isEqual(new WeakMap(), new WeakMap())).toBe(false);
+      expect(isEqual(new WeakSet(), new WeakSet())).toBe(false);
+      expect(isEqual(Promise.resolve(1), Promise.resolve(1))).toBe(false);
+    });
+
+    it('should compare functions by identity only', () => {
+      const fn = () => 1;
+      expect(isEqual(fn, fn)).toBe(true);
+      expect(isEqual(fn, () => 1)).toBe(false);
+    });
+
+    it('should not consider a Map equal to a Set', () => {
+      expect(isEqual(new Map(), new Set())).toBe(false);
+    });
+
+    it.runIf(typeof Temporal !== 'undefined')('should compare Temporal.Duration field by field', () => {
+      expect(isEqual(Temporal.Duration.from({ hours: 1 }), Temporal.Duration.from({ hours: 1 }))).toBe(true);
+      expect(isEqual(Temporal.Duration.from({ milliseconds: 1000 }), Temporal.Duration.from({ seconds: 1 }))).toBe(
+        false,
+      );
+    });
+  });
+
+  describe('collections with mixed keys', () => {
+    it('should match object keys in Maps structurally', () => {
+      const map1 = new Map<unknown, number>([
+        ['a', 1],
+        [{ id: 1 }, 2],
+      ]);
+      const map2 = new Map<unknown, number>([
+        [{ id: 1 }, 2],
+        ['a', 1],
+      ]);
+      const map3 = new Map<unknown, number>([
+        ['a', 1],
+        [{ id: 2 }, 2],
+      ]);
+
+      expect(isEqual(map1, map2)).toBe(true);
+      expect(isEqual(map1, map3)).toBe(false);
+    });
+
+    it('should not match duplicate structural items more than once in Sets', () => {
+      expect(isEqual(new Set([{ a: 1 }, { a: 1 }]), new Set([{ a: 1 }, { a: 2 }]))).toBe(false);
+      expect(isEqual(new Set([1, 'a']), new Set([1, 'b']))).toBe(false);
+    });
+  });
+
+  describe('cyclic references', () => {
+    it('should compare self-referencing objects without overflowing the stack', () => {
+      // biome-ignore lint/suspicious/noExplicitAny: any is fine here
+      const a: any = { name: 'a' };
+      a.self = a;
+      // biome-ignore lint/suspicious/noExplicitAny: any is fine here
+      const b: any = { name: 'a' };
+      b.self = b;
+      // biome-ignore lint/suspicious/noExplicitAny: any is fine here
+      const c: any = { name: 'c' };
+      c.self = c;
+
+      expect(isEqual(a, b)).toBe(true);
+      expect(isEqual(a, c)).toBe(false);
+    });
+
+    it('should compare mutually referencing structures', () => {
+      // biome-ignore lint/suspicious/noExplicitAny: any is fine here
+      const a1: any = {};
+      // biome-ignore lint/suspicious/noExplicitAny: any is fine here
+      const a2: any = { a1 };
+      a1.a2 = a2;
+      // biome-ignore lint/suspicious/noExplicitAny: any is fine here
+      const b1: any = {};
+      // biome-ignore lint/suspicious/noExplicitAny: any is fine here
+      const b2: any = { a1: b1 };
+      b1.a2 = b2;
+
+      expect(isEqual([a1, a2], [b1, b2])).toBe(true);
+    });
+  });
 });

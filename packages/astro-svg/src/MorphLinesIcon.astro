@@ -1,8 +1,8 @@
 ---
 // packages/astro-icons/src/MorphLinesIcon.astro
 import type { HTMLAttributes } from 'astro/types';
+import { computeLineMorph, matchLines, scaleLines } from './morph-lines-utils.ts';
 import type { LineSegment } from './types';
-import { computeLineMorph, matchLines, scaleLines } from './utils';
 
 type Props = HTMLAttributes<'svg'> & {
   /** If true, the `toLines` line segments are rendered, otherwise the `fromLines` line segments are rendered. */
@@ -89,8 +89,8 @@ const style =
   data-morph-icon
   data-airy={airy ? '' : undefined}
   data-hover={hover ? '' : undefined}
-  width=`${iconSize}`
-  height=`${iconSize}`
+  width={iconSize}
+  height={iconSize}
   viewBox="0 0 24 24"
   stroke-width="2"
   stroke="currentColor"
@@ -181,7 +181,7 @@ const style =
 </style>
 
 <script>
-  import { createMorphLinesIcon } from './create-morph-lines-icon';
+  import { createMorphLinesIcon } from './morph-lines-icon.ts';
 
   const setupMorphIcons = () => {
     const elements = document.querySelectorAll('[data-morph-icon]');

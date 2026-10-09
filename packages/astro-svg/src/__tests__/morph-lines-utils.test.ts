@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { tripleLines, xLines } from '../line-icons';
-import type { LineSegment } from '../types';
 import {
   bestAssignment,
   computeLineMorph,
@@ -12,7 +11,8 @@ import {
   padLines,
   reverseLine,
   scaleLines,
-} from '../utils';
+} from '../morph-lines-utils.ts';
+import type { LineSegment } from '../types';
 
 const CENTER_POINT: LineSegment = { x1: 12, y1: 12, x2: 12, y2: 12 };
 const horizontal = (y: number): LineSegment => ({ x1: 4, y1: y, x2: 20, y2: y });

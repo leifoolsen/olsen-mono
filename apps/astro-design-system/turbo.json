@@ -9,6 +9,8 @@
         "src/**/*.ts",
         "src/**/*.tsx",
         "src/**/*.css",
+        "src/**/*.html",
+        "src/assets/**/*",
         "!src/**/*.d.ts",
         "public/**/*",
         "astro.config.mjs",

@@ -65,7 +65,7 @@ if (!label && Astro.slots.has('label')) {
   {hasLabel && !!label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
 
   <InputControl>
-    <label role="checkbox" class="form-toggle-switch">
+    <label class="form-toggle-switch">
       <input class="form-toggle-switch-input" id={id} role={role} type={type} {...rest} />
       {onIconHtml && <Fragment set:html={onIconHtml} />}
       {offIconHtml && <Fragment set:html={offIconHtml} />}

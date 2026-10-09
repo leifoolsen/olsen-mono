@@ -12,4 +12,4 @@
  * @returns {boolean} - Returns true if the value is a Temporal.PlainDateTime, otherwise false.
  */
 export const isPlainDateTime = (val: unknown): val is Temporal.PlainDateTime =>
-  val != null && typeof val === 'object' && val instanceof Temporal.PlainDateTime;
+  typeof Temporal !== 'undefined' && val != null && typeof val === 'object' && val instanceof Temporal.PlainDateTime;

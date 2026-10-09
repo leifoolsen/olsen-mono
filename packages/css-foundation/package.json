@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/css-foundation",
   "description": "CSS Foundation",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "private": true,
   "type": "module",
   "sideEffects": [
@@ -9,7 +9,6 @@
   ],
   "exports": {
     "./main.css": {
-      "types": "./dist/main.css.d.ts",
       "development": "./src/main.css",
       "default": "./src/main.css"
     },
@@ -24,12 +23,10 @@
       "default": "./src/font-stacks.css"
     },
     "./reset.css": {
-      "types": "./dist/reset.css.d.ts",
       "development": "./src/reset.css",
       "default": "./src/reset.css"
     },
     "./typesetting.css": {
-      "types": "./dist/typesetting.css.d.ts",
       "development": "./src/typesetting.css",
       "default": "./src/typesetting.css"
     },
@@ -39,7 +36,7 @@
       "default": "./src/typography.css"
     },
     "./layouts.css": {
-      "types": "./dist/layout.css.d.ts",
+      "types": "./dist/layouts.css.d.ts",
       "development": "./src/layouts.css",
       "default": "./src/layouts.css"
     },

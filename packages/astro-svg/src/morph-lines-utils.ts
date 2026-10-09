@@ -183,6 +183,9 @@ function widenPoint(line: LineSegment): LineSegment {
 
 /**
  * Calculates the transform needed to morph one line segment into another.
+ * The algorithm is basically a simple nearest neighbor algorithm, trying every pairing and keeping the one with the
+ * lowest total distance gives the best result for any input order. Up to 8 lines, that is at most 40,320 pairings,
+ * which is negligible. Above that, the Hungarian algorithm (O(n³)) will be a better option.
  *
  * @param from - The line segment to morph from.
  * @param to - The line segment to morph to.

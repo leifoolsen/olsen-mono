@@ -1,7 +1,7 @@
 ---
 // packages/astro-forms/src/TextInput.astro
-import { xLines } from '@olsen-mono/astro-morph-icons';
-import MorphLinesIcon from '@olsen-mono/astro-morph-icons/MorphLinesIcon.astro';
+import { xLines } from '@olsen-mono/astro-svg';
+import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './ErrorMessage.astro';
@@ -40,7 +40,7 @@ const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-messa
 const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const hasDescriptionSlot = Astro.slots.has('description');
 const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
-const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
+const describedByList = [errorId, descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
 
 let labelContent = '';
 if (!label && Astro.slots.has('label')) {

@@ -6,8 +6,8 @@ import Combobox from '@olsen-mono/astro-forms/Combobox.astro';
 import Listbox from '@olsen-mono/astro-forms/Listbox.astro';
 import ListboxGroup from '@olsen-mono/astro-forms/ListboxGroup.astro';
 import ListboxOption from '@olsen-mono/astro-forms/ListboxOption.astro';
-import { arrowPointingDownLines, arrowPointingLeftLines, lineIcons } from '@olsen-mono/astro-morph-icons';
-import MorphLinesIcon from '@olsen-mono/astro-morph-icons/MorphLinesIcon.astro';
+import { arrowPointingDownLines, arrowPointingLeftLines, lineIcons } from '@olsen-mono/astro-svg';
+import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
 ---
 
 <AppLayout title="Morph Lines Icons">
@@ -99,7 +99,7 @@ import MorphLinesIcon from '@olsen-mono/astro-morph-icons/MorphLinesIcon.astro';
 
 <script>
   import type { ComboboxChangeEventDetail, ListboxItem } from '@olsen-mono/astro-forms';
-  import { lineIcons, type LineSegment, type MorphLinesIconElement } from '@olsen-mono/astro-morph-icons';
+  import { lineIcons, type LineSegment, type MorphLinesIconElement } from '@olsen-mono/astro-svg';
 
   const inputContainer = document.getElementById('morph-inputs');
 
@@ -125,7 +125,7 @@ import MorphLinesIcon from '@olsen-mono/astro-morph-icons/MorphLinesIcon.astro';
       const customEvent = e as CustomEvent<ComboboxChangeEventDetail>;
       const data = !Array.isArray(customEvent.detail) ? customEvent.detail : ({} as ListboxItem);
 
-      const name = data?.name;
+      const name = data?.name!;
       const value = data?.value;
       state[name] = lineIcons.get(value!);
 

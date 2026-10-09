@@ -15,4 +15,4 @@
  * instance; otherwise, false.
  */
 export const isZonedDateTime = (val: unknown): val is Temporal.ZonedDateTime =>
-  val != null && typeof val === 'object' && val instanceof Temporal.ZonedDateTime;
+  typeof Temporal !== 'undefined' && val != null && typeof val === 'object' && val instanceof Temporal.ZonedDateTime;

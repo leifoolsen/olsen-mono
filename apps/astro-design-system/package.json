@@ -1,6 +1,6 @@
 {
   "name": "astro-design-system",
-  "version": "0.0.17",
+  "version": "0.0.19",
   "private": true,
   "type": "module",
   "publishConfig": {
@@ -29,7 +29,6 @@
   "dependencies": {
     "@astrojs/node": "catalog:",
     "@olsen-mono/astro-forms": "workspace:*",
-    "@olsen-mono/astro-morph-icons": "workspace:*",
     "@olsen-mono/astro-svg": "workspace:*",
     "@olsen-mono/core-utils": "workspace:*",
     "@olsen-mono/css-foundation": "workspace:*",

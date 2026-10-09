@@ -39,7 +39,7 @@ const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-messa
 
 let legendContent = '';
 if (!legend && Astro.slots.has('legend')) {
-  legendContent = await Astro.slots.render('label');
+  legendContent = await Astro.slots.render('legend');
 }
 ---
 

@@ -11,7 +11,7 @@ export function assertValidSlots<T extends string>(
   slots: Record<string, unknown>,
   allowedSlots: readonly T[],
   componentName: string,
-): asserts slots is Record<T | 'default', unknown> {
+): asserts slots is Partial<Record<T | 'default', unknown>> {
   const allowedSet = new Set<string>([...allowedSlots, 'default']);
 
   for (const slotName of Object.keys(slots)) {

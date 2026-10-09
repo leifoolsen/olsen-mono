@@ -8,4 +8,4 @@
  * @returns A boolean indicating if the value is a `Temporal.PlainDate` instance.
  */
 export const isPlainDate = (val: unknown): val is Temporal.PlainDate =>
-  val != null && typeof val === 'object' && val instanceof Temporal.PlainDate;
+  typeof Temporal !== 'undefined' && val != null && typeof val === 'object' && val instanceof Temporal.PlainDate;

@@ -1,5 +1,23 @@
 # @olsen-mono/astro-forms
 
+## 0.0.7
+
+### Patch Changes
+
+- 41fd28f: Merged @olsen-mono/astro-morph-icons into @olsen-mono/astro-svg and updated package.json references.
+- Updated dependencies [41fd28f]
+  - @olsen-mono/astro-svg@0.0.8
+
+## 0.0.6
+
+### Patch Changes
+
+- f131031: copilot code fixes
+- Updated dependencies [f131031]
+  - @olsen-mono/astro-morph-icons@0.0.4
+  - @olsen-mono/astro-svg@0.0.7
+  - @olsen-mono/core-utils@0.0.27
+
 ## 0.0.5
 
 ### Patch Changes

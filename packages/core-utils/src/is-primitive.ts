@@ -1,4 +1,4 @@
-type Primitive = string | number | bigint | boolean | symbol | null | undefined;
+import type { Primitive } from './types';
 
 /**
  * Check whether a value is a primitive scalar value

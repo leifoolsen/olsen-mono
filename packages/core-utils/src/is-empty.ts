@@ -19,7 +19,7 @@ import { isTemporal } from './is-temporal';
  */
 type Empty =
   | ''
-  | readonly unknown[]
+  | readonly []
   | null
   | undefined
   | Map<unknown, unknown>

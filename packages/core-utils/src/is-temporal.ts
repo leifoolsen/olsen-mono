@@ -14,7 +14,7 @@ import type { TemporalObject } from './types';
  * @returns {val is TemporalObject} `true` if the value is a Temporal object; otherwise, `false`.
  */
 export const isTemporal = (val: unknown): val is TemporalObject => {
-  if (val == null || typeof val !== 'object') {
+  if (typeof Temporal === 'undefined' || val == null || typeof val !== 'object') {
     return false;
   }
 
