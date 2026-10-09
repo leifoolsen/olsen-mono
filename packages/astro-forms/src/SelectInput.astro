@@ -10,6 +10,7 @@ import FormToolButton from './FormToolButton.astro';
 import InputControl from './InputControl.astro';
 import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
+import { injectForAttribute } from './utils.ts';
 
 type Props = HTMLAttributes<'select'> & {
   id: string;
@@ -36,15 +37,21 @@ const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-messa
 const hasDescriptionSlot = Astro.slots.has('description');
 const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
 const errorId = hasErrorMessage ? `${id}-error` : undefined;
-const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
+const describedByList = [errorId, descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
+
+let labelContent = '';
+if (!label && Astro.slots.has('label')) {
+  const slotContent = await Astro.slots.render('label');
+  labelContent = injectForAttribute(slotContent, id);
+}
 ---
 
 <InputGroup class={className} layout={labelPosition}>
-  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+  {hasLabel && !!label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
 
   <InputControl>
     <select
-      aria-invalid={invalid ?? undefined}
+      aria-invalid={invalid ?? ariaInvalid ?? undefined}
       aria-describedby={describedByList || undefined}
       class="form-select-input"
       data-select-input
@@ -108,6 +115,7 @@ const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' 
           input.value = '';
           input.focus();
           input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.dispatchEvent(new Event('change', { bubbles: true }));
         });
       }
     }

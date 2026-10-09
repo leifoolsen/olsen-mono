@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 import { isAtomic } from '../is-atomic';
 
 describe('isAtomic', () => {
@@ -25,5 +25,25 @@ describe('isAtomic', () => {
     expect(isAtomic({})).toBe(false);
     expect(isAtomic([])).toBe(false);
     expect(isAtomic(Object.create(null))).toBe(false);
+  });
+
+  it('should return true for bigint values', () => {
+    expect(isAtomic(42n)).toBe(true);
+  });
+
+  it('should return false for functions and classes', () => {
+    expect(isAtomic(() => undefined)).toBe(false);
+    expect(isAtomic(function named() {})).toBe(false);
+    expect(isAtomic(class {})).toBe(false);
+  });
+
+  it('should narrow bigint to atomic and functions to non-atomic', () => {
+    const value = 42n as bigint | (() => void) | { a: number };
+
+    if (isAtomic(value)) {
+      expectTypeOf(value).toEqualTypeOf<bigint>();
+    } else {
+      expectTypeOf(value).toEqualTypeOf<(() => void) | { a: number }>();
+    }
   });
 });

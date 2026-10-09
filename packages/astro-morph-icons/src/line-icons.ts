@@ -50,9 +50,9 @@ export const tripleLines: LineSegment[] = [
  * @type {LineSegment[]}
  */
 export const verticalTripleLines: LineSegment[] = [
-  { x1: 5, y1: 4, x2: 5, y2: 20 },
+  { x1: 6, y1: 4, x2: 6, y2: 20 },
   { x1: 12, y1: 4, x2: 12, y2: 20 },
-  { x1: 19, y1: 4, x2: 19, y2: 20 },
+  { x1: 18, y1: 4, x2: 18, y2: 20 },
 ];
 
 /**
@@ -408,6 +408,7 @@ export const externalLinkLines: LineSegment[] = [
  * The following keys are available:
  * - `arrowPointingDownLines`: Represents an arrow icon pointing downward.
  * - `arrowPointingLeftLines`: Represents an arrow icon pointing leftward.
+ * - `arrowPointingRightLines`: Represents an arrow icon pointing rightward.
  * - `arrowPointingUpRightLines`: Represents an arrow icon pointing upward and to the right.
  * - `arrowPointingUpLines`: Represents an arrow icon pointing upward.
  * - `asteriskLines`: Represents an asterisk icon.
@@ -443,6 +444,7 @@ export const externalLinkLines: LineSegment[] = [
 export const lineIcons = new Map<string, LineSegment[]>([
   ['arrowPointingDownLines', arrowPointingDownLines],
   ['arrowPointingLeftLines', arrowPointingLeftLines],
+  ['arrowPointingRightLines', arrowPointingRightLines],
   ['arrowPointingUpRightLines', arrowPointingUpRightLines],
   ['arrowPointingUpLines', arrowPointingUpLines],
   ['arrowPointingUpRightLines', arrowPointingUpRightLines],

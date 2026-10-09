@@ -1,19 +1,5 @@
-import * as util from 'node:util';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { isProxy } from '../is-proxy';
-
-// We mock node:util to control the native isProxy behavior in tests
-vi.mock('node:util', async (importOriginal) => {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  const actual = await importOriginal<typeof import('node:util')>();
-  return {
-    ...actual,
-    types: {
-      ...actual.types,
-      isProxy: vi.fn(), // We'll define behavior inside tests
-    },
-  };
-});
 
 describe('isProxy', () => {
   describe('Node.js environment (native detection)', () => {
@@ -31,27 +17,26 @@ describe('isProxy', () => {
       expect(isProxy({ __isProxy: false })).toBe(false);
     });
 
-    it('should return true if node:util identifies it as a proxy', () => {
-      const target = { name: 'Arendal' };
-      const proxy = new Proxy(target, {});
+    it('should return true for a native proxy without a marker', () => {
+      const proxy = new Proxy({ name: 'Arendal' }, {});
 
-      vi.mocked(util.types.isProxy).mockReturnValue(true);
+      expect(isProxy(proxy)).toBe(true);
+    });
+
+    it('should return true for a proxied function', () => {
+      const proxy = new Proxy(() => undefined, {});
 
       expect(isProxy(proxy)).toBe(true);
     });
 
     it('should return false for regular objects', () => {
-      const obj = { a: 1 };
-      vi.mocked(util.types.isProxy).mockReturnValue(false);
-
-      expect(isProxy(obj)).toBe(false);
+      expect(isProxy({ a: 1 })).toBe(false);
+      expect(isProxy(() => undefined)).toBe(false);
     });
   });
 
   describe('Browser environment (marker detection)', () => {
     it('should detect a proxy using the __isProxy marker', () => {
-      vi.mocked(util.types.isProxy).mockReturnValue(false);
-
       const handler = {
         // biome-ignore lint/suspicious/noExplicitAny: any is fine here
         get(target: any, prop: string | symbol) {
@@ -79,6 +64,18 @@ describe('isProxy', () => {
     it('should not throw if the target object is frozen', () => {
       const frozen = Object.freeze({});
       expect(() => isProxy(frozen)).not.toThrow();
+    });
+
+    it('should not throw if a proxy get trap throws', () => {
+      const proxy = new Proxy(
+        {},
+        {
+          get() {
+            throw new Error('boom');
+          },
+        },
+      );
+      expect(() => isProxy(proxy)).not.toThrow();
     });
   });
 });

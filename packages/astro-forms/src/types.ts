@@ -11,7 +11,7 @@ export type ListboxItem = {
 
 export type ListboxChangeEventDetail = ListboxItem | ListboxItem[] | null;
 
-export type ComboboxChangeEventDetail = ListboxChangeEventDetail & {};
+export type ComboboxChangeEventDetail = ListboxChangeEventDetail;
 
 export type ListboxApi = {
   selectAll: () => void;

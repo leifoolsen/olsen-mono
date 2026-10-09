@@ -54,6 +54,16 @@ export type AtomicObject =
   | TemporalObject;
 
 /**
+ * Every JavaScript primitive type, i.e. all values for which `typeof` is not `'object'` or `'function'` (plus `null`).
+ */
+export type Primitive = string | number | bigint | boolean | symbol | null | undefined;
+
+/**
+ * Any value that is treated as a single, indivisible unit: a primitive or an {@link AtomicObject}.
+ */
+export type AtomicValue = Primitive | AtomicObject;
+
+/**
  * A utility type that recursively makes all properties of a given type `T` optional.
  * This is particularly useful for scenarios where partial updates of deeply nested structures
  * are needed.
@@ -69,17 +79,18 @@ export type AtomicObject =
  *
  * @template T The type to be recursively wrapped in `DeepPartial`.
  */
-export type DeepPartial<T> = T extends AtomicObject
-  ? T
-  : T extends Map<infer K, infer V>
+export type DeepPartial<T> =
+  T extends Map<infer K, infer V>
     ? Map<K, DeepPartial<V>>
     : T extends Set<infer U>
       ? Set<DeepPartial<U>>
-      : // biome-ignore lint/suspicious/noExplicitAny: any is ok here
-        T extends readonly any[]
-        ? number extends T['length']
-          ? DeepPartial<T[number]>[]
-          : { [K in keyof T]: DeepPartial<T[K]> }
-        : T extends object
-          ? { [K in keyof T]?: DeepPartial<T[K]> }
-          : T;
+      : T extends AtomicObject
+        ? T
+        : // biome-ignore lint/suspicious/noExplicitAny: any is ok here
+          T extends readonly any[]
+          ? number extends T['length']
+            ? DeepPartial<T[number]>[]
+            : { [K in keyof T]: DeepPartial<T[K]> }
+          : T extends object
+            ? { [K in keyof T]?: DeepPartial<T[K]> }
+            : T;

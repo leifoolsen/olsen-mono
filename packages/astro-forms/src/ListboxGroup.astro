@@ -14,7 +14,7 @@ const { class: className, label, role = 'group', ...rest } = Astro.props;
 assertValidSlots(Astro.slots, ['label'], 'ListboxGroup');
 
 const processedLabel = await matchAsync()
-  .on(!!label, () => `<Fragment>${label}</Fragment>`)
+  .on(!!label, () => (label ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;'))
   .on(Astro.slots.has('label'), async () => await Astro.slots.render('label'))
   .otherwise(() => null);
 ---

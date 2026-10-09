@@ -105,6 +105,6 @@ describe('create-safe-regex', () => {
         allowedChars: 'a-z',
       },
     });
-    expect(regex.toString()).toBe('/[a\\-z]/');
+    expect(regex.toString()).toBe('/[a\\x2dz]/');
   });
 });

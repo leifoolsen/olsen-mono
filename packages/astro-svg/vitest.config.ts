@@ -9,6 +9,8 @@ export default defineConfig(
   getViteConfig({
     test: {
       ...baseTestOptions,
+      include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+      reporters: ['verbose'],
     },
     // biome-ignore lint/suspicious/noExplicitAny: Casts to `any` because `getViteConfig` returns a `UserConfigFn`, whereas Vitest expects a plain object or promise.
   }) as any,

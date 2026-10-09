@@ -35,20 +35,24 @@ export const isPlainObject = (value: unknown): value is Record<PropertyKey, unkn
     return false;
   }
 
-  const proto = Object.getPrototypeOf(value) as
-    | (object & {
-        constructor?: unknown;
-      })
-    | null;
+  const proto = Object.getPrototypeOf(value) as (object & { constructor?: unknown }) | null;
 
   if (proto === null) {
     return true;
   }
 
+  if (proto === Object.prototype) {
+    if (value === Math || value === JSON || value === Atomics || value === Reflect) {
+      return false;
+    }
+  }
+
   const ctor = Object.hasOwn(proto, 'constructor') && proto.constructor;
 
   const hasObjectCtor =
-    typeof ctor === 'function' && Function.prototype.toString.call(ctor) === Function.prototype.toString.call(Object);
+    typeof ctor === 'function' &&
+    ctor instanceof ctor &&
+    Function.prototype.toString.call(ctor) === Function.prototype.toString.call(Object);
 
   if (!hasObjectCtor) {
     return false;

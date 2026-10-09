@@ -12,6 +12,7 @@ import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
 import SearchIcon from './SearchIcon.astro';
 import './listbox.css';
+import { injectForAttribute } from './utils.ts';
 
 type Props = HTMLAttributes<'input'> & {
   id: string;
@@ -24,7 +25,6 @@ const {
   'aria-controls': _ariaControls,
   'aria-describedby': ariaDescribedBy,
   'aria-expanded': ariaExpanded = 'false',
-  'aria-haspopup': ariaHasPopup = 'true',
   'aria-invalid': ariaInvalid,
   'aria-multiselectable': _ariaMultiSelectable,
   autocomplete = 'off',
@@ -44,21 +44,26 @@ assertValidSlots(Astro.slots, ['label', 'options', 'description', 'error-message
 const hasLabel = !!label || Astro.slots.has('label');
 const errorId = (invalid ?? ariaInvalid) && Astro.slots.has('error-message') ? `${id}-error` : undefined;
 const descriptionId = Astro.slots.has('description') ? `${id}-description` : undefined;
-const describedByList = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
+const describedByList = [errorId, descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
 const hasOptionsSlot = Astro.slots.has('options');
 const resultsPopoverId = `${id}-results-popover`;
 const uniqueAnchorName = `--anchor-list-${id}`;
+
+let labelContent = '';
+if (!label && Astro.slots.has('label')) {
+  const slotContent = await Astro.slots.render('label');
+  labelContent = injectForAttribute(slotContent, id);
+}
 ---
 
 <InputGroup layout={labelPosition} class={className} data-combobox>
-  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+  {hasLabel && !!label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
 
   <InputControl class="combobox-control" style={`anchor-name: ${uniqueAnchorName};`}>
     <input
       aria-controls={resultsPopoverId}
       aria-describedby={describedByList ?? undefined}
       aria-expanded={ariaExpanded}
-      aria-haspopup={ariaHasPopup}
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
       aria-multiselectable="false"
       autocomplete={autocomplete}

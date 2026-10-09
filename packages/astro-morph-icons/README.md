@@ -23,8 +23,8 @@ by discrete straight coordinates on a standard `24x24` grid.
 Within your monorepo, import the component and types into your target Astro workspace:
 
 ```tsx
-import { MorphLinesIcon } from '@olsen-mono/astro-morph-icons';
-import type { LineSegment } from '@olsen-mono/astro-morph-icons/types';
+import { MorphLinesIcon } from '@olsen-mono/astro-morph-icons/MorphLinesIcon';
+import type { LineSegment } from '@olsen-mono/astro-morph-icons';
 ```
 
 ---
@@ -56,7 +56,7 @@ Perfect for toggle buttons requiring a fluid rotation coupled with a line struct
 
 ```astro
 ---
-import { MorphLinesIcon } from '@packages/astro-icons';
+import { MorphLinesIcon } from '@olsen-mono/astro-morph-icons/MorphLinesIcon';
 
 // Data definitions mapped to standard 24x24 canvas
 const tripleLines = [
@@ -100,8 +100,8 @@ Fades and transforms a search magnifying glass into an action close (`X`) indica
 
 ```astro
 ---
-import { MorphLinesIcon } from '@packages/astro-icons';
-import { searchLines, xLines } from '../data/icon-library';
+import { MorphLinesIcon } from '@olsen-mono/astro-morph-icons/MorphLinesIcon';
+import { searchLines, xLines } from '../data/your-line-icon-library';
 ---
 
 <div class="search-wrapper">

@@ -5,7 +5,7 @@
 
   display: grid;
   gap: var(--_switch-gap);
-  grid-template-columns: repeat(auto-fit, minmax(min(var(--_min-width, 100%)), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--_min-width), 100%), 1fr));
 
   /* --- Restrict Columns --- */
   &[data-columns] {
