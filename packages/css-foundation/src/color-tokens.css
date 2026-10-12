@@ -1,0 +1,316 @@
+/* --- packages/css-foundation/src/color-tokens.css --- */
+@property --variant {
+  syntax: "<string>";
+  inherits: true;
+  initial-value: "neutral";
+}
+@property --shade {
+  syntax: "<string>";
+  inherits: true;
+  initial-value: "auto";
+}
+
+:root {
+  color-scheme: light dark;
+
+  /* --- Base Colors --- */
+  --lightness-neutral: 0.6;
+  --chroma-neutral: 0.02;
+  --hue-neutral: 250;
+  --lightness-primary: 0.51;
+  --chroma-primary: 0.2;
+  --hue-primary: 303.4;
+  --lightness-secondary: 0.56;
+  --chroma-secondary: 0.15;
+  --hue-secondary: 352;
+  --lightness-tertiary: 0.71;
+  --chroma-tertiary: 0.15;
+  --hue-tertiary: 132;
+  --lightness-quaternary: 0.69;
+  --chroma-quaternary: 0.13;
+  --hue-quaternary: 158;
+  --lightness-success: 0.35;
+  --chroma-success: 0.25;
+  --hue-success: 145; /* green */
+  --lightness-error: 0.55;
+  --chroma-error: 0.25;
+  --hue-error: 29; /* red */
+  --lightness-warning: 0.68;
+  --chroma-warning: 0.25;
+  --hue-warning: 65; /* orange */
+  --lightness-info: 0.61;
+  --chroma-info: 0.16;
+  --hue-info: 210; /* cyan */
+
+  /* --- Default / Fallbacks --- */
+  --base-l: var(--lightness-neutral);
+  --base-c: var(--chroma-neutral);
+  --base-h: var(--hue-neutral);
+}
+
+body {
+  background-color: light-dark(oklch(95% 0 0deg), oklch(12% 0 0deg));
+  color: light-dark(oklch(12% 0 0deg), oklch(95% 0 0deg));
+}
+
+/* --- Color Variants --- */
+@container style(--variant: "neutral") {
+  * {
+    --base-l: var(--lightness-neutral);
+    --base-c: var(--chroma-neutral);
+    --base-h: var(--hue-neutral);
+  }
+}
+
+@container style(--variant: "primary") {
+  * {
+    --base-l: var(--lightness-primary);
+    --base-c: var(--chroma-primary);
+    --base-h: var(--hue-primary);
+  }
+}
+
+@container style(--variant: "secondary") {
+  * {
+    --base-l: var(--lightness-secondary);
+    --base-c: var(--chroma-secondary);
+    --base-h: var(--hue-secondary);
+  }
+}
+
+@container style(--variant: "tertiary") {
+  * {
+    --base-l: var(--lightness-tertiary);
+    --base-c: var(--chroma-tertiary);
+    --base-h: var(--hue-tertiary);
+  }
+}
+
+@container style(--variant: "quaternary") {
+  * {
+    --base-l: var(--lightness-quaternary);
+    --base-c: var(--chroma-quaternary);
+    --base-h: var(--hue-quaternary);
+  }
+}
+
+@container style(--variant: "success") {
+  * {
+    --base-l: var(--lightness-success);
+    --base-c: var(--chroma-success);
+    --base-h: var(--hue-success);
+  }
+}
+
+@container style(--variant: "info") {
+  * {
+    --base-l: var(--lightness-info);
+    --base-c: var(--chroma-info);
+    --base-h: var(--hue-info);
+  }
+}
+
+@container style(--variant: "warning") {
+  * {
+    --base-l: var(--lightness-warning);
+    --base-c: var(--chroma-warning);
+    --base-h: var(--hue-warning);
+  }
+}
+
+@container style(--variant: "error") or style(--variant: "danger") {
+  * {
+    --base-l: var(--lightness-error);
+    --base-c: var(--chroma-error);
+    --base-h: var(--hue-error);
+  }
+}
+
+/* --- Generate Colors for Current Variant --- */
+@container style(--variant: "neutral") or style(--variant: "primary") or style(--variant: "secondary") or style(
+  --variant: "tertiary"
+) or style(--variant: "quaternary") or style(--variant: "success") or style(--variant: "info") or style(
+  --variant: "warning"
+) or style(--variant: "error") or style(--variant: "danger") {
+  * {
+    --color-500: oklch(var(--base-l) var(--base-c) var(--base-h));
+    --_white: oklch(99% 0.015 var(--base-h));
+    --_black: oklch(12% 0.02 var(--base-h));
+
+    --color-50: color-mix(in oklch, var(--color-500) 40%, var(--_white));
+    --color-100: color-mix(in oklch, var(--color-500) 55%, var(--_white));
+    --color-200: color-mix(in oklch, var(--color-500) 70%, var(--_white));
+    --color-300: color-mix(in oklch, var(--color-500) 80%, var(--_white));
+    --color-400: color-mix(in oklch, var(--color-500) 90%, var(--_white));
+    --color-600: color-mix(in oklch, var(--color-500) 95%, var(--_black));
+    --color-700: color-mix(in oklch, var(--color-500) 85%, var(--_black));
+    --color-800: color-mix(in oklch, var(--color-500) 75%, var(--_black));
+    --color-900: color-mix(in oklch, var(--color-500) 60%, var(--_black));
+    --color-950: color-mix(in oklch, var(--color-500) 50%, var(--_black));
+    --color-A100: oklch(calc(var(--base-l) + 0.15) calc(var(--base-c) * 1.2) var(--base-h));
+    --color-A200: oklch(calc(var(--base-l) + 0.08) calc(var(--base-c) * 1.3) var(--base-h));
+    --color-A400: oklch(var(--base-l) calc(var(--base-c) * 1.4) var(--base-h));
+    --color-A700: oklch(calc(var(--base-l) - 0.1) calc(var(--base-c) * 1.2) var(--base-h));
+
+    --swatch-color: light-dark(var(--color-200), var(--color-500));
+  }
+}
+
+@container style(--variant: "surface") or style(--variant: "surface-1") or style(--variant: "surface-2") {
+  * {
+    --color-50: oklch(100% 0 0deg);
+    --color-100: oklch(95% 0 0deg);
+    --color-200: oklch(88% 0 0deg);
+    --color-300: oklch(78% 0 0deg);
+    --color-400: oklch(65% 0 0deg);
+    --color-500: oklch(50% 0 0deg);
+    --color-600: oklch(40% 0 0deg);
+    --color-700: oklch(30% 0 0deg);
+    --color-800: oklch(20% 0 0deg);
+    --color-900: oklch(12% 0 0deg);
+    --color-950: oklch(0% 0 0deg);
+    --swatch-color: light-dark(var(--color-50), var(--color-950));
+  }
+}
+
+@container style(--variant: "surface-1") {
+  * {
+    --swatch-color: light-dark(var(--color-100), var(--color-900));
+  }
+}
+
+@container style(--variant: "surface-2") {
+  * {
+    --swatch-color: light-dark(var(--color-200), var(--color-800));
+  }
+}
+
+@container style(--variant: "surface-3") {
+  * {
+    --swatch-color: light-dark(var(--color-300), var(--color-700));
+  }
+}
+
+@container style(--variant: "surface-4") {
+  * {
+    --swatch-color: light-dark(var(--color-400), var(--color-600));
+  }
+}
+
+/* --- Set Swatch Color for Shade --- */
+@container style(--shade: "50") {
+  * {
+    --swatch-color: var(--color-50);
+  }
+}
+
+@container style(--shade: "100") {
+  * {
+    --swatch-color: var(--color-100);
+  }
+}
+
+@container style(--shade: "200") {
+  * {
+    --swatch-color: var(--color-200);
+  }
+}
+
+@container style(--shade: "300") {
+  * {
+    --swatch-color: var(--color-300);
+  }
+}
+
+@container style(--shade: "400") {
+  * {
+    --swatch-color: var(--color-400);
+  }
+}
+
+@container style(--shade: "500") {
+  * {
+    --swatch-color: var(--color-500);
+  }
+}
+
+@container style(--shade: "600") {
+  * {
+    --swatch-color: var(--color-600);
+  }
+}
+
+@container style(--shade: "700") {
+  * {
+    --swatch-color: var(--color-700);
+  }
+}
+
+@container style(--shade: "800") {
+  * {
+    --swatch-color: var(--color-800);
+  }
+}
+
+@container style(--shade: "900") {
+  * {
+    --swatch-color: var(--color-900);
+  }
+}
+
+@container style(--shade: "950") {
+  * {
+    --swatch-color: var(--color-950);
+  }
+}
+
+@container style(--shade: "A100") {
+  * {
+    --swatch-color: var(--color-A100);
+  }
+}
+
+@container style(--shade: "A200") {
+  * {
+    --swatch-color: var(--color-A200);
+  }
+}
+
+@container style(--shade: "A400") {
+  * {
+    --swatch-color: var(--color-A400);
+  }
+}
+
+@container style(--shade: "A700") {
+  * {
+    --swatch-color: var(--color-A700);
+  }
+}
+
+/* --- Calculate Contrast Colors --- */
+@container style(--variant: "neutral") or style(--variant: "primary") or style(--variant: "secondary") or style(
+  --variant: "tertiary"
+) or style(--variant: "quaternary") or style(--variant: "success") or style(--variant: "info") or style(
+  --variant: "warning"
+) or style(--variant: "error") or style(--variant: "danger") or style(--variant: "surface") or style(
+  --variant: "surface-1"
+) or style(--variant: "surface-2") or style(--variant: "surface-3") or style(--variant: "surface-4") {
+  * {
+    --_raw-contrast: contrast-color(var(--swatch-color));
+    --brand-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);
+    --normal-text: oklch(from var(--_raw-contrast) l c h / 0.96);
+    --subtle-text: oklch(from var(--_raw-contrast) l c h / 0.67);
+    --muted-text: oklch(from var(--_raw-contrast) l c h / 0.54);
+    --border-color: oklch(from var(--_raw-contrast) l c h / 0.25);
+  }
+}
+
+/* --- Theme Switcher --- */
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}

@@ -35,7 +35,7 @@ const {
 assertValidSlots(Astro.slots, ['error-message', 'legend'], 'RadioGroup');
 
 const hasLegend = !!legend || Astro.slots.has('legend');
-const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const hasErrorMessage = (invalid ?? ariaInvalid === 'true') && Astro.slots.has('error-message');
 
 let legendContent = '';
 if (!legend && Astro.slots.has('legend')) {

@@ -40,6 +40,11 @@
       "development": "./src/layouts.css",
       "default": "./src/layouts.css"
     },
+    "./color-tokens.css": {
+      "types": "./dist/color-tokens.css.d.ts",
+      "development": "./src/color-tokens.css",
+      "default": "./src/color-tokens.css"
+    },
     "./package.json": "./package.json"
   },
   "keywords": [],

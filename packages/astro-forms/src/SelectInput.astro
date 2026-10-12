@@ -33,7 +33,7 @@ const {
 assertValidSlots(Astro.slots, ['description', 'error-message', 'label'], 'SelectInput');
 
 const hasLabel = !!label || Astro.slots.has('label');
-const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const hasErrorMessage = (invalid ?? ariaInvalid === 'true') && Astro.slots.has('error-message');
 const hasDescriptionSlot = Astro.slots.has('description');
 const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
 const errorId = hasErrorMessage ? `${id}-error` : undefined;
