@@ -17,7 +17,7 @@ import type { LineSegment } from '../types';
 const CENTER_POINT: LineSegment = { x1: 12, y1: 12, x2: 12, y2: 12 };
 const horizontal = (y: number): LineSegment => ({ x1: 4, y1: y, x2: 20, y2: y });
 
-describe('utils', () => {
+describe('morph-lines-utils', () => {
   describe('scaleLines', () => {
     it('should scale coordinates towards the center', () => {
       expect(scaleLines([{ x1: 4, y1: 12, x2: 20, y2: 12 }], 0.5)).toEqual([{ x1: 8, y1: 12, x2: 16, y2: 12 }]);
@@ -133,6 +133,24 @@ describe('utils', () => {
     it('should orient matched lines so they do not flip 180°', () => {
       const { toLines } = matchLines([horizontal(6)], [reverseLine(horizontal(8))]);
       expect(toLines).toEqual([horizontal(8)]);
+    });
+
+    it('should throw exception if number of line segments exceeds 8 lines', () => {
+      const lineSegmentWithMoreThanEightLines: LineSegment[] = [
+        { x1: 12, y1: 7, x2: 5, y2: 7 },
+        { x1: 5, y1: 7, x2: 5, y2: 19 },
+        { x1: 5, y1: 19, x2: 17, y2: 19 },
+        { x1: 17, y1: 19, x2: 17, y2: 12 },
+        { x1: 10, y1: 14, x2: 19, y2: 5 },
+        { x1: 14, y1: 5, x2: 19, y2: 5 },
+        { x1: 19, y1: 5, x2: 19, y2: 10 },
+        { x1: 12, y1: 5, x2: 12, y2: 5.01 },
+        { x1: 12, y1: 9, x2: 12, y2: 19 },
+      ];
+
+      expect(() => {
+        matchLines([horizontal(6)], lineSegmentWithMoreThanEightLines);
+      }).toThrow('Too many lines to match. There should be no more than 8 lines in a MorphLinesIcon.');
     });
   });
 
