@@ -380,6 +380,7 @@
     display: inline-flex;
     inline-size: var(--form-switch-width);
     position: relative;
+    cursor: pointer;
 
     /* Slide area */
     &::before {
