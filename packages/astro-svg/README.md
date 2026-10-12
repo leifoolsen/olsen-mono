@@ -33,18 +33,18 @@ import type { LineSegment } from '@olsen-mono/astro-svg';
 
 The component fully extends `HTMLAttributes<'svg'>`. Custom properties are documented below:
 
-| Property    | Type               | Default    | Description                                                                                                                                          |
-| :---------- | :----------------- | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fromLines` | `LineSegment[]`    | _Required_ | Array of line segments representing the starting visual shape (`x1`, `y1`, `x2`, `y2`).                                                              |
-| `toLines`   | `LineSegment[]`    | _Required_ | Array of line segments representing the target active visual shape.                                                                                  |
-| `active`    | `boolean`          | `false`    | Sets the layout state. `true` morphs elements into `toLines`; `false` resets to `fromLines`. Maps directly to `aria-checked`.                        |
-| `airy`      | `boolean`          | `false`    | Programmatically scales down both line sets by a factor of `0.75` for a more minimalist, spacious look.                                              |
-| `hover`     | `boolean`          | `false`    | Enables temporary morph tracking directly via mouse pointer enter/leave triggers on desktop browsers.                                                |
-| `rotate`    | `string`           | `'0deg'`   | Set structural container SVG canvas rotation when activated (e.g., `'90deg'`, `'180deg'`).                                                           |
-| `size`      | `number \| string` | `'1em'`    | Dimensions applied to both `width` and `height`. Numeric values automatically append an `em` unit.                                                   |
-| `duration`  | `string`           | `'0.2s'`   | Sets the timeline duration value for the CSS cubic-bezier vector transition.                                                                         |
-| `stagger`   | `string`           | `'0.04s'`  | The sequential delay interval multiplier applied natively across matching line indexes so they don't animate atexactly the same time. Default 0.04s. |
-| `disabled`  | `boolean`          | `false`    | Disables interactive pointer feedback and freezes structural transitions. Maps to `aria-disabled`.                                                   |
+| Property    | Type               | Default    | Description                                                                                                                                             |
+| :---------- | :----------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `fromLines` | `LineSegment[]`    | _Required_ | Array of line segments representing the starting visual shape (`x1`, `y1`, `x2`, `y2`).                                                                 |
+| `toLines`   | `LineSegment[]`    | _Required_ | Array of line segments representing the target active visual shape.                                                                                     |
+| `active`    | `boolean`          | `false`    | Sets the layout state. `true` morphs elements into `toLines`; `false` resets to `fromLines`. Maps directly to `aria-checked`.                           |
+| `airy`      | `boolean`          | `false`    | Programmatically scales down both line sets by a factor of `0.75` for a more minimalist, spacious look.                                                 |
+| `hover`     | `boolean`          | `false`    | Enables temporary morph tracking directly via mouse pointer enter/leave triggers on desktop browsers.                                                   |
+| `rotate`    | `string`           | `'0deg'`   | Set structural container SVG canvas rotation when activated (e.g., `'90deg'`, `'180deg'`).                                                              |
+| `size`      | `number \| string` | `'1em'`    | Dimensions applied to both `width` and `height`. Numeric values automatically append an `em` unit.                                                      |
+| `duration`  | `string`           | `'0.2s'`   | Sets the timeline duration value for the CSS cubic-bezier vector transition.                                                                            |
+| `stagger`   | `string`           | `'0.04s'`  | The sequential delay interval multiplier applied natively across matching line indexes so they don't animate at atexactly the same time. Default 0.04s. |
+| `disabled`  | `boolean`          | `false`    | Disables interactive pointer feedback and freezes structural transitions. Maps to `aria-disabled`.                                                      |
 
 ---
 
