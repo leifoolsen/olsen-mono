@@ -4,43 +4,29 @@ import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'svg'> & {
   getSvgData: (name?: string | null) => { rawSvg: string; scale?: string | number };
-  fill?: string | null;
-  name: string | null;
   size?: string | number | null;
-  stroke?: string | null;
 };
 
-const {
-  class: className,
-  fill,
-  getSvgData,
-  height,
-  name,
-  size,
-  stroke,
-  style: userStyle,
-  width,
-  ...rest
-} = Astro.props;
+const { class: className, getSvgData, height, name, size, style: userStyle, width, ...rest } = Astro.props;
 
 const { rawSvg, scale: defaultScale } = getSvgData(name);
 
+/** Removes width and height attributes from the SVG tag. */
 const cleanedSvg = rawSvg.replace(/<svg\b[^>]*>/i, (tag) =>
   tag.replace(/\s+(?:width|height)=(?:"[^"]*"|'[^']*')/gi, ''),
 );
 
-const svgAttributes: Record<string, any> = { ...rest };
-
-if (className) svgAttributes.class = className;
-if (stroke) svgAttributes.stroke = stroke;
-svgAttributes.fill = fill || 'currentColor';
-
+/** Formats size. If the size is a number, it is converted to an em unit. Otherwise, it is returned as is. */
 const formatSize = (val: string | number | undefined | null, fallback: string | number) => {
   if (val === undefined || val === null) return formatSize(fallback, 1);
   const str = val.toString().trim();
   const isNumeric = !Number.isNaN(Number(str));
   return isNumeric ? `${str}em` : str;
 };
+
+/** Escapes special characters in an attribute value. */
+const escapeAttribute = (value: unknown) =>
+  String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
 const finalSize = size ?? defaultScale;
 const finalWidth = formatSize(width ?? finalSize, 1);
@@ -51,11 +37,15 @@ const style =
     ? userStyle
     : Object.entries(userStyle ?? {})
         .map(([key, value]) => `${key}: ${value}; `)
-        .join('')
-        .trimEnd();
+        .join('');
 
-svgAttributes.style = `width: ${finalWidth}; height: ${finalHeight}; max-inline-size: unset; ${style}`;
-svgAttributes.name = name ?? undefined;
+const svgAttributes: Record<string, any> = { ...rest };
+
+svgAttributes.class = className;
+svgAttributes.style = `max-inline-size: unset; ${style}`.trimEnd();
+svgAttributes.name = name;
+svgAttributes.height = finalHeight;
+svgAttributes.width = finalWidth;
 
 if (rest['aria-label'] || rest['aria-labelledby']) {
   svgAttributes.role = rest.role || 'img';
@@ -63,15 +53,15 @@ if (rest['aria-label'] || rest['aria-labelledby']) {
   svgAttributes['aria-hidden'] = 'true';
 }
 
-const escapeAttribute = (value: unknown) =>
-  String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-
 const attributesString = Object.entries(svgAttributes)
   .filter(([key, value]) => /^[a-zA-Z_:][a-zA-Z0-9_.:-]*$/.test(key) && value != null)
   .map(([key, value]) => `${key}="${escapeAttribute(value)}"`)
   .join(' ');
 
 const svgWithAttributes = cleanedSvg.replace('<svg', `<svg ${attributesString}`);
+
+console.log('**** rawSvg', rawSvg);
+console.log('**** svgWithAttributes', svgWithAttributes);
 ---
 
 <Fragment set:html={svgWithAttributes} />

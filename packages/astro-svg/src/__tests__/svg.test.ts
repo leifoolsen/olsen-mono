@@ -6,7 +6,7 @@ import SvgComponent from '../Svg.astro';
 describe('svg.astro', () => {
   const mockSvgData = {
     rawSvg:
-      '<svg viewBox="0 0 24 24" width="24" height="24" fill="#333" stroke="#666"><circle cx="12" cy="12" r="10"/></svg>',
+      '<svg viewBox="0 0 24 24" width="24" height="24" fill="#333" stroke="#666" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" /></svg>',
     scale: 1.5,
   };
 
@@ -24,7 +24,10 @@ describe('svg.astro', () => {
 
       expect(svg).not.toBeNull();
       expect(svg?.outerHTML).toContain('<svg');
+      expect(svg?.outerHTML).toContain('fill="currentColor"');
+      expect(svg?.outerHTML).not.toContain('stroke');
       expect(svg?.outerHTML).toContain('viewBox="0 0 24 24"');
+      expect(svg?.outerHTML).toContain('xmlns="http://www.w3.org/2000/svg"');
       expect(svg?.getAttribute('class')).toBe('my-svg-icon');
       expect(svg?.getAttribute('style')).toContain('width: 1.5em');
     });
@@ -274,7 +277,7 @@ describe('svg.astro', () => {
   });
 
   describe('style calculations', () => {
-    it('should include aspect-ratio and max-inline-size', async () => {
+    it('should include max-inline-size: unset', async () => {
       const { container } = await renderAstro(SvgComponent, {
         name: 'test-icon',
         getSvgData: mockGetSvgData,
