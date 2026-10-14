@@ -1,0 +1,46 @@
+---
+import '@olsen-mono/css-foundation/color-tokens.css';
+
+const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warning', 'error', 'neutral', 'white-black'];
+---
+
+<h2>Color Variants</h2>
+
+<div data-layout="ram" data-fluid-viewport style="--layout-gap: var(--space-m); --layout-grid-item-min: 30rem">
+  {variants.map((variant) => (
+    <div style={{ '--variant': `'${variant}'` }}>
+      <div class="variant-box">
+        <span style="color: var(--brand-contrast); grid-column: span 2;">Brand contrast ({variant})</span>
+
+        <span>Normal text</span>
+        <span>Normal text</span>
+
+        <span style="color: var(--brand-text-color);">--brand-text-color</span>
+        <span style="color: var(--brand-text-color);">Brand Text Color</span>
+
+        <span style="color: var(--subtle-text);">--subtle-text</span>
+        <span style="color: var(--subtle-text);">Subtle Text</span>
+
+        <span style="color: var(--muted-text);">--muted-text</span>
+        <span style="color: var(--muted-text);">Muted Text</span>
+
+        <span>--border-color</span>
+        <span style="height: stretch; border: 1px solid var(--border-color)" />
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .variant-box {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 16rem auto;
+    background-color: var(--swatch-color);
+    color: var(--normal-text);
+    padding-inline: var(--space-m);
+    padding-block: var(--space-m);
+    border: 1px solid var(--border-color);
+    border-radius: var(--space-xs);
+  }
+</style>

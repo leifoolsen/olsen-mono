@@ -4,306 +4,166 @@
   inherits: true;
   initial-value: "neutral";
 }
-@property --shade {
-  syntax: "<string>";
-  inherits: true;
-  initial-value: "auto";
-}
 
 :root {
   color-scheme: light dark;
 
   /* --- Base Colors --- */
-  --lightness-neutral: 0.6;
+  --lightness-white-black-dark: 1;
+  --lightness-white-black-light: 0;
+  --chroma-white-black: 0;
+  --hue-white-black: 0;
+
+  --lightness-neutral-dark: 0.98;
+  --lightness-neutral-light: 0.88;
   --chroma-neutral: 0.02;
   --hue-neutral: 250;
-  --lightness-primary: 0.51;
+
+  --lightness-primary-dark: 0.51;
+  --lightness-primary-light: 0.65;
   --chroma-primary: 0.2;
   --hue-primary: 303.4;
-  --lightness-secondary: 0.56;
+
+  --lightness-secondary-dark: 0.56;
+  --lightness-secondary-light: 0.65;
   --chroma-secondary: 0.15;
   --hue-secondary: 352;
-  --lightness-tertiary: 0.71;
+
+  --lightness-tertiary-dark: 0.71;
+  --lightness-tertiary-light: 0.76;
   --chroma-tertiary: 0.15;
   --hue-tertiary: 132;
-  --lightness-quaternary: 0.69;
-  --chroma-quaternary: 0.13;
-  --hue-quaternary: 158;
-  --lightness-success: 0.35;
+
+  --lightness-success-dark: 0.35;
+  --lightness-success-light: 0.4;
   --chroma-success: 0.25;
   --hue-success: 145; /* green */
-  --lightness-error: 0.55;
+
+  --lightness-error-dark: 0.55;
+  --lightness-error-light: 0.65;
   --chroma-error: 0.25;
   --hue-error: 29; /* red */
-  --lightness-warning: 0.68;
+
+  --lightness-warning-dark: 0.68;
+  --lightness-warning-light: 0.7;
   --chroma-warning: 0.25;
   --hue-warning: 65; /* orange */
-  --lightness-info: 0.61;
+
+  --lightness-info-dark: 0.61;
+  --lightness-info-light: 0.7;
   --chroma-info: 0.16;
   --hue-info: 210; /* cyan */
 
-  /* --- Default / Fallbacks --- */
-  --base-l: var(--lightness-neutral);
-  --base-c: var(--chroma-neutral);
-  --base-h: var(--hue-neutral);
+  /* --- Initial swatch color --- */
+  --swatch-color: light-dark(
+    oklch(var(--lightness-neutral-light) var(--chroma-neutral) var(--hue-neutral)),
+    oklch(var(--lightness-neutral-dark) var(--chroma-neutral) var(--hue-neutral))
+  );
 }
 
-body {
-  background-color: light-dark(oklch(95% 0 0deg), oklch(12% 0 0deg));
-  color: light-dark(oklch(12% 0 0deg), oklch(95% 0 0deg));
+@container style(--variant: "white-black") {
+  * {
+    --swatch-color: light-dark(
+      oklch(var(--lightness-white-black-light) var(--chroma-white-black) var(--hue-white-black)),
+      oklch(var(--lightness-white-black-dark) var(--chroma-white-black) var(--hue-white-black))
+    );
+  }
 }
 
-/* --- Color Variants --- */
 @container style(--variant: "neutral") {
   * {
-    --base-l: var(--lightness-neutral);
-    --base-c: var(--chroma-neutral);
-    --base-h: var(--hue-neutral);
+    --swatch-color: light-dark(
+      oklch(var(--lightness-neutral-light) var(--chroma-neutral) var(--hue-neutral)),
+      oklch(var(--lightness-neutral-dark) var(--chroma-neutral) var(--hue-neutral))
+    );
   }
 }
 
 @container style(--variant: "primary") {
   * {
-    --base-l: var(--lightness-primary);
-    --base-c: var(--chroma-primary);
-    --base-h: var(--hue-primary);
+    --swatch-color: light-dark(
+      oklch(var(--lightness-primary-light) var(--chroma-primary) var(--hue-primary)),
+      oklch(var(--lightness-primary-dark) var(--chroma-primary) var(--hue-primary))
+    );
   }
 }
 
 @container style(--variant: "secondary") {
   * {
-    --base-l: var(--lightness-secondary);
-    --base-c: var(--chroma-secondary);
-    --base-h: var(--hue-secondary);
+    --swatch-color: light-dark(
+      oklch(var(--lightness-secondary-light) var(--chroma-secondary) var(--hue-secondary)),
+      oklch(var(--lightness-secondary-dark) var(--chroma-secondary) var(--hue-secondary))
+    );
   }
 }
 
 @container style(--variant: "tertiary") {
   * {
-    --base-l: var(--lightness-tertiary);
-    --base-c: var(--chroma-tertiary);
-    --base-h: var(--hue-tertiary);
-  }
-}
-
-@container style(--variant: "quaternary") {
-  * {
-    --base-l: var(--lightness-quaternary);
-    --base-c: var(--chroma-quaternary);
-    --base-h: var(--hue-quaternary);
+    --swatch-color: light-dark(
+      oklch(var(--lightness-tertiary-light) var(--chroma-tertiary) var(--hue-tertiary)),
+      oklch(var(--lightness-tertiary-dark) var(--chroma-tertiary) var(--hue-tertiary))
+    );
   }
 }
 
 @container style(--variant: "success") {
   * {
-    --base-l: var(--lightness-success);
-    --base-c: var(--chroma-success);
-    --base-h: var(--hue-success);
+    --swatch-color: light-dark(
+      oklch(var(--lightness-success-light) var(--chroma-success) var(--hue-success)),
+      oklch(var(--lightness-success-dark) var(--chroma-success) var(--hue-success))
+    );
   }
 }
 
-@container style(--variant: "info") {
+@container style(--variant: "error") {
   * {
-    --base-l: var(--lightness-info);
-    --base-c: var(--chroma-info);
-    --base-h: var(--hue-info);
+    --swatch-color: light-dark(
+      oklch(var(--lightness-error-light) var(--chroma-error) var(--hue-error)),
+      oklch(var(--lightness-error-dark) var(--chroma-error) var(--hue-error))
+    );
   }
 }
 
 @container style(--variant: "warning") {
   * {
-    --base-l: var(--lightness-warning);
-    --base-c: var(--chroma-warning);
-    --base-h: var(--hue-warning);
+    --swatch-color: light-dark(
+      oklch(var(--lightness-warning-light) var(--chroma-warning) var(--hue-warning)),
+      oklch(var(--lightness-warning-dark) var(--chroma-warning) var(--hue-warning))
+    );
   }
 }
 
-@container style(--variant: "error") or style(--variant: "danger") {
+@container style(--variant: "info") {
   * {
-    --base-l: var(--lightness-error);
-    --base-c: var(--chroma-error);
-    --base-h: var(--hue-error);
+    --swatch-color: light-dark(
+      oklch(var(--lightness-info-light) var(--chroma-info) var(--hue-info)),
+      oklch(var(--lightness-info-dark) var(--chroma-info) var(--hue-info))
+    );
   }
 }
 
-/* --- Generate Colors for Current Variant --- */
-@container style(--variant: "neutral") or style(--variant: "primary") or style(--variant: "secondary") or style(
-  --variant: "tertiary"
-) or style(--variant: "quaternary") or style(--variant: "success") or style(--variant: "info") or style(
-  --variant: "warning"
-) or style(--variant: "error") or style(--variant: "danger") {
-  * {
-    --color-500: oklch(var(--base-l) var(--base-c) var(--base-h));
-    --_white: oklch(99% 0.015 var(--base-h));
-    --_black: oklch(12% 0.02 var(--base-h));
+/* =================================================================
+   TRINN 3: Universell, matematisk motor (Kontrast, Hover, Skjemaer)
+   ================================================================= */
+* {
+  /* 1. Finn ut om bakgrunnen er lys eller mørk */
+  --_raw-contrast: contrast-color(var(--swatch-color));
+  --_contrast-l: oklch(from var(--_raw-contrast) l 0 0deg); /* Blir 0 (lys flate) eller 1 (mørk flate) */
 
-    --color-50: color-mix(in oklch, var(--color-500) 40%, var(--_white));
-    --color-100: color-mix(in oklch, var(--color-500) 55%, var(--_white));
-    --color-200: color-mix(in oklch, var(--color-500) 70%, var(--_white));
-    --color-300: color-mix(in oklch, var(--color-500) 80%, var(--_white));
-    --color-400: color-mix(in oklch, var(--color-500) 90%, var(--_white));
-    --color-600: color-mix(in oklch, var(--color-500) 95%, var(--_black));
-    --color-700: color-mix(in oklch, var(--color-500) 85%, var(--_black));
-    --color-800: color-mix(in oklch, var(--color-500) 75%, var(--_black));
-    --color-900: color-mix(in oklch, var(--color-500) 60%, var(--_black));
-    --color-950: color-mix(in oklch, var(--color-500) 50%, var(--_black));
-    --color-A100: oklch(calc(var(--base-l) + 0.15) calc(var(--base-c) * 1.2) var(--base-h));
-    --color-A200: oklch(calc(var(--base-l) + 0.08) calc(var(--base-c) * 1.3) var(--base-h));
-    --color-A400: oklch(var(--base-l) calc(var(--base-c) * 1.4) var(--base-h));
-    --color-A700: oklch(calc(var(--base-l) - 0.1) calc(var(--base-c) * 1.2) var(--base-h));
+  /* Retningsvektor: Lys flate = -1 (mørkere), Mørk flate = +1 (lysere) */
+  --_direction: calc((2 * var(--_contrast-l)) - 1);
 
-    --swatch-color: light-dark(var(--color-200), var(--color-500));
-  }
+  /* 2. Tekstkontraster oppdateres ALLTID dynamisk basert på gjeldende --swatch-color */
+  --brand-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);
+  --normal-text: oklch(from var(--_raw-contrast) l c h / 0.96);
+  --subtle-text: oklch(from var(--_raw-contrast) l c h / 0.67);
+  --muted-text: oklch(from var(--_raw-contrast) l c h / 0.54);
+  --border-color: oklch(from var(--_raw-contrast) l c h / 0.25);
 }
 
-@container style(--variant: "surface") or style(--variant: "surface-1") or style(--variant: "surface-2") {
-  * {
-    --color-50: oklch(100% 0 0deg);
-    --color-100: oklch(95% 0 0deg);
-    --color-200: oklch(88% 0 0deg);
-    --color-300: oklch(78% 0 0deg);
-    --color-400: oklch(65% 0 0deg);
-    --color-500: oklch(50% 0 0deg);
-    --color-600: oklch(40% 0 0deg);
-    --color-700: oklch(30% 0 0deg);
-    --color-800: oklch(20% 0 0deg);
-    --color-900: oklch(12% 0 0deg);
-    --color-950: oklch(0% 0 0deg);
-    --swatch-color: light-dark(var(--color-50), var(--color-950));
-  }
-}
-
-@container style(--variant: "surface-1") {
-  * {
-    --swatch-color: light-dark(var(--color-100), var(--color-900));
-  }
-}
-
-@container style(--variant: "surface-2") {
-  * {
-    --swatch-color: light-dark(var(--color-200), var(--color-800));
-  }
-}
-
-@container style(--variant: "surface-3") {
-  * {
-    --swatch-color: light-dark(var(--color-300), var(--color-700));
-  }
-}
-
-@container style(--variant: "surface-4") {
-  * {
-    --swatch-color: light-dark(var(--color-400), var(--color-600));
-  }
-}
-
-/* --- Set Swatch Color for Shade --- */
-@container style(--shade: "50") {
-  * {
-    --swatch-color: var(--color-50);
-  }
-}
-
-@container style(--shade: "100") {
-  * {
-    --swatch-color: var(--color-100);
-  }
-}
-
-@container style(--shade: "200") {
-  * {
-    --swatch-color: var(--color-200);
-  }
-}
-
-@container style(--shade: "300") {
-  * {
-    --swatch-color: var(--color-300);
-  }
-}
-
-@container style(--shade: "400") {
-  * {
-    --swatch-color: var(--color-400);
-  }
-}
-
-@container style(--shade: "500") {
-  * {
-    --swatch-color: var(--color-500);
-  }
-}
-
-@container style(--shade: "600") {
-  * {
-    --swatch-color: var(--color-600);
-  }
-}
-
-@container style(--shade: "700") {
-  * {
-    --swatch-color: var(--color-700);
-  }
-}
-
-@container style(--shade: "800") {
-  * {
-    --swatch-color: var(--color-800);
-  }
-}
-
-@container style(--shade: "900") {
-  * {
-    --swatch-color: var(--color-900);
-  }
-}
-
-@container style(--shade: "950") {
-  * {
-    --swatch-color: var(--color-950);
-  }
-}
-
-@container style(--shade: "A100") {
-  * {
-    --swatch-color: var(--color-A100);
-  }
-}
-
-@container style(--shade: "A200") {
-  * {
-    --swatch-color: var(--color-A200);
-  }
-}
-
-@container style(--shade: "A400") {
-  * {
-    --swatch-color: var(--color-A400);
-  }
-}
-
-@container style(--shade: "A700") {
-  * {
-    --swatch-color: var(--color-A700);
-  }
-}
-
-/* --- Calculate Contrast Colors --- */
-@container style(--variant: "neutral") or style(--variant: "primary") or style(--variant: "secondary") or style(
-  --variant: "tertiary"
-) or style(--variant: "quaternary") or style(--variant: "success") or style(--variant: "info") or style(
-  --variant: "warning"
-) or style(--variant: "error") or style(--variant: "danger") or style(--variant: "surface") or style(
-  --variant: "surface-1"
-) or style(--variant: "surface-2") or style(--variant: "surface-3") or style(--variant: "surface-4") {
-  * {
-    --_raw-contrast: contrast-color(var(--swatch-color));
-    --brand-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);
-    --normal-text: oklch(from var(--_raw-contrast) l c h / 0.96);
-    --subtle-text: oklch(from var(--_raw-contrast) l c h / 0.67);
-    --muted-text: oklch(from var(--_raw-contrast) l c h / 0.54);
-    --border-color: oklch(from var(--_raw-contrast) l c h / 0.25);
-  }
+body {
+  background-color: light-dark(oklch(95% 0 0deg), oklch(12% 0 0deg));
+  color: light-dark(oklch(12% 0 0deg), oklch(95% 0 0deg));
 }
 
 /* --- Theme Switcher --- */

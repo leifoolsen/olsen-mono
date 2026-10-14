@@ -22,6 +22,8 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
           id="sidebar-toggle"
           class="app-sidebar-toggle"
           aria-label="Toggle menu"
+          aria-controls="app-sidebar"
+          aria-expanded="true"
           type="button"
           data-border-radius="xs"
         >
@@ -59,13 +61,16 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
             <a href="/html5-test-page">👉 HTML5 Test Page</a>
           </li>
           <li>
-            <a href="/design-system-test-page">👉 Designsystem Test Page</a>
+            <a href="/design-system-test-page">👉 Design system Test Page</a>
           </li>
           <li>
             <a href="/form-elements">👉 Form Elements</a>
           </li>
           <li>
             <a href="/morph-icons">👉 Morph Icons</a>
+          </li>
+          <li>
+            <a href="/style-queries">👉 Style Queries</a>
           </li>
         </ul>
       </nav>
@@ -96,6 +101,7 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
       toggleBtn?.addEventListener('click', () => {
         const isCollapsed = appContainer?.getAttribute('data-sidebar-collapsed') === 'true';
         appContainer?.setAttribute('data-sidebar-collapsed', isCollapsed ? 'false' : 'true');
+        toggleBtn.setAttribute('aria-expanded', Boolean(isCollapsed).toString());
         svg && svg.setAttribute('aria-checked', Boolean(isCollapsed).toString());
       });
     }

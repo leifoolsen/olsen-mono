@@ -1,0 +1,75 @@
+---
+import '@olsen-mono/css-foundation/color-tokens.css';
+
+const variants = ['neutral', 'primary', 'secondary', 'tertiary', 'success', 'info', 'warning', 'error'];
+const shades = [
+  '50',
+  '100',
+  '200',
+  '300',
+  '400',
+  '500',
+  '600',
+  '700',
+  '800',
+  '900',
+  '950',
+  'A100',
+  'A200',
+  'A400',
+  'A700',
+];
+---
+
+<h2>Swatches</h2>
+<div style={{ '--variant': "'white-black'" }} class="color-swatches">
+  {shades.toSpliced(11).map((shade) => (
+    <div
+      style={{
+        backgroundColor: 'var(--swatch-color)',
+        color: 'var(--normal-text)',
+      }}
+      class="color-swatch"
+    >
+      <span>{shade}</span>
+      <span style="color: var(--subtle-text)">{shade}</span>
+      <span style="color: var(--muted-text)">{shade}</span>
+    </div>
+  ))}
+</div>
+
+{variants.map((variant) => (
+  <div style={{ '--variant': `'${variant}'` }} class="color-swatches">
+    {shades.map((shade) => (
+      <div
+        style={{
+          backgroundColor: 'var(--swatch-color)',
+          color: 'var(--normal-text)',
+        }}
+        class="color-swatch"
+      >
+        <span>{shade}</span>
+        <span style="color: var(--subtle-text)">{shade}</span>
+        <span style="color: var(--muted-text)">{shade}</span>
+      </div>
+    ))}
+  </div>
+))}
+
+<style>
+  .color-swatches {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    background-color: transparent;
+  }
+
+  .color-swatch {
+    display: grid;
+    align-items: center;
+    text-align: center;
+    font-size: var(--font-size-s);
+    padding-block: 0.25rem;
+    min-height: 2rem;
+    text-overflow: fade;
+  }
+</style>
