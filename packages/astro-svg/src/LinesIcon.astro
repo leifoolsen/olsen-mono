@@ -2,7 +2,7 @@
 // packages/astro-forms/src/LinesIcon.astro
 import type { HTMLAttributes } from 'astro/types';
 import { scaleLines } from './morph-lines-utils.ts';
-import Svg from './Svg.astro';
+import SvgIcon from './SvgIcon.astro';
 import type { LineSegment } from './types.ts';
 
 type Props = HTMLAttributes<'svg'> & {
@@ -16,7 +16,12 @@ type Props = HTMLAttributes<'svg'> & {
   size?: string | number | null;
 };
 
-const { airy, fill = 'none', lines, size, ...rest } = Astro.props;
+const {
+  airy,
+  lines,
+  size,
+  ...rest
+} = Astro.props;
 
 const getRawSvg = () => {
   const scaledLines = scaleLines(lines, airy ? 0.75 : 1);
@@ -38,4 +43,4 @@ const getRawSvg = () => {
 };
 ---
 
-<Svg fill={fill} size={size} getSvgData={() => ({ rawSvg: getRawSvg() })} {...rest} />
+<SvgIcon size={size} getSvgData={() => ({ rawSvg: getRawSvg() })} {...rest} />

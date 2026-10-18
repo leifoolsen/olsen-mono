@@ -7,6 +7,7 @@ import Listbox from '@olsen-mono/astro-forms/Listbox.astro';
 import ListboxGroup from '@olsen-mono/astro-forms/ListboxGroup.astro';
 import ListboxOption from '@olsen-mono/astro-forms/ListboxOption.astro';
 import { arrowPointingDownLines, arrowPointingLeftLines, lineIcons } from '@olsen-mono/astro-svg';
+import LinesIcon from '@olsen-mono/astro-svg/LinesIcon.astro';
 import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
 ---
 
@@ -27,7 +28,7 @@ import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
             {Array.from(lineIcons.entries()).map((data, index) => (
               <ListboxOption id={`morph-from-${data[0]}`} name="morphFrom" value={data[0]} aria-selected={index === 0}>
                 <span>{data[0]}</span>
-                <MorphLinesIcon fromLines={data[1]} toLines={data[1]} />
+                <LinesIcon lines={data[1]} stroke-width="1" />
               </ListboxOption>
             ))}
           </ListboxGroup>
@@ -42,7 +43,7 @@ import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
             {Array.from(lineIcons.entries()).map((data, index) => (
               <ListboxOption id={`morph-to-${data[0]}`} name="morphTo" value={data[0]} aria-selected={index === 1}>
                 <span>{data[0]}</span>
-                <MorphLinesIcon fromLines={data[1]} toLines={data[1]} />
+                <LinesIcon lines={data[1]} stroke-width={1} />
               </ListboxOption>
             ))}
           </ListboxGroup>
@@ -86,9 +87,8 @@ import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
   >
     {Array.from(lineIcons.entries()).map((data) => (
       <span style="font-size: 2.5rem; display: grid; place-items: center; width: 2rem;">
-        <MorphLinesIcon
-          fromLines={data[1]}
-          toLines={data[1]}
+        <LinesIcon
+          lines={data[1]}
           name={data[0]}
           style="border: 1px solid var(--border-color);"
         />

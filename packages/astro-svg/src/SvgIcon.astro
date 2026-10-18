@@ -1,0 +1,96 @@
+---
+// packages/astro-svg/src/SvgIcon.astro
+import type { HTMLAttributes } from 'astro/types';
+import type { GetSvgData } from './types.ts';
+
+type Props = HTMLAttributes<'svg'> & {
+  getSvgData: GetSvgData;
+  size?: string | number | null;
+};
+
+const {
+  'stroke-width': strokeWidth,
+  class: className,
+  getSvgData,
+  height,
+  name,
+  size,
+  style: userStyle,
+  width,
+  ...rest
+} = Astro.props;
+
+const { rawSvg, defaultSize } = getSvgData(name);
+
+/** Formats size value. If the Value is a number, it is converted to an em unit. Otherwise, it is returned as is. */
+const formatSize = (val: string | number | undefined | null, fallback: string | number): string | number => {
+  if (val === undefined || val === null) return formatSize(fallback, 1);
+  return typeof val === 'number' ? `${val}em` : val;
+};
+
+/**
+ * Validates the attribute value to ensure it does not contain any potentially harmful characters that could
+ * be used to inject malicious code into the SVG.
+ * @param key The name of the attribute.
+ * @param value The value of the attribute.
+ * @returns The validated attribute value as a string.
+ * @throws Error if the attribute value contains any potentially harmful characters.
+ * @example
+ *   validateAttribute('class', 'user-input'); // Returns 'user-input'
+ *   validateAttribute('class', '<script>alert("XSS")</script>'); // Throws an error
+ */
+const validateAttribute = (key: string, value: unknown) => {
+  const result = String(value);
+
+  if (/[<>"']/.test(result)) {
+    throw new Error(`[SvgIcon]: The "${key}" attribute cannot contain HTML tags or special characters.`);
+  }
+
+  return result;
+};
+
+const finalSize = size ?? defaultSize;
+const finalWidth = formatSize(width ?? finalSize, 1);
+const finalHeight = formatSize(height ?? finalSize, 1);
+const finalStrokeWidth = formatSize(strokeWidth, '2');
+
+const style =
+  typeof userStyle === 'string'
+    ? userStyle
+    : Object.entries(userStyle ?? {})
+        .map(([key, value]) => `${key}: ${value}; `)
+        .join('');
+
+const svgAttributes: Record<string, any> = { ...rest };
+
+svgAttributes.class = className;
+svgAttributes.style = `max-inline-size: unset; ${style}`.trimEnd();
+svgAttributes.name = name;
+svgAttributes.height = finalHeight;
+svgAttributes.width = finalWidth;
+svgAttributes['stroke-width'] = finalStrokeWidth;
+
+if (rest['aria-label'] || rest['aria-labelledby']) {
+  svgAttributes.role = rest.role || 'img';
+} else {
+  svgAttributes['aria-hidden'] = 'true';
+}
+
+/**
+ * Removes width, height, and stroke-width attributes from the SVG tag.
+ * stroke-width is also removed from child elements.
+ */
+const cleanedSvg = rawSvg
+  .replace(/(?<!-)\bwidth=["'][^"']*["']/gi, '')
+  .replace(/(?<!-)\bheight=["'][^"']*["']/gi, '')
+  .replace(/\bstroke-width=["'][^"']*["']/gi, '');
+
+const attributesString = Object.entries(svgAttributes)
+  .filter(([key, value]) => /^[a-zA-Z_:][a-zA-Z0-9_.:-]*$/.test(key) && value != null)
+  .map(([key, value]) => `${key}="${validateAttribute(key, value)}"`)
+  .join(' ');
+
+const svgWithAttributes = cleanedSvg.replace(/<svg/i, `<svg ${attributesString}`.trim().replace(/\s+/g, ' '));
+---
+
+<Fragment set:html={svgWithAttributes} />
