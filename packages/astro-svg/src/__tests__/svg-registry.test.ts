@@ -12,7 +12,7 @@ describe('createSvgRegistry', () => {
     it('should retrieve SVG data from mapping', () => {
       const mapping = {
         home: { file: 'home-icon' },
-        settings: { file: 'settings-icon', scale: 1.5 },
+        settings: { file: 'settings-icon', defaultSize: 1.5 },
       };
 
       const globResult = {
@@ -24,12 +24,12 @@ describe('createSvgRegistry', () => {
       const result = registry.getSvgData('home');
 
       expect(result.rawSvg).toBe(mockSvgContent);
-      expect(result.scale).toBeUndefined();
+      expect(result.defaultSize).toBeUndefined();
     });
 
-    it('should return scale if defined in mapping', () => {
+    it('should return defaultSize if defined in mapping', () => {
       const mapping = {
-        logo: { file: 'logo', scale: 2 },
+        logo: { file: 'logo', defaultSize: 2 },
       };
 
       const globResult = {
@@ -39,7 +39,7 @@ describe('createSvgRegistry', () => {
       const registry = createSvgRegistry(mapping, globResult);
       const result = registry.getSvgData('logo');
 
-      expect(result.scale).toBe(2);
+      expect(result.defaultSize).toBe(2);
     });
 
     it('should accept raw string values in glob result', () => {
@@ -244,9 +244,9 @@ describe('createSvgRegistry', () => {
       }).toThrow('"icon.svg" was not found in the registry.');
     });
 
-    it('should handle scale value as string', () => {
+    it('should handle defaultSize value as string', () => {
       const mapping = {
-        logo: { file: 'logo', scale: '1.5em' },
+        logo: { file: 'logo', defaultSize: '1.5em' },
       };
 
       const globResult = {
@@ -256,7 +256,7 @@ describe('createSvgRegistry', () => {
       const registry = createSvgRegistry(mapping, globResult);
       const result = registry.getSvgData('logo');
 
-      expect(result.scale).toBe('1.5em');
+      expect(result.defaultSize).toBe('1.5em');
     });
   });
 });

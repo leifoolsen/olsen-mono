@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/astro-svg",
   "description": "Astro SVG component",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": true,
   "type": "module",
   "exports": {
@@ -16,8 +16,9 @@
       },
       "default": "./dist/index.mjs"
     },
+    "./LinesIcon.astro": "./src/LinesIcon.astro",
     "./MorphLinesIcon.astro": "./src/MorphLinesIcon.astro",
-    "./Svg.astro": "./src/Svg.astro",
+    "./SvgIcon.astro": "./src/SvgIcon.astro",
     "./package.json": "./package.json"
   },
   "files": [

@@ -1,7 +1,7 @@
 ---
 // packages/astro-forms/src/Combobox.astro
 import { chevronPointingDownLines, xLines } from '@olsen-mono/astro-svg';
-import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
+import LinesIcon from '@olsen-mono/astro-svg/LinesIcon.astro';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './ErrorMessage.astro';
@@ -79,17 +79,16 @@ if (!label && Astro.slots.has('label')) {
     {type === 'search' && <SearchIcon data-search />}
 
     {type === 'text' && (
-      <MorphLinesIcon
+      <LinesIcon
         class="form-picker-icon"
         data-picker
-        fromLines={chevronPointingDownLines}
-        toLines={chevronPointingDownLines}
+        lines={chevronPointingDownLines}
         size={1.2}
       />
     )}
 
     <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
-      <MorphLinesIcon fromLines={xLines} toLines={xLines} />
+      <LinesIcon lines={xLines} />
     </FormToolButton>
 
     {descriptionId && (
