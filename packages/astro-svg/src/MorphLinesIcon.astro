@@ -1,5 +1,5 @@
 ---
-// packages/astro-icons/src/MorphLinesIcon.astro
+// packages/astro-svg/src/MorphLinesIcon.astro
 import type { HTMLAttributes } from 'astro/types';
 import { computeLineMorph, matchLines, scaleLines } from './morph-lines-utils.ts';
 import type { LineSegment } from './types';
@@ -89,7 +89,14 @@ const style =
         .join('')
         .trimEnd();
 
-const role = rest.role ? rest.role : (rest['aria-label'] || rest['aria-labelledby']) ? 'img' : undefined;
+// Determine whether the consumer provided an accessible name.
+const hasAccessibleName = rest['aria-label'] || rest['aria-labelledby'];
+// If a role was explicitly supplied, use it. Otherwise, set role to 'img' only when an accessible name exists.
+const role = rest.role ? rest.role : hasAccessibleName ? 'img' : undefined;
+
+// Respect an explicit aria-hidden prop; otherwise hide the SVG only when there is no accessible name.
+const explicitAriaHidden = ariaHidden !== undefined;
+const ariaHiddenFinal = explicitAriaHidden ? ariaHidden : hasAccessibleName ? undefined : 'true';
 
 const finalStrokeWidth = formatSize(typeof strokeWidth === 'number' ? `${strokeWidth}px` : strokeWidth, '2');
 ---
@@ -97,7 +104,7 @@ const finalStrokeWidth = formatSize(typeof strokeWidth === 'number' ? `${strokeW
 <svg
   aria-checked={active ?? ariaChecked ?? undefined}
   aria-disabled={disabled ?? ariaDisabled ?? undefined}
-  aria-hidden={role === 'img' ? 'true' : ariaHidden}
+  aria-hidden={ariaHiddenFinal}
   class={className}
   data-airy={airy ? '' : undefined}
   data-hover={hover ? '' : undefined}
