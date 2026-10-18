@@ -36,9 +36,9 @@ describe('sanitizeSvg', () => {
   it('removes <iframe>, <object> and <embed> blocks', () => {
     const raw = '<svg><iframe src="evil"></iframe><object data="evil"></object><embed src="evil" /></svg>';
     const out = sanitizeSvg(raw);
-    expect(out).not.toContain('<iframe');
-    expect(out).not.toContain('<object');
-    expect(out).not.toContain('<embed');
+    expect(out).not.toMatch(/<embed\b/i);
+    expect(out).not.toMatch(/<iframe\b/i);
+    expect(out).not.toMatch(/<object\b/i);
   });
 
   it('does not remove safe SVG content', () => {
