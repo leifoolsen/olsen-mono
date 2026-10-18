@@ -88,28 +88,27 @@ const escapeAttribute = (value: unknown) =>
     .replaceAll('>', '&gt;')
     .replaceAll("'", '&#39;');
 
-const IDENTIFIER_ATTRS = new Set(['name', 'id']);
-
-/** Sanitize an attribute entry. */
+/** Strict sanitize an attribute entry: throw on tag/quote characters. */
 const sanitizeAttributeEntry = ([key, value]: [string, unknown]) => {
   if (value == null) return null;
 
-  // attribute name must be a well-formed XML name
+  // Attribute name must be a well-formed XML name
   if (!/^[a-zA-Z_:][a-zA-Z0-9_.:-]*$/.test(key)) return null;
 
-  // block inline event handlers
+  // Block inline event handlers
   if (/^on/i.test(key)) return null;
 
-  // block dangerous URL values
+  // Block dangerous URL values
   if (['href', 'xlink:href', 'src'].includes(key) && isDangerousUrl(value)) return null;
 
   const result = String(value);
 
-  if (IDENTIFIER_ATTRS.has(key)) {
-    if (/[<>&"'`]/.test(result) || /<[^>]+>/.test(result)) {
-      throw new Error(`[SvgIcon]: The "${key}" attribute cannot contain HTML tags or quotes.`);
-    }
+  // Fail fast: any angle brackets, quotes, backticks or tag-like content are not allowed.
+  if (/[<>"'`]/.test(result) || /<[^>]+>/.test(result)) {
+    throw new Error(`[SvgIcon]: The "${key}" attribute cannot contain HTML tags or quotes.`);
   }
+
+  // Emit the escaped attribute value (defense-in-depth)
   return `${key}="${escapeAttribute(result)}"`;
 };
 
