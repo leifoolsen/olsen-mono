@@ -37,4 +37,4 @@ export {
 export type { MorphLinesIconElement } from './morph-lines-icon.js';
 export type { SvgRegistry } from './svg-registry.js';
 export { createSvgRegistry } from './svg-registry.js';
-export type { LineSegment } from './types.js';
+export type { GetSvgData, LineSegment, SvgData } from './types.js';

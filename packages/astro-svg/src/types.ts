@@ -1,4 +1,17 @@
 /**
+ * Represents the data associated with an SVG icon, including its raw SVG content and an optional default size.
+ */
+export type SvgData = { rawSvg: string; defaultSize?: string | number };
+
+/**
+ * Represents a function that retrieves SVG data based on the provided icon name.
+ *
+ * This type defines a function that takes an optional `name` parameter of type `string | null`
+ * and returns an object of type `SvgData`, which includes the raw SVG content and an optional default size.
+ */
+export type GetSvgData = (name?: string | null) => SvgData;
+
+/**
  * Represents the coordinates of a line in a 2D space.
  *
  * This type defines a line segment by specifying the coordinates of its two endpoints.

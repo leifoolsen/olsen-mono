@@ -1,0 +1,45 @@
+---
+// packages/astro-svg/src/LinesIcon.astro
+import type { HTMLAttributes } from 'astro/types';
+import { scaleLines } from './morph-lines-utils.ts';
+import SvgIcon from './SvgIcon.astro';
+import type { LineSegment } from './types.ts';
+
+type Props = HTMLAttributes<'svg'> & {
+  /** If true, the lines will be scaled by a factor of 0.75 to make the icon appear more "airy". */
+  airy?: boolean;
+
+  /** Array of line segments to draw. Each segment should be an object with x1, y1, x2, and y2 properties. */
+  lines: LineSegment[];
+
+  /** Size of the SVG. Default 1em. */
+  size?: string | number | null;
+};
+
+const {
+  airy,
+  lines,
+  size,
+  ...rest
+} = Astro.props;
+
+const getRawSvg = () => {
+  const scaledLines = scaleLines(lines, airy ? 0.75 : 1);
+  const svgLines = scaledLines.map(
+    (line) =>
+      `<line x1="${line.x1}" y1="${line.y1}" x2="${line.x2}" y2="${line.y2}" vector-effect="non-scaling-stroke" />`,
+  );
+
+  return `<svg
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    ${svgLines.join('')}
+  </svg>`;
+};
+---
+
+<SvgIcon size={size} getSvgData={() => ({ rawSvg: getRawSvg(), defaultSize: 1 })} {...rest} />

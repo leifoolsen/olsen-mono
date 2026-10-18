@@ -1,7 +1,7 @@
 ---
 // packages/astro-forms/src/TextInput.astro
 import { xLines } from '@olsen-mono/astro-svg';
-import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
+import LinesIcon from '@olsen-mono/astro-svg/LinesIcon.astro';
 import { assertValidSlots } from '@olsen-mono/core-utils';
 import type { HTMLAttributes } from 'astro/types';
 import ErrorMessage from './ErrorMessage.astro';
@@ -66,7 +66,7 @@ if (!label && Astro.slots.has('label')) {
     {type === 'search' && <SearchIcon data-search />}
 
     <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
-      <MorphLinesIcon fromLines={xLines} toLines={xLines} />
+      <LinesIcon lines={xLines} />
     </FormToolButton>
 
     {hasDescriptionSlot && (

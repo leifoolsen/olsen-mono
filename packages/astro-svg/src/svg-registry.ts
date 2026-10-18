@@ -1,5 +1,7 @@
 // packages/astro-svg/src/svg-registry.ts
 
+import type { GetSvgData, SvgData } from './types.ts';
+
 export type ViteGlobResult = Record<string, string> | Record<string, { default: string } | string>;
 
 /**
@@ -9,7 +11,7 @@ export type ViteGlobResult = Record<string, string> | Record<string, { default: 
  * associated with specific names. The registry provides mechanisms to handle both the raw
  * SVG content and additional scaling information if applicable.
  *
- * @property {function(string): { rawSvg: string, scale?: string | number }} getSvgData
+ * @property {function(string): { rawSvg: string, defaultSize?: string | number }} getSvgData
  * Retrieves raw SVG data and optional scale information associated with a given name.
  * The `name` parameter corresponds to the identifier of the SVG asset.
  *
@@ -18,7 +20,7 @@ export type ViteGlobResult = Record<string, string> | Record<string, { default: 
  * The `name` parameter corresponds to the identifier of the icon mask.
  */
 export type SvgRegistry = {
-  getSvgData: (name?: string | null) => { rawSvg: string; scale?: string | number };
+  getSvgData: GetSvgData;
   getIconMask: (name: string) => string;
 };
 
@@ -30,7 +32,7 @@ export type SvgRegistry = {
  * @param globResult - The result of a Vite-specific file globbing operation, used to resolve and load SVG files.
  * @return {SvgRegistry} An object containing methods to retrieve raw SVG data or an icon mask for use in styles.
  */
-export function createSvgRegistry<TMapping extends Record<string, { file: string; scale?: string | number }>>(
+export function createSvgRegistry<TMapping extends Record<string, { file: string; defaultSize?: string | number }>>(
   mapping: TMapping,
   globResult: ViteGlobResult,
 ): SvgRegistry {
@@ -56,7 +58,7 @@ export function createSvgRegistry<TMapping extends Record<string, { file: string
     }
   }
 
-  function getSvgData(name?: keyof TMapping | null): { rawSvg: string; scale?: string | number } {
+  function getSvgData(name?: keyof TMapping | null): SvgData {
     if (name === null || name === undefined) {
       throw new Error('Please check your mapping. The "name" parameter must be a non empty string.');
     }
@@ -81,7 +83,7 @@ export function createSvgRegistry<TMapping extends Record<string, { file: string
 
     return {
       rawSvg,
-      scale: svgConfig.scale,
+      defaultSize: svgConfig.defaultSize,
     };
   }
 
