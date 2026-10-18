@@ -1,0 +1,1 @@
+Update SvgIcon to use DOMPurify-based sanitizer (jsdom + dompurify).
