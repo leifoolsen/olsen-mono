@@ -50,7 +50,6 @@
     "@olsen-mono/astro-test-utils": "workspace:*",
     "@types/node": "catalog:",
     "astro": "catalog:",
-    "dompurify": "catalog:",
     "happy-dom": "catalog:"
   }
 }

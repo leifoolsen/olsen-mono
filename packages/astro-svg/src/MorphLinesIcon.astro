@@ -89,15 +89,10 @@ const style =
         .join('')
         .trimEnd();
 
-// Determine whether the consumer provided an accessible name.
 const hasAccessibleName = rest['aria-label'] || rest['aria-labelledby'];
-// If a role was explicitly supplied, use it. Otherwise, set role to 'img' only when an accessible name exists.
 const role = rest.role ? rest.role : hasAccessibleName ? 'img' : undefined;
-
-// Respect an explicit aria-hidden prop; otherwise hide the SVG only when there is no accessible name.
 const explicitAriaHidden = ariaHidden !== undefined;
 const ariaHiddenFinal = explicitAriaHidden ? ariaHidden : hasAccessibleName ? undefined : 'true';
-
 const finalStrokeWidth = formatSize(typeof strokeWidth === 'number' ? `${strokeWidth}px` : strokeWidth, '2');
 ---
 

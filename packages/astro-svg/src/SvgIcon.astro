@@ -97,8 +97,6 @@ let cleanedSvg = sanitizedRawSvg
   .replace(/(?<!-)\bheight=["'][^"']*["']/gi, '')
   .replace(/\bstroke-width=["'][^"']*["']/gi, '');
 
-// If the sanitized string doesn't contain an outer <svg> element (e.g., the input was a fragment
-// containing only child nodes), wrap the children in a root <svg> so we can reliably inject attributes.
 if (!/\<svg\b/i.test(cleanedSvg.trim())) {
   cleanedSvg = `<svg xmlns="http://www.w3.org/2000/svg">${cleanedSvg}</svg>`;
 }

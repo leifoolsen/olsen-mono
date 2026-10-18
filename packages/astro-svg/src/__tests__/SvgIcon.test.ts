@@ -303,7 +303,7 @@ describe('SvgIcon.astro', () => {
           name: '<script>alert("XSS")</script>',
           style: { color: 'red' },
         }),
-      ).rejects.toThrow('[SvgIcon]: The "name" attribute cannot contain HTML tags or special characters.');
+      ).rejects.toThrow('[SvgIcon]: The "name" attribute cannot contain HTML tags or quotes.');
     });
   });
 });
