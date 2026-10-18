@@ -15,15 +15,10 @@ export const sanitizeSvg = (svg: string): string => {
   if (!svg) return svg;
 
   return svg
-    // Remove scripts
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
-    // Remove foreignObject blocks (they can contain HTML)
     .replace(/<foreignObject\b[^>]*>[\s\S]*?<\/foreignObject>/gi, '')
-    // Remove event handler attributes like onclick="..." or onmouseover='...'
     .replace(/\s(on[a-z]+)\s*=\s*(['"])?[\s\S]*?\2/gi, '')
-    // Remove javascript: URIs in href or xlink:href attributes
-    .replace(/\s(?:href|xlink:href)\s*=\s*(['"])\s*javascript:[^'\"]*\1/gi, '')
-    // Remove embedded objects that can lead to remote content execution
+    .replace(/\s(?:href|xlink:href)\s*=\s*(['"])\s*javascript:[^'"]*\1/gi, '')
     .replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/gi, '')
     .replace(/<object\b[^>]*>[\s\S]*?<\/object>/gi, '')
     .replace(/<embed\b[^>]*>[\s\S]*?<\/embed>/gi, '');
