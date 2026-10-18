@@ -44,7 +44,7 @@ const validateAttribute = (key: string, value: unknown) => {
   const result = String(value);
 
   if (/[<>"']/.test(result)) {
-    throw new Error(`[SvgIcon]: The "${key}" attribute cannot contain HTML tags or special characters.`);
+    throw new Error(`[SvgIcon]: The "${key}" attribute cannot contain HTML tags or quotes.`);
   }
 
   return result;
@@ -92,10 +92,16 @@ const sanitizedRawSvg = sanitizeSvg(rawSvg);
  * Removes width, height, and stroke-width attributes from the SVG tag.
  * stroke-width is also removed from child elements.
  */
-const cleanedSvg = sanitizedRawSvg
+let cleanedSvg = sanitizedRawSvg
   .replace(/(?<!-)\bwidth=["'][^"']*["']/gi, '')
   .replace(/(?<!-)\bheight=["'][^"']*["']/gi, '')
   .replace(/\bstroke-width=["'][^"']*["']/gi, '');
+
+// If the sanitized string doesn't contain an outer <svg> element (e.g., the input was a fragment
+// containing only child nodes), wrap the children in a root <svg> so we can reliably inject attributes.
+if (!/\<svg\b/i.test(cleanedSvg.trim())) {
+  cleanedSvg = `<svg xmlns="http://www.w3.org/2000/svg">${cleanedSvg}</svg>`;
+}
 
 const attributesString = Object.entries(svgAttributes)
   .filter(([key, value]) => /^[a-zA-Z_:][a-zA-Z0-9_.:-]*$/.test(key) && value != null)
