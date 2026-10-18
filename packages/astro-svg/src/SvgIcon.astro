@@ -30,17 +30,25 @@ const formatSize = (val: string | number | undefined | null, fallback: string | 
 };
 
 /**
- * Escapes attribute values for safe insertion into an HTML attribute context.
- * This preserves the original value but encodes characters that would break
- * attribute syntax or allow injection.
+ * Validates the attribute value to ensure it does not contain any potentially harmful characters that could
+ * be used to inject malicious code into the SVG.
+ * @param key The name of the attribute.
+ * @param value The value of the attribute.
+ * @returns The validated attribute value as a string.
+ * @throws Error if the attribute value contains any potentially harmful characters.
+ * @example
+ *   validateAttribute('class', 'user-input'); // Returns 'user-input'
+ *   validateAttribute('class', '<script>alert("XSS")</script>'); // Throws an error
  */
-const escapeAttribute = (value: unknown) =>
-  String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
+const validateAttribute = (key: string, value: unknown) => {
+  const result = String(value);
+
+  if (/[<>"']/.test(result)) {
+    throw new Error(`[SvgIcon]: The "${key}" attribute cannot contain HTML tags or special characters.`);
+  }
+
+  return result;
+};
 
 const finalSize = size ?? defaultSize;
 const finalWidth = formatSize(width ?? finalSize, 1);
@@ -91,7 +99,7 @@ const cleanedSvg = sanitizedRawSvg
 
 const attributesString = Object.entries(svgAttributes)
   .filter(([key, value]) => /^[a-zA-Z_:][a-zA-Z0-9_.:-]*$/.test(key) && value != null)
-  .map(([key, value]) => `${key}="${escapeAttribute(value)}"`)
+  .map(([key, value]) => `${key}="${validateAttribute(key, value)}"`)
   .join(' ');
 
 const svgWithAttributes = cleanedSvg.replace(/<svg/i, `<svg ${attributesString}`.trim().replace(/\s+/g, ' '));
