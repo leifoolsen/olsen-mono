@@ -1,26 +1,96 @@
+import { JSDOM } from 'jsdom';
+import createDOMPurify from 'dompurify';
+
 /**
  * packages/astro-svg/src/svg-sanitizer.ts
  *
- * A small, best-effort sanitizer for inline SVG strings used by SvgIcon.astro.
- * This module exposes a single function, `sanitizeSvg`, which removes common
- * dangerous constructs from a raw SVG string before it is injected into the DOM.
+ * DOMPurify-based sanitizer for SVG strings. This parses the SVG using jsdom and
+ * then runs DOMPurify with a conservative whitelist for SVG elements and attributes.
  *
- * NOTE: This is a regex-based sanitizer intended to reduce the most common XSS
- * vectors (script tags, foreignObject, event attributes, javascript: URIs,
- * and embedded objects). It is NOT a substitute for a full XML sanitizer or
- * for only accepting SVGs from trusted sources.
+ * Note: You must install the runtime dependencies in your project:
+ *   npm install jsdom dompurify
+ *
+ * DOMPurify will strip scripts, event handlers, javascript: URIs, and other
+ * dangerous constructs while preserving typical SVG markup.
  */
+
+const window = new JSDOM('').window as unknown as Window & typeof globalThis;
+const DOMPurify = createDOMPurify(window as any);
+
+// Conservative whitelist of common SVG tags and attributes used for icons.
+const ALLOWED_TAGS = [
+  'svg',
+  'g',
+  'defs',
+  'title',
+  'desc',
+  'use',
+  'symbol',
+  'path',
+  'rect',
+  'circle',
+  'ellipse',
+  'line',
+  'polyline',
+  'polygon',
+  'text',
+  'tspan',
+  'clipPath',
+  'mask',
+  'linearGradient',
+  'stop',
+  'pattern',
+  'filter',
+  'image'
+];
+
+const ALLOWED_ATTR = [
+  'width',
+  'height',
+  'viewBox',
+  'preserveAspectRatio',
+  'fill',
+  'stroke',
+  'stroke-width',
+  'stroke-linecap',
+  'stroke-linejoin',
+  'd',
+  'x',
+  'y',
+  'cx',
+  'cy',
+  'r',
+  'x1',
+  'y1',
+  'x2',
+  'y2',
+  'points',
+  'transform',
+  'class',
+  'id',
+  'role',
+  'aria-label',
+  'aria-labelledby',
+  'vector-effect',
+  'xmlns',
+  'href',
+  'xlink:href',
+  'opacity',
+  'mask',
+  'clip-path'
+  // Intentionally omit `style` to avoid inline CSS risks; add if you need it.
+];
 
 export const sanitizeSvg = (svg: string): string => {
   if (!svg) return svg;
 
-  return svg
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace(/<foreignObject\b[^>]*>[\s\S]*?<\/foreignObject>/gi, '')
-    .replace(/\s(on[a-z]+)\s*=\s*(['"])?[\s\S]*?\2/gi, '')
-    .replace(/\s(?:href|xlink:href)\s*=\s*(['"])\s*javascript:[^'"]*\1/gi, '')
-    .replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/gi, '')
-    .replace(/<object\b[^>]*>[\s\S]*?<\/object>/gi, '')
-    .replace(/<embed\b[^>]*>[\s\S]*?<\/embed>/gi, '')
-    .replace(/<\s*(?:iframe|object|embed)\b[^>]*\/?\s*>/gi, '');
+  // Use DOMPurify with a conservative whitelist for SVG
+  const clean = DOMPurify.sanitize(svg, {
+    USE_PROFILES: { svg: true },
+    ALLOWED_TAGS,
+    ALLOWED_ATTR,
+    RETURN_TRUSTED_TYPE: false,
+  });
+
+  return String(clean);
 };
