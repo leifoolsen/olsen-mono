@@ -296,14 +296,22 @@ describe('SvgIcon.astro', () => {
   });
 
   describe('Prevevent XSS', () => {
-    it('should throw if attribute contain any potentially harmful characters that could be used to inject malicious code into the SVG', async () => {
+    it('should throw if "name" contain any potentially harmful characters that could be used to inject malicious code into the SVG', async () => {
       await expect(
         renderAstro(SvgComponent, {
           getSvgData: () => ({ rawSvg: RAW_SVG }),
           name: '<script>alert("XSS")</script>',
-          style: { color: 'red' },
         }),
       ).rejects.toThrow('[SvgIcon]: The "name" attribute cannot contain HTML tags or quotes.');
+    });
+
+    it('should throw if "id" contain any potentially harmful characters that could be used to inject malicious code into the SVG', async () => {
+      await expect(
+        renderAstro(SvgComponent, {
+          getSvgData: () => ({ rawSvg: RAW_SVG }),
+          id: '<script>alert("XSS")</script>',
+        }),
+      ).rejects.toThrow('[SvgIcon]: The "id" attribute cannot contain HTML tags or quotes.');
     });
   });
 });
