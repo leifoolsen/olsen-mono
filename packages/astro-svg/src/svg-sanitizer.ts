@@ -1,21 +1,22 @@
-import { JSDOM } from 'jsdom';
 import createDOMPurify from 'dompurify';
+import { Window } from 'happy-dom';
 
 /**
  * packages/astro-svg/src/svg-sanitizer.ts
  *
- * DOMPurify-based sanitizer for SVG strings. This parses the SVG using jsdom and
- * then runs DOMPurify with a conservative whitelist for SVG elements and attributes.
+ * DOMPurify-based sanitizer for SVG strings using HappyDOM as the runtime DOM.
+ * This parses the SVG using a HappyDOM window and then runs DOMPurify with a
+ * conservative whitelist for SVG elements and attributes.
  *
- * Note: You must install the runtime dependencies in your project:
- *   npm install jsdom dompurify
+ * Note: You must install the runtime dependency in your project:
+ *   pnpm add dompurify happy-dom
  *
  * DOMPurify will strip scripts, event handlers, javascript: URIs, and other
  * dangerous constructs while preserving typical SVG markup.
  */
 
-const window = new JSDOM('').window as unknown as Window & typeof globalThis;
-const DOMPurify = createDOMPurify(window as any);
+const happyWindow = new Window();
+const DOMPurify = createDOMPurify(happyWindow as unknown as Window & typeof globalThis);
 
 // Conservative whitelist of common SVG tags and attributes used for icons.
 const ALLOWED_TAGS = [
