@@ -1,5 +1,5 @@
 ---
-// packages/astro-forms/src/LinesIcon.astro
+// packages/astro-svg/src/LinesIcon.astro
 import type { HTMLAttributes } from 'astro/types';
 import { scaleLines } from './morph-lines-utils.ts';
 import SvgIcon from './SvgIcon.astro';
@@ -35,7 +35,6 @@ const getRawSvg = () => {
     stroke="currentColor"
     stroke-linecap="round"
     stroke-linejoin="round"
-    stroke-width="2"
     xmlns="http://www.w3.org/2000/svg"
   >
     ${svgLines.join('')}
@@ -43,4 +42,4 @@ const getRawSvg = () => {
 };
 ---
 
-<SvgIcon size={size} getSvgData={() => ({ rawSvg: getRawSvg() })} {...rest} />
+<SvgIcon size={size} getSvgData={() => ({ rawSvg: getRawSvg(), defaultSize: 1 })} {...rest} />
