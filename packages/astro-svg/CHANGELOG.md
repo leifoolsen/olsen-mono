@@ -1,5 +1,11 @@
 # @olsen-mono/astro-svg
 
+## 0.0.9
+
+### Patch Changes
+
+- 8c99573: Renamed Svg.astro to SvgIcon.astro, and improved XSS check. Added LinesIcon.astro
+
 ## 0.0.8
 
 ### Patch Changes
