@@ -18,7 +18,7 @@
     },
     "./LinesIcon.astro": "./src/LinesIcon.astro",
     "./MorphLinesIcon.astro": "./src/MorphLinesIcon.astro",
-    "./Svg.astro": "./src/Svg.astro",
+    "./SvgIcon.astro": "./src/SvgIcon.astro",
     "./package.json": "./package.json"
   },
   "files": [

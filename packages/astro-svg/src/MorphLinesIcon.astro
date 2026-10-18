@@ -50,6 +50,8 @@ type Props = HTMLAttributes<'svg'> & {
 const {
   'aria-checked': ariaChecked,
   'aria-disabled': ariaDisabled,
+  'aria-hidden': ariaHidden,
+  'stroke-width': strokeWidth,
   disabled,
   active = false,
   airy,
@@ -64,6 +66,12 @@ const {
   toLines: rawToLines = [],
   ...rest
 } = Astro.props;
+
+/** Formats size value. If the Value is a number, it is converted to an em unit. Otherwise, it is returned as is. */
+const formatSize = (val: string | number | undefined | null, fallback: string | number): string | number => {
+  if (val === undefined || val === null) return formatSize(fallback, 1);
+  return typeof val === 'number' ? `${val}em` : val;
+};
 
 const fromScaled = scaleLines(rawFromLines, airy ? 0.75 : 1);
 const toScaled = scaleLines(rawToLines, airy ? 0.75 : 1);
@@ -80,24 +88,30 @@ const style =
         .map(([key, value]) => `${key}: ${value}; `)
         .join('')
         .trimEnd();
+
+const role = rest.role ? rest.role : (rest['aria-label'] || rest['aria-labelledby']) ? 'img' : undefined;
+
+const finalStrokeWidth = formatSize(typeof strokeWidth === 'number' ? `${strokeWidth}px` : strokeWidth, '2');
 ---
 
 <svg
   aria-checked={active ?? ariaChecked ?? undefined}
   aria-disabled={disabled ?? ariaDisabled ?? undefined}
+  aria-hidden={role === 'img' ? 'true' : ariaHidden}
   class={className}
-  data-morph-icon
   data-airy={airy ? '' : undefined}
   data-hover={hover ? '' : undefined}
-  width={iconSize}
-  height={iconSize}
-  viewBox="0 0 24 24"
-  stroke-width="2"
-  stroke="currentColor"
+  data-morph-icon
   fill="none"
+  height={iconSize}
+  role={role}
+  stroke="currentColor"
   stroke-linecap="round"
   stroke-linejoin="round"
+  stroke-width={finalStrokeWidth}
   style={`--morph-duration: ${duration}; --stagger-base: ${stagger}; --svg-rotate: ${rotate}; ${style}`}
+  viewBox="0 0 24 24"
+  width={iconSize}
   xmlns="http://www.w3.org/2000/svg"
   {...rest}
 >

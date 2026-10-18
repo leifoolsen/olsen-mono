@@ -436,7 +436,7 @@ export const externalLinkLines: LineSegment[] = [
  * - `tripleLines`: Represents a triple-line icon.
  * - `verticalDoubleLines`: Represents a vertical double-line icon.
  * - `verticalTripleLines`: Represents a vertical triple-line icon.
- * - `vertialSingleLine`: Represents a single vertical line icon.
+ * - `verticalSingleLine`: Represents a single vertical line icon.
  * - `xLines`: Represents an X-shaped icon.
  *
  * The `LineSegment` objects comprising each array define the individual segments that make up the respective icon's shape.
@@ -473,6 +473,6 @@ export const lineIcons = new Map<string, LineSegment[]>([
   ['tripleLines', tripleLines],
   ['verticalDoubleLines', verticalDoubleLines],
   ['verticalTripleLines', verticalTripleLines],
-  ['vertialSingleLine', verticalSingleLine],
+  ['verticalSingleLine', verticalSingleLine],
   ['xLines', xLines],
 ]);
