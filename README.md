@@ -518,7 +518,7 @@ pnpm build
 
 ## Pnpm
 
-Useful pmpm commands.
+Useful pnpm commands.
 
 ```bash
 # List outdated dependencies
