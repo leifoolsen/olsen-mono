@@ -527,6 +527,9 @@ pnpm outdated -r
 # Updated dependencies located in package.json or pnpm-workspace.yaml
 pnpm update -r --latest <package-name>
 
+# Update dependencies interactively
+pnpm update -r --interactive --latest
+
 # Update dependencies located in pnpm-workspace.yaml, e.g. astro
 pnpm update astro @astrojs/node -r --latest
 
