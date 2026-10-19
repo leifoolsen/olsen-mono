@@ -1,4 +1,4 @@
-// packages/astro-morph-icons/src/create-morph-lines-icon.ts
+// packages/astro-morph-icons/src/morph-lines-icon.ts
 
 import { computeLineMorph, matchLines, scaleLines } from './morph-lines-utils.ts';
 import type { LineSegment, MorphLinesIconApi } from './types';

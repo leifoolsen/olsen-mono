@@ -1,7 +1,8 @@
 ---
 // packages/astro-svg/src/SvgIcon.astro
 import type { HTMLAttributes } from 'astro/types';
-import type { GetSvgData } from './types.ts';
+import { sanitizeSvg } from './svg-sanitizer';
+import type { GetSvgData } from './types';
 
 type Props = HTMLAttributes<'svg'> & {
   getSvgData: GetSvgData;
@@ -88,7 +89,7 @@ const escapeAttribute = (value: unknown) =>
     .replaceAll('>', '&gt;')
     .replaceAll("'", '&#39;');
 
-/** Strict sanitize an attribute entry: throw on tag/quote characters. */
+/** Strictly sanitize an attribute entry: throw on tag/quote characters. */
 const sanitizeAttributeEntry = ([key, value]: [string, unknown]) => {
   if (value == null) return null;
 
@@ -110,21 +111,6 @@ const sanitizeAttributeEntry = ([key, value]: [string, unknown]) => {
 
   // Emit the escaped attribute value (defense-in-depth)
   return `${key}="${escapeAttribute(result)}"`;
-};
-
-/** Defense-in-depth sanitizer for raw SVG body.
-  * This is intentionally conservative: strip script/foreignObject/embed/iframe/object tags
-  * and inline on* attributes inside the raw SVG. For production usage prefer a parser-based sanitizer
-  * like DOMPurify + a DOM implementation.
-  */
-const sanitizeSvg = (svg: string): string => {
-  if (!svg) return svg;
-  return svg
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace(/<foreignObject\b[^>]*>[\s\S]*?<\/foreignObject>/gi, '')
-    .replace(/<\s*(?:iframe|object|embed)\b[^>]*>[\s\S]*?<\/\s*(?:iframe|object|embed)\s*>/gi, '')
-    .replace(/\s(on[a-z]+)\s*=\s*(['"])?[\s\S]*?\2/gi, '')
-    .replace(/\s(?:href|xlink:href)\s*=\s*(['"])\s*javascript:[^'"]*\1/gi, '');
 };
 
 const sanitizedRawSvg = sanitizeSvg(rawSvg);

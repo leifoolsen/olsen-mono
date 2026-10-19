@@ -11,7 +11,7 @@ import {
   padLines,
   reverseLine,
   scaleLines,
-} from '../morph-lines-utils.ts';
+} from '../morph-lines-utils';
 import type { LineSegment } from '../types';
 
 const CENTER_POINT: LineSegment = { x1: 12, y1: 12, x2: 12, y2: 12 };
