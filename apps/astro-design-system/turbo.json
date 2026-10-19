@@ -4,6 +4,7 @@
   "tasks": {
     "compile": {
       "dependsOn": ["^compile"],
+      "cache": true,
       "inputs": [
         "src/**/*.astro",
         "src/**/*.ts",
@@ -16,7 +17,7 @@
         "astro.config.mjs",
         "tsconfig.json"
       ],
-      "outputs": ["dist/**", ".astro/**"]
+      "outputs": ["dist/**"]
     },
     "typecheck": {
       "dependsOn": ["^compile", "compile"],

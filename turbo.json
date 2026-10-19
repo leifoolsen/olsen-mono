@@ -1,6 +1,13 @@
 {
   "$schema": "https://turbo.build",
-  "globalDependencies": [".gitignore", "tsconfig.json", "biome.jsonc", "pnpm-workspace.yaml"],
+  "globalDependencies": [
+    ".gitignore",
+    "tsconfig.json",
+    "biome.jsonc",
+    "pnpm-workspace.yaml",
+    "vitest.workspace.ts",
+    "tools/tooling/**/*"
+  ],
   "tasks": {
     "compile": {
       "dependsOn": ["^compile"],
@@ -16,24 +23,28 @@
       "outputs": ["dist/**"]
     },
     "typecheck": {
-      "dependsOn": ["^compile", "compile"],
+      "dependsOn": ["compile"],
       "cache": true,
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.svg", "tsconfig.json"]
     },
     "lint": {
+      "dependsOn": ["compile"],
       "cache": true,
       "inputs": ["src/**/*", "**/*.astro", "**/*.json", "*.mjs", "*.js"]
     },
     "test": {
+      "dependsOn": ["compile"],
       "cache": true,
       "inputs": [
         "src/**/*.ts",
         "src/**/*.tsx",
         "src/**/*.css",
         "src/**/*.astro",
+        "src/**/*.svg",
         "**/__tests__/**/*",
         "test/**/*.ts",
-        "test/**/*.tsx"
+        "test/**/*.tsx",
+        "vitest.config.ts"
       ]
     },
     "dev": {
