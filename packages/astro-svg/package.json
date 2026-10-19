@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/astro-svg",
   "description": "Astro SVG component",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": true,
   "type": "module",
   "exports": {
@@ -50,7 +50,6 @@
     "@olsen-mono/astro-test-utils": "workspace:*",
     "@types/node": "catalog:",
     "astro": "catalog:",
-    "dompurify": "catalog:",
     "happy-dom": "catalog:"
   }
 }

@@ -1,5 +1,14 @@
 # astro-htmx
 
+## 0.0.20
+
+### Patch Changes
+
+- 8c99573: Renamed Svg.astro to SvgIcon.astro, and improved XSS check. Added LinesIcon.astro
+- Updated dependencies [8c99573]
+  - @olsen-mono/astro-forms@0.0.8
+  - @olsen-mono/astro-svg@0.0.9
+
 ## 0.0.19
 
 ### Patch Changes
