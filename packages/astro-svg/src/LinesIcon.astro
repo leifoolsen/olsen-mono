@@ -1,9 +1,9 @@
 ---
 // packages/astro-svg/src/LinesIcon.astro
 import type { HTMLAttributes } from 'astro/types';
-import { scaleLines } from './morph-lines-utils.ts';
+import { scaleLines } from './morph-lines-utils';
 import SvgIcon from './SvgIcon.astro';
-import type { LineSegment } from './types.ts';
+import type { LineSegment } from './types';
 
 type Props = HTMLAttributes<'svg'> & {
   /** If true, the lines will be scaled by a factor of 0.75 to make the icon appear more "airy". */
@@ -16,12 +16,7 @@ type Props = HTMLAttributes<'svg'> & {
   size?: string | number | null;
 };
 
-const {
-  airy,
-  lines,
-  size,
-  ...rest
-} = Astro.props;
+const { airy, lines, size, ...rest } = Astro.props;
 
 const getRawSvg = () => {
   const scaledLines = scaleLines(lines, airy ? 0.75 : 1);

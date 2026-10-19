@@ -296,7 +296,7 @@ describe('SvgIcon.astro', () => {
   });
 
   describe('Prevevent XSS', () => {
-    it('should throw if "name" contain any potentially harmful characters that could be used to inject malicious code into the SVG', async () => {
+    it('should throw if "name" contains any potentially harmful characters that could be used to inject malicious code into the SVG', async () => {
       await expect(
         renderAstro(SvgComponent, {
           getSvgData: () => ({ rawSvg: RAW_SVG }),
@@ -305,7 +305,7 @@ describe('SvgIcon.astro', () => {
       ).rejects.toThrow('[SvgIcon]: The "name" attribute cannot contain HTML tags or quotes.');
     });
 
-    it('should throw if "id" contain any potentially harmful characters that could be used to inject malicious code into the SVG', async () => {
+    it('should throw if "id" contains any potentially harmful characters that could be used to inject malicious code into the SVG', async () => {
       await expect(
         renderAstro(SvgComponent, {
           getSvgData: () => ({ rawSvg: RAW_SVG }),

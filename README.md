@@ -363,24 +363,24 @@ olsen-mono/
 ├── apps/
 │   └── astro-design-system/ # Web application documenting components in packages
 ├── packages/
-│   ├── astro-forms/         # Astro form components
-│   ├── astro-svg/           # Astro Svg component
-│   ├── astro-test-utils/    # Astro test utilities
-│   ├── core-utils/          # Shared utility functions
-│   ├── css-foundation/      # Modern css reset and type setting utilizing the W3C Design Tokens Standard via Open Props
-│   ├── object-builder/      # Typesafe builder pattern for object literals
-│   ├── reactive-state/      # Reactive state factory
+│   ├── astro-forms/          # Astro form components
+│   ├── astro-svg/            # Astro Svg component
+│   ├── astro-test-utils/     # Astro test utilities
+│   ├── core-utils/           # Shared utility functions
+│   ├── css-foundation/       # Modern css reset and type setting utilizing the W3C Design Tokens Standard via Open Props
+│   ├── object-builder/       # Typesafe builder pattern for object literals
+│   ├── reactive-state/       # Reactive state factory
 │   └── ... /
 ├── tools/
-│   ├── css-to-dts/          # CLI tool tailored for `pnpm` monorepos to automatically generate TypeScript definitions (`*.css.d.ts`) from CSS files
-│   └── tooling/             # Centralized configuration presets (vitest, tsdown)
-├── .changeset/              # Automated versioning and changelog management
-├── .github/workflows/       # GitHub Actions (CI & CD Release Pipelines)
-├── turbo/                   # Monorepo package templates
-├── biome.json               # Biome configuration
-├── vitest.config.ts         # Global Vitest entrypoint (Auto package mapping)
-├── tsdown.config.ts         # Global build presets for shared libraries
-└── package.json             # Root orchestrator and global tasks
+│   ├── css-to-dts/           # CLI tool tailored for `pnpm` monorepos to automatically generate TypeScript definitions (`*.css.d.ts`) from CSS files
+│   └── tooling/              # Centralized configuration presets (vitest, tsdown)
+├── .changeset/               # Automated versioning and changelog management
+├── .github/workflows/        # GitHub Actions (CI & CD Release Pipelines)
+├── turbo/                    # Monorepo package templates
+├── biome.json                # Biome configuration
+├── vitest.workspae.config.ts # Vitest project configurations
+├── tsdown.config.ts          # Global build presets for shared libraries
+└── package.json              # Root orchestrator and global tasks
 ```
 
 ---
@@ -518,7 +518,7 @@ pnpm build
 
 ## Pnpm
 
-Useful pmpm commands.
+Useful pnpm commands.
 
 ```bash
 # List outdated dependencies
@@ -526,6 +526,9 @@ pnpm outdated -r
 
 # Updated dependencies located in package.json or pnpm-workspace.yaml
 pnpm update -r --latest <package-name>
+
+# Update dependencies interactively
+pnpm update -r --interactive --latest
 
 # Update dependencies located in pnpm-workspace.yaml, e.g. astro
 pnpm update astro @astrojs/node -r --latest
