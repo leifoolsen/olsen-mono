@@ -35,17 +35,12 @@
     "test": {
       "dependsOn": ["compile"],
       "cache": true,
-      "inputs": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/**/*.css",
-        "src/**/*.astro",
-        "src/**/*.svg",
-        "**/__tests__/**/*",
-        "test/**/*.ts",
-        "test/**/*.tsx",
-        "vitest.config.ts"
-      ]
+      "inputs": ["src/**/*", "**/__tests__/**/*", "vitest.config.ts", "../../vitest.workspace.ts"]
+    },
+    "test-coverage": {
+      "dependsOn": ["compile"],
+      "cache": true,
+      "inputs": ["src/**/*", "**/__tests__/**/*", "vitest.config.ts", "../../vitest.workspace.ts"]
     },
     "dev": {
       "cache": false,

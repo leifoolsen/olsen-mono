@@ -41,6 +41,7 @@
     "compile": "tsdown",
     "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "test": "vitest run",
+    "test-coverage": "vitest run --coverage",
     "typecheck": "astro check && tsc --noEmit"
   },
   "peerDependencies": {
