@@ -2,6 +2,7 @@
 // packages/astro-svg/src/MorphLinesIcon.astro
 import type { HTMLAttributes } from 'astro/types';
 import { computeLineMorph, matchLines, scaleLines } from './morph-lines-utils.ts';
+import { formatSize, formatStyle } from './svg-sanitizer.ts';
 import type { LineSegment } from './types';
 
 type Props = HTMLAttributes<'svg'> & {
@@ -67,12 +68,6 @@ const {
   ...rest
 } = Astro.props;
 
-/** Formats size value. If the Value is a number, it is converted to an em unit. Otherwise, it is returned as is. */
-const formatSize = (val: string | number | undefined | null, fallback: string | number): string | number => {
-  if (val === undefined || val === null) return formatSize(fallback, 1);
-  return typeof val === 'number' ? `${val}em` : val;
-};
-
 const fromScaled = scaleLines(rawFromLines, airy ? 0.75 : 1);
 const toScaled = scaleLines(rawToLines, airy ? 0.75 : 1);
 
@@ -80,15 +75,7 @@ const { fromLines, toLines } = matchLines(fromScaled, toScaled);
 const morphs = fromLines.map((from, index) => computeLineMorph(from, toLines[index] ?? from));
 
 const iconSize = typeof size === 'number' ? `${size}em` : Number.isFinite(Number(size)) ? `${size}em` : size;
-
-const style =
-  typeof userStyle === 'string'
-    ? userStyle
-    : Object.entries(userStyle ?? {})
-        .map(([key, value]) => `${key}: ${value}; `)
-        .join('')
-        .trimEnd();
-
+const style = formatStyle(userStyle);
 const hasAccessibleName = rest['aria-label'] || rest['aria-labelledby'];
 const role = rest.role ? rest.role : hasAccessibleName ? 'img' : undefined;
 const explicitAriaHidden = ariaHidden !== undefined;

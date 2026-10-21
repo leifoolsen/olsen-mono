@@ -1,26 +1,56 @@
-/**
- * packages/astro-svg/src/svg-sanitizer.ts
- *
- * A small, best-effort sanitizer for inline SVG strings used by SvgIcon.astro.
- * This module exposes a single function, `sanitizeSvg`, which removes common
- * dangerous constructs from a raw SVG string before it is injected into the DOM.
- *
- * NOTE: This is a regex-based sanitizer intended to reduce the most common XSS
- * vectors (script tags, foreignObject, event attributes, javascript: URIs,
- * and embedded objects). It is NOT a substitute for a full XML sanitizer or
- * for only accepting SVGs from trusted sources.
- */
+// packages/astro-svg/src/svg-sanitizer.ts
+import DOMPurify from 'isomorphic-dompurify';
 
+/**
+ * DOMPurify-based sanitizer for inline SVG strings.
+ *
+ * This uses a lightweight in-memory DOM (HappyDOM), so DOMPurify can run in Node,
+ * then applies a conservative config suitable for inline icons.
+ *
+ * @note:
+ * - USE_PROFILES.svg enables SVG-safe defaults.
+ * - FORBID_TAGS blocks tags that may embed HTML or external documents.
+ * - DOMPurify already removes inline event handlers (on*) and javascript: URIs by default,
+ *   but we still forbid known dangerous tags explicitly.
+ *
+ * @param svg The SVG string to sanitize.
+ * @returns The sanitized SVG string, or an empty string if sanitization fails.
+ */
 export const sanitizeSvg = (svg: string): string => {
   if (!svg) return svg;
 
-  return svg
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace(/<foreignObject\b[^>]*>[\s\S]*?<\/foreignObject>/gi, '')
-    .replace(/\s(on[a-z]+)\s*=\s*(['"])?[\s\S]*?\2/gi, '')
-    .replace(/\s(?:href|xlink:href)\s*=\s*(['"])\s*javascript:[^'"]*\1/gi, '')
-    .replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe>/gi, '')
-    .replace(/<object\b[^>]*>[\s\S]*?<\/object>/gi, '')
-    .replace(/<embed\b[^>]*>[\s\S]*?<\/embed>/gi, '')
-    .replace(/<\s*(?:iframe|object|embed)\b[^>]*\/?\s*>/gi, '');
+  const clean = DOMPurify.sanitize(svg, {
+    USE_PROFILES: { svg: true },
+    FORBID_TAGS: ['foreignObject', 'iframe', 'object', 'embed'],
+    RETURN_TRUSTED_TYPE: false,
+  });
+
+  return typeof clean === 'string' ? clean : String(clean);
 };
+
+/** Strictly sanitize an attribute value: throw on tag/quote characters. */
+export const sanitizeAttributeValue = ([key, value]: [string, unknown]) => {
+  if (value == null) return null;
+
+  const result = String(value);
+
+  if (/[&<>"'`]/.test(result) || /<[^>]+>/.test(result) || /&[a-zA-Z0-9#]+;/.test(result)) {
+    throw new Error(`The "${key}" attribute value cannot contain HTML tags or quotes.`);
+  }
+
+  return `${key}="${result}"`;
+};
+
+/** Formats size value. If the Value is a number, it is converted to an em unit. Otherwise, it is returned as is. */
+export const formatSize = (val: string | number | undefined | null, fallback: string | number): string | number => {
+  if (val === undefined || val === null) return formatSize(fallback, 1);
+  return typeof val === 'number' ? `${val}em` : val;
+};
+
+/** Formats style value. If the Value is a string, it is returned as is. Otherwise, it is converted to a string. */
+export const formatStyle = (style?: string | Record<string, unknown> | null | undefined) =>
+  typeof style === 'string'
+    ? style
+    : Object.entries(style ?? {})
+        .map(([key, value]) => `${key}: ${value}; `)
+        .join('');

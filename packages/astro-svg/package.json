@@ -46,6 +46,9 @@
   "peerDependencies": {
     "astro": ">=7.0.0"
   },
+  "dependencies": {
+    "isomorphic-dompurify": "catalog:"
+  },
   "devDependencies": {
     "@olsen-mono/astro-test-utils": "workspace:*",
     "@types/node": "catalog:",

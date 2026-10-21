@@ -1,6 +1,7 @@
 ---
 // packages/astro-svg/src/SvgIcon.astro
 import type { HTMLAttributes } from 'astro/types';
+import { formatSize, formatStyle, sanitizeAttributeValue, sanitizeSvg } from './svg-sanitizer';
 import type { GetSvgData } from './types.ts';
 
 type Props = HTMLAttributes<'svg'> & {
@@ -22,30 +23,15 @@ const {
 
 const { rawSvg, defaultSize } = getSvgData(name);
 
-/** Formats size value. If the Value is a number, it is converted to an em unit. Otherwise, it is returned as is. */
-const formatSize = (val: string | number | undefined | null, fallback: string | number): string | number => {
-  if (val === undefined || val === null) return formatSize(fallback, 1);
-  return typeof val === 'number' ? `${val}em` : val;
-};
-
 const finalSize = size ?? defaultSize;
 const finalWidth = formatSize(width ?? finalSize, 1);
 const finalHeight = formatSize(height ?? finalSize, 1);
 const finalStrokeWidth = formatSize(strokeWidth, '2');
+const style = formatStyle(userStyle);
+const hasAccessibleName = rest['aria-label'] || rest['aria-labelledby'];
+const explicitAriaHidden = rest['aria-hidden'] !== undefined;
+const ariaHiddenFinal = explicitAriaHidden ? rest['aria-hidden'] : hasAccessibleName ? undefined : 'true';
 
-const style =
-  typeof userStyle === 'string'
-    ? userStyle
-    : Object.entries(userStyle ?? {})
-        .map(([key, value]) => `${key}: ${value}; `)
-        .join('');
-
-/*
- * Build attributes coming from props safely:
- *  - escape attribute values
- *  - drop attributes that look like event handlers (on*)
- *  - drop dangerous URL values (javascript:, vbscript:, data:)
- */
 const svgAttributes: Record<string, any> = { ...rest };
 svgAttributes.class = className;
 svgAttributes.style = `max-inline-size: unset; ${style}`.trimEnd();
@@ -54,10 +40,6 @@ svgAttributes.height = finalHeight;
 svgAttributes.width = finalWidth;
 svgAttributes['stroke-width'] = finalStrokeWidth;
 
-const hasAccessibleName = rest['aria-label'] || rest['aria-labelledby'];
-const explicitAriaHidden = rest['aria-hidden'] !== undefined;
-const ariaHiddenFinal = explicitAriaHidden ? rest['aria-hidden'] : hasAccessibleName ? undefined : 'true';
-
 if (hasAccessibleName) {
   svgAttributes.role = rest.role || 'img';
 }
@@ -65,85 +47,19 @@ if (ariaHiddenFinal !== undefined) {
   svgAttributes['aria-hidden'] = ariaHiddenFinal;
 }
 
-/** Check if a value looks like a dangerous URL. */
-const isDangerousUrl = (value: unknown) => {
-  const normalized = String(value)
-    .trim()
-    .replace(/\u0000/g, '')
-    .toLowerCase();
-  return /^javascript\s*:/i.test(normalized) || /^vbscript\s*:/i.test(normalized) || /^data\s*:/i.test(normalized);
-};
-
-/**
- * Sanitize attributes coming from props:
- *  - escape attribute values
- *  - drop attributes that look like event handlers (on*)
- *  - drop dangerous URL values (javascript:, vbscript:, data:)
- */
-const escapeAttribute = (value: unknown) =>
-  String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('"', '&quot;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll("'", '&#39;');
-
-/** Strict sanitize an attribute entry: throw on tag/quote characters. */
-const sanitizeAttributeEntry = ([key, value]: [string, unknown]) => {
-  if (value == null) return null;
-
-  // Attribute name must be a well-formed XML name
-  if (!/^[a-zA-Z_:][a-zA-Z0-9_.:-]*$/.test(key)) return null;
-
-  // Block inline event handlers
-  if (/^on/i.test(key)) return null;
-
-  // Block dangerous URL values
-  if (['href', 'xlink:href', 'src'].includes(key) && isDangerousUrl(value)) return null;
-
-  const result = String(value);
-
-  // Fail fast: any angle brackets, quotes, backticks or tag-like content are not allowed.
-  if (/[<>"'`]/.test(result) || /<[^>]+>/.test(result)) {
-    throw new Error(`[SvgIcon]: The "${key}" attribute cannot contain HTML tags or quotes.`);
-  }
-
-  // Emit the escaped attribute value (defense-in-depth)
-  return `${key}="${escapeAttribute(result)}"`;
-};
-
-/** Defense-in-depth sanitizer for raw SVG body.
-  * This is intentionally conservative: strip script/foreignObject/embed/iframe/object tags
-  * and inline on* attributes inside the raw SVG. For production usage prefer a parser-based sanitizer
-  * like DOMPurify + a DOM implementation.
-  */
-const sanitizeSvg = (svg: string): string => {
-  if (!svg) return svg;
-  return svg
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace(/<foreignObject\b[^>]*>[\s\S]*?<\/foreignObject>/gi, '')
-    .replace(/<\s*(?:iframe|object|embed)\b[^>]*>[\s\S]*?<\/\s*(?:iframe|object|embed)\s*>/gi, '')
-    .replace(/\s(on[a-z]+)\s*=\s*(['"])?[\s\S]*?\2/gi, '')
-    .replace(/\s(?:href|xlink:href)\s*=\s*(['"])\s*javascript:[^'"]*\1/gi, '');
-};
-
-const sanitizedRawSvg = sanitizeSvg(rawSvg);
-let cleanedSvg = sanitizedRawSvg
+const cleanedSvg = rawSvg
   .replace(/\bstroke-width=(?:"[^"]*"|'[^']*')/gi, '')
   .replace(/\bwidth=(?:"[^"]*"|'[^']*')/gi, '')
   .replace(/\bheight=(?:"[^"]*"|'[^']*')/gi, '');
 
-/* Wrap the SVG in a <svg> tag if it's not already wrapped. */
-if (!/\<svg\b/i.test(cleanedSvg.trim())) {
-  cleanedSvg = `<svg xmlns="http://www.w3.org/2000/svg">${cleanedSvg}</svg>`;
-}
+const sanitizedRawSvg = sanitizeSvg(cleanedSvg);
 
 const attributesString = Object.entries(svgAttributes)
-  .map(sanitizeAttributeEntry)
+  .map(sanitizeAttributeValue)
   .filter((v): v is string => v != null)
   .join(' ');
 
-const svgWithAttributes = cleanedSvg.replace(/\<svg/i, `<svg ${attributesString}`.trim().replace(/\s+/g, ' '));
+const svgWithAttributes = sanitizedRawSvg.replace(/<svg/i, `<svg ${attributesString}`.trim().replace(/\s+/g, ' '));
 ---
 
 <Fragment set:html={svgWithAttributes} />

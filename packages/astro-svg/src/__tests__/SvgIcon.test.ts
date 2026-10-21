@@ -302,7 +302,14 @@ describe('SvgIcon.astro', () => {
           getSvgData: () => ({ rawSvg: RAW_SVG }),
           name: '<script>alert("XSS")</script>',
         }),
-      ).rejects.toThrow('[SvgIcon]: The "name" attribute cannot contain HTML tags or quotes.');
+      ).rejects.toThrow('The "name" attribute value cannot contain HTML tags or quotes.');
+
+      await expect(
+        renderAstro(SvgComponent, {
+          getSvgData: () => ({ rawSvg: RAW_SVG }),
+          name: '&gt;',
+        }),
+      ).rejects.toThrow('The "name" attribute value cannot contain HTML tags or quotes.');
     });
 
     it('should throw if "id" contain any potentially harmful characters that could be used to inject malicious code into the SVG', async () => {
@@ -311,7 +318,14 @@ describe('SvgIcon.astro', () => {
           getSvgData: () => ({ rawSvg: RAW_SVG }),
           id: '<script>alert("XSS")</script>',
         }),
-      ).rejects.toThrow('[SvgIcon]: The "id" attribute cannot contain HTML tags or quotes.');
+      ).rejects.toThrow('The "id" attribute value cannot contain HTML tags or quotes.');
+
+      await expect(
+        renderAstro(SvgComponent, {
+          getSvgData: () => ({ rawSvg: RAW_SVG }),
+          id: '&lt;script&gt;alert("XSS")&lt;/script&gt;',
+        }),
+      ).rejects.toThrow('The "id" attribute value cannot contain HTML tags or quotes.');
     });
   });
 });
