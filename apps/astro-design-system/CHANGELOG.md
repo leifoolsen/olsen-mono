@@ -1,5 +1,14 @@
 # astro-htmx
 
+## 0.0.21
+
+### Patch Changes
+
+- f3d94d1: Uses isomorphic-dompurify to sanitize <svg> elements.
+- Updated dependencies [f3d94d1]
+  - @olsen-mono/astro-svg@0.0.10
+  - @olsen-mono/astro-forms@0.0.9
+
 ## 0.0.20
 
 ### Patch Changes
