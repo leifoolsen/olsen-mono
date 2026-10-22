@@ -2,7 +2,7 @@
 import { renderAstro } from '@olsen-mono/astro-test-utils';
 import { describe, expect, it } from 'vitest';
 import LinesIcon from '../LinesIcon.astro';
-import type { LineSegment } from '../types.ts';
+import type { LineSegment } from '../types';
 
 describe('LinesIcon.astro', () => {
   const lines: LineSegment[] = [

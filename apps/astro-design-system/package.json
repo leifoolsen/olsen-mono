@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "compile": "pnpm run css-to-dts && astro build",
+    "astro": "astro",
+    "build": "pnpm run compile && astro build",
+    "compile": "pnpm run css-to-dts",
     "css-to-dts": "css-to-dts src --camelCase",
     "dev": "astro dev",
-    "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
+    "lint": "biome check src --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"src/**/*.+(astro|md|mdx)\"",
     "preview": "astro preview",
     "typecheck": "astro check",
     "watch-css": "css-to-dts src --camelCase --watch"

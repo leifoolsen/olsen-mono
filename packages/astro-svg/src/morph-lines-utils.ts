@@ -132,9 +132,15 @@ type FromToLineSegments = {
  * @param to - An array of line segments to match to.
  * @return An object containing two equally long arrays, `fromLines` and `toLines`, where lines with the same index
  *         are paired.
+ * @throws {Error} If the number of line segments exceeds 8.
  */
 export function matchLines(from: LineSegment[], to: LineSegment[]): FromToLineSegments {
   const length = Math.max(from.length, to.length);
+
+  if (length > 8) {
+    throw new Error('Too many lines to match. There should be no more than 8 lines in a MorphLinesIcon.');
+  }
+
   const fromLines = padLines(from, length);
   const paddedTo = padLines(to, length);
 

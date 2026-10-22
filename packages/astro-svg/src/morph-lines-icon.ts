@@ -1,6 +1,6 @@
-// packages/astro-morph-icons/src/create-morph-lines-icon.ts
+// packages/astro-svg/src/morph-lines-icon.ts
 
-import { computeLineMorph, matchLines, scaleLines } from './morph-lines-utils.ts';
+import { computeLineMorph, matchLines, scaleLines } from './morph-lines-utils';
 import type { LineSegment, MorphLinesIconApi } from './types';
 
 export function createMorphLinesIcon(svgElement: SVGElement) {

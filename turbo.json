@@ -1,6 +1,16 @@
 {
   "$schema": "https://turbo.build",
-  "globalDependencies": [".gitignore", "tsconfig.json", "biome.jsonc", "pnpm-workspace.yaml"],
+  "globalDependencies": [
+    ".gitignore",
+    "tsconfig.json",
+    "biome.jsonc",
+    "pnpm-workspace.yaml",
+    "vitest.workspace.ts",
+    "tools/tooling/**/*",
+    "!.turbo/**",
+    "**/dist/**",
+    "!**/.coverage/**"
+  ],
   "tasks": {
     "compile": {
       "dependsOn": ["^compile"],
@@ -13,28 +23,46 @@
         "src/**/*.svg",
         "tsconfig.json"
       ],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/", "src/**/*.css.d.ts"]
     },
     "typecheck": {
-      "dependsOn": ["^compile", "compile"],
+      "dependsOn": ["compile"],
       "cache": true,
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.svg", "tsconfig.json"]
     },
     "lint": {
       "cache": true,
-      "inputs": ["src/**/*", "**/*.astro", "**/*.json", "*.mjs", "*.js"]
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.astro",
+        "tsconfig.json",
+        "astro.config.mjs",
+        "!src/**/*.d.ts",
+        "!src/**/*.css.d.ts",
+        "**/dist/**"
+      ]
     },
     "test": {
+      "dependsOn": ["compile"],
       "cache": true,
       "inputs": [
         "src/**/*.ts",
         "src/**/*.tsx",
-        "src/**/*.css",
         "src/**/*.astro",
+        "src/**/*.css",
+        "!src/**/*.css.d.ts",
         "**/__tests__/**/*",
-        "test/**/*.ts",
-        "test/**/*.tsx"
+        "vitest.config.ts",
+        "../../vitest.workspace.ts",
+        "**/dist/**",
+        "!**/.coverage/**",
+        "!**/.vitest-cache/**"
       ]
+    },
+    "test-coverage": {
+      "dependsOn": ["compile"],
+      "cache": false
     },
     "dev": {
       "cache": false,
