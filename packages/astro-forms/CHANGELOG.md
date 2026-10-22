@@ -1,5 +1,12 @@
 # @olsen-mono/astro-forms
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [f3d94d1]
+  - @olsen-mono/astro-svg@0.0.10
+
 ## 0.0.8
 
 ### Patch Changes
