@@ -61,12 +61,7 @@ if (!label && Astro.slots.has('label')) {
       <slot />
     </select>
 
-    <LinesIcon
-      class="form-picker-icon"
-      data-picker
-      lines={chevronPointingDownLines}
-      size={1.2}
-    />
+    <LinesIcon class="form-picker-icon" data-picker lines={chevronPointingDownLines} size={1.2} />
 
     <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
       <LinesIcon lines={xLines} />

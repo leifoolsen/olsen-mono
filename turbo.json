@@ -6,7 +6,10 @@
     "biome.jsonc",
     "pnpm-workspace.yaml",
     "vitest.workspace.ts",
-    "tools/tooling/**/*"
+    "tools/tooling/**/*",
+    "!.turbo/**",
+    "**/dist/**",
+    "!**/.coverage/**"
   ],
   "tasks": {
     "compile": {
@@ -20,7 +23,7 @@
         "src/**/*.svg",
         "tsconfig.json"
       ],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/", "src/**/*.css.d.ts"]
     },
     "typecheck": {
       "dependsOn": ["compile"],
@@ -28,19 +31,38 @@
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.svg", "tsconfig.json"]
     },
     "lint": {
-      "dependsOn": ["compile"],
       "cache": true,
-      "inputs": ["src/**/*", "**/*.astro", "**/*.json", "*.mjs", "*.js"]
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.astro",
+        "tsconfig.json",
+        "astro.config.mjs",
+        "!src/**/*.d.ts",
+        "!src/**/*.css.d.ts",
+        "**/dist/**"
+      ]
     },
     "test": {
       "dependsOn": ["compile"],
       "cache": true,
-      "inputs": ["src/**/*", "**/__tests__/**/*", "vitest.config.ts", "../../vitest.workspace.ts"]
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.astro",
+        "src/**/*.css",
+        "!src/**/*.css.d.ts",
+        "**/__tests__/**/*",
+        "vitest.config.ts",
+        "../../vitest.workspace.ts",
+        "**/dist/**",
+        "!**/.coverage/**",
+        "!**/.vitest-cache/**"
+      ]
     },
     "test-coverage": {
       "dependsOn": ["compile"],
-      "cache": true,
-      "inputs": ["src/**/*", "**/__tests__/**/*", "vitest.config.ts", "../../vitest.workspace.ts"]
+      "cache": false
     },
     "dev": {
       "cache": false,

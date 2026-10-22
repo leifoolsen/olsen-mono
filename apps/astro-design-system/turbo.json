@@ -20,21 +20,21 @@
       "outputs": ["dist/**"]
     },
     "typecheck": {
-      "dependsOn": ["^compile", "compile"],
+      "dependsOn": ["compile"],
       "cache": true,
-      "inputs": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/**/*.astro",
-        ".astro/**/*.d.ts",
-        "!src/**/*.d.ts",
-        "tsconfig.json",
-        "astro.config.mjs"
-      ]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "!src/**/*.d.ts", "tsconfig.json", "astro.config.mjs"]
     },
     "lint": {
       "cache": true,
-      "inputs": ["src/**/*.astro", "src/**/*.ts", "src/**/*.tsx", "src/**/*.css", "astro.config.mjs"]
+      "inputs": [
+        "src/**/*.astro",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.css",
+        "astro.config.mjs",
+        "!dist/**",
+        "!.astro/**"
+      ]
     }
   }
 }

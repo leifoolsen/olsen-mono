@@ -78,14 +78,7 @@ if (!label && Astro.slots.has('label')) {
 
     {type === 'search' && <SearchIcon data-search />}
 
-    {type === 'text' && (
-      <LinesIcon
-        class="form-picker-icon"
-        data-picker
-        lines={chevronPointingDownLines}
-        size={1.2}
-      />
-    )}
+    {type === 'text' && <LinesIcon class="form-picker-icon" data-picker lines={chevronPointingDownLines} size={1.2} />}
 
     <FormToolButton aria-label="Clear value" class="form-clear-icon" data-clear>
       <LinesIcon lines={xLines} />

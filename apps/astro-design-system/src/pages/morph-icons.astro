@@ -43,7 +43,7 @@ import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
             {Array.from(lineIcons.entries()).map((data, index) => (
               <ListboxOption id={`morph-to-${data[0]}`} name="morphTo" value={data[0]} aria-selected={index === 1}>
                 <span>{data[0]}</span>
-                <LinesIcon lines={data[1]} stroke-width={1} />
+                <LinesIcon lines={data[1]} stroke-width="1" />
               </ListboxOption>
             ))}
           </ListboxGroup>
@@ -87,11 +87,7 @@ import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
   >
     {Array.from(lineIcons.entries()).map((data) => (
       <span style="font-size: 2.5rem; display: grid; place-items: center; width: 2rem;">
-        <LinesIcon
-          lines={data[1]}
-          name={data[0]}
-          style="border: 1px solid var(--border-color);"
-        />
+        <LinesIcon lines={data[1]} name={data[0]} style="border: 1px solid var(--border-color);" />
       </span>
     ))}
   </div>

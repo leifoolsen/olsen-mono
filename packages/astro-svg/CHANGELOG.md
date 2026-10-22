@@ -1,5 +1,11 @@
 # @olsen-mono/astro-svg
 
+## 0.0.10
+
+### Patch Changes
+
+- f3d94d1: Uses isomorphic-dompurify to sanitize <svg> elements.
+
 ## 0.0.9
 
 ### Patch Changes

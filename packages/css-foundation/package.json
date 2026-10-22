@@ -69,7 +69,7 @@
   "scripts": {
     "compile": "pnpm run css-to-dts",
     "css-to-dts": "css-to-dts src --camelCase --outDir dist",
-    "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
+    "lint": "biome check src --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"src/**/*.+(astro|md|mdx)\"",
     "watch-css": "css-to-dts src --camelCase --watch"
   },
   "devDependencies": {

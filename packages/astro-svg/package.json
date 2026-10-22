@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/astro-svg",
   "description": "Astro SVG component",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": true,
   "type": "module",
   "exports": {
@@ -39,13 +39,16 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "compile": "tsdown",
-    "lint": "biome check . --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
+    "lint": "biome check src --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"src/**/*.+(astro|md|mdx)\"",
     "test": "vitest run",
     "test-coverage": "vitest run --coverage",
     "typecheck": "astro check && tsc --noEmit"
   },
   "peerDependencies": {
     "astro": ">=7.0.0"
+  },
+  "dependencies": {
+    "isomorphic-dompurify": "catalog:"
   },
   "devDependencies": {
     "@olsen-mono/astro-test-utils": "workspace:*",

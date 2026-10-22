@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 
-import { readdirSync } from 'node:fs';
+import fs, { readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
@@ -12,8 +12,11 @@ const MONOREPO_ROOT = path.resolve(__dirname, '../..');
 const packagesPath = path.resolve(MONOREPO_ROOT, 'packages');
 const packageDirs = readdirSync(packagesPath);
 
+const packageJson = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf8'));
+const safePackageName = packageJson.name.replace('/', '-');
+
 const packageAliases = packageDirs.reduce<Record<string, string>>((acc, dir) => {
-  acc[`@olsen-mono/${dir}`] = path.resolve(packagesPath, `${dir}/src/index.ts`);
+  acc[`@uds-frontend/${dir}`] = path.resolve(packagesPath, `${dir}/src/index.ts`);
   return acc;
 }, {});
 
@@ -26,7 +29,7 @@ export const sharedConfig: InlineConfig = {
   coverage: {
     provider: 'v8',
     reporter: [['json', { file: `${path.basename(process.cwd())}.json` }], 'text', 'html'],
-    reportsDirectory: path.resolve(MONOREPO_ROOT, `.coverage/${path.basename(process.cwd())}`),
+    reportsDirectory: path.resolve(MONOREPO_ROOT, `.coverage/${safePackageName}`),
     clean: true,
     include: ['src/**/*'],
     exclude: ['**/*.d.ts', '**/*.md', '**/*.json', 'src/__tests__/**/*', 'src/index.ts', 'src/types.ts'],
