@@ -303,7 +303,7 @@ describe('SvgIcon.astro', () => {
           getSvgData: () => ({ rawSvg: RAW_SVG }),
           name: '<script>alert("XSS")</script>',
         }),
-      ).rejects.toThrow('The "name" attribute value cannot contain HTML tags or quotes.');
+      ).rejects.toThrow('The "name" attribute value cannot contain HTML tags.');
     });
 
     it('should escape suspisious attribute value', async () => {

@@ -1,7 +1,7 @@
 // @vitest-environment node
 
 import { describe, expect, it } from 'vitest';
-import { sanitizeSvg } from '../svg-sanitizer';
+import { formatSize, formatStyle, sanitizeAttribute, sanitizeSvg } from '../svg-sanitizer';
 
 describe('svg-sanitizer', () => {
   describe('sanitizeSvg', () => {
@@ -122,6 +122,62 @@ describe('svg-sanitizer', () => {
       const out = sanitizeSvg(raw);
       expect(out).toContain('data-svg="keep"');
       expect(out).toContain('data-test="keep"');
+    });
+  });
+
+  describe('sanitizeAttribute', () => {
+    it('sanitizes attribute', () => {
+      const result = sanitizeAttribute(['name', 'foo" onload="alert(1)']);
+      expect(result).toBe('name="foo&quot; onload=&quot;alert(1)"');
+    });
+
+    it('throws when attribute value contain HTML tags', () => {
+      expect(() => {
+        sanitizeAttribute(['name', '<script>alert("XSS")</script>']);
+      }).toThrow('The "name" attribute value cannot contain HTML tags.');
+    });
+  });
+
+  describe('formatStyle', () => {
+    it('returns the formatted style', () => {
+      const style = {
+        fill: 'white',
+        stroke: 'green',
+        'stroke-width': 3,
+        transform: 'translate(10, 10)',
+      } as const;
+
+      const formattedStyle = formatStyle(style);
+      expect(formattedStyle).toBe('fill: white; stroke: green; stroke-width: 3; transform: translate(10, 10);');
+    });
+
+    it('returns the formatted style as is when input is a string', () => {
+      const style = 'fill: white; stroke: green; stroke-width: 3; transform: translate(10, 10);';
+      const formattedStyle = formatStyle(style);
+      expect(formattedStyle).toBe(style);
+    });
+  });
+
+  describe('formatSize', () => {
+    it('defaults to 1em when size value is null or undefined and default value is not provided', () => {
+      expect(formatSize(undefined)).toBe('1em');
+      expect(formatSize(null)).toBe('1em');
+    });
+
+    it('uses default value when size value is null or undefined', () => {
+      expect(formatSize(undefined, '1px')).toBe('1px');
+      expect(formatSize(null, '1px')).toBe('1px');
+    });
+
+    it('a number value is converted to em', () => {
+      expect(formatSize(2, '1px')).toBe('2em');
+      expect(formatSize(0.083, '1px')).toBe('0.083em');
+    });
+
+    it('a string value is returned as is', () => {
+      expect(formatSize('2', '1px')).toBe('2');
+      expect(formatSize('2px', '1px')).toBe('2px');
+      expect(formatSize('', '1px')).toBe('');
     });
   });
 });

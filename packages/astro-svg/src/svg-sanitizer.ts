@@ -10,7 +10,7 @@ import DOMPurify from 'isomorphic-dompurify';
  * @note:
  * - USE_PROFILES.svg enables SVG-safe defaults.
  * - FORBID_TAGS blocks tags that may embed HTML or external documents.
- * - DOMPurify already removes inline event handlers (on*) and javascript: URIs by default,
+ * - DOMPurify already removes inline event handlers (on*) and JavaScript: URIs by default,
  *   but we still forbid known dangerous tags explicitly.
  *
  * @param svg The SVG string to sanitize.
@@ -28,7 +28,7 @@ export const sanitizeSvg = (svg: string): string => {
   return typeof clean === 'string' ? clean : String(clean);
 };
 
-export const isDangerousUrl = (value: unknown) => {
+const isDangerousUrl = (value: unknown) => {
   const normalized = String(value)
     .trim()
     // biome-ignore lint/suspicious/noControlCharactersInRegex: control characters are ok here
@@ -45,7 +45,7 @@ export const isDangerousUrl = (value: unknown) => {
  * * reject event handlers
  * * allow ordinary text and entities as data
  */
-export const sanitizeAttributeEntry = ([key, value]: [string, unknown]) => {
+export const sanitizeAttribute = ([key, value]: [string, unknown]) => {
   if (value == null) return null;
 
   // Keep attribute names strict but don't reject valid text values.
@@ -58,7 +58,7 @@ export const sanitizeAttributeEntry = ([key, value]: [string, unknown]) => {
   // Reject actual markup or control chars, not escaped entities.
   // biome-ignore lint/suspicious/noControlCharactersInRegex: control characters are ok here
   if (/<\s*\/?[a-zA-Z]/.test(raw) || /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(raw)) {
-    throw new Error(`The "${key}" attribute value cannot contain HTML tags or quotes.`);
+    throw new Error(`The "${key}" attribute value cannot contain HTML tags.`);
   }
 
   const escaped = raw
@@ -72,7 +72,7 @@ export const sanitizeAttributeEntry = ([key, value]: [string, unknown]) => {
 };
 
 /** Formats size value. If the Value is a number, it is converted to an em unit. Otherwise, it is returned as is. */
-export const formatSize = (val: string | number | undefined | null, fallback: string | number): string | number => {
+export const formatSize = (val: string | number | undefined | null, fallback?: string | number): string | number => {
   if (val === undefined || val === null) return formatSize(fallback, 1);
   return typeof val === 'number' ? `${val}em` : val;
 };
@@ -83,4 +83,5 @@ export const formatStyle = (style?: string | Record<string, unknown> | null | un
     ? style
     : Object.entries(style ?? {})
         .map(([key, value]) => `${key}: ${value}; `)
-        .join('');
+        .join('')
+        .trim();
