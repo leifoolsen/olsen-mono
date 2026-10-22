@@ -40,8 +40,7 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "astro": ">=7.0.0",
-    "happy-dom": ">=20.0.0"
+    "astro": ">=7.0.0"
   },
   "devDependencies": {
     "@types/node": "catalog:",

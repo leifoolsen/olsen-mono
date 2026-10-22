@@ -187,7 +187,6 @@ describe('SvgIcon.astro', () => {
       });
 
       const svg = container.querySelector('svg');
-      console.log(svg?.outerHTML);
 
       expect(svg?.getAttribute('role')).toBe('img');
       expect(svg?.getAttribute('aria-label')).toBe('Helpful description');

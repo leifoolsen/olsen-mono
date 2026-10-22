@@ -1,8 +1,8 @@
 ---
 // packages/astro-svg/src/MorphLinesIcon.astro
 import type { HTMLAttributes } from 'astro/types';
-import { computeLineMorph, matchLines, scaleLines } from './morph-lines-utils.ts';
-import { formatSize, formatStyle } from './svg-sanitizer.ts';
+import { computeLineMorph, matchLines, scaleLines } from './morph-lines-utils';
+import { formatSize, formatStyle } from './svg-sanitizer';
 import type { LineSegment } from './types';
 
 type Props = HTMLAttributes<'svg'> & {
@@ -22,6 +22,7 @@ type Props = HTMLAttributes<'svg'> & {
    * Array of line segments to morph from.
    * Each segment should be an object with x1, y1, x2, and y2 properties.
    * If the array is shorter than the toLines array, the missing segments will be filled with a 12,12 point.
+   * @note The maximum number of segments in the array is 8.
    */
   fromLines: LineSegment[];
 
@@ -44,6 +45,7 @@ type Props = HTMLAttributes<'svg'> & {
    * Array of line segments to morph to.
    * Each segment should be an object with x1, y1, x2, and y2 properties.
    * If the array is shorter than the toLines array, the missing segments will be filled with a 12,12 point.
+   * @note The maximum number of segments in the array is 8.
    */
   toLines: LineSegment[];
 };

@@ -2,7 +2,7 @@
 // packages/astro-svg/src/SvgIcon.astro
 import type { HTMLAttributes } from 'astro/types';
 import { formatSize, formatStyle, sanitizeAttribute, sanitizeSvg } from './svg-sanitizer';
-import type { GetSvgData } from './types.ts';
+import type { GetSvgData } from './types';
 
 type Props = HTMLAttributes<'svg'> & {
   getSvgData: GetSvgData;

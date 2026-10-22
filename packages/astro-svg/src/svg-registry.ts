@@ -1,6 +1,6 @@
 // packages/astro-svg/src/svg-registry.ts
 
-import type { GetSvgData, SvgData } from './types.ts';
+import type { GetSvgData, SvgData } from './types';
 
 export type ViteGlobResult = Record<string, string> | Record<string, { default: string } | string>;
 
