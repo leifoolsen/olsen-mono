@@ -1,7 +1,7 @@
 // @vitest-environment node
 
 import { describe, expect, it } from 'vitest';
-import { sanitizeAttributeValue, sanitizeSvg } from '../svg-sanitizer';
+import { sanitizeSvg } from '../svg-sanitizer';
 
 describe('svg-sanitizer', () => {
   describe('sanitizeSvg', () => {
@@ -122,19 +122,6 @@ describe('svg-sanitizer', () => {
       const out = sanitizeSvg(raw);
       expect(out).toContain('data-svg="keep"');
       expect(out).toContain('data-test="keep"');
-    });
-  });
-
-  describe('sanitizeAttributeValue', () => {
-    it('should throw if attribute value contain any potentially harmful characters that could be used to inject malicious code into a SVG tag', () => {
-      const harmfulCharacters = ['&', '<', '>', '"', "'", '&amp;', '&gt;', '&lt;', '&quot;', '&#39;'];
-      for (const harmfulCharacter of harmfulCharacters) {
-        expect(() => sanitizeAttributeValue(['id', harmfulCharacter])).toThrow(
-          'The "id" attribute value cannot contain HTML tags or quotes.',
-        );
-      }
-
-      expect.assertions(harmfulCharacters.length);
     });
   });
 });

@@ -187,6 +187,7 @@ describe('SvgIcon.astro', () => {
       });
 
       const svg = container.querySelector('svg');
+      console.log(svg?.outerHTML);
 
       expect(svg?.getAttribute('role')).toBe('img');
       expect(svg?.getAttribute('aria-label')).toBe('Helpful description');
@@ -303,29 +304,16 @@ describe('SvgIcon.astro', () => {
           name: '<script>alert("XSS")</script>',
         }),
       ).rejects.toThrow('The "name" attribute value cannot contain HTML tags or quotes.');
-
-      await expect(
-        renderAstro(SvgComponent, {
-          getSvgData: () => ({ rawSvg: RAW_SVG }),
-          name: '&gt;',
-        }),
-      ).rejects.toThrow('The "name" attribute value cannot contain HTML tags or quotes.');
     });
 
-    it('should throw if "id" contain any potentially harmful characters that could be used to inject malicious code into the SVG', async () => {
-      await expect(
-        renderAstro(SvgComponent, {
-          getSvgData: () => ({ rawSvg: RAW_SVG }),
-          id: '<script>alert("XSS")</script>',
-        }),
-      ).rejects.toThrow('The "id" attribute value cannot contain HTML tags or quotes.');
+    it('should escape suspisious attribute value', async () => {
+      const { container } = await renderAstro(SvgComponent, {
+        getSvgData: () => ({ rawSvg: RAW_SVG }),
+        name: 'foo" onload="alert(1)',
+      });
 
-      await expect(
-        renderAstro(SvgComponent, {
-          getSvgData: () => ({ rawSvg: RAW_SVG }),
-          id: '&lt;script&gt;alert("XSS")&lt;/script&gt;',
-        }),
-      ).rejects.toThrow('The "id" attribute value cannot contain HTML tags or quotes.');
+      const svg = container.querySelector('svg');
+      expect(svg?.outerHTML).toContain('name="foo&quot; onload=&quot;alert(1)"');
     });
   });
 });

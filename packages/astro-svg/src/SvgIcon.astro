@@ -1,7 +1,7 @@
 ---
 // packages/astro-svg/src/SvgIcon.astro
 import type { HTMLAttributes } from 'astro/types';
-import { formatSize, formatStyle, sanitizeAttributeValue, sanitizeSvg } from './svg-sanitizer';
+import { formatSize, formatStyle, sanitizeAttributeEntry, sanitizeSvg } from './svg-sanitizer';
 import type { GetSvgData } from './types.ts';
 
 type Props = HTMLAttributes<'svg'> & {
@@ -55,7 +55,7 @@ const cleanedSvg = rawSvg
 const sanitizedRawSvg = sanitizeSvg(cleanedSvg);
 
 const attributesString = Object.entries(svgAttributes)
-  .map(sanitizeAttributeValue)
+  .map(sanitizeAttributeEntry)
   .filter((v): v is string => v != null)
   .join(' ');
 
