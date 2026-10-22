@@ -6,9 +6,11 @@
   "type": "module",
   "exports": {
     "./tsdown": "./tsdown.base.ts",
-    "./vitest": "./vitest.base.ts"
+    "./vitest.base": "./vitest.base.ts",
+    "./vitest-astro": "./vitest-astro.ts",
+    "./vitest-ts": "./vitest-ts.ts"
   },
-  "scripts": {
-    "lint": "biome check  --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\""
+  "devDependencies": {
+    "astro": "catalog:"
   }
 }

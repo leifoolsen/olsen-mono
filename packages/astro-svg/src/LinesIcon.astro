@@ -16,12 +16,7 @@ type Props = HTMLAttributes<'svg'> & {
   size?: string | number | null;
 };
 
-const {
-  airy,
-  lines,
-  size,
-  ...rest
-} = Astro.props;
+const { airy, lines, size, ...rest } = Astro.props;
 
 const getRawSvg = () => {
   const scaledLines = scaleLines(lines, airy ? 0.75 : 1);
