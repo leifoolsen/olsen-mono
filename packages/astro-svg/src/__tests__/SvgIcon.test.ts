@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { renderAstro } from '@olsen-mono/astro-test-utils';
 import { describe, expect, it } from 'vitest';
-import SvgComponent from '../SvgIcon.astro';
+import SvgIcon from '../SvgIcon.astro';
 
 describe('SvgIcon.astro', () => {
   const RAW_SVG =
@@ -14,7 +14,7 @@ describe('SvgIcon.astro', () => {
       const RENDERED_SVG =
         '<svg class="my-svg-icon" style="max-inline-size: unset;" name="info-icon" height="1em" width="1em" stroke-width="2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>';
 
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         class: 'my-svg-icon',
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         name: 'info-icon',
@@ -40,7 +40,7 @@ describe('SvgIcon.astro', () => {
 
   describe('Width, height and size handling', () => {
     it('should default to 1em when no size, width or height prop, or defaultSize is provided', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
       });
 
@@ -49,19 +49,19 @@ describe('SvgIcon.astro', () => {
       expect(svg?.getAttribute('height')).toBe('1em');
     });
 
-    it('should prioritize defaultSize when no size, width or height prop is provided', async () => {
-      const { container } = await renderAstro(SvgComponent, {
-        getSvgData: () => ({ rawSvg: RAW_SVG, defaultSize: '10px' }),
+    it('uses defaultSize when no explicit size is provided', async () => {
+      const { container } = await renderAstro(SvgIcon, {
+        getSvgData: () => ({ rawSvg: '<svg viewBox="0 0 24 24"></svg>', defaultSize: 1.5 }),
       });
 
       const svg = container.querySelector('svg');
-      expect(svg?.getAttribute('width')).toBe('10px');
-      expect(svg?.getAttribute('height')).toBe('10px');
+      expect(svg?.getAttribute('width')).toBe('1.5em');
+      expect(svg?.getAttribute('height')).toBe('1.5em');
     });
 
-    it('should prioritize explicit size prop over defaultSize', async () => {
-      const { container } = await renderAstro(SvgComponent, {
-        getSvgData: () => ({ rawSvg: RAW_SVG, defaultSize: '10px' }),
+    it('prefers explicit size over defaultSize', async () => {
+      const { container } = await renderAstro(SvgIcon, {
+        getSvgData: () => ({ rawSvg: '<svg viewBox="0 0 24 24"></svg>', defaultSize: 1.5 }),
         size: '2rem',
       });
 
@@ -70,9 +70,9 @@ describe('SvgIcon.astro', () => {
       expect(svg?.getAttribute('height')).toBe('2rem');
     });
 
-    it('should prioritize explicit width and height prop over size prop and defaultSize', async () => {
-      const { container } = await renderAstro(SvgComponent, {
-        getSvgData: () => ({ rawSvg: RAW_SVG, defaultSize: '10px' }),
+    it('prefers explicit width/height over size/defaultSize', async () => {
+      const { container } = await renderAstro(SvgIcon, {
+        getSvgData: () => ({ rawSvg: '<svg viewBox="0 0 24 24"></svg>', defaultSize: 1.5 }),
         size: '2rem',
         width: '24px',
         height: '16px',
@@ -84,7 +84,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('should set a numeric defaultSize as em', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG, defaultSize: 1.2 }),
       });
 
@@ -94,7 +94,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('should set a string defaultSize as is', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG, defaultSize: '48' }),
       });
 
@@ -104,7 +104,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('should set a numeric size prop as em', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG, defaultSize: '10px' }),
         size: 1.2,
       });
@@ -115,7 +115,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('should set a numeric width and height prop as em', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         width: 1.5,
         height: 1.5,
@@ -127,7 +127,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('should set a string width and height prop as is', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         width: '32',
         height: '32',
@@ -141,7 +141,7 @@ describe('SvgIcon.astro', () => {
 
   describe('stroke-width handling', () => {
     it('stroke-width should default to "2"', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
       });
 
@@ -150,7 +150,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('a numeric stroke-width should be set as em', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         'stroke-width': 0.083,
       });
@@ -160,7 +160,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('a string stroke-width should be set as is', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         'stroke-width': '3px',
       });
@@ -172,7 +172,7 @@ describe('SvgIcon.astro', () => {
 
   describe('Accessibility', () => {
     it('should apply aria-hidden="true" when no aria-label is provided', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
       });
 
@@ -180,8 +180,39 @@ describe('SvgIcon.astro', () => {
       expect(svg?.getAttribute('aria-hidden')).toBe('true');
     });
 
+    it('should set role="img" when aria-labelledby is provided', async () => {
+      const { container } = await renderAstro(SvgIcon, {
+        getSvgData: () => ({ rawSvg: RAW_SVG }),
+        'aria-labelledby': 'icon-title',
+      });
+
+      const svg = container.querySelector('svg');
+      expect(svg?.outerHTML).toContain('role="img"');
+      expect(svg?.outerHTML).toContain('aria-labelledby="icon-title"');
+    });
+
+    it('should allow custom role to override default', async () => {
+      const { container } = await renderAstro(SvgIcon, {
+        getSvgData: () => ({ rawSvg: RAW_SVG }),
+        'aria-label': 'Test',
+        role: 'presentation',
+      });
+
+      const svg = container.querySelector('svg');
+      expect(svg?.outerHTML).toContain('role="presentation"');
+    });
+
+    it('adds aria-hidden when no label is present', async () => {
+      const { container } = await renderAstro(SvgIcon, {
+        getSvgData: () => ({ rawSvg: '<svg viewBox="0 0 24 24"></svg>' }),
+      });
+
+      const svg = container.querySelector('svg');
+      expect(svg?.getAttribute('aria-hidden')).toBe('true');
+    });
+
     it('should apply role="img" and remove aria-hidden if aria-label is provided', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         'aria-label': 'Helpful description',
         getSvgData: () => ({ rawSvg: RAW_SVG }),
       });
@@ -193,32 +224,22 @@ describe('SvgIcon.astro', () => {
       expect(svg?.hasAttribute('aria-hidden')).toBe(false);
     });
 
-    it('should set role="img" when aria-labelledby is provided', async () => {
-      const { container } = await renderAstro(SvgComponent, {
-        getSvgData: () => ({ rawSvg: RAW_SVG }),
-        'aria-labelledby': 'icon-title',
+    it('uses role="img" when labeled', async () => {
+      const { container } = await renderAstro(SvgIcon, {
+        'aria-label': 'User icon',
+        getSvgData: () => ({ rawSvg: '<svg viewBox="0 0 24 24"></svg>' }),
       });
 
       const svg = container.querySelector('svg');
-      expect(svg?.outerHTML).toContain('role="img"');
-      expect(svg?.outerHTML).toContain('aria-labelledby="icon-title"');
-    });
-
-    it('should allow custom role to override default', async () => {
-      const { container } = await renderAstro(SvgComponent, {
-        getSvgData: () => ({ rawSvg: RAW_SVG }),
-        'aria-label': 'Test',
-        role: 'presentation',
-      });
-
-      const svg = container.querySelector('svg');
-      expect(svg?.outerHTML).toContain('role="presentation"');
+      expect(svg?.getAttribute('role')).toBe('img');
+      expect(svg?.getAttribute('aria-label')).toBe('User icon');
+      expect(svg?.hasAttribute('aria-hidden')).toBe(false);
     });
   });
 
   describe('additional HTML attributes', () => {
     it('should pass through additional SVG attributes', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         name: 'test-icon',
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         id: 'my-icon',
@@ -232,7 +253,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('should handle boolean attributes', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         focusable: true,
       });
@@ -245,7 +266,7 @@ describe('SvgIcon.astro', () => {
 
   describe('Custom styling', () => {
     it('should apply custom fill color', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         fill: '#ff0000',
       });
@@ -255,7 +276,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('should apply custom stroke', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         stroke: '#00ff00',
       });
@@ -265,7 +286,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('should apply custom class', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         class: 'my-custom-class',
       });
@@ -275,7 +296,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('should merge custom styles with default styles', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         style: 'color: red;',
       });
@@ -285,7 +306,7 @@ describe('SvgIcon.astro', () => {
     });
 
     it('should merge custom style object with default styles', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         style: { color: 'red' },
       });
@@ -298,7 +319,7 @@ describe('SvgIcon.astro', () => {
   describe('Prevevent XSS', () => {
     it('should throw if "name" contain any potentially harmful characters that could be used to inject malicious code into the SVG', async () => {
       await expect(
-        renderAstro(SvgComponent, {
+        renderAstro(SvgIcon, {
           getSvgData: () => ({ rawSvg: RAW_SVG }),
           name: '<script>alert("XSS")</script>',
         }),
@@ -306,13 +327,47 @@ describe('SvgIcon.astro', () => {
     });
 
     it('should escape suspisious attribute value', async () => {
-      const { container } = await renderAstro(SvgComponent, {
+      const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),
         name: 'foo" onload="alert(1)',
       });
 
       const svg = container.querySelector('svg');
       expect(svg?.outerHTML).toContain('name="foo&quot; onload=&quot;alert(1)"');
+    });
+  });
+
+  describe('Sanitization', () => {
+    it('removes script tags and inline handlers', async () => {
+      const source = `
+      <svg viewBox="0 0 24 24">
+        <script>alert(1)</script>
+        <g onclick="alert(2)">X</g>
+      </svg>
+    `;
+
+      const { container } = await renderAstro(SvgIcon, {
+        getSvgData: () => ({ rawSvg: source }),
+      });
+
+      const svg = container.querySelector('svg');
+      expect(svg?.outerHTML).not.toContain('<script');
+      expect(svg?.outerHTML).not.toContain('onclick');
+    });
+
+    it('strips javascript URLs', async () => {
+      const source = `
+      <svg viewBox="0 0 24 24">
+        <a href="javascript:alert(1)">bad</a>
+      </svg>
+    `;
+
+      const { container } = await renderAstro(SvgIcon, {
+        getSvgData: () => ({ rawSvg: source }),
+      });
+
+      const svg = container.querySelector('svg');
+      expect(svg?.outerHTML).not.toContain('javascript:');
     });
   });
 });
