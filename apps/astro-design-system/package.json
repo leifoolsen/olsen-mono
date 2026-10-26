@@ -19,7 +19,6 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "astro": "astro",
-    "build": "pnpm run astro build",
     "compile": "pnpm run css-to-dts",
     "css-to-dts": "css-to-dts src --camelCase",
     "dev": "astro dev",
