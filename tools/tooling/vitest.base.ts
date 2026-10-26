@@ -16,7 +16,7 @@ const packageJson = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'pack
 const safePackageName = packageJson.name.replace('/', '-');
 
 const packageAliases = packageDirs.reduce<Record<string, string>>((acc, dir) => {
-  acc[`@uds-frontend/${dir}`] = path.resolve(packagesPath, `${dir}/src/index.ts`);
+  acc[`@olsen-mono/${dir}`] = path.resolve(packagesPath, `${dir}/src/index.ts`);
   return acc;
 }, {});
 
@@ -32,7 +32,7 @@ export const sharedConfig: InlineConfig = {
     reportsDirectory: path.resolve(MONOREPO_ROOT, `.coverage/${safePackageName}`),
     clean: true,
     include: ['src/**/*'],
-    exclude: ['**/*.d.ts', '**/*.md', '**/*.json', 'src/__tests__/**/*', 'src/index.ts', 'src/types.ts'],
+    exclude: ['**/*.d.ts', '**/*.md', '**/*.json', 'src/index.ts', 'src/types.ts', '**/*.css', '**/*.svg'],
   },
 };
 

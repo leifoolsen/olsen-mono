@@ -26,7 +26,8 @@ const {
   ...rest
 } = Astro.props;
 
-const hasErrorMessage = (invalid ?? ariaInvalid === 'true') && Astro.slots.has('error-message');
+const hasErrorMessage =
+  (invalid ?? (ariaInvalid === true || ariaInvalid === 'true')) && Astro.slots.has('error-message');
 const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const hasDescriptionSlot = Astro.slots.has('description');
 const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
@@ -61,9 +62,9 @@ const describedByList = [errorId, descriptionId, ariaDescribedBy].filter(Boolean
     <slot />
   </div>
 
-  {hasDescriptionSlot && (
+  {descriptionId && (
     <div class="form-input-set-description-wrapper">
-      <FormDescription descriptionId={descriptionId!}>
+      <FormDescription descriptionId={descriptionId}>
         <slot name="description" />
       </FormDescription>
     </div>

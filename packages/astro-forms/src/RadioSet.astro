@@ -35,7 +35,8 @@ const {
 assertValidSlots(Astro.slots, ['error-message', 'legend'], 'RadioGroup');
 
 const hasLegend = !!legend || Astro.slots.has('legend');
-const hasErrorMessage = (invalid ?? ariaInvalid === 'true') && Astro.slots.has('error-message');
+const hasErrorMessage =
+  (invalid ?? (ariaInvalid === true || ariaInvalid === 'true')) && Astro.slots.has('error-message');
 
 let legendContent = '';
 if (!legend && Astro.slots.has('legend')) {
@@ -55,7 +56,7 @@ if (!legend && Astro.slots.has('legend')) {
 >
   {legendPosition === 'before' ? (
     <div class="form-radio-set-inline-wrapper">
-      {hasLegend && !!legend ? (
+      {hasLegend && legend ? (
         <LegendLabel>{legend}</LegendLabel>
       ) : (
         legendContent && <Fragment set:html={legendContent} />
@@ -71,7 +72,7 @@ if (!legend && Astro.slots.has('legend')) {
     </div>
   ) : (
     <>
-      {hasLegend && !!legend ? (
+      {hasLegend && legend ? (
         <LegendLabel>{legend}</LegendLabel>
       ) : (
         legendContent && <Fragment set:html={legendContent} />

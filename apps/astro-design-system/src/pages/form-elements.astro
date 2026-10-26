@@ -164,7 +164,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
             label="Checked, Disabled"
           />
         </Fieldset>
-        <hr />
+        <hr>
         <Fieldset>
           <Checkbox id="form-elements-checkbox2" name="form-elements-checkbox2" value="cb1" labelPosition="before">
             <Label slot="label">Initially Unchecked</Label>
@@ -196,8 +196,8 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           <RadioButton disabled value="5" label="Disabled Option" />
           <span slot="error-message">The selection is not valid.</span>
         </RadioSet>
-        <hr />
-        <br />
+        <hr>
+        <br>
         <RadioSet id="case-2" name="case2" legend="Legend before" legendPosition="before" invalid value="2">
           <RadioButton value="1" label="Testing 1..." />
           <RadioButton value="2">
@@ -205,8 +205,8 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           </RadioButton>
           <span slot="error-message">The selection is not valid.</span>
         </RadioSet>
-        <hr />
-        <br />
+        <hr>
+        <br>
         <RadioSet id="case-3" layout="inline" name="case3" legend="Legend top, layout inline" invalid>
           <RadioButton value="1" label="Testing 1..." />
           <RadioButton value="2">
@@ -214,8 +214,8 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           </RadioButton>
           <span slot="error-message">The selection is not valid.</span>
         </RadioSet>
-        <hr />
-        <br />
+        <hr>
+        <br>
         <RadioSet
           id="case-4"
           layout="inline"
@@ -340,9 +340,7 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           <optgroup label="Option Group">
             <option value="1">Option One</option>
             <option value="2">Option Two</option>
-            <option value="3" selected>
-              Option Three
-            </option>
+            <option value="3" selected>Option Three</option>
             <option value="4">Option Four has a long text description. Lorem Ipsum Dolar Est!</option>
           </optgroup>
           <Fragment slot="description">This is a description of the select.</Fragment>
@@ -384,34 +382,26 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
           <p id="listbox-label">Simple Listbox without Marker</p>
           <Listbox id="listbox" aria-labelledby="listbox-label" bordered>
             <ListboxGroup>
-              <ListboxOption id="listbox-option-1" name="option" value="1">
-                Option 1
-              </ListboxOption>
-              <ListboxOption id="listbox-option-2" name="option" value="2">
-                Option 2
-              </ListboxOption>
-              <ListboxOption id="listbox-option-3" name="option" value="3">
-                Option 3
-              </ListboxOption>
-              <ListboxOption id="listbox-option-4" name="option" value="4">
-                Option 4
-              </ListboxOption>
+              <ListboxOption id="listbox-option-1" name="option" value="1"> Option 1 </ListboxOption>
+              <ListboxOption id="listbox-option-2" name="option" value="2"> Option 2 </ListboxOption>
+              <ListboxOption id="listbox-option-3" name="option" value="3"> Option 3 </ListboxOption>
+              <ListboxOption id="listbox-option-4" name="option" value="4"> Option 4 </ListboxOption>
             </ListboxGroup>
           </Listbox>
         </div>
 
         <script>
-          import type { ListboxElement } from '@olsen-mono/astro-forms';
+        import type { ListboxElement } from '@olsen-mono/astro-forms';
 
-          const element = document.querySelector<ListboxElement>('#listbox');
+        const element = document.querySelector<ListboxElement>('#listbox');
 
-          element?.addEventListener('ui:listbox-ready', (e) => {
-            console.log('ui:listbox-ready:', e.detail);
-          });
+        element?.addEventListener('ui:listbox-ready', (e) => {
+          console.log('ui:listbox-ready:', e.detail);
+        });
 
-          element?.addEventListener('ui:listbox-change', (e) => {
-            console.log('Listbox:', e.detail);
-          });
+        element?.addEventListener('ui:listbox-change', (e) => {
+          console.log('Listbox:', e.detail);
+        });
         </script>
         <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
           <p id="listbox2-label">Grouped Options with Marker</p>
@@ -423,56 +413,38 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
             activeDescendantId="listbox2-option-5"
           >
             <ListboxGroup label="Land Animals">
-              <ListboxOption id="listbox2-option-1" name="animal" value="cat">
-                Cat
-              </ListboxOption>
-              <ListboxOption id="listbox2-option-2" name="animal" value="dog">
-                Dog
-              </ListboxOption>
-              <ListboxOption id="listbox2-option-3" name="animal" value="tiger">
-                Tiger
-              </ListboxOption>
-              <ListboxOption id="listbox2-option-4" name="animal" value="reindeer">
-                Reindeer
-              </ListboxOption>
+              <ListboxOption id="listbox2-option-1" name="animal" value="cat"> Cat </ListboxOption>
+              <ListboxOption id="listbox2-option-2" name="animal" value="dog"> Dog </ListboxOption>
+              <ListboxOption id="listbox2-option-3" name="animal" value="tiger"> Tiger </ListboxOption>
+              <ListboxOption id="listbox2-option-4" name="animal" value="reindeer"> Reindeer </ListboxOption>
               <ListboxOption id="listbox2-option-5" name="animal" value="racoon" aria-selected="true">
                 Raccoon
               </ListboxOption>
             </ListboxGroup>
             <ListboxGroup label="Water Animals">
-              <ListboxOption id="listbox2-option-6" name="animal" value="dolphin">
-                Dolphin
-              </ListboxOption>
-              <ListboxOption id="listbox2-option-7" name="animal" value="flounder">
-                Flounder
-              </ListboxOption>
-              <ListboxOption id="listbox2-option-8" name="animal" value="eel">
-                Eel
-              </ListboxOption>
+              <ListboxOption id="listbox2-option-6" name="animal" value="dolphin"> Dolphin </ListboxOption>
+              <ListboxOption id="listbox2-option-7" name="animal" value="flounder"> Flounder </ListboxOption>
+              <ListboxOption id="listbox2-option-8" name="animal" value="eel"> Eel </ListboxOption>
             </ListboxGroup>
             <ListboxGroup label="Air Animals">
-              <ListboxOption id="listbox2-option-9" name="animal" value="falcon">
-                Falcon
-              </ListboxOption>
+              <ListboxOption id="listbox2-option-9" name="animal" value="falcon"> Falcon </ListboxOption>
               <ListboxOption id="listbox2-option-10" disabled name="animal" value="winged-horse">
                 Winged Horse
               </ListboxOption>
-              <ListboxOption id="listbox2-option-11" name="animal" value="owl">
-                Owl
-              </ListboxOption>
+              <ListboxOption id="listbox2-option-11" name="animal" value="owl"> Owl </ListboxOption>
             </ListboxGroup>
           </Listbox>
         </div>
       </Fieldset>
 
       <script>
-        import type { ListboxElement } from '@olsen-mono/astro-forms';
+      import type { ListboxElement } from '@olsen-mono/astro-forms';
 
-        const element = document.querySelector<ListboxElement>('#listbox2');
+      const element = document.querySelector<ListboxElement>('#listbox2');
 
-        element?.addEventListener('ui:listbox-change', (e) => {
-          console.log('Listbox:', e.detail);
-        });
+      element?.addEventListener('ui:listbox-change', (e) => {
+        console.log('Listbox:', e.detail);
+      });
       </script>
       <Fieldset id="designsystem__listboxes" bordered style="min-width: 50ch;">
         <legend>Multi Select Listboxes</legend>
@@ -484,37 +456,27 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
               <ListboxOption id="ms-listbox-option-1" name="option-1" value="1" aria-selected="true">
                 Option 1
               </ListboxOption>
-              <ListboxOption id="ms-listbox-option-2" name="option-2" value="2">
-                Option 2
-              </ListboxOption>
-              <ListboxOption id="ms-listbox-option-3" name="option-3" value="3">
-                Option 3
-              </ListboxOption>
-              <ListboxOption id="ms-listbox-option-4" name="option-4" value="4">
-                Option 4
-              </ListboxOption>
+              <ListboxOption id="ms-listbox-option-2" name="option-2" value="2"> Option 2 </ListboxOption>
+              <ListboxOption id="ms-listbox-option-3" name="option-3" value="3"> Option 3 </ListboxOption>
+              <ListboxOption id="ms-listbox-option-4" name="option-4" value="4"> Option 4 </ListboxOption>
             </ListboxGroup>
           </Listbox>
         </div>
 
         <script>
-          import type { ListboxElement } from '@olsen-mono/astro-forms';
+        import type { ListboxElement } from '@olsen-mono/astro-forms';
 
-          const element = document.querySelector<ListboxElement>('#ms-listbox');
+        const element = document.querySelector<ListboxElement>('#ms-listbox');
 
-          element?.addEventListener('ui:listbox-change', (e) => {
-            console.log('Listbox:', e.detail);
-          });
+        element?.addEventListener('ui:listbox-change', (e) => {
+          console.log('Listbox:', e.detail);
+        });
         </script>
         <div style="display: flex; flex-direction: column; gap: var(--space-xs);">
           <p id="ms-listbox2-label">Multi Select Grouped Options</p>
           <div style="display: flex; gap: var(--space-xs); align-items: center;">
-            <button type="button" id="ms-listbox2-select-all">
-              Select all
-            </button>
-            <button type="button" id="ms-listbox2-empty-selection">
-              Empty selection
-            </button>
+            <button type="button" id="ms-listbox2-select-all">Select all</button>
+            <button type="button" id="ms-listbox2-empty-selection">Empty selection</button>
           </div>
           <TextInput
             id="ms-listbox2-search"
@@ -531,55 +493,29 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
                 <span>Land Animals</span>
                 <span style="transform: scale(1.2)">𓃰</span>
               </Fragment>
-              <ListboxOption id="ms-listbox2-option-1" name="cat" value="cat">
-                Cat
-              </ListboxOption>
-              <ListboxOption id="ms-listbox2-option-2" name="dog" value="dog">
-                Dog
-              </ListboxOption>
-              <ListboxOption id="ms-listbox2-option-3" name="tiger" value="tiger">
-                Tiger
-              </ListboxOption>
-              <ListboxOption id="ms-listbox2-option-4" name="reindeer" value="reindeer">
-                Reindeer
-              </ListboxOption>
+              <ListboxOption id="ms-listbox2-option-1" name="cat" value="cat"> Cat </ListboxOption>
+              <ListboxOption id="ms-listbox2-option-2" name="dog" value="dog"> Dog </ListboxOption>
+              <ListboxOption id="ms-listbox2-option-3" name="tiger" value="tiger"> Tiger </ListboxOption>
+              <ListboxOption id="ms-listbox2-option-4" name="reindeer" value="reindeer"> Reindeer </ListboxOption>
               <ListboxOption id="ms-listbox2-option-5" name="racoon" value="racoon" aria-selected="true">
                 Raccoon
               </ListboxOption>
             </ListboxGroup>
             <ListboxGroup>
-              <Fragment slot="label">
-                Water Animals <span style="transform: scale(1.6)">𓆜</span>
-              </Fragment>
-              <ListboxOption id="ms-listbox2-option-6" name="dolphin" value="dolphin">
-                Dolphin
-              </ListboxOption>
-              <ListboxOption id="ms-listbox2-option-7" name="flounder" value="flounder">
-                Flounder
-              </ListboxOption>
-              <ListboxOption id="ms-listbox2-option-8" name="eel" value="eel">
-                Eel
-              </ListboxOption>
-              <ListboxOption id="ms-listbox2-option-9" name="trout" value="trout">
-                Trout
-              </ListboxOption>
-              <ListboxOption id="ms-listbox2-option-10" name="herring" value="herring">
-                Herring
-              </ListboxOption>
-              <ListboxOption id="ms-listbox2-option-11" name="halibut" value="halibut">
-                Halibut
-              </ListboxOption>
+              <Fragment slot="label"> Water Animals <span style="transform: scale(1.6)">𓆜</span> </Fragment>
+              <ListboxOption id="ms-listbox2-option-6" name="dolphin" value="dolphin"> Dolphin </ListboxOption>
+              <ListboxOption id="ms-listbox2-option-7" name="flounder" value="flounder"> Flounder </ListboxOption>
+              <ListboxOption id="ms-listbox2-option-8" name="eel" value="eel"> Eel </ListboxOption>
+              <ListboxOption id="ms-listbox2-option-9" name="trout" value="trout"> Trout </ListboxOption>
+              <ListboxOption id="ms-listbox2-option-10" name="herring" value="herring"> Herring </ListboxOption>
+              <ListboxOption id="ms-listbox2-option-11" name="halibut" value="halibut"> Halibut </ListboxOption>
               <ListboxOption id="ms-listbox2-option-15" name="fish" value="triggerfish">
                 Humuhumunukunukuāpuaʻa
               </ListboxOption>
             </ListboxGroup>
             <ListboxGroup>
-              <Fragment slot="label">
-                Air Animals<span style="transform: scale(1.2)">𓅬</span>
-              </Fragment>
-              <ListboxOption id="ms-listbox2-option-12" name="falcon" value="falcon">
-                Falcon
-              </ListboxOption>
+              <Fragment slot="label"> Air Animals<span style="transform: scale(1.2)">𓅬</span> </Fragment>
+              <ListboxOption id="ms-listbox2-option-12" name="falcon" value="falcon"> Falcon </ListboxOption>
               <ListboxOption id="ms-listbox2-option-13" disabled name="winged-horse" value="winged-horse">
                 Winged Horse
               </ListboxOption>
@@ -592,31 +528,31 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
       </Fieldset>
 
       <script>
-        import type { ListboxElement } from '@olsen-mono/astro-forms';
+      import type { ListboxElement } from '@olsen-mono/astro-forms';
 
-        const listbox = document.querySelector<ListboxElement>('#ms-listbox2');
-        const selectAllBtn = document.getElementById('ms-listbox2-select-all') as HTMLButtonElement;
-        const emptySelectionBtn = document.getElementById('ms-listbox2-empty-selection') as HTMLButtonElement;
+      const listbox = document.querySelector<ListboxElement>('#ms-listbox2');
+      const selectAllBtn = document.getElementById('ms-listbox2-select-all') as HTMLButtonElement;
+      const emptySelectionBtn = document.getElementById('ms-listbox2-empty-selection') as HTMLButtonElement;
 
-        listbox?.addEventListener('ui:listbox-change', (e) => {
-          console.log('Listbox:', e.detail);
-        });
+      listbox?.addEventListener('ui:listbox-change', (e) => {
+        console.log('Listbox:', e.detail);
+      });
 
-        const searchField = document.querySelector<HTMLInputElement>('#ms-listbox2-search');
+      const searchField = document.querySelector<HTMLInputElement>('#ms-listbox2-search');
 
-        searchField?.addEventListener('input', () => {
-          if ('value' in searchField) {
-            listbox?.filter(searchField.value);
-          }
-        });
+      searchField?.addEventListener('input', () => {
+        if ('value' in searchField) {
+          listbox?.filter(searchField.value);
+        }
+      });
 
-        selectAllBtn?.addEventListener('click', () => {
-          listbox?.selectAll();
-        });
+      selectAllBtn?.addEventListener('click', () => {
+        listbox?.selectAll();
+      });
 
-        emptySelectionBtn?.addEventListener('click', () => {
-          listbox?.deselectAll();
-        });
+      emptySelectionBtn?.addEventListener('click', () => {
+        listbox?.deselectAll();
+      });
       </script>
       <Fieldset id="designsystem__comboboxes" bordered style="min-width: 50ch;">
         <legend>Comboboxes</legend>
@@ -626,24 +562,12 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
 
           <Listbox id="combobox-list" slot="options">
             <ListboxGroup>
-              <ListboxOption id="cb-option-6" name="fish" value="dolphin">
-                Dolphin
-              </ListboxOption>
-              <ListboxOption id="cb-option-7" name="fish" value="flounder">
-                Flounder
-              </ListboxOption>
-              <ListboxOption id="cb-option-8" name="fish" value="eel">
-                Eel
-              </ListboxOption>
-              <ListboxOption id="cb-option-9" name="fish" value="trout">
-                Trout
-              </ListboxOption>
-              <ListboxOption id="cb-option-10" name="fish" value="herring">
-                Herring
-              </ListboxOption>
-              <ListboxOption id="cb-option-11" name="fish" value="halibut">
-                Halibut
-              </ListboxOption>
+              <ListboxOption id="cb-option-6" name="fish" value="dolphin"> Dolphin </ListboxOption>
+              <ListboxOption id="cb-option-7" name="fish" value="flounder"> Flounder </ListboxOption>
+              <ListboxOption id="cb-option-8" name="fish" value="eel"> Eel </ListboxOption>
+              <ListboxOption id="cb-option-9" name="fish" value="trout"> Trout </ListboxOption>
+              <ListboxOption id="cb-option-10" name="fish" value="herring"> Herring </ListboxOption>
+              <ListboxOption id="cb-option-11" name="fish" value="halibut"> Halibut </ListboxOption>
               <ListboxOption id="cb-option-12" name="fish" value="triggerfish" aria-selected="true">
                 Humuhumunukunukuāpuaʻa
               </ListboxOption>
@@ -652,32 +576,22 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         </Combobox>
 
         <script>
-          import type { ComboboxElement } from '@olsen-mono/astro-forms';
+        import type { ComboboxElement } from '@olsen-mono/astro-forms';
 
-          const cb = document.querySelector<ComboboxElement>('#combobox');
+        const cb = document.querySelector<ComboboxElement>('#combobox');
 
-          cb?.addEventListener('ui:combobox-change', (e) => {
-            console.log('#combobox:', e.detail);
-          });
+        cb?.addEventListener('ui:combobox-change', (e) => {
+          console.log('#combobox:', e.detail);
+        });
         </script>
         <Combobox id="combobox2" placeholder="Start typing to filter..." label="Select a land animal">
           <Listbox id="combobox2-options" slot="options">
             <ListboxGroup>
-              <ListboxOption id="cb2-option-1" name="land" value="cat">
-                Cat
-              </ListboxOption>
-              <ListboxOption id="cb2-option-2" name="land" value="dog">
-                Dog
-              </ListboxOption>
-              <ListboxOption id="cb2-option-3" name="land" value="tiger">
-                Tiger
-              </ListboxOption>
-              <ListboxOption id="cb2-option-4" name="land" value="reindeer">
-                Reindeer
-              </ListboxOption>
-              <ListboxOption id="cb2-option-5" name="land" value="racoon">
-                Raccoon
-              </ListboxOption>
+              <ListboxOption id="cb2-option-1" name="land" value="cat"> Cat </ListboxOption>
+              <ListboxOption id="cb2-option-2" name="land" value="dog"> Dog </ListboxOption>
+              <ListboxOption id="cb2-option-3" name="land" value="tiger"> Tiger </ListboxOption>
+              <ListboxOption id="cb2-option-4" name="land" value="reindeer"> Reindeer </ListboxOption>
+              <ListboxOption id="cb2-option-5" name="land" value="racoon"> Raccoon </ListboxOption>
             </ListboxGroup>
           </Listbox>
         </Combobox>
@@ -689,131 +603,75 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
                 <span>Land Animals</span>
                 <span style="transform: scale(1.2)">𓃰</span>
               </Fragment>
-              <ListboxOption id="cb3-option-1" name="cat" value="cat">
-                Cat
-              </ListboxOption>
-              <ListboxOption id="cb3-option-2" name="dog" value="dog">
-                Dog
-              </ListboxOption>
-              <ListboxOption id="cb3-option-3" name="tiger" value="tiger">
-                Tiger
-              </ListboxOption>
-              <ListboxOption id="cb3-option-4" name="reindeer" value="reindeer">
-                Reindeer
-              </ListboxOption>
+              <ListboxOption id="cb3-option-1" name="cat" value="cat"> Cat </ListboxOption>
+              <ListboxOption id="cb3-option-2" name="dog" value="dog"> Dog </ListboxOption>
+              <ListboxOption id="cb3-option-3" name="tiger" value="tiger"> Tiger </ListboxOption>
+              <ListboxOption id="cb3-option-4" name="reindeer" value="reindeer"> Reindeer </ListboxOption>
               <ListboxOption id="cb3-option-5" name="racoon" value="racoon" aria-selected="true">
                 Raccoon
               </ListboxOption>
             </ListboxGroup>
             <ListboxGroup>
-              <Fragment slot="label">
-                Water Animals <span style="transform: scale(1.6)">𓆜</span>
-              </Fragment>
-              <ListboxOption id="cb3--option-6" name="dolphin" value="dolphin">
-                Dolphin
-              </ListboxOption>
-              <ListboxOption id="cb3-option-7" name="flounder" value="flounder">
-                Flounder
-              </ListboxOption>
-              <ListboxOption id="cb3--option-8" name="eel" value="eel">
-                Eel
-              </ListboxOption>
-              <ListboxOption id="cb3--option-9" name="trout" value="trout">
-                Trout
-              </ListboxOption>
+              <Fragment slot="label"> Water Animals <span style="transform: scale(1.6)">𓆜</span> </Fragment>
+              <ListboxOption id="cb3--option-6" name="dolphin" value="dolphin"> Dolphin </ListboxOption>
+              <ListboxOption id="cb3-option-7" name="flounder" value="flounder"> Flounder </ListboxOption>
+              <ListboxOption id="cb3--option-8" name="eel" value="eel"> Eel </ListboxOption>
+              <ListboxOption id="cb3--option-9" name="trout" value="trout"> Trout </ListboxOption>
               <ListboxOption id="cb3--option-10" name="herring" value="herring" aria-selected="true">
                 Herring
               </ListboxOption>
-              <ListboxOption id="cb3--option-11" name="halibut" value="halibut">
-                Halibut
-              </ListboxOption>
+              <ListboxOption id="cb3--option-11" name="halibut" value="halibut"> Halibut </ListboxOption>
               <ListboxOption id="cb-option-24" name="triggerfish" value="triggerfish" aria-selected="true">
                 Humuhumunukunukuāpuaʻa
               </ListboxOption>
-              <ListboxOption id="cb3--option-19" name="salmon" value="salmon">
-                Salmon
-              </ListboxOption>
-              <ListboxOption id="cb3--option-20" name="pollock" value="pollock">
-                Pollock
-              </ListboxOption>
-              <ListboxOption id="cb3--option-23" name="penguin" value="penguin">
-                Penguin
-              </ListboxOption>
+              <ListboxOption id="cb3--option-19" name="salmon" value="salmon"> Salmon </ListboxOption>
+              <ListboxOption id="cb3--option-20" name="pollock" value="pollock"> Pollock </ListboxOption>
+              <ListboxOption id="cb3--option-23" name="penguin" value="penguin"> Penguin </ListboxOption>
             </ListboxGroup>
             <ListboxGroup>
-              <Fragment slot="label">
-                Air Animals<span style="transform: scale(1.2)">𓅬</span>
-              </Fragment>
-              <ListboxOption id="cb3--option-12" name="falcon" value="falcon">
-                Falcon
-              </ListboxOption>
+              <Fragment slot="label"> Air Animals<span style="transform: scale(1.2)">𓅬</span> </Fragment>
+              <ListboxOption id="cb3--option-12" name="falcon" value="falcon"> Falcon </ListboxOption>
               <ListboxOption id="cb3--option-13" disabled name="winged-horse" value="winged-horse">
                 Winged Horse
               </ListboxOption>
-              <ListboxOption id="cb3--option-14" name="owl" value="owl">
-                Owl
-              </ListboxOption>
-              <ListboxOption id="cb3--option-15" name="sparrow" value="sparrow">
-                Sparrow
-              </ListboxOption>
-              <ListboxOption id="cb3--option-16" name="mallard" value="mallard">
-                Mallard
-              </ListboxOption>
+              <ListboxOption id="cb3--option-14" name="owl" value="owl"> Owl </ListboxOption>
+              <ListboxOption id="cb3--option-15" name="sparrow" value="sparrow"> Sparrow </ListboxOption>
+              <ListboxOption id="cb3--option-16" name="mallard" value="mallard"> Mallard </ListboxOption>
               <ListboxOption id="cb3--option-17" name="vulture" value="vulture" aria-selected="true">
                 Vulture
               </ListboxOption>
-              <ListboxOption id="cb3--option-18" name="penguin" value="penguin" disabled>
-                Penguin
-              </ListboxOption>
-              <ListboxOption id="cb3--option-21" name="harrier" value="harrier">
-                Harrier
-              </ListboxOption>
-              <ListboxOption id="cb3--option-22" name="buzzared" value="buzzard">
-                Buzzard
-              </ListboxOption>
+              <ListboxOption id="cb3--option-18" name="penguin" value="penguin" disabled> Penguin </ListboxOption>
+              <ListboxOption id="cb3--option-21" name="harrier" value="harrier"> Harrier </ListboxOption>
+              <ListboxOption id="cb3--option-22" name="buzzared" value="buzzard"> Buzzard </ListboxOption>
             </ListboxGroup>
           </Listbox>
         </Combobox>
 
         <script>
-          import type { ComboboxElement } from '@olsen-mono/astro-forms';
+        import type { ComboboxElement } from '@olsen-mono/astro-forms';
 
-          const cb3 = document.querySelector<ComboboxElement>('#combobox3');
+        const cb3 = document.querySelector<ComboboxElement>('#combobox3');
 
-          cb3?.addEventListener('ui:combobox-change', (e) => {
-            console.log('#combobox3:', e.detail);
-          });
+        cb3?.addEventListener('ui:combobox-change', (e) => {
+          console.log('#combobox3:', e.detail);
+        });
         </script>
         <Combobox id="combobox4" placeholder="Select a bird..." label="Select only" readonly>
           <span slot="description">Description of the select only</span>
 
           <Listbox id="combobox4-options" slot="options">
             <ListboxGroup>
-              <ListboxOption id="cb4-option-1" name="bird" value="falcon">
-                Falcon
-              </ListboxOption>
+              <ListboxOption id="cb4-option-1" name="bird" value="falcon"> Falcon </ListboxOption>
               <ListboxOption id="cb4--option-2" disabled name="bird" value="winged-horse">
                 {' '}
                 Winged Horse{' '}
               </ListboxOption>
-              <ListboxOption id="cb4--option-3" name="bird" value="owl">
-                Owl
-              </ListboxOption>
-              <ListboxOption id="cb4--option-4" name="bird" value="sparrow">
-                Sparrow
-              </ListboxOption>
-              <ListboxOption id="cb4--option-5" name="bird" value="mallard">
-                Mallard
-              </ListboxOption>
-              <ListboxOption id="cb4--option-6" name="bird" value="vulture">
-                Vulture
-              </ListboxOption>
-              <ListboxOption id="cb4--option-7" name="bird" value="penguin">
-                Penguin
-              </ListboxOption>
-              <ListboxOption id="cb4--option-8" name="bird" value="harrier">
-                Harrier
-              </ListboxOption>
+              <ListboxOption id="cb4--option-3" name="bird" value="owl"> Owl </ListboxOption>
+              <ListboxOption id="cb4--option-4" name="bird" value="sparrow"> Sparrow </ListboxOption>
+              <ListboxOption id="cb4--option-5" name="bird" value="mallard"> Mallard </ListboxOption>
+              <ListboxOption id="cb4--option-6" name="bird" value="vulture"> Vulture </ListboxOption>
+              <ListboxOption id="cb4--option-7" name="bird" value="penguin"> Penguin </ListboxOption>
+              <ListboxOption id="cb4--option-8" name="bird" value="harrier"> Harrier </ListboxOption>
             </ListboxGroup>
           </Listbox>
         </Combobox>
@@ -821,27 +679,13 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
         <Combobox id="combobox5" placeholder="Select a bird..." label="Disabled combobox" disabled>
           <Listbox id="combobox5-options" slot="options">
             <ListboxGroup>
-              <ListboxOption id="cb5-option-1" name="bird" value="falcon">
-                Falcon
-              </ListboxOption>
-              <ListboxOption id="cb5--option-2" disabled name="bird" value="winged-horse">
-                Winged Horse
-              </ListboxOption>
-              <ListboxOption id="cb5--option-3" name="bird" value="owl">
-                Owl
-              </ListboxOption>
-              <ListboxOption id="cb5--option-4" name="bird" value="sparrow">
-                Sparrow
-              </ListboxOption>
-              <ListboxOption id="cb5--option-5" name="bird" value="mallard">
-                Mallard
-              </ListboxOption>
-              <ListboxOption id="cb5--option-6" name="bird" value="vulture">
-                Vulture
-              </ListboxOption>
-              <ListboxOption id="cb5--option-7" name="bird" value="penguin">
-                Penguin
-              </ListboxOption>
+              <ListboxOption id="cb5-option-1" name="bird" value="falcon"> Falcon </ListboxOption>
+              <ListboxOption id="cb5--option-2" disabled name="bird" value="winged-horse"> Winged Horse </ListboxOption>
+              <ListboxOption id="cb5--option-3" name="bird" value="owl"> Owl </ListboxOption>
+              <ListboxOption id="cb5--option-4" name="bird" value="sparrow"> Sparrow </ListboxOption>
+              <ListboxOption id="cb5--option-5" name="bird" value="mallard"> Mallard </ListboxOption>
+              <ListboxOption id="cb5--option-6" name="bird" value="vulture"> Vulture </ListboxOption>
+              <ListboxOption id="cb5--option-7" name="bird" value="penguin"> Penguin </ListboxOption>
             </ListboxGroup>
           </Listbox>
         </Combobox>
@@ -855,35 +699,35 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
       <Fieldset>
         <p>
           <label for="input__text">Text Input</label>
-          <input id="input__text" type="text" placeholder="Text Input" />
+          <input id="input__text" type="text" placeholder="Text Input">
         </p>
         <p>
           <label for="input__password">Password</label>
-          <input id="input__password" type="password" placeholder="Type your Password" />
+          <input id="input__password" type="password" placeholder="Type your Password">
         </p>
         <p>
           <label for="input__webaddress">Web Address</label>
-          <input id="input__webaddress" type="url" placeholder="https://yoursite.com" />
+          <input id="input__webaddress" type="url" placeholder="https://yoursite.com">
         </p>
         <p>
           <label for="input__emailaddress">Email Address</label>
-          <input id="input__emailaddress" type="email" placeholder="name@email.com" />
+          <input id="input__emailaddress" type="email" placeholder="name@email.com">
         </p>
         <p>
           <label for="input__phone">Phone Number</label>
-          <input id="input__phone" type="tel" placeholder="(999) 999-9999" />
+          <input id="input__phone" type="tel" placeholder="(999) 999-9999">
         </p>
         <p>
           <label for="input__search">Search</label>
-          <input id="input__search" type="search" placeholder="Enter Search Term" />
+          <input id="input__search" type="search" placeholder="Enter Search Term">
         </p>
         <p>
           <label for="input__text2">Number Input</label>
-          <input id="input__text2" type="number" placeholder="Enter a Number" />
+          <input id="input__text2" type="number" placeholder="Enter a Number">
         </p>
         <p>
           <label for="input__file">File Input</label>
-          <input id="input__file" type="file" />
+          <input id="input__file" type="file">
         </p>
       </Fieldset>
     </fieldset>
@@ -924,39 +768,39 @@ import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
       <legend>HTML5 inputs</legend>
       <p>
         <label for="ic">Color input</label>
-        <input type="color" id="ic" value="#000000" />
+        <input type="color" id="ic" value="#000000">
       </p>
       <p>
         <label for="in">Number input</label>
-        <input type="number" id="in" min="0" max="10" value="5" />
+        <input type="number" id="in" min="0" max="10" value="5">
       </p>
       <p>
         <label for="ir">Range input</label>
-        <input type="range" id="ir" value="10" />
+        <input type="range" id="ir" value="10">
       </p>
       <p>
         <label for="idd">Date input</label>
-        <input type="date" id="idd" value="1970-01-01" />
+        <input type="date" id="idd" value="1970-01-01">
       </p>
       <p>
         <label for="idm">Month input</label>
-        <input type="month" id="idm" value="1970-01" />
+        <input type="month" id="idm" value="1970-01">
       </p>
       <p>
         <label for="idw">Week input</label>
-        <input type="week" id="idw" value="1970-W01" />
+        <input type="week" id="idw" value="1970-W01">
       </p>
       <p>
         <label for="idt">Time input</label>
-        <input type="time" id="idt" name="idt" min="00:00" max="24:00" />
+        <input type="time" id="idt" name="idt" min="00:00" max="24:00">
       </p>
       <p>
         <label for="idtl">Datetime-local input</label>
-        <input type="datetime-local" id="idtl" value="1970-01-01T00:00" />
+        <input type="datetime-local" id="idtl" value="1970-01-01T00:00">
       </p>
       <p>
         <label for="idl">Datalist</label>
-        <input type="text" id="idl" list="example-list" />
+        <input type="text" id="idl" list="example-list">
         <datalist id="example-list">
           <option value="Example #1"></option>
           <option value="Example #2"></option>

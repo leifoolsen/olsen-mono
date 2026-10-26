@@ -1,3 +1,5 @@
+// .prettierrc.mjs
+
 /** @type {import("prettier").Config} */
 const config = {
   plugins: ['prettier-plugin-astro'],

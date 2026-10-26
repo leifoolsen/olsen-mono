@@ -62,11 +62,11 @@ if (!label && Astro.slots.has('label')) {
 ---
 
 <InputGroup layout={labelPosition} class={className}>
-  {hasLabel && !!label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
+  {hasLabel && label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
 
   <InputControl>
     <label class="form-toggle-switch">
-      <input class="form-toggle-switch-input" id={id} role={role} type={type} {...rest} />
+      <input class="form-toggle-switch-input" id={id} role={role} type={type} {...rest}>
       {onIconHtml && <Fragment set:html={onIconHtml} />}
       {offIconHtml && <Fragment set:html={offIconHtml} />}
     </label>

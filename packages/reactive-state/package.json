@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/reactive-state",
   "description": "Reactive state factory",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": true,
   "type": "module",
   "exports": {
@@ -33,10 +33,9 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "compile": "tsdown",
-    "lint": "biome check . --no-errors-on-unmatched && prettier --ignore-path ../../.prettierignore --check \"*.+(astro|md|mdx)\"",
     "test": "vitest run",
     "test-coverage": "vitest run --coverage",
-    "typecheck": "tsc --noEmit"
+    "typecheck-tsc": "tsc --noEmit"
   },
   "devDependencies": {
     "@olsen-mono/core-utils": "workspace:*",

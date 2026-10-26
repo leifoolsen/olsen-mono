@@ -57,9 +57,10 @@ if (!label && Astro.slots.has('label')) {
 ---
 
 <InputGroup layout={labelPosition} class={className} data-combobox>
-  {hasLabel && !!label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
+  {hasLabel && label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
 
   <InputControl class="combobox-control" style={`anchor-name: ${uniqueAnchorName};`}>
+    <!-- biome-ignore lint/a11y/useAriaPropsSupportedByRole: aria-expanded is ok here -->
     <input
       aria-controls={resultsPopoverId}
       aria-describedby={describedByList ?? undefined}
@@ -74,7 +75,7 @@ if (!label && Astro.slots.has('label')) {
       role={role}
       type={type}
       {...rest}
-    />
+    >
 
     {type === 'search' && <SearchIcon data-search />}
 
@@ -85,7 +86,7 @@ if (!label && Astro.slots.has('label')) {
     </FormToolButton>
 
     {descriptionId && (
-      <FormDescription descriptionId={descriptionId!}>
+      <FormDescription descriptionId={descriptionId}>
         <slot name="description" />
       </FormDescription>
     )}
@@ -111,19 +112,19 @@ if (!label && Astro.slots.has('label')) {
 </InputGroup>
 
 <script>
-  import { createCombobox } from './combobox';
+import { createCombobox } from './combobox';
 
-  const setupComboboxes = () => {
-    const inputs = document.querySelectorAll<HTMLInputElement>('[data-combobox-input]');
+const setupComboboxes = () => {
+  const inputs = document.querySelectorAll<HTMLInputElement>('[data-combobox-input]');
 
-    for (const input of inputs) {
-      if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
-      input.setAttribute('data-initialized', 'true');
+  for (const input of inputs) {
+    if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
+    input.setAttribute('data-initialized', 'true');
 
-      createCombobox(input);
-    }
-  };
+    createCombobox(input);
+  }
+};
 
-  setupComboboxes();
-  document.addEventListener('astro:after-swap', setupComboboxes);
+setupComboboxes();
+document.addEventListener('astro:after-swap', setupComboboxes);
 </script>

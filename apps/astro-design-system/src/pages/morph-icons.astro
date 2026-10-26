@@ -78,7 +78,7 @@ import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
     </div>
   </div>
 
-  <br />
+  <br>
   <div
     style="display: grid;
 	  grid-template-columns: repeat(auto-fit, 2.5rem);
@@ -94,67 +94,74 @@ import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
 </AppLayout>
 
 <script>
-  import type { ComboboxChangeEventDetail, ListboxItem } from '@olsen-mono/astro-forms';
-  import { lineIcons, type LineSegment, type MorphLinesIconElement } from '@olsen-mono/astro-svg';
+import type { ComboboxChangeEventDetail, ListboxItem } from '@olsen-mono/astro-forms';
+import { type LineSegment, lineIcons, type MorphLinesIconElement } from '@olsen-mono/astro-svg';
 
-  const inputContainer = document.getElementById('morph-inputs');
+const inputContainer = document.getElementById('morph-inputs');
 
-  const updateMorphIcon = (svg: MorphLinesIconElement | null, fromLines: LineSegment[], toLines: LineSegment[]) => {
-    if (svg && typeof svg.setFromToLines === 'function') {
-      svg.setFromToLines(fromLines, toLines);
-    }
+const updateMorphIcon = (
+  svg: MorphLinesIconElement | null | undefined,
+  fromLines: LineSegment[],
+  toLines: LineSegment[],
+) => {
+  if (svg && typeof svg.setFromToLines === 'function') {
+    svg.setFromToLines(fromLines, toLines);
+  }
+};
+
+function setupContainer() {
+  if (!inputContainer || inputContainer.hasAttribute('data-initialized')) return;
+
+  const morphButton = document.getElementById('morph-button');
+  const morphToggle = document.getElementById('morph-toggle');
+  const morphPathButton = document.getElementById('morph-path-button');
+
+  const state: Record<string, LineSegment[] | undefined> = {
+    morphFrom: lineIcons.get('arrowPointingDownLines'),
+    morphTo: lineIcons.get('arrowPointingLeftLines'),
   };
 
-  function setupContainer() {
-    if (!inputContainer || inputContainer.hasAttribute('data-initialized')) return;
+  inputContainer.addEventListener('ui:combobox-change', (e) => {
+    const customEvent = e as CustomEvent<ComboboxChangeEventDetail>;
+    const data = !Array.isArray(customEvent.detail) ? customEvent.detail : ({} as ListboxItem);
 
-    const morphButton = document.getElementById('morph-button');
-    const morphToggle = document.getElementById('morph-toggle');
-    const morphPathButton = document.getElementById('morph-path-button');
+    const name = data?.name;
+    const value = data?.value;
 
-    const state: Record<string, LineSegment[] | undefined> = {
-      morphFrom: lineIcons.get('arrowPointingDownLines'),
-      morphTo: lineIcons.get('arrowPointingLeftLines'),
-    };
+    if (!name || !value) return;
 
-    inputContainer.addEventListener('ui:combobox-change', (e) => {
-      const customEvent = e as CustomEvent<ComboboxChangeEventDetail>;
-      const data = !Array.isArray(customEvent.detail) ? customEvent.detail : ({} as ListboxItem);
+    state[name] = lineIcons.get(value);
 
-      const name = data?.name!;
-      const value = data?.value;
-      state[name] = lineIcons.get(value!);
+    const morphButtonSvg = morphButton?.querySelector<MorphLinesIconElement>('svg');
+    const morphToggleSvg = morphToggle?.querySelector<MorphLinesIconElement>('svg');
 
-      const morphButtonSvg = morphButton && morphButton.querySelector<MorphLinesIconElement>('svg');
-      const morphToggleSvg = morphToggle && morphToggle.querySelector<MorphLinesIconElement>('svg');
+    updateMorphIcon(morphButtonSvg, state.morphFrom ?? [], state.morphTo ?? []);
+    updateMorphIcon(morphToggleSvg, state.morphFrom ?? [], state.morphTo ?? []);
+  });
 
-      updateMorphIcon(morphButtonSvg, state.morphFrom!, state.morphTo!);
-      updateMorphIcon(morphToggleSvg, state.morphFrom!, state.morphTo!);
-    });
-
-    if (morphButton) {
-      const svg = morphButton.querySelector('svg');
-      if (svg) {
-        morphButton.addEventListener('click', () => {
-          const isChecked = svg.getAttribute('aria-checked') === 'true';
-          svg.setAttribute('aria-checked', Boolean(!isChecked).toString());
-        });
-      }
+  if (morphButton) {
+    const svg = morphButton.querySelector('svg');
+    if (svg) {
+      morphButton.addEventListener('click', () => {
+        const isChecked = svg.getAttribute('aria-checked') === 'true';
+        svg.setAttribute('aria-checked', Boolean(!isChecked).toString());
+      });
     }
-
-    if (morphPathButton) {
-      const svg = morphPathButton.querySelector('svg');
-      if (svg) {
-        morphPathButton.addEventListener('click', () => {
-          const isChecked = svg.getAttribute('aria-checked') === 'true';
-          svg.setAttribute('aria-checked', Boolean(!isChecked).toString());
-        });
-      }
-    }
-
-    inputContainer.setAttribute('data-initialized', 'true');
   }
 
-  setupContainer();
-  document.addEventListener('astro:after-swap', setupContainer);
+  if (morphPathButton) {
+    const svg = morphPathButton.querySelector('svg');
+    if (svg) {
+      morphPathButton.addEventListener('click', () => {
+        const isChecked = svg.getAttribute('aria-checked') === 'true';
+        svg.setAttribute('aria-checked', Boolean(!isChecked).toString());
+      });
+    }
+  }
+
+  inputContainer.setAttribute('data-initialized', 'true');
+}
+
+setupContainer();
+document.addEventListener('astro:after-swap', setupContainer);
 </script>

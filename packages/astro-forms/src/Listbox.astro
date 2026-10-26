@@ -39,21 +39,21 @@ const {
 </div>
 
 <script>
-  import { createListbox } from './listbox';
+import { createListbox } from './listbox';
 
-  const setupListboxes = () => {
-    const elements = document.querySelectorAll('[role="listbox"]');
+const setupListboxes = () => {
+  const elements = document.querySelectorAll('[role="listbox"]');
 
-    for (const element of elements) {
-      if (!(element instanceof HTMLDivElement) || element.hasAttribute('data-initialized')) {
-        continue;
-      }
-
-      createListbox(element);
-      element.setAttribute('data-initialized', 'true');
+  for (const element of elements) {
+    if (!(element instanceof HTMLDivElement) || element.hasAttribute('data-initialized')) {
+      continue;
     }
-  };
 
-  setupListboxes();
-  document.addEventListener('astro:after-swap', setupListboxes);
+    createListbox(element);
+    element.setAttribute('data-initialized', 'true');
+  }
+};
+
+setupListboxes();
+document.addEventListener('astro:after-swap', setupListboxes);
 </script>
