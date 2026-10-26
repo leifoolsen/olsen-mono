@@ -9,7 +9,15 @@
       "cache": false
     },
     "//#lint-prettier": {
-      "inputs": ["**/*.md", "**/*.astro", ".prettierrc.mjs", "!**/CHANGELOG.md"]
+      "inputs": [
+        "**/*.md",
+        "**/*.astro",
+        ".prettierrc.mjs",
+        "!**/CHANGELOG.md",
+        "!**/node_modules/**",
+        "!**/dist/**",
+        "!**/.astro/**"
+      ]
     },
     "//#lint-fix-prettier": {
       "cache": false
