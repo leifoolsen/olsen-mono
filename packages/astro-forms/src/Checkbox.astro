@@ -31,7 +31,8 @@ const {
 assertValidSlots(Astro.slots, ['error-message', 'label'], 'Checkbox');
 
 const hasLabel = !!label || Astro.slots.has('label');
-const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const hasErrorMessage =
+  (invalid ?? (ariaInvalid === true || ariaInvalid === 'true')) && Astro.slots.has('error-message');
 const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const describedByList = [errorId, ariaDescribedBy].filter(Boolean).join(' ');
 
@@ -53,7 +54,7 @@ if (!label && Astro.slots.has('label')) {
       id={id}
       type="checkbox"
       {...rest}
-    >
+    />
   </InputControl>
 
   {hasErrorMessage && (

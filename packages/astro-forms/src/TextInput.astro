@@ -36,7 +36,8 @@ const {
 assertValidSlots(Astro.slots, ['description', 'error-message', 'label'], 'TextInput');
 
 const hasLabel = !!label || Astro.slots.has('label');
-const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const hasErrorMessage =
+  (invalid ?? (ariaInvalid === true || ariaInvalid === 'true')) && Astro.slots.has('error-message');
 const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const hasDescriptionSlot = Astro.slots.has('description');
 const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
@@ -61,7 +62,7 @@ if (!label && Astro.slots.has('label')) {
       id={id}
       type={type}
       {...rest}
-    >
+    />
 
     {type === 'search' && <SearchIcon data-search />}
 
@@ -69,7 +70,7 @@ if (!label && Astro.slots.has('label')) {
       <LinesIcon lines={xLines} />
     </FormToolButton>
 
-    {hasDescriptionSlot && descriptionId && (
+    {descriptionId && (
       <FormDescription descriptionId={descriptionId}>
         <slot name="description" />
       </FormDescription>
@@ -84,33 +85,33 @@ if (!label && Astro.slots.has('label')) {
 </InputGroup>
 
 <script>
-function setupInputFields() {
-  const inputs = document.querySelectorAll('[data-text-input]');
+  function setupInputFields() {
+    const inputs = document.querySelectorAll('[data-text-input]');
 
-  for (const input of inputs) {
-    if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
-    input.setAttribute('data-initialized', 'true');
+    for (const input of inputs) {
+      if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
+      input.setAttribute('data-initialized', 'true');
 
-    const wrapper = input.closest('.form-input-control');
-    if (!wrapper) continue;
+      const wrapper = input.closest('.form-input-control');
+      if (!wrapper) continue;
 
-    const searchIcon = wrapper.querySelector('[data-search]');
-    if (searchIcon) {
-      searchIcon.addEventListener('click', () => input.focus());
-    }
+      const searchIcon = wrapper.querySelector('[data-search]');
+      if (searchIcon) {
+        searchIcon.addEventListener('click', () => input.focus());
+      }
 
-    const clearButton = wrapper.querySelector<HTMLButtonElement>('[data-clear]');
-    if (clearButton) {
-      clearButton.addEventListener('click', () => {
-        input.value = '';
-        input.focus();
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-        input.dispatchEvent(new Event('change', { bubbles: true }));
-      });
+      const clearButton = wrapper.querySelector<HTMLButtonElement>('[data-clear]');
+      if (clearButton) {
+        clearButton.addEventListener('click', () => {
+          input.value = '';
+          input.focus();
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      }
     }
   }
-}
 
-setupInputFields();
-document.addEventListener('astro:after-swap', setupInputFields);
+  setupInputFields();
+  document.addEventListener('astro:after-swap', setupInputFields);
 </script>
