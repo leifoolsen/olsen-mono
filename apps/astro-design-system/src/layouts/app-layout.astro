@@ -78,56 +78,56 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
 </BaseLayout>
 
 <script>
-  const appContainer = document.getElementById('app-container');
+const appContainer = document.getElementById('app-container');
 
-  function setupListeners() {
-    if (!appContainer || appContainer.hasAttribute('data-initialized')) return;
-    appContainer.setAttribute('data-initialized', 'true');
+function setupListeners() {
+  if (!appContainer || appContainer.hasAttribute('data-initialized')) return;
+  appContainer.setAttribute('data-initialized', 'true');
 
-    const toggleBtn = document.getElementById('sidebar-toggle');
+  const toggleBtn = document.getElementById('sidebar-toggle');
 
-    if (toggleBtn) {
-      const svg = toggleBtn.querySelector('svg');
+  if (toggleBtn) {
+    const svg = toggleBtn.querySelector('svg');
 
-      if (appContainer?.getAttribute('data-sidebar-collapsed') !== 'true') {
-        svg?.setAttribute('aria-checked', 'true');
-      }
-
-      toggleBtn?.addEventListener('click', () => {
-        const isCollapsed = appContainer?.getAttribute('data-sidebar-collapsed') === 'true';
-        appContainer?.setAttribute('data-sidebar-collapsed', isCollapsed ? 'false' : 'true');
-        svg && svg.setAttribute('aria-checked', Boolean(isCollapsed).toString());
-      });
+    if (appContainer?.getAttribute('data-sidebar-collapsed') !== 'true') {
+      svg?.setAttribute('aria-checked', 'true');
     }
 
-    const headerRight = document.getElementById('app-header-right');
-    if (!headerRight) return;
-
-    headerRight.addEventListener('change', (event) => {
-      const input = event.target as HTMLInputElement | null;
-      if (input instanceof HTMLInputElement && input.type === 'checkbox') {
-        const name = input.name;
-        const checked = input.checked;
-
-        let cookieValue = '';
-        let htmlAttribute = '';
-
-        if (name === 'density') {
-          cookieValue = checked ? 'condensed' : 'default';
-          htmlAttribute = 'data-density';
-        } else if (name === 'theme') {
-          cookieValue = checked ? 'light' : 'dark';
-          htmlAttribute = 'data-theme';
-        }
-
-        if (!cookieValue || !htmlAttribute) return;
-
-        document.documentElement.setAttribute(htmlAttribute, cookieValue);
-        document.cookie = `${name}=${cookieValue}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Strict`;
-      }
+    toggleBtn?.addEventListener('click', () => {
+      const isCollapsed = appContainer?.getAttribute('data-sidebar-collapsed') === 'true';
+      appContainer?.setAttribute('data-sidebar-collapsed', isCollapsed ? 'false' : 'true');
+      svg?.setAttribute('aria-checked', Boolean(isCollapsed).toString());
     });
   }
 
-  setupListeners();
-  document.addEventListener('astro:after-swap', setupListeners);
+  const headerRight = document.getElementById('app-header-right');
+  if (!headerRight) return;
+
+  headerRight.addEventListener('change', (event) => {
+    const input = event.target as HTMLInputElement | null;
+    if (input instanceof HTMLInputElement && input.type === 'checkbox') {
+      const name = input.name;
+      const checked = input.checked;
+
+      let cookieValue = '';
+      let htmlAttribute = '';
+
+      if (name === 'density') {
+        cookieValue = checked ? 'condensed' : 'default';
+        htmlAttribute = 'data-density';
+      } else if (name === 'theme') {
+        cookieValue = checked ? 'light' : 'dark';
+        htmlAttribute = 'data-theme';
+      }
+
+      if (!cookieValue || !htmlAttribute) return;
+
+      document.documentElement.setAttribute(htmlAttribute, cookieValue);
+      document.cookie = `${name}=${cookieValue}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Strict`;
+    }
+  });
+}
+
+setupListeners();
+document.addEventListener('astro:after-swap', setupListeners);
 </script>

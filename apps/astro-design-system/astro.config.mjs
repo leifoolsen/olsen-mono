@@ -13,14 +13,14 @@ export default defineConfig({
   fonts: [
     {
       name: 'Titillium Web',
-      weights: [300, 400, 500, 600, 700, 800, 900],
+      weights: [200, 300, 400, 600, 700, 900],
       cssVariable: '--font-family-heading',
       fallbacks: ['Arial', 'sans-serif'],
       provider: fontProviders.google(),
     },
     {
       name: 'Open Sans',
-      weights: [200, 300, 400, 500, 600, 700, 800, 900],
+      weights: [300, 400, 500, 600, 700, 800],
       cssVariable: '--font-family-main',
       fallbacks: ['Arial', 'sans-serif'],
       provider: fontProviders.google(),

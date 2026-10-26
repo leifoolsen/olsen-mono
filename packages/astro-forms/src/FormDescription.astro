@@ -42,29 +42,29 @@ const anchorName = `--anchor-${descriptionId}`;
 </div>
 
 <style>
-  .form-description-popover {
-    inset: auto;
-    margin: 0;
-    position: fixed;
-    border: 1px solid var(--form-border-color);
-    padding: var(--form-space-s) var(--form-space-m);
-    border-radius: var(--form-space-xs);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    max-width: 32ch;
-    font-size: var(--form-font-size-s);
-    position-area: bottom right;
-    margin-block-start: var(--form-space-2xs);
-    position-try-fallbacks: flip-block, flip-inline;
-    z-index: 1;
+.form-description-popover {
+  inset: auto;
+  margin: 0;
+  position: fixed;
+  border: 1px solid var(--form-border-color);
+  padding: var(--form-space-s) var(--form-space-m);
+  border-radius: var(--form-space-xs);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  max-width: 32ch;
+  font-size: var(--form-font-size-s);
+  position-area: bottom right;
+  margin-block-start: var(--form-space-2xs);
+  position-try-fallbacks: flip-block, flip-inline;
+  z-index: 1;
 
-    & .form-description {
-      color: var(--brand-text-color);
-      display: inline;
-      align-items: center;
-    }
+  & .form-description {
+    color: var(--brand-text-color);
+    display: inline;
+    align-items: center;
   }
+}
 
-  [data-form-description='true']:hover + .form-description-popover {
-    display: block;
-  }
+[data-form-description="true"]:hover + .form-description-popover {
+  display: block;
+}
 </style>

@@ -63,9 +63,10 @@
   "scripts": {
     "compile": "tsdown && pnpm run css-to-dts",
     "css-to-dts": "css-to-dts src --camelCase --outDir dist",
-    "lint": "biome check src --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"src/**/*.+(astro|md|mdx)\"",
     "test": "vitest run",
-    "typecheck": "astro check && tsc --noEmit"
+    "test-coverage": "vitest run --coverage",
+    "typecheck-astro": "astro check",
+    "typecheck-tsc": "tsc --noEmit"
   },
   "peerDependencies": {
     "@olsen-mono/astro-svg": "workspace:*",

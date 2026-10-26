@@ -125,7 +125,6 @@
       grid-template-columns: max-content 1fr;
       row-gap: 0;
 
-      /* biome-ignore lint/style/noDescendingSpecificity: False positive? */
       &:not(:has(label:not([role="checkbox"]))) {
         grid-template-areas: "control";
         grid-template-columns: 1fr;

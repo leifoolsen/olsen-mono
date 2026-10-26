@@ -105,7 +105,7 @@ import { searchLines, xLines } from '../data/your-line-icon-library';
 ---
 
 <div class="search-wrapper">
-  <input type="text" placeholder="Search system..." />
+  <input type="text" placeholder="Search system...">
   <MorphLinesIcon fromLines={searchLines} toLines={xLines} hover={true} airy={true} size="1.25em" />
 </div>
 ```

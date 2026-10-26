@@ -1,68 +1,35 @@
 {
   "$schema": "https://turbo.build",
-  "globalDependencies": [
-    ".gitignore",
-    "tsconfig.json",
-    "biome.jsonc",
-    "pnpm-workspace.yaml",
-    "vitest.workspace.ts",
-    "tools/tooling/**/*",
-    "!.turbo/**",
-    "**/dist/**",
-    "!**/.coverage/**"
-  ],
+  "globalDependencies": [],
   "tasks": {
+    "//#lint-biome": {},
+    "//#lint-fix-biome": {
+      "cache": false
+    },
+    "//#lint-prettier": {},
+    "//#lint-fix-prettier": {
+      "cache": false
+    },
     "compile": {
       "dependsOn": ["^compile"],
-      "inputs": [
-        "src/**/*.css",
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "!src/**/*.d.ts",
-        "src/**/*.astro",
-        "src/**/*.svg",
-        "tsconfig.json"
-      ],
-      "outputs": ["dist/", "src/**/*.css.d.ts"]
+      "outputs": ["dist/**", "src/**/*.css.d.ts"]
     },
-    "typecheck": {
-      "dependsOn": ["compile"],
-      "cache": true,
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.svg", "tsconfig.json"]
+    "typecheck-astro": {
+      "dependsOn": ["^compile", "compile"],
+      "outputs": [".astro/**"]
     },
-    "lint": {
-      "cache": true,
-      "inputs": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/**/*.astro",
-        "tsconfig.json",
-        "astro.config.mjs",
-        "!src/**/*.d.ts",
-        "!src/**/*.css.d.ts",
-        "**/dist/**"
-      ]
+    "typecheck-tsc": {
+      "dependsOn": ["^compile", "compile"]
     },
     "test": {
-      "dependsOn": ["compile"],
-      "cache": true,
-      "inputs": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/**/*.astro",
-        "src/**/*.css",
-        "!src/**/*.css.d.ts",
-        "**/__tests__/**/*",
-        "vitest.config.ts",
-        "../../vitest.workspace.ts",
-        "**/dist/**",
-        "!**/.coverage/**",
-        "!**/.vitest-cache/**"
-      ]
+      "dependsOn": ["compile"]
     },
     "test-coverage": {
-      "dependsOn": ["compile"],
-      "cache": false
+      "dependsOn": ["compile"]
+    },
+    "build": {
+      "dependsOn": ["^compile", "compile", "//#lint-biome", "//#lint-prettier"],
+      "outputs": [".astro/**", "dist/**"]
     },
     "dev": {
       "cache": false,

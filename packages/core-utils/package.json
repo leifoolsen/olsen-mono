@@ -31,9 +31,9 @@
   },
   "scripts": {
     "compile": "tsdown",
-    "lint": "biome check src --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"src/**/*.+(astro|md|mdx)\"",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "test-coverage": "vitest run --coverage",
+    "typecheck-tsc": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/node": "catalog:"

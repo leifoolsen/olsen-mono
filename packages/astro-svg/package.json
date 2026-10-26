@@ -39,9 +39,10 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "compile": "tsdown",
-    "lint": "biome check src --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"src/**/*.+(astro|md|mdx)\"",
     "test": "vitest run",
-    "typecheck": "astro check && tsc --noEmit"
+    "test-coverage": "vitest run --coverage",
+    "typecheck-astro": "astro check",
+    "typecheck-tsc": "tsc --noEmit"
   },
   "peerDependencies": {
     "astro": ">=7.0.0"

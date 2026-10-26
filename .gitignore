@@ -1,6 +1,7 @@
 node_modules/
 .astro/
 .idea/
+/.coverage/
 coverage/
 build/
 dist/
@@ -22,3 +23,5 @@ tools/**/*.css.d.ts
 tools/css-to-dts/src/__tests__/__fixtures__/
 
 # ... but keep these files
+!.idea/prettier.xml
+!.idea/biome.xml

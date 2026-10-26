@@ -74,8 +74,8 @@ const numberInputId = `${id}-number`;
       {...rest}
     />
 
-    {hasDescriptionSlot && (
-      <FormDescription descriptionId={descriptionId!}>
+    {descriptionId && (
+      <FormDescription descriptionId={descriptionId}>
         <slot name="description" />
       </FormDescription>
     )}

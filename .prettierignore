@@ -1,11 +1,11 @@
-node_modules
-.turbo
-.next
-.astro
-CHANGELOG.md
-coverage
-dist
-lib
-public
-pnpm-lock.yaml
+**/*.ts
+**/*.tsx
+**/*.js
+**/*.jsx
+**/*.json
+**/*.css
+**/CHANGELOG.md
+dist/
+.astro/
+node_modules/
 
