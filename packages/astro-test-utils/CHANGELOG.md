@@ -1,5 +1,11 @@
 # @olsen-mono/astro-test-utils
 
+## 0.0.4
+
+### Patch Changes
+
+- 2c6cb7b: Improved workflows to include linting. Added linting tasks to turbo build task.
+
 ## 0.0.3
 
 ### Patch Changes

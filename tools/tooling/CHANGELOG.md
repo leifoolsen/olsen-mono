@@ -1,5 +1,11 @@
 # @olsen-mono/tooling
 
+## 0.0.16
+
+### Patch Changes
+
+- 2c6cb7b: Improved workflows to include linting. Added linting tasks to turbo build task.
+
 ## 0.0.15
 
 ### Patch Changes
