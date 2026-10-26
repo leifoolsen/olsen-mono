@@ -50,7 +50,7 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "build": "turbo //#lint-biome //#lint-prettier typecheck-tsc typecheck-astro compile test build",
+    "build": "turbo //#lint-biome //#lint-prettier typecheck-tsc typecheck-astro test build",
     "changeset": "changeset",
     "changeset-dry": "changeset status --verbose",
     "ci": "pnpm build",
