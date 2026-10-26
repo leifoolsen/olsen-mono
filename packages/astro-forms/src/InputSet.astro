@@ -26,7 +26,8 @@ const {
   ...rest
 } = Astro.props;
 
-const hasErrorMessage = (invalid ?? ariaInvalid) && Astro.slots.has('error-message');
+const hasErrorMessage =
+  (invalid ?? (ariaInvalid === true || ariaInvalid === 'true')) && Astro.slots.has('error-message');
 const errorId = hasErrorMessage ? `${id}-error` : undefined;
 const hasDescriptionSlot = Astro.slots.has('description');
 const descriptionId = hasDescriptionSlot ? `${id}-description` : undefined;
@@ -61,7 +62,7 @@ const describedByList = [errorId, descriptionId, ariaDescribedBy].filter(Boolean
     <slot />
   </div>
 
-  {hasDescriptionSlot && descriptionId && (
+  {descriptionId && (
     <div class="form-input-set-description-wrapper">
       <FormDescription descriptionId={descriptionId}>
         <slot name="description" />
@@ -77,48 +78,48 @@ const describedByList = [errorId, descriptionId, ariaDescribedBy].filter(Boolean
 </div>
 
 <script>
-function setupInputSets() {
-  const inputSets = document.querySelectorAll('.form-input-set');
+  function setupInputSets() {
+    const inputSets = document.querySelectorAll('.form-input-set');
 
-  for (const set of inputSets) {
-    if (set.hasAttribute('data-initialized')) continue;
-    set.setAttribute('data-initialized', 'true');
+    for (const set of inputSets) {
+      if (set.hasAttribute('data-initialized')) continue;
+      set.setAttribute('data-initialized', 'true');
 
-    const clearBtn = set.querySelector('.input-set-clear-btn');
-    const infoBtn = set.querySelector('.input-set-info-btn');
-    const descWrapper = set.querySelector('.form-input-set-description-wrapper');
+      const clearBtn = set.querySelector('.input-set-clear-btn');
+      const infoBtn = set.querySelector('.input-set-info-btn');
+      const descWrapper = set.querySelector('.form-input-set-description-wrapper');
 
-    if (clearBtn) {
-      clearBtn.addEventListener('click', () => {
-        const inputs = set.querySelectorAll('input, textarea, select');
-        for (const input of inputs) {
-          if (input instanceof HTMLInputElement) {
-            if (input.type === 'button') continue;
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          const inputs = set.querySelectorAll('input, textarea, select');
+          for (const input of inputs) {
+            if (input instanceof HTMLInputElement) {
+              if (input.type === 'button') continue;
 
-            if (input.type === 'checkbox' || input.type === 'radio') {
-              input.checked = false;
-            } else {
+              if (input.type === 'checkbox' || input.type === 'radio') {
+                input.checked = false;
+              } else {
+                input.value = '';
+              }
+              input.dispatchEvent(new Event('input', { bubbles: true }));
+              input.dispatchEvent(new Event('change', { bubbles: true }));
+            } else if (input instanceof HTMLTextAreaElement || input instanceof HTMLSelectElement) {
               input.value = '';
+              input.dispatchEvent(new Event('change', { bubbles: true }));
             }
-            input.dispatchEvent(new Event('input', { bubbles: true }));
-            input.dispatchEvent(new Event('change', { bubbles: true }));
-          } else if (input instanceof HTMLTextAreaElement || input instanceof HTMLSelectElement) {
-            input.value = '';
-            input.dispatchEvent(new Event('change', { bubbles: true }));
           }
-        }
-      });
-    }
+        });
+      }
 
-    if (infoBtn && descWrapper) {
-      descWrapper.classList.add('is-hidden');
-      infoBtn.addEventListener('click', () => {
-        descWrapper.classList.toggle('is-hidden');
-      });
+      if (infoBtn && descWrapper) {
+        descWrapper.classList.add('is-hidden');
+        infoBtn.addEventListener('click', () => {
+          descWrapper.classList.toggle('is-hidden');
+        });
+      }
     }
   }
-}
 
-setupInputSets();
-document.addEventListener('astro:after-swap', setupInputSets);
+  setupInputSets();
+  document.addEventListener('astro:after-swap', setupInputSets);
 </script>

@@ -57,7 +57,7 @@ const numberInputId = `${id}-number`;
       value={value}
       oninput={`document.getElementById('${numberInputId}').value = this.value`}
       {...rest}
-    >
+    />
 
     <input
       aria-describedby={describedByList}
@@ -72,9 +72,9 @@ const numberInputId = `${id}-number`;
       value={value}
       oninput={`document.getElementById('${id}').value = this.value`}
       {...rest}
-    >
+    />
 
-    {hasDescriptionSlot && descriptionId && (
+    {descriptionId && (
       <FormDescription descriptionId={descriptionId}>
         <slot name="description" />
       </FormDescription>

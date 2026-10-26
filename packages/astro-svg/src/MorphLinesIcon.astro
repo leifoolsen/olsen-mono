@@ -5,8 +5,6 @@ import { computeLineMorph, matchLines, scaleLines } from './morph-lines-utils';
 import { formatSize, formatStyle } from './svg-sanitizer';
 import type { LineSegment } from './types';
 
-console.log('MorphLinesIcon.astro loaded');
-
 type Props = HTMLAttributes<'svg'> & {
   /** If true, the `toLines` line segments are rendered, otherwise the `fromLines` line segments are rendered. */
   active?: boolean;
