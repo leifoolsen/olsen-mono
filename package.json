@@ -50,7 +50,7 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "build": "turbo //#lint-biome //#lint-prettier compile typecheck test build",
+    "build": "turbo //#lint-biome //#lint-prettier typecheck-tsc typecheck-astro compile test build",
     "changeset": "changeset",
     "changeset-dry": "changeset status --verbose",
     "ci": "pnpm build",
@@ -69,7 +69,7 @@
     "test": "turbo test",
     "test-coverage": "turbo test-coverage",
     "test-watch": "vitest",
-    "typecheck": "turbo typecheck",
+    "typecheck": "turbo typecheck-tsc typecheck-astro",
     "version-packages": "changeset version && pnpm install",
     "watch-css": "pnpm -r --parallel --if-present watch-css",
     "dev-ds": "pnpm --filter=./apps/astro-design-system... dev"

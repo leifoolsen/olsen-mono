@@ -36,7 +36,7 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "compile": "tsdown",
-    "typecheck": "tsc --noEmit"
+    "typecheck-tsc": "tsc --noEmit"
   },
   "peerDependencies": {
     "astro": ">=7.0.0"

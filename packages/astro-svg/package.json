@@ -41,7 +41,8 @@
     "compile": "tsdown",
     "test": "vitest run",
     "test-coverage": "vitest run --coverage",
-    "typecheck": "astro check && tsc --noEmit"
+    "typecheck-astro": "astro check",
+    "typecheck-tsc": "tsc --noEmit"
   },
   "peerDependencies": {
     "astro": ">=7.0.0"

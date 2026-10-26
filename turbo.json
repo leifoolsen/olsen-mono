@@ -2,9 +2,7 @@
   "$schema": "https://turbo.build",
   "globalDependencies": [],
   "tasks": {
-    "//#lint-biome": {
-      "inputs": ["biome.json", "apps/**/*", "packages/**/*"]
-    },
+    "//#lint-biome": {},
     "//#lint-fix-biome": {
       "cache": false
     },
@@ -26,7 +24,11 @@
       "dependsOn": ["^compile"],
       "outputs": ["dist/**", "src/**/*.css.d.ts"]
     },
-    "typecheck": {
+    "typecheck-astro": {
+      "dependsOn": ["^compile", "compile"],
+      "outputs": [".astro/**"]
+    },
+    "typecheck-tsc": {
       "dependsOn": ["^compile", "compile"]
     },
     "test": {

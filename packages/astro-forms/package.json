@@ -65,7 +65,8 @@
     "css-to-dts": "css-to-dts src --camelCase --outDir dist",
     "test": "vitest run",
     "test-coverage": "vitest run --coverage",
-    "typecheck": "astro check && tsc --noEmit"
+    "typecheck-astro": "astro check",
+    "typecheck-tsc": "tsc --noEmit"
   },
   "peerDependencies": {
     "@olsen-mono/astro-svg": "workspace:*",

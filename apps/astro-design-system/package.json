@@ -24,7 +24,7 @@
     "css-to-dts": "css-to-dts src --camelCase",
     "dev": "astro dev",
     "preview": "astro preview",
-    "typecheck": "astro check",
+    "typecheck-astro": "astro check",
     "watch-css": "css-to-dts src --camelCase --watch"
   },
   "dependencies": {
