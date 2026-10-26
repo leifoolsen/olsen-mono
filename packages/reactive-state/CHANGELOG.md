@@ -1,5 +1,11 @@
 # @olsen-mono/reactive-state
 
+## 0.0.9
+
+### Patch Changes
+
+- 2c6cb7b: Improved workflows to include linting. Added linting tasks to turbo build task.
+
 ## 0.0.8
 
 ### Patch Changes

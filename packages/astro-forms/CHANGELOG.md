@@ -1,5 +1,14 @@
 # @olsen-mono/astro-forms
 
+## 0.0.10
+
+### Patch Changes
+
+- 2c6cb7b: Improved workflows to include linting. Added linting tasks to turbo build task.
+- Updated dependencies [2c6cb7b]
+  - @olsen-mono/astro-svg@0.0.11
+  - @olsen-mono/core-utils@0.0.28
+
 ## 0.0.9
 
 ### Patch Changes

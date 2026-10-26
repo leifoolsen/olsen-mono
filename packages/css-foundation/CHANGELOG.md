@@ -1,5 +1,11 @@
 # @olsen-mono/css-foundation
 
+## 0.0.21
+
+### Patch Changes
+
+- 2c6cb7b: Improved workflows to include linting. Added linting tasks to turbo build task.
+
 ## 0.0.20
 
 ### Patch Changes

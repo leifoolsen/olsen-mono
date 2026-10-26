@@ -1,5 +1,11 @@
 # @olsen-mono/css-to-dts
 
+## 0.0.12
+
+### Patch Changes
+
+- 2c6cb7b: Improved workflows to include linting. Added linting tasks to turbo build task.
+
 ## 0.0.11
 
 ### Patch Changes

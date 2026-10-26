@@ -1,5 +1,11 @@
 # @olsen-mono/core-utils
 
+## 0.0.28
+
+### Patch Changes
+
+- 2c6cb7b: Improved workflows to include linting. Added linting tasks to turbo build task.
+
 ## 0.0.27
 
 ### Patch Changes

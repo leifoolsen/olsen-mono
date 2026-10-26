@@ -1,5 +1,11 @@
 # @olsen-mono/astro-svg
 
+## 0.0.11
+
+### Patch Changes
+
+- 2c6cb7b: Improved workflows to include linting. Added linting tasks to turbo build task.
+
 ## 0.0.10
 
 ### Patch Changes
