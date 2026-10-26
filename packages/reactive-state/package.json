@@ -35,7 +35,7 @@
     "compile": "tsdown",
     "test": "vitest run",
     "test-coverage": "vitest run --coverage",
-    "typecheck": "tsc --noEmit"
+    "typecheck-tsc": "tsc --noEmit"
   },
   "devDependencies": {
     "@olsen-mono/core-utils": "workspace:*",
