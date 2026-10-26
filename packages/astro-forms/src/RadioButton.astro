@@ -21,9 +21,9 @@ const hasLabel = !!label || Astro.slots.has('label');
 ---
 
 <InputGroup layout={labelPosition} class={className}>
-  {hasLabel && <Label for={id}>{!!label ? label : <slot name="label" />}</Label>}
+  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
 
   <InputControl>
-    <input type={type} class="form-radio-input" id={id} {...rest} />
+    <input type={type} class="form-radio-input" id={id} {...rest}>
   </InputControl>
 </InputGroup>

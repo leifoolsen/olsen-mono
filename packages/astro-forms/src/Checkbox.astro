@@ -43,7 +43,7 @@ if (!label && Astro.slots.has('label')) {
 ---
 
 <InputGroup layout={labelPosition} class={className}>
-  {hasLabel && !!label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
+  {hasLabel && label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
 
   <InputControl>
     <input
@@ -53,7 +53,7 @@ if (!label && Astro.slots.has('label')) {
       id={id}
       type="checkbox"
       {...rest}
-    />
+    >
   </InputControl>
 
   {hasErrorMessage && (

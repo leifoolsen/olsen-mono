@@ -101,7 +101,7 @@ For the changes to take effect, close your current terminal window and open a ne
 source ~/.zshrc
 ```
 
-To verify it is completely gone, type `nvm`. You should see a `command not found: nvm error` message..
+To verify it is completely gone, type `nvm`. You should see a `command not found: nvm error` message.
 
 #### 4: Remove the global pnpm CLI
 
@@ -216,6 +216,7 @@ First, remove the globally managed packages from your active Node instance and c
 
 3. **Troubleshooting Locked Folders:**
    If Windows throws a _Permission Denied_ or _File in use_ error due to an administrative symlink created by NVM, open **PowerShell as Administrator** and force-delete the specific legacy executable using its absolute path:
+
    ```powershell
    Remove-Item -Path "C:\Users\<YourUsername>\AppData\Local\Author Software\nvm\.nodejs\pnpm.exe" -Force
    ```
@@ -224,17 +225,20 @@ First, remove the globally managed packages from your active Node instance and c
 
 #### Part 2: Standalone Installation & Configuration
 
-Always install NVM first, as it handles the underlying Node.js runtimes, followed by pnpm which runs completely independently.
+Always install NVM first, as it handles the underlying Node.js runtimes, followed by pnpm, which runs completely independently.
 
 ##### 1. Install nvm-windows (v2.0.0+)
 
 1. Download `nvm-setup.exe` from the official GitHub repository: [coreybutler/nvm-windows/releases](https://github.com).
 2. Run the installer and complete the setup wizard.
 3. Open a **new** PowerShell window and verify the installation:
+
    ```powershell
    nvm version
    ```
+
 4. Install and activate your desired Node.js version:
+
    ```powershell
    nvm install lts
    nvm use <version_number>
@@ -245,6 +249,7 @@ Always install NVM first, as it handles the underlying Node.js runtimes, followe
 To prevent the installation script from accidentally latching onto NVM's temporary path variables, download the official standalone executable directly into a dedicated directory.
 
 1. Open a **standard PowerShell window** (not as administrator) and run:
+
    ```powershell
    # Create a clean directory for pnpm
    New-Item -ItemType Directory -Force -Path "C:\Users\<YourUsername>\AppData\Local\pnpm"
@@ -271,6 +276,7 @@ Register the custom installation directory and establish the global bin reposito
    ```
 
 2. Link pnpm's internal configuration to use the newly created bin folder:
+
    ```powershell
    pnpm config set global-bin-dir "C:\Users\<YourUsername>\AppData\Local\pnpm\bin"
    ```
@@ -337,7 +343,7 @@ Biome replaces Prettier, EsLint, and other code formatters.
 
 Configure Biome to automatically format your code on save.
 
-⚠️ **Note:** Remove _astro and md(x) files_ from the plugins file list. This is because Biome is currently not fully
+⚠️ **Note:** Remove _astro and md(x) files_ from the plugin file list. This is because Biome is currently not fully
 supported for Astro and Markdown files.
 
 ---
@@ -408,7 +414,7 @@ All core processes are optimized to utilize single-command global hot-reloading 
 - **`pnpm lint`**: Triggers immediate macro-analysis across all packages, configurations, and core root files (`--max-warnings 10`).
 - **`pnpm test`**: Parallel test runner utilizing `Vitest` scoped natively inside isolated directories using internal workspace aliases.
 - **`pnpm test-watch`**: Global live-updating testing environment capturing code state modifications continuously.
-- **`pnpm build` / `pnpm compile`**: Compiles shared library workspaces down to production targets and bundles astro-design-system into an standalone Server-Side Rendered (SSR) binary package.
+- **`pnpm build` / `pnpm compile`**: Compiles shared library workspaces down to production targets and bundles astro-design-system into a standalone Server-Side Rendered (SSR) binary package.
 
 ---
 
@@ -450,6 +456,7 @@ To achieve 100% self-contained, air-gapped deployments without external CDN runt
 - A dedicated synchronization routine (`scripts/copy-htmx.js`) automatically binds to the `pnpm dev` and `pnpm build` cycles.
 - It dynamically resolves the targeted `htmx.org` binaries inside the internal storage structures and mirrors it directly to `public/js/htmx.min.js`.
 - This architecture enables the server component runtime environments to safely reference local standalone browser layouts directly:
+
   ```html
   <script src="/js/htmx.min.js"></script>
   ```
@@ -460,7 +467,7 @@ This monorepo automatically generates and syncs API documentation directly from 
 
 ### 🏛️ Architecture & Philosophy
 
-To keep package overhead at a absolute minimum, we utilize an **anemic package philosophy**:
+To keep package overhead at an absolute minimum, we utilize an **anemic package philosophy**:
 
 ---
 

@@ -19,11 +19,10 @@
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
     "astro": "astro",
-    "build": "pnpm run compile && astro build",
+    "build": "pnpm run astro build",
     "compile": "pnpm run css-to-dts",
     "css-to-dts": "css-to-dts src --camelCase",
     "dev": "astro dev",
-    "lint": "biome check src --no-errors-on-unmatched && prettier --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --check \"src/**/*.+(astro|md|mdx)\"",
     "preview": "astro preview",
     "typecheck": "astro check",
     "watch-css": "css-to-dts src --camelCase --watch"

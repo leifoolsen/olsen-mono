@@ -1,6 +1,7 @@
 node_modules/
 .astro/
 .idea/
+/.coverage/
 coverage/
 build/
 dist/

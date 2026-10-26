@@ -11,6 +11,7 @@ const { for: htmlFor, class: className, ...rest } = Astro.props;
 const classes = ['form-label', className].filter(Boolean).join(' ');
 ---
 
+<!-- biome-ignore lint/a11y/noLabelWithoutControl: This is correct for a component -->
 <label for={htmlFor} class={classes} {...rest}>
   <slot />
 </label>

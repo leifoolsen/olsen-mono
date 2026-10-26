@@ -55,7 +55,7 @@ if (!legend && Astro.slots.has('legend')) {
 >
   {legendPosition === 'before' ? (
     <div class="form-radio-set-inline-wrapper">
-      {hasLegend && !!legend ? (
+      {hasLegend && legend ? (
         <LegendLabel>{legend}</LegendLabel>
       ) : (
         legendContent && <Fragment set:html={legendContent} />
@@ -71,7 +71,7 @@ if (!legend && Astro.slots.has('legend')) {
     </div>
   ) : (
     <>
-      {hasLegend && !!legend ? (
+      {hasLegend && legend ? (
         <LegendLabel>{legend}</LegendLabel>
       ) : (
         legendContent && <Fragment set:html={legendContent} />
@@ -95,47 +95,47 @@ if (!legend && Astro.slots.has('legend')) {
 </fieldset>
 
 <script>
-  function setupRadioSets() {
-    const radioSets = document.querySelectorAll('[data-radio-set] ');
+function setupRadioSets() {
+  const radioSets = document.querySelectorAll('[data-radio-set] ');
 
-    for (const radioSet of radioSets) {
-      if (!(radioSet instanceof HTMLFieldSetElement)) continue;
+  for (const radioSet of radioSets) {
+    if (!(radioSet instanceof HTMLFieldSetElement)) continue;
 
-      const optionsContainer = radioSet.querySelector('.form-radio-set-options');
-      if (!optionsContainer) continue;
+    const optionsContainer = radioSet.querySelector('.form-radio-set-options');
+    if (!optionsContainer) continue;
 
-      const groupId = radioSet.id;
-      const groupName = optionsContainer.getAttribute('data-group-name');
-      const groupValue = optionsContainer.getAttribute('data-group-value');
-      const radioButtons = optionsContainer.querySelectorAll('input[type="radio"]');
+    const groupId = radioSet.id;
+    const groupName = optionsContainer.getAttribute('data-group-name');
+    const groupValue = optionsContainer.getAttribute('data-group-value');
+    const radioButtons = optionsContainer.querySelectorAll('input[type="radio"]');
 
-      for (const radioButton of radioButtons) {
-        if (!(radioButton instanceof HTMLInputElement)) continue;
+    for (const radioButton of radioButtons) {
+      if (!(radioButton instanceof HTMLInputElement)) continue;
 
-        if (groupName) radioButton.name = groupName;
+      if (groupName) radioButton.name = groupName;
 
-        if (groupId && !radioButton.id) {
-          const cleanValue = radioButton.value.replace(/[^a-zA-Z0-9-_]/g, '');
-          radioButton.id = `${groupId}-${cleanValue}`;
-        }
+      if (groupId && !radioButton.id) {
+        const cleanValue = radioButton.value.replace(/[^a-zA-Z0-9-_]/g, '');
+        radioButton.id = `${groupId}-${cleanValue}`;
+      }
 
-        const wrapper = radioButton.closest('.form-input-group');
-        if (wrapper) {
-          const label = wrapper.querySelector('label');
-          if (label) {
-            label.setAttribute('for', radioButton.id);
-          }
-        }
-
-        if (groupValue && radioButton.value === groupValue) {
-          radioButton.checked = true;
+      const wrapper = radioButton.closest('.form-input-group');
+      if (wrapper) {
+        const label = wrapper.querySelector('label');
+        if (label) {
+          label.setAttribute('for', radioButton.id);
         }
       }
 
-      radioSet.setAttribute('data-initialized', 'true');
+      if (groupValue && radioButton.value === groupValue) {
+        radioButton.checked = true;
+      }
     }
-  }
 
-  setupRadioSets();
-  document.addEventListener('astro:after-swap', setupRadioSets);
+    radioSet.setAttribute('data-initialized', 'true');
+  }
+}
+
+setupRadioSets();
+document.addEventListener('astro:after-swap', setupRadioSets);
 </script>

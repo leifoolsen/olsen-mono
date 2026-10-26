@@ -17,7 +17,7 @@ export function createListbox(element: HTMLElement) {
       id: opt.id,
       name: opt.getAttribute('data-name') ?? '',
       value: opt.getAttribute('data-value') ?? '',
-      text: opt instanceof HTMLElement ? opt.innerText : '',
+      text: opt instanceof HTMLElement ? opt.textContent : '',
     }));
 
     element.dispatchEvent(
@@ -220,8 +220,8 @@ export function createListbox(element: HTMLElement) {
             (e) => {
               const re = new RegExp(`^${e.key}`, 'i');
               const target =
-                options.slice(currentIndex + 1).find((opt) => opt.innerText?.match(re)) ??
-                options.slice(0, currentIndex).find((opt) => opt.innerText?.match(re));
+                options.slice(currentIndex + 1).find((opt) => opt.textContent?.match(re)) ??
+                options.slice(0, currentIndex).find((opt) => opt.textContent?.match(re));
 
               return target ?? null;
             },
@@ -249,7 +249,7 @@ export function createListbox(element: HTMLElement) {
       for (const opt of options) {
         if (!(opt instanceof HTMLElement)) continue;
         const value = (opt.getAttribute('data-value') ?? '').toLowerCase();
-        const text = (opt.innerText ?? '').toLowerCase();
+        const text = (opt.textContent ?? '').toLowerCase();
         opt.hidden = !(value.includes(cleanQuery) || text.includes(cleanQuery));
         if (opt.hidden && !isMultiSelectable) opt.setAttribute('aria-selected', 'false');
       }

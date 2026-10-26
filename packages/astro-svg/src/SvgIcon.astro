@@ -19,7 +19,7 @@ const {
   style: userStyle,
   width,
   ...rest
-} = Astro.props as Props & Record<string, any>;
+} = Astro.props;
 
 const { rawSvg, defaultSize } = getSvgData(name);
 
@@ -32,7 +32,7 @@ const hasAccessibleName = rest['aria-label'] || rest['aria-labelledby'];
 const explicitAriaHidden = rest['aria-hidden'] !== undefined;
 const ariaHiddenFinal = explicitAriaHidden ? rest['aria-hidden'] : hasAccessibleName ? undefined : 'true';
 
-const svgAttributes: Record<string, any> = { ...rest };
+const svgAttributes: Record<string, unknown> = { ...rest };
 svgAttributes.class = className;
 svgAttributes.style = `max-inline-size: unset; ${style}`.trimEnd();
 svgAttributes.name = name;
