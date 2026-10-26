@@ -28,7 +28,7 @@
       "dependsOn": ["compile"]
     },
     "build": {
-      "dependsOn": ["^compile", "compile"],
+      "dependsOn": ["^compile", "compile", "//#lint-biome", "//#lint-prettier"],
       "outputs": [".astro/**", "dist/**"]
     },
     "dev": {

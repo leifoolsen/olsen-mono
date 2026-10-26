@@ -50,10 +50,9 @@
   },
   "homepage": "https://github.com/olsen-mono/olsen-mono#readme",
   "scripts": {
-    "build": "turbo //#lint-biome //#lint-prettier typecheck-tsc typecheck-astro test build",
+    "build": "turbo typecheck-tsc typecheck-astro test build",
     "changeset": "changeset",
     "changeset-dry": "changeset status --verbose",
-    "ci": "pnpm build",
     "clean": "shx rm -rf .turbo \"**/.turbo\" node_modules/.cache \"**/node_modules/.vite\" \"**/.tsbuildinfo\" && pnpm install",
     "compile": "turbo compile",
     "find-caches": "shx ls -d .turbo \"**/.turbo\" \"**/node_modules/.vite\" \"node_modules/.cache\" \"**/.tsbuildinfo\"",
