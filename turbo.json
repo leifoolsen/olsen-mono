@@ -6,17 +6,7 @@
     "//#lint-fix-biome": {
       "cache": false
     },
-    "//#lint-prettier": {
-      "inputs": [
-        "**/*.md",
-        "**/*.astro",
-        ".prettierrc.mjs",
-        "!**/CHANGELOG.md",
-        "!**/node_modules/**",
-        "!**/dist/**",
-        "!**/.astro/**"
-      ]
-    },
+    "//#lint-prettier": {},
     "//#lint-fix-prettier": {
       "cache": false
     },
@@ -38,7 +28,7 @@
       "dependsOn": ["compile"]
     },
     "build": {
-      "dependsOn": ["^compile", "compile"],
+      "dependsOn": ["^compile", "compile", "//#lint-biome", "//#lint-prettier"],
       "outputs": [".astro/**", "dist/**"]
     },
     "dev": {
