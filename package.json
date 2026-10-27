@@ -66,7 +66,7 @@
     "release": "pnpm compile && changeset publish",
     "show-tsconfig": "tsc --showConfig",
     "test": "turbo test",
-    "test-coverage": "turbo test-coverage",
+    "test-coverage": "turbo test-coverage --filter=\"./packages/*\"",
     "test-watch": "vitest",
     "typecheck": "turbo typecheck-tsc typecheck-astro",
     "version-packages": "changeset version && pnpm install",
