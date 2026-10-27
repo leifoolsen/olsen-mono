@@ -1,5 +1,4 @@
 /// <reference types="vitest" />
-
 import fs, { readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -23,16 +22,16 @@ const packageAliases = packageDirs.reduce<Record<string, string>>((acc, dir) => 
 export const sharedConfig: InlineConfig = {
   alias: packageAliases,
   globals: true,
-  reporters: ['verbose'],
+  reporters: ['default'],
   setupFiles: [path.resolve(__dirname, './vitest-setup.ts')],
   include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
   coverage: {
     provider: 'v8',
     reporter: [['json', { file: `${path.basename(process.cwd())}.json` }], 'text', 'html'],
     reportsDirectory: path.resolve(MONOREPO_ROOT, `.coverage/${safePackageName}`),
-    clean: true,
+    clean: false, // Do not delete other packages' coverage data
     include: ['src/**/*'],
-    exclude: ['**/*.d.ts', '**/*.md', '**/*.json', 'src/index.ts', 'src/types.ts', '**/*.css', '**/*.svg'],
+    exclude: ['**/*.d.ts', '**/*.md', '**/*.json', '**/src/index.ts', '**/src/types.ts', '**/*.css', '**/*.svg'],
   },
 };
 
