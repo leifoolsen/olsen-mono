@@ -1,7 +1,7 @@
 {
   "name": "@olsen-mono/tooling",
   "description": "Base config for tsdown and vite",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "private": true,
   "type": "module",
   "exports": {

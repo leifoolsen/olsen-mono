@@ -1,5 +1,11 @@
 # astro-htmx
 
+## 0.0.23
+
+### Patch Changes
+
+- 22318a9: Added vitest-app.ts for Astro Web App test configuration. Improved test coverage setup.
+
 ## 0.0.22
 
 ### Patch Changes
