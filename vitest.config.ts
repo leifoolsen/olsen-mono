@@ -1,6 +1,12 @@
-import { defineConfig } from 'vitest/config';
-import { sharedConfig } from './tools/tooling/vitest.base.ts';
+// vitest.config.ts
+import { baseConfig } from '@olsen-mono/tooling/vitest.base';
+import { defineConfig, mergeConfig } from 'vitest/config';
 
-export default defineConfig({
-  test: sharedConfig,
-});
+export default mergeConfig(
+  baseConfig,
+  defineConfig({
+    test: {
+      projects: ['packages/*', '!packages/css-foundation', '!tools'],
+    },
+  }),
+);

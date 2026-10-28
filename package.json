@@ -53,7 +53,7 @@
     "build": "turbo typecheck-tsc typecheck-astro test build",
     "changeset": "changeset",
     "changeset-dry": "changeset status --verbose",
-    "clean": "shx rm -rf .turbo \"**/.turbo\" node_modules/.cache \"**/node_modules/.vite\" \"**/.tsbuildinfo\" && pnpm install",
+    "clean": "shx rm -rf .coverage .turbo \"**/.turbo\" node_modules/.cache \"**/node_modules/.vite\" \"**/.tsbuildinfo\" && pnpm install",
     "compile": "turbo compile",
     "find-caches": "shx ls -d .turbo \"**/.turbo\" \"**/node_modules/.vite\" \"node_modules/.cache\" \"**/.tsbuildinfo\"",
     "lint": "turbo //#lint-biome //#lint-prettier",

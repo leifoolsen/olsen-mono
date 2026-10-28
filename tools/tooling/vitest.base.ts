@@ -29,7 +29,7 @@ export const sharedConfig: InlineConfig = {
     provider: 'v8',
     reporter: [['json', { file: `${path.basename(process.cwd())}.json` }], 'text', 'html'],
     reportsDirectory: path.resolve(MONOREPO_ROOT, `.coverage/${safePackageName}`),
-    clean: false, // Do not delete other packages' coverage data
+    clean: true,
     include: ['src/**/*'],
     exclude: ['**/*.d.ts', '**/*.md', '**/*.json', '**/src/index.ts', '**/src/types.ts', '**/*.css', '**/*.svg'],
   },
