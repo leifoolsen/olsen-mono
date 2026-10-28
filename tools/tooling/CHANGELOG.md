@@ -1,5 +1,11 @@
 # @olsen-mono/tooling
 
+## 0.0.17
+
+### Patch Changes
+
+- 22318a9: Added vitest-app.ts for Astro Web App test configuration. Improved test coverage setup.
+
 ## 0.0.16
 
 ### Patch Changes
