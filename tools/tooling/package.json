@@ -9,7 +9,7 @@
     "./vitest.base": "./vitest.base.ts",
     "./vitest-astro": "./vitest-astro.ts",
     "./vitest-ts": "./vitest-ts.ts",
-    "./vitest-app": "./vitest-app.ts"
+    "./vitest-astro-app": "./vitest-astro-app.ts"
   },
   "devDependencies": {
     "astro": "catalog:"

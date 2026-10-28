@@ -2,12 +2,12 @@ import { getViteConfig } from 'astro/config';
 import { configDefaults, defineConfig, defineProject } from 'vitest/config';
 import { baseConfig, sharedConfig } from './vitest.base.ts';
 
-type AstroAppConfigOptions = {
+type Options = {
   nodeExcludePath?: string;
   logConfig?: boolean;
 };
 
-export function createVitesApptConfig(options: AstroAppConfigOptions = {}) {
+export function createVitestAstroAppConfig(options: Options = {}) {
   const apiExclude = options.nodeExcludePath ? [options.nodeExcludePath] : [];
 
   return defineConfig({

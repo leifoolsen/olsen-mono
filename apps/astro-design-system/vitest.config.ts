@@ -1,5 +1,5 @@
-import { createVitesApptConfig } from '@olsen-mono/tooling/vitest-app';
+import { createVitestAstroAppConfig } from '@olsen-mono/tooling/vitest-astro-app';
 
-export default createVitesApptConfig({
+export default createVitestAstroAppConfig({
   nodeExcludePath: 'src/api/**',
 });
