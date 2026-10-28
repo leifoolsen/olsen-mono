@@ -25,6 +25,7 @@ export const sharedConfig: InlineConfig = {
   reporters: ['default'],
   setupFiles: [path.resolve(__dirname, './vitest-setup.ts')],
   include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+  environment: 'node',
   coverage: {
     provider: 'v8',
     reporter: [['json', { file: `${path.basename(process.cwd())}.json` }], 'text', 'html'],

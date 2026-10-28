@@ -8,7 +8,8 @@
     "./tsdown": "./tsdown.base.ts",
     "./vitest.base": "./vitest.base.ts",
     "./vitest-astro": "./vitest-astro.ts",
-    "./vitest-ts": "./vitest-ts.ts"
+    "./vitest-ts": "./vitest-ts.ts",
+    "./vitest-astro-app": "./vitest-astro-app.ts"
   },
   "devDependencies": {
     "astro": "catalog:"
