@@ -1,15 +1,14 @@
 /// <reference types="vitest" />
-
 import { getViteConfig } from 'astro/config';
+import { mergeConfig } from 'vitest/config';
 import { baseConfig } from './vitest.base.ts';
 
-const baseTestOptions = baseConfig.test || {};
-
-const config: ReturnType<typeof getViteConfig> = getViteConfig({
-  test: {
-    ...baseTestOptions,
-  },
-  // biome-ignore lint/suspicious/noExplicitAny: Casts to `any` because `getViteConfig` returns a `UserConfigFn`, whereas Vitest expects a plain object or promise.
-} as any);
+const config: ReturnType<typeof getViteConfig> = getViteConfig(
+  mergeConfig(baseConfig, {
+    test: {
+      environment: 'happy-dom',
+    },
+  }),
+);
 
 export default config;

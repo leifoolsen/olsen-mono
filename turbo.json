@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build",
-  "globalDependencies": [],
+  "globalDependencies": ["vitest.config.ts"],
   "tasks": {
     "//#lint-biome": {},
     "//#lint-fix-biome": {
@@ -25,7 +25,8 @@
       "dependsOn": ["compile"]
     },
     "test-coverage": {
-      "dependsOn": ["compile"]
+      "dependsOn": ["compile"],
+      "outputs": ["../../.coverage/**"]
     },
     "build": {
       "dependsOn": ["^compile", "compile", "//#lint-biome", "//#lint-prettier"],
