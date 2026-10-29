@@ -22,11 +22,13 @@
       "dependsOn": ["^compile", "compile"]
     },
     "test": {
-      "dependsOn": ["compile"]
+      "dependsOn": ["compile"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.css", "!src/**/*.css.d.ts"]
     },
     "test-coverage": {
       "dependsOn": ["compile"],
-      "outputs": ["../../.coverage/**"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.css", "!src/**/*.css.d.ts"],
+      "outputs": ["../../.coverage/**", ".coverage/**"]
     },
     "build": {
       "dependsOn": ["^compile", "compile", "//#lint-biome", "//#lint-prettier"],
