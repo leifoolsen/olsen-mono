@@ -27,8 +27,7 @@
     },
     "test-coverage": {
       "dependsOn": ["compile"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.css", "!src/**/*.css.d.ts"],
-      "outputs": ["../../.coverage/**", ".coverage/**"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.css", "!src/**/*.css.d.ts"]
     },
     "build": {
       "dependsOn": ["^compile", "compile", "//#lint-biome", "//#lint-prettier"],
