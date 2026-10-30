@@ -5,6 +5,12 @@
   initial-value: "neutral";
 }
 
+@property --is-dark {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
 :root {
   color-scheme: light dark;
 
@@ -59,6 +65,7 @@
     oklch(var(--lightness-neutral-light) var(--chroma-neutral) var(--hue-neutral)),
     oklch(var(--lightness-neutral-dark) var(--chroma-neutral) var(--hue-neutral))
   );
+  --is-dark: light-dark(0, 1);
 }
 
 @container style(--variant: "white-black") {
@@ -67,6 +74,7 @@
       oklch(var(--lightness-white-black-light) var(--chroma-white-black) var(--hue-white-black)),
       oklch(var(--lightness-white-black-dark) var(--chroma-white-black) var(--hue-white-black))
     );
+    --is-dark: light-dark(0, 1);
   }
 }
 
@@ -76,6 +84,7 @@
       oklch(var(--lightness-neutral-light) var(--chroma-neutral) var(--hue-neutral)),
       oklch(var(--lightness-neutral-dark) var(--chroma-neutral) var(--hue-neutral))
     );
+    --is-dark: light-dark(0, 1);
   }
 }
 
@@ -85,6 +94,7 @@
       oklch(var(--lightness-primary-light) var(--chroma-primary) var(--hue-primary)),
       oklch(var(--lightness-primary-dark) var(--chroma-primary) var(--hue-primary))
     );
+    --is-dark: light-dark(0, 1);
   }
 }
 
@@ -94,6 +104,7 @@
       oklch(var(--lightness-secondary-light) var(--chroma-secondary) var(--hue-secondary)),
       oklch(var(--lightness-secondary-dark) var(--chroma-secondary) var(--hue-secondary))
     );
+    --is-dark: light-dark(0, 1);
   }
 }
 
@@ -103,6 +114,7 @@
       oklch(var(--lightness-tertiary-light) var(--chroma-tertiary) var(--hue-tertiary)),
       oklch(var(--lightness-tertiary-dark) var(--chroma-tertiary) var(--hue-tertiary))
     );
+    --is-dark: light-dark(0, 1);
   }
 }
 
@@ -112,6 +124,7 @@
       oklch(var(--lightness-success-light) var(--chroma-success) var(--hue-success)),
       oklch(var(--lightness-success-dark) var(--chroma-success) var(--hue-success))
     );
+    --is-dark: light-dark(0, 1);
   }
 }
 
@@ -121,6 +134,7 @@
       oklch(var(--lightness-error-light) var(--chroma-error) var(--hue-error)),
       oklch(var(--lightness-error-dark) var(--chroma-error) var(--hue-error))
     );
+    --is-dark: light-dark(0, 1);
   }
 }
 
@@ -130,6 +144,7 @@
       oklch(var(--lightness-warning-light) var(--chroma-warning) var(--hue-warning)),
       oklch(var(--lightness-warning-dark) var(--chroma-warning) var(--hue-warning))
     );
+    --is-dark: light-dark(0, 1);
   }
 }
 
@@ -139,26 +154,28 @@
       oklch(var(--lightness-info-light) var(--chroma-info) var(--hue-info)),
       oklch(var(--lightness-info-dark) var(--chroma-info) var(--hue-info))
     );
+    --is-dark: light-dark(0, 1);
   }
 }
 
-/* =================================================================
-   TRINN 3: Universell, matematisk motor (Kontrast, Hover, Skjemaer)
-   ================================================================= */
 * {
-  /* 1. Finn ut om bakgrunnen er lys eller mørk */
   --_raw-contrast: contrast-color(var(--swatch-color));
-  --_contrast-l: oklch(from var(--_raw-contrast) l 0 0deg); /* Blir 0 (lys flate) eller 1 (mørk flate) */
 
-  /* Retningsvektor: Lys flate = -1 (mørkere), Mørk flate = +1 (lysere) */
-  --_direction: calc((2 * var(--_contrast-l)) - 1);
+  /* Direction: Light bg = -1 (to dark), Dark bg = +1 (to light) */
+  /* Retningsvektor basert på det rene tallet:
+     Light mode (0): (2 * 0) - 1 = -1 (Gjøre mørkere)
+     Dark mode  (1): (2 * 1) - 1 = +1 (Gjøre lysere) */
+  --_direction: calc((2 * var(--is-dark)) - 1);
 
-  /* 2. Tekstkontraster oppdateres ALLTID dynamisk basert på gjeldende --swatch-color */
   --brand-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);
   --normal-text: oklch(from var(--_raw-contrast) l c h / 0.96);
   --subtle-text: oklch(from var(--_raw-contrast) l c h / 0.67);
   --muted-text: oklch(from var(--_raw-contrast) l c h / 0.54);
-  --border-color: oklch(from var(--_raw-contrast) l c h / 0.25);
+  --border-color: oklch(from var(--_raw-contrast) l c h / 0.52);
+
+  --swatch-color-hover: oklch(from var(--swatch-color) calc(l + (0.04 * var(--_direction))) c h);
+  --input-bg: oklch(from var(--swatch-color) calc(l - (0.06 * var(--_direction))) calc(c * 0.8) h);
+  --input-bg-hover: oklch(from var(--input-bg) calc(l + (0.02 * var(--_direction))) c h);
 }
 
 body {
