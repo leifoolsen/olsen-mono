@@ -11,8 +11,8 @@ allowBuilds:
 catalog:
   '@astrojs/check': 0.9.12
   '@astrojs/node': 11.1.9
-  '@types/node': 26.6.5
-  astro: 7.4.2
+  '@types/node': 26.6.6
+  astro: 7.4.4
   happy-dom: 21.0.4
   htmx.org: 2.0.10
   isomorphic-dompurify: 4.6.0
