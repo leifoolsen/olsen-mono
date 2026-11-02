@@ -1,193 +1,253 @@
 /* --- packages/css-foundation/src/color-tokens.css --- */
-@property --variant {
-  syntax: "<string>";
-  inherits: true;
-  initial-value: "neutral";
-}
-
-@property --is-dark {
-  syntax: "<number>";
-  inherits: true;
-  initial-value: 0;
-}
-
 :root {
   color-scheme: light dark;
 
   /* --- Base Colors --- */
-  --lightness-white-black-dark: 1;
-  --lightness-white-black-light: 0;
+  --lightness-white-black-dark: 0;
+  --lightness-white-black-light: 1;
   --chroma-white-black: 0;
   --hue-white-black: 0;
 
-  --lightness-neutral-dark: 0.98;
+  --lightness-neutral-dark: 0.78;
   --lightness-neutral-light: 0.88;
   --chroma-neutral: 0.02;
   --hue-neutral: 250;
 
   --lightness-primary-dark: 0.51;
-  --lightness-primary-light: 0.65;
+  --lightness-primary-light: 0.67;
   --chroma-primary: 0.2;
   --hue-primary: 303.4;
 
   --lightness-secondary-dark: 0.56;
-  --lightness-secondary-light: 0.65;
+  --lightness-secondary-light: 0.72;
   --chroma-secondary: 0.15;
   --hue-secondary: 352;
 
-  --lightness-tertiary-dark: 0.71;
-  --lightness-tertiary-light: 0.76;
+  --lightness-tertiary-dark: 0.7;
+  --lightness-tertiary-light: 0.8;
   --chroma-tertiary: 0.15;
   --hue-tertiary: 132;
 
   --lightness-success-dark: 0.35;
-  --lightness-success-light: 0.4;
+  --lightness-success-light: 0.45;
   --chroma-success: 0.25;
   --hue-success: 145; /* green */
 
   --lightness-error-dark: 0.55;
-  --lightness-error-light: 0.65;
+  --lightness-error-light: 0.61;
   --chroma-error: 0.25;
   --hue-error: 29; /* red */
 
   --lightness-warning-dark: 0.68;
-  --lightness-warning-light: 0.7;
+  --lightness-warning-light: 0.74;
   --chroma-warning: 0.25;
   --hue-warning: 65; /* orange */
 
   --lightness-info-dark: 0.61;
-  --lightness-info-light: 0.7;
-  --chroma-info: 0.16;
+  --lightness-info-light: 0.75;
+  --chroma-info: 0.26;
   --hue-info: 210; /* cyan */
 
-  /* --- Initial swatch color --- */
-  --swatch-color: light-dark(
+  --swatch-color: light-dark(oklch(95% 0 0deg), oklch(12% 0 0deg));
+}
+
+[data-variant="white-black"] {
+  --shade-500: light-dark(
+    oklch(var(--lightness-white-black-light) var(--chroma-white-black) var(--hue-white-black)),
+    oklch(var(--lightness-white-black-dark) var(--chroma-white-black) var(--hue-white-black))
+  );
+}
+
+[data-variant="neutral"] {
+  --shade-500: light-dark(
     oklch(var(--lightness-neutral-light) var(--chroma-neutral) var(--hue-neutral)),
     oklch(var(--lightness-neutral-dark) var(--chroma-neutral) var(--hue-neutral))
   );
-  --is-dark: light-dark(0, 1);
 }
 
-@container style(--variant: "white-black") {
-  * {
-    --swatch-color: light-dark(
-      oklch(var(--lightness-white-black-light) var(--chroma-white-black) var(--hue-white-black)),
-      oklch(var(--lightness-white-black-dark) var(--chroma-white-black) var(--hue-white-black))
-    );
-    --is-dark: light-dark(0, 1);
-  }
+[data-variant="primary"] {
+  --shade-500: light-dark(
+    oklch(var(--lightness-primary-light) var(--chroma-primary) var(--hue-primary)),
+    oklch(var(--lightness-primary-dark) var(--chroma-primary) var(--hue-primary))
+  );
 }
 
-@container style(--variant: "neutral") {
-  * {
-    --swatch-color: light-dark(
-      oklch(var(--lightness-neutral-light) var(--chroma-neutral) var(--hue-neutral)),
-      oklch(var(--lightness-neutral-dark) var(--chroma-neutral) var(--hue-neutral))
-    );
-    --is-dark: light-dark(0, 1);
-  }
+[data-variant="secondary"] {
+  --shade-500: light-dark(
+    oklch(var(--lightness-secondary-light) var(--chroma-secondary) var(--hue-secondary)),
+    oklch(var(--lightness-secondary-dark) var(--chroma-secondary) var(--hue-secondary))
+  );
 }
 
-@container style(--variant: "primary") {
-  * {
-    --swatch-color: light-dark(
-      oklch(var(--lightness-primary-light) var(--chroma-primary) var(--hue-primary)),
-      oklch(var(--lightness-primary-dark) var(--chroma-primary) var(--hue-primary))
-    );
-    --is-dark: light-dark(0, 1);
-  }
+[data-variant="tertiary"] {
+  --shade-500: light-dark(
+    oklch(var(--lightness-tertiary-light) var(--chroma-tertiary) var(--hue-tertiary)),
+    oklch(var(--lightness-tertiary-dark) var(--chroma-tertiary) var(--hue-tertiary))
+  );
 }
 
-@container style(--variant: "secondary") {
-  * {
-    --swatch-color: light-dark(
-      oklch(var(--lightness-secondary-light) var(--chroma-secondary) var(--hue-secondary)),
-      oklch(var(--lightness-secondary-dark) var(--chroma-secondary) var(--hue-secondary))
-    );
-    --is-dark: light-dark(0, 1);
-  }
+[data-variant="success"] {
+  --shade-500: light-dark(
+    oklch(var(--lightness-success-light) var(--chroma-success) var(--hue-success)),
+    oklch(var(--lightness-success-dark) var(--chroma-success) var(--hue-success))
+  );
 }
 
-@container style(--variant: "tertiary") {
-  * {
-    --swatch-color: light-dark(
-      oklch(var(--lightness-tertiary-light) var(--chroma-tertiary) var(--hue-tertiary)),
-      oklch(var(--lightness-tertiary-dark) var(--chroma-tertiary) var(--hue-tertiary))
-    );
-    --is-dark: light-dark(0, 1);
-  }
+[data-variant="danger"],
+[data-variant="error"] {
+  --shade-500: light-dark(
+    oklch(var(--lightness-error-light) var(--chroma-error) var(--hue-error)),
+    oklch(var(--lightness-error-dark) var(--chroma-error) var(--hue-error))
+  );
 }
 
-@container style(--variant: "success") {
-  * {
-    --swatch-color: light-dark(
-      oklch(var(--lightness-success-light) var(--chroma-success) var(--hue-success)),
-      oklch(var(--lightness-success-dark) var(--chroma-success) var(--hue-success))
-    );
-    --is-dark: light-dark(0, 1);
-  }
+[data-variant="warning"] {
+  --shade-500: light-dark(
+    oklch(var(--lightness-warning-light) var(--chroma-warning) var(--hue-warning)),
+    oklch(var(--lightness-warning-dark) var(--chroma-warning) var(--hue-warning))
+  );
 }
 
-@container style(--variant: "error") {
-  * {
-    --swatch-color: light-dark(
-      oklch(var(--lightness-error-light) var(--chroma-error) var(--hue-error)),
-      oklch(var(--lightness-error-dark) var(--chroma-error) var(--hue-error))
-    );
-    --is-dark: light-dark(0, 1);
-  }
+[data-variant="info"] {
+  --shade-500: light-dark(
+    oklch(var(--lightness-info-light) var(--chroma-info) var(--hue-info)),
+    oklch(var(--lightness-info-dark) var(--chroma-info) var(--hue-info))
+  );
 }
 
-@container style(--variant: "warning") {
-  * {
-    --swatch-color: light-dark(
-      oklch(var(--lightness-warning-light) var(--chroma-warning) var(--hue-warning)),
-      oklch(var(--lightness-warning-dark) var(--chroma-warning) var(--hue-warning))
-    );
-    --is-dark: light-dark(0, 1);
-  }
+[data-variant] {
+  /* Lightest tint, often used for backgrounds */
+  --shade-50: oklch(from var(--shade-500) calc(l + (0.98 - l) * 0.94) calc(c * 0.2) h);
+
+  /* Light */
+  --shade-100: oklch(from var(--shade-500) calc(l + (0.98 - l) * 0.8) calc(c * 0.4) h);
+  --shade-200: oklch(from var(--shade-500) calc(l + (0.98 - l) * 0.6) calc(c * 0.65) h);
+  --shade-300: oklch(from var(--shade-500) calc(l + (0.98 - l) * 0.4) calc(c * 0.85) h);
+  --shade-400: oklch(from var(--shade-500) calc(l + (0.98 - l) * 0.2) calc(c * 0.95) h);
+
+  /* Dark */
+  --shade-600: oklch(from var(--shade-500) calc(l - (l - 0.12) * 0.2) calc(c * 0.95) h);
+  --shade-700: oklch(from var(--shade-500) calc(l - (l - 0.12) * 0.42) calc(c * 0.85) h);
+  --shade-800: oklch(from var(--shade-500) calc(l - (l - 0.2) * 0.56) calc(c * 0.7) h);
+
+  /* Darkest shade, often used for high-contrast text or dark mode surfaces */
+  --shade-900: oklch(from var(--shade-500) calc(l - (l - 0.2) * 0.72) calc(c * 0.5) h);
+  --shade-950: oklch(from var(--shade-500) calc(l - (l - 0.2) * 0.86) calc(c * 0.7) h);
+
+  /* These 4 grades feature higher saturation and brightness, designed to draw attention to interactive elements like floating action buttons, switches, and links. */
+  --shade-A100: oklch(from var(--shade-500) calc(l - (l - 0.7) * 0.75) calc(c * 1.1) h);
+  --shade-A200: oklch(from var(--shade-500) calc(l - (l - 0.6) * 0.75) calc(c * 1.2) h);
+  --shade-A400: oklch(from var(--shade-500) calc(l - (l - 0.5) * 0.75) calc(c * 1.3) h);
+  --shade-A700: oklch(from var(--shade-500) calc(l - (l - 0.4) * 0.75) calc(c * 1.4) h);
+
+  /* Fallback to default shade if no shade is specified */
+  --swatch-color: var(--shade-500);
 }
 
-@container style(--variant: "info") {
-  * {
-    --swatch-color: light-dark(
-      oklch(var(--lightness-info-light) var(--chroma-info) var(--hue-info)),
-      oklch(var(--lightness-info-dark) var(--chroma-info) var(--hue-info))
-    );
-    --is-dark: light-dark(0, 1);
-  }
+[data-shade="50"] {
+  --swatch-color: var(--shade-50);
 }
 
-* {
+[data-shade="100"] {
+  --swatch-color: var(--shade-100);
+}
+
+[data-shade="200"] {
+  --swatch-color: var(--shade-200);
+}
+
+[data-shade="300"] {
+  --swatch-color: var(--shade-300);
+}
+
+[data-shade="400"] {
+  --swatch-color: var(--shade-400);
+}
+
+[data-shade="500"] {
+  --swatch-color: var(--shade-500);
+}
+
+[data-shade="600"] {
+  --swatch-color: var(--shade-600);
+}
+
+[data-shade="700"] {
+  --swatch-color: var(--shade-700);
+}
+
+[data-shade="800"] {
+  --swatch-color: var(--shade-800);
+}
+
+[data-shade="900"] {
+  --swatch-color: var(--shade-900);
+}
+
+[data-shade="950"] {
+  --swatch-color: var(--shade-950);
+}
+
+[data-shade="A100"] {
+  --swatch-color: var(--shade-A100);
+}
+
+[data-shade="A200"] {
+  --swatch-color: var(--shade-A200);
+}
+
+[data-shade="A400"] {
+  --swatch-color: var(--shade-A400);
+}
+
+[data-shade="A700"] {
+  --swatch-color: var(--shade-A700);
+}
+
+[body],
+[data-variant],
+[data-shade] {
+  /* Contrast colors */
   --_raw-contrast: contrast-color(var(--swatch-color));
-
-  /* Direction: Light bg = -1 (to dark), Dark bg = +1 (to light) */
-  /* Retningsvektor basert på det rene tallet:
-     Light mode (0): (2 * 0) - 1 = -1 (Gjøre mørkere)
-     Dark mode  (1): (2 * 1) - 1 = +1 (Gjøre lysere) */
-  --_direction: calc((2 * var(--is-dark)) - 1);
-
   --brand-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);
   --normal-text: oklch(from var(--_raw-contrast) l c h / 0.96);
   --subtle-text: oklch(from var(--_raw-contrast) l c h / 0.67);
   --muted-text: oklch(from var(--_raw-contrast) l c h / 0.54);
-  --border-color: oklch(from var(--_raw-contrast) l c h / 0.52);
+  --border-color: oklch(from var(--_raw-contrast) l c h / 0.6);
+  --subtle-border-color: oklch(from var(--_raw-contrast) l c h / 0.4);
+  --muted-border-color: oklch(from var(--_raw-contrast) l c h / 0.3);
 
-  --swatch-color-hover: oklch(from var(--swatch-color) calc(l + (0.04 * var(--_direction))) c h);
-  --input-bg: oklch(from var(--swatch-color) calc(l - (0.06 * var(--_direction))) calc(c * 0.8) h);
-  --input-bg-hover: oklch(from var(--input-bg) calc(l + (0.02 * var(--_direction))) c h);
-}
+  --_shadow-base: light-dark(
+    oklch(from var(--swatch-color) calc(l * l * 0.25) calc(c * 1.4) h),
+    oklch(from var(--swatch-color) calc(l + 0.08) calc(c * 1.1) h)
+  );
 
-body {
-  background-color: light-dark(oklch(95% 0 0deg), oklch(12% 0 0deg));
-  color: light-dark(oklch(12% 0 0deg), oklch(95% 0 0deg));
+  /* Shadows */
+  --_shadow-color: color-mix(in oklch, var(--_shadow-base) 75%, var(--swatch-color) 25%);
+  --shadow-xs: 0 1px 2px var(--_shadow-color);
+  --shadow-s: 0 0 4px var(--_shadow-color), 0 0 8px oklch(from var(--_shadow-color) l c h / 60%);
+  --shadow-m: 0 0 6px var(--_shadow-color), 0 0 16px oklch(from var(--_shadow-color) l c h / 60%);
+  --shadow-l:
+    0 4px 8px oklch(from var(--_shadow-color) l c h / 40%), 0 16px 24px oklch(from var(--_shadow-color) l c h / 20%);
+  --shadow-xl:
+    0 8px 16px oklch(from var(--_shadow-color) l c h / 30%), 0 24px 36px oklch(from var(--_shadow-color) l c h / 25%);
+  --shadow-2xl:
+    0 16px 24px oklch(from var(--_shadow-color) l c h / 30%), 0 36px 54px oklch(from var(--_shadow-color) l c h / 25%);
+
+  --inset-shadow-s: inset 0 0 0 1px color-mix(in oklch, var(--brand-contrast) 70%, var(--swatch-color) 30%);
+  --inset-shadow-m: inset 0 0 0 2px color-mix(in oklch, var(--brand-contrast) 70%, var(--swatch-color) 30%);
+  --inset-shadow-l: inset 0 0 0 3px color-mix(in oklch, var(--brand-contrast) 70%, var(--swatch-color) 30%);
+  --shadow-none: none;
+
+  background-color: var(--swatch-color);
+  color: var(--normal-text);
 }
 
 /* --- Theme Switcher --- */
 html[data-theme="light"] {
-  color-scheme: light;
+  color-scheme: light only;
 }
 
 html[data-theme="dark"] {
-  color-scheme: dark;
+  color-scheme: dark only;
 }

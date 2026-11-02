@@ -1,4 +1,5 @@
 ---
+// src/components/ColorSwatches.astro
 import '@olsen-mono/css-foundation/color-tokens.css';
 
 const variants = ['neutral', 'primary', 'secondary', 'tertiary', 'success', 'info', 'warning', 'error'];
@@ -22,15 +23,9 @@ const shades = [
 ---
 
 <h2>Swatches</h2>
-<div style={{ '--variant': "'white-black'" }} class="color-swatches">
+<div data-variant="white-black" class="color-swatches">
   {shades.toSpliced(11).map((shade) => (
-    <div
-      style={{
-        backgroundColor: 'var(--swatch-color)',
-        color: 'var(--normal-text)',
-      }}
-      class="color-swatch"
-    >
+    <div class="color-swatch" data-shade={shade}>
       <span>{shade}</span>
       <span style="color: var(--subtle-text)">{shade}</span>
       <span style="color: var(--muted-text)">{shade}</span>
@@ -39,15 +34,9 @@ const shades = [
 </div>
 
 {variants.map((variant) => (
-  <div style={{ '--variant': `'${variant}'` }} class="color-swatches">
+  <div data-variant={variant} class="color-swatches">
     {shades.map((shade) => (
-      <div
-        style={{
-          backgroundColor: 'var(--swatch-color)',
-          color: 'var(--normal-text)',
-        }}
-        class="color-swatch"
-      >
+      <div data-shade={shade} class="color-swatch">
         <span>{shade}</span>
         <span style="color: var(--subtle-text)">{shade}</span>
         <span style="color: var(--muted-text)">{shade}</span>

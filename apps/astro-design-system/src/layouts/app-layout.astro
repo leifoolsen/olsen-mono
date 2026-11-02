@@ -58,7 +58,10 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
       <nav>
         <ul class="app-sidebar-nav-list" data-font-size="m">
           <li>
-            <a href="/html5-test-page">👉 HTML5 Test Page</a>
+            <a href="/colors">👉 Colors</a>
+          </li>
+          <li>
+            <a href="/sizes">👉 Sizes</a>
           </li>
           <li>
             <a href="/design-system-test-page">👉 Design system Test Page</a>
@@ -70,7 +73,7 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
             <a href="/morph-icons">👉 Morph Icons</a>
           </li>
           <li>
-            <a href="/style-queries">👉 Style Queries</a>
+            <a href="/html5-reference-page">👉 HTML5 Reference Page</a>
           </li>
         </ul>
       </nav>
@@ -83,56 +86,56 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
 </BaseLayout>
 
 <script>
-const appContainer = document.getElementById('app-container');
+  const appContainer = document.getElementById('app-container');
 
-function setupListeners() {
-  if (!appContainer || appContainer.hasAttribute('data-initialized')) return;
-  appContainer.setAttribute('data-initialized', 'true');
+  function setupListeners() {
+    if (!appContainer || appContainer.hasAttribute('data-initialized')) return;
+    appContainer.setAttribute('data-initialized', 'true');
 
-  const toggleBtn = document.getElementById('sidebar-toggle');
+    const toggleBtn = document.getElementById('sidebar-toggle');
 
-  if (toggleBtn) {
-    const svg = toggleBtn.querySelector('svg');
+    if (toggleBtn) {
+      const svg = toggleBtn.querySelector('svg');
 
-    if (appContainer?.getAttribute('data-sidebar-collapsed') !== 'true') {
-      svg?.setAttribute('aria-checked', 'true');
+      if (appContainer?.getAttribute('data-sidebar-collapsed') !== 'true') {
+        svg?.setAttribute('aria-checked', 'true');
+      }
+
+      toggleBtn?.addEventListener('click', () => {
+        const isCollapsed = appContainer?.getAttribute('data-sidebar-collapsed') === 'true';
+        appContainer?.setAttribute('data-sidebar-collapsed', isCollapsed ? 'false' : 'true');
+        svg?.setAttribute('aria-checked', Boolean(isCollapsed).toString());
+      });
     }
 
-    toggleBtn?.addEventListener('click', () => {
-      const isCollapsed = appContainer?.getAttribute('data-sidebar-collapsed') === 'true';
-      appContainer?.setAttribute('data-sidebar-collapsed', isCollapsed ? 'false' : 'true');
-      svg?.setAttribute('aria-checked', Boolean(isCollapsed).toString());
+    const headerRight = document.getElementById('app-header-right');
+    if (!headerRight) return;
+
+    headerRight.addEventListener('change', (event) => {
+      const input = event.target as HTMLInputElement | null;
+      if (input instanceof HTMLInputElement && input.type === 'checkbox') {
+        const name = input.name;
+        const checked = input.checked;
+
+        let cookieValue = '';
+        let htmlAttribute = '';
+
+        if (name === 'density') {
+          cookieValue = checked ? 'condensed' : 'default';
+          htmlAttribute = 'data-density';
+        } else if (name === 'theme') {
+          cookieValue = checked ? 'light' : 'dark';
+          htmlAttribute = 'data-theme';
+        }
+
+        if (!cookieValue || !htmlAttribute) return;
+
+        document.documentElement.setAttribute(htmlAttribute, cookieValue);
+        document.cookie = `${name}=${cookieValue}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Strict`;
+      }
     });
   }
 
-  const headerRight = document.getElementById('app-header-right');
-  if (!headerRight) return;
-
-  headerRight.addEventListener('change', (event) => {
-    const input = event.target as HTMLInputElement | null;
-    if (input instanceof HTMLInputElement && input.type === 'checkbox') {
-      const name = input.name;
-      const checked = input.checked;
-
-      let cookieValue = '';
-      let htmlAttribute = '';
-
-      if (name === 'density') {
-        cookieValue = checked ? 'condensed' : 'default';
-        htmlAttribute = 'data-density';
-      } else if (name === 'theme') {
-        cookieValue = checked ? 'light' : 'dark';
-        htmlAttribute = 'data-theme';
-      }
-
-      if (!cookieValue || !htmlAttribute) return;
-
-      document.documentElement.setAttribute(htmlAttribute, cookieValue);
-      document.cookie = `${name}=${cookieValue}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Strict`;
-    }
-  });
-}
-
-setupListeners();
-document.addEventListener('astro:after-swap', setupListeners);
+  setupListeners();
+  document.addEventListener('astro:after-swap', setupListeners);
 </script>

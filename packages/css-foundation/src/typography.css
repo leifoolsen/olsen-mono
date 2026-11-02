@@ -213,27 +213,6 @@ html[data-density="condensed"] {
   );
 }
 
-/* --- Fluid Shadows --- */
-* {
-  /* Get the shadow color from the ancestor element in the DOM tree. */
-  --_current-shadow: var(--_child-shadow-color, oklch(0% 0 0deg));
-  --shadow-xs: 0 1px 2px var(--_current-shadow);
-  --shadow-s:
-    0 0 var(--space-2xs) var(--_current-shadow), 0 0 var(--space-s) oklch(from var(--_current-shadow) l c h / 60%);
-  --shadow-m:
-    0 0 var(--space-xs) var(--_current-shadow), 0 0 var(--space-m) oklch(from var(--_current-shadow) l c h / 60%);
-  --shadow-l:
-    0 4px var(--space-s) oklch(from var(--_current-shadow) l c h / 40%),
-    0 var(--space-m) var(--space-l) oklch(from var(--_current-shadow) l c h / 20%);
-  --shadow-xl:
-    0 8px var(--space-m) oklch(from var(--_current-shadow) l c h / 30%),
-    0 var(--space-l) var(--space-xl) oklch(from var(--_current-shadow) l c h / 25%);
-  --shadow-2xl:
-    0 16px var(--space-l) oklch(from var(--_current-shadow) l c h / 30%),
-    0 var(--space-xl) var(--space-2xl) oklch(from var(--_current-shadow) l c h / 25%);
-  --shadow-none: none;
-}
-
 /* --- Fluid Fonts --- */
 [data-font-size="xs"],
 [data-font-size="s"],
