@@ -27,10 +27,10 @@
   /* --- Create the typographic scale --- */
   --_fluid-range: calc(var(--fluid-width-max) - var(--fluid-width-min));
   --_fluid-slope: calc(((100vw - calc(var(--fluid-width-min) * 1px)) / var(--_fluid-range)) * 16);
-  --_s-min-xs: calc(var(--base-font-size-min) * pow(var(--scale-min), -0.25));
-  --_s-max-xs: calc(var(--base-font-size-max) * pow(var(--scale-max), -0.25));
-  --_s-min-s: calc(var(--base-font-size-min) * pow(var(--scale-min), -0.125));
-  --_s-max-s: calc(var(--base-font-size-max) * pow(var(--scale-max), -0.125));
+  --_s-min-xs: calc(var(--base-font-size-min) * pow(var(--scale-min), -1));
+  --_s-max-xs: calc(var(--base-font-size-max) * pow(var(--scale-max), -1));
+  --_s-min-s: calc(var(--base-font-size-min) * pow(var(--scale-min), -0.5));
+  --_s-max-s: calc(var(--base-font-size-max) * pow(var(--scale-max), -0.5));
   --_s-min-m: var(--base-font-size-min);
   --_s-max-m: var(--base-font-size-max);
   --_s-min-l: calc(var(--base-font-size-min) * pow(var(--scale-min), 1));
@@ -160,15 +160,17 @@ html[data-density="condensed"] {
 }
 
 /* --- Container Font Scaling --- */
-[data-fluid-viewport] {
+[data-container-viewport] {
   container-type: inline-size;
 
-  --scale-min: var(--minor-third);
-  --scale-max: var(--major-third);
+  --scale-min: var(--minor-second);
+  --scale-max: var(--major-second);
   --fluid-width-min: 300;
   --fluid-width-max: 800;
   --_fluid-range: calc(var(--fluid-width-max) - var(--fluid-width-min));
   --_fluid-slope: calc(((100cqw - calc(var(--fluid-width-min) * 1px)) / var(--_fluid-range)) * 16);
+  --_s-min-m: calc(var(--base-font-size-min) * pow(var(--scale-min), -0.5));
+  --_s-max-m: calc(var(--base-font-size-max) * pow(var(--scale-max), -0.5));
   --_s-min-l: calc(var(--base-font-size-min) * pow(var(--scale-min), 1));
   --_s-max-l: calc(var(--base-font-size-max) * pow(var(--scale-max), 1));
   --_s-min-xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 2));
@@ -181,6 +183,12 @@ html[data-density="condensed"] {
   --_s-max-4xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 5));
   --_s-min-5xl: calc(var(--base-font-size-min) * pow(var(--scale-min), 6));
   --_s-max-5xl: calc(var(--base-font-size-max) * pow(var(--scale-max), 6));
+
+  --font-size-m: clamp(
+    calc(var(--_s-min-m) * 1rem),
+    calc(calc(var(--_s-min-m) * 1rem) + (var(--_s-max-m) - var(--_s-min-m)) * var(--_fluid-slope)),
+    calc(var(--_s-max-m) * 1rem)
+  );
   --font-size-l: clamp(
     calc(var(--_s-min-l) * 1rem),
     calc(calc(var(--_s-min-l) * 1rem) + (var(--_s-max-l) - var(--_s-min-l)) * var(--_fluid-slope)),
