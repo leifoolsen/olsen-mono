@@ -20,6 +20,9 @@ export type CssVariables =
   | '--hue-tertiary'
   | '--hue-warning'
   | '--hue-white-black'
+  | '--inset-shadow-l'
+  | '--inset-shadow-m'
+  | '--inset-shadow-s'
   | '--lightness-error-dark'
   | '--lightness-error-light'
   | '--lightness-info-dark'
@@ -38,13 +41,40 @@ export type CssVariables =
   | '--lightness-warning-light'
   | '--lightness-white-black-dark'
   | '--lightness-white-black-light'
+  | '--muted-border-color'
   | '--muted-text'
   | '--normal-text'
+  | '--shade-100'
+  | '--shade-200'
+  | '--shade-300'
+  | '--shade-400'
+  | '--shade-50'
+  | '--shade-500'
+  | '--shade-600'
+  | '--shade-700'
+  | '--shade-800'
+  | '--shade-900'
+  | '--shade-950'
+  | '--shade-A100'
+  | '--shade-A200'
+  | '--shade-A400'
+  | '--shade-A700'
+  | '--shadow-2xl'
+  | '--shadow-l'
+  | '--shadow-m'
+  | '--shadow-none'
+  | '--shadow-s'
+  | '--shadow-xl'
+  | '--shadow-xs'
+  | '--subtle-border-color'
   | '--subtle-text'
-  | '--swatch-color'
-  | '--variant';
+  | '--swatch-color';
+export type DataVariant = 'danger' | 'error' | 'info' | 'neutral' | 'primary' | 'secondary' | 'success' | 'tertiary' | 'warning' | 'white-black' | (string & {}) | boolean | undefined;
+export type DataShade = '100' | '200' | '300' | '400' | '50' | '500' | '600' | '700' | '800' | '900' | '950' | 'A100' | 'A200' | 'A400' | 'A700' | (string & {}) | boolean | undefined;
 export type DataTheme = 'dark' | 'light' | (string & {}) | boolean | undefined;
 export type CssDataAttributes = {
+  'data-variant': DataVariant;
+  'data-shade': DataShade;
   'data-theme': DataTheme;
 };
 declare const styles: string;

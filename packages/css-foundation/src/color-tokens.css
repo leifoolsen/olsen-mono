@@ -217,12 +217,11 @@
   --subtle-border-color: oklch(from var(--_raw-contrast) l c h / 0.4);
   --muted-border-color: oklch(from var(--_raw-contrast) l c h / 0.3);
 
+  /* Shadows */
   --_shadow-base: light-dark(
     oklch(from var(--swatch-color) calc(l * l * 0.25) calc(c * 1.4) h),
     oklch(from var(--swatch-color) calc(l + 0.08) calc(c * 1.1) h)
   );
-
-  /* Shadows */
   --_shadow-color: color-mix(in oklch, var(--_shadow-base) 75%, var(--swatch-color) 25%);
   --shadow-xs: 0 1px 2px var(--_shadow-color);
   --shadow-s: 0 0 4px var(--_shadow-color), 0 0 8px oklch(from var(--_shadow-color) l c h / 60%);
