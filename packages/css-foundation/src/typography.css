@@ -359,31 +359,43 @@ html[data-density="condensed"] {
   border-radius: calc(infinity * 1px);
 }
 
-/* --- Fluid elevations --- */
-[data-elevation="none"] {
+/* --- Shadows --- */
+[data-shadow="none"] {
   box-shadow: var(--shadow-none);
 }
 
-[data-elevation="xs"] {
+[data-shadow="xs"] {
   box-shadow: var(--shadow-xs);
 }
 
-[data-elevation="s"] {
+[data-shadow="s"] {
   box-shadow: var(--shadow-s);
 }
 
-[data-elevation="m"] {
+[data-shadow="m"] {
   box-shadow: var(--shadow-m);
 }
 
-[data-elevation="l"] {
+[data-shadow="l"] {
   box-shadow: var(--shadow-l);
 }
 
-[data-elevation="xl"] {
+[data-shadow="xl"] {
   box-shadow: var(--shadow-xl);
 }
 
-[data-elevation="2xl"] {
+[data-shadow="2xl"] {
   box-shadow: var(--shadow-2xl);
+}
+
+[data-inset-shadow="s"] {
+  box-shadow: var(--inset-shadow-s);
+}
+
+[data-inset-shadow="m"] {
+  box-shadow: var(--inset-shadow-m);
+}
+
+[data-inset-shadow="l"] {
+  box-shadow: var(--inset-shadow-l);
 }

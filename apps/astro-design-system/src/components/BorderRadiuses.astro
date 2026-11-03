@@ -2,10 +2,10 @@
 ---
 
 <article
+  data-layout="ram"
   style="
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 18rem);
-    gap: var(--space-m) var(--space-l);
+    --layout-gap: var(--space-m) var(--space-l);
+    --layout-grid-item-min: 18rem;
   "
 >
   <div class="border-radius-demo" data-border-radius="4xs">
@@ -92,7 +92,7 @@
 <style>
   .border-radius-demo {
     border: 1px solid currentColor;
-    height: 8rem;
+    height: 10rem;
     display: grid;
     place-items: center;
     text-align: center;
