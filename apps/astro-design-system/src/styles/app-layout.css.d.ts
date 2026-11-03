@@ -5,7 +5,6 @@ export type Css =
   | 'appHeaderRight'
   | 'appMain'
   | 'appSidebar'
-  | 'appSidebarNavList'
   | 'appSidebarToggle';
 export type CssVariables = never;
 export type DataSidebarCollapsed = 'false' | 'true' | (string & {}) | boolean | undefined;
