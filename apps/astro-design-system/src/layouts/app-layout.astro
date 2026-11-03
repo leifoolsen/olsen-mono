@@ -1,5 +1,6 @@
 ---
 import '@styles/app-layout.css';
+import ApplicationMenu from '@components/ApplicationMenu.astro';
 import ToggleSwitch from '@olsen-mono/astro-forms/ToggleSwitch.astro';
 import { chevronPointingLeftLines, chevronPointingRightLines } from '@olsen-mono/astro-svg';
 import MorphLinesIcon from '@olsen-mono/astro-svg/MorphLinesIcon.astro';
@@ -56,26 +57,7 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
 
     <aside class="app-sidebar" id="app-sidebar">
       <nav>
-        <ul class="app-sidebar-nav-list" data-font-size="m">
-          <li>
-            <a href="/colors">👉 Colors</a>
-          </li>
-          <li>
-            <a href="/sizes">👉 Sizes</a>
-          </li>
-          <li>
-            <a href="/design-system-test-page">👉 Design system Test Page</a>
-          </li>
-          <li>
-            <a href="/form-elements">👉 Form Elements</a>
-          </li>
-          <li>
-            <a href="/morph-icons">👉 Morph Icons</a>
-          </li>
-          <li>
-            <a href="/html5-reference-page">👉 HTML5 Reference Page</a>
-          </li>
-        </ul>
+        <ApplicationMenu />
       </nav>
     </aside>
 

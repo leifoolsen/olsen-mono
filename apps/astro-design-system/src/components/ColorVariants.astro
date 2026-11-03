@@ -4,79 +4,80 @@ import '@olsen-mono/css-foundation/color-tokens.css';
 const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warning', 'error', 'neutral', 'white-black'];
 ---
 
-<h2>Color Variants</h2>
+<article>
+  <h2>Color Variants</h2>
 
-<div
-  data-layout="ram"
-  data-container-viewport
-  style="--layout-gap: var(--space-2xl); --layout-grid-item-min: 30rem; margin-bottom: 3rem"
->
-  {variants.map((variant) => (
-    <div data-variant={variant} class="variant-box">
-      <span style="color: var(--brand-contrast); grid-column: span 2;">Brand contrast ({variant})</span>
+  <div
+    data-layout="ram"
+    data-container-viewport
+    style="--layout-gap: var(--space-2xl); --layout-grid-item-min: 30rem; margin-bottom: 3rem"
+  >
+    {variants.map((variant) => (
+      <div data-variant={variant} class="variant-box">
+        <span style="color: var(--brand-contrast); grid-column: span 2;">Brand contrast ({variant})</span>
 
-      <span>Normal text</span>
-      <span>Normal text</span>
+        <span>Normal text</span>
+        <span>Normal text</span>
 
-      <span style="color: var(--brand-text-color);">--brand-text-color</span>
-      <span style="color: var(--brand-text-color);">Brand Text Color</span>
+        <span style="color: var(--brand-text-color);">--brand-text-color</span>
+        <span style="color: var(--brand-text-color);">Brand Text Color</span>
 
-      <span style="color: var(--subtle-text);">--subtle-text</span>
-      <span style="color: var(--subtle-text);">Subtle Text</span>
+        <span style="color: var(--subtle-text);">--subtle-text</span>
+        <span style="color: var(--subtle-text);">Subtle Text</span>
 
-      <span style="color: var(--muted-text);">--muted-text</span>
-      <span style="color: var(--muted-text);">Muted Text</span>
+        <span style="color: var(--muted-text);">--muted-text</span>
+        <span style="color: var(--muted-text);">Muted Text</span>
 
-      <span>--border-color</span>
-      <span style="height: stretch; border: 1px solid var(--border-color)" />
+        <span>--border-color</span>
+        <span style="height: stretch; border: 1px solid var(--border-color)" />
 
-      <span>--subtle-border-color</span>
-      <span style="height: stretch; border: 1px solid var(--subtle-border-color)" />
+        <span>--subtle-border-color</span>
+        <span style="height: stretch; border: 1px solid var(--subtle-border-color)" />
 
-      <span>--muted-border-color</span>
-      <span style="height: stretch; border: 1px solid var(--muted-border-color)" />
-    </div>
-  ))}
+        <span>--muted-border-color</span>
+        <span style="height: stretch; border: 1px solid var(--muted-border-color)" />
+      </div>
+    ))}
 
-  <div>
-    <div data-variant="primary" class="variant-box">
-      <span>Normal text</span>
-      <span>Normal text</span>
+    <div>
+      <div data-variant="primary" class="variant-box">
+        <span>Normal text</span>
+        <span>Normal text</span>
 
-      <span style="color: var(--brand-text-color);">--brand-text-color</span>
-      <span style="color: var(--brand-text-color);">Brand Text Color</span>
+        <span style="color: var(--brand-text-color);">--brand-text-color</span>
+        <span style="color: var(--brand-text-color);">Brand Text Color</span>
 
-      <span style="color: var(--subtle-text);">--subtle-text</span>
-      <span style="color: var(--subtle-text);">Subtle Text</span>
+        <span style="color: var(--subtle-text);">--subtle-text</span>
+        <span style="color: var(--subtle-text);">Subtle Text</span>
 
-      <span style="color: var(--muted-text);">--muted-text</span>
-      <span style="color: var(--muted-text);">Muted Text</span>
+        <span style="color: var(--muted-text);">--muted-text</span>
+        <span style="color: var(--muted-text);">Muted Text</span>
 
-      <span>--border-color</span>
-      <span style="height: stretch; border: 1px solid var(--border-color)" />
+        <span>--border-color</span>
+        <span style="height: stretch; border: 1px solid var(--border-color)" />
 
-      <div style="grid-column: span 2;">
-        <div data-variant="tertiary" class="variant-box">
-          <span>Normal text</span>
-          <span>Normal text</span>
+        <div style="grid-column: span 2;">
+          <div data-variant="tertiary" class="variant-box">
+            <span>Normal text</span>
+            <span>Normal text</span>
 
-          <span style="color: var(--brand-text-color);">--brand-text-color</span>
-          <span style="color: var(--brand-text-color);">Brand Text Color</span>
+            <span style="color: var(--brand-text-color);">--brand-text-color</span>
+            <span style="color: var(--brand-text-color);">Brand Text Color</span>
 
-          <span style="color: var(--subtle-text);">--subtle-text</span>
-          <span style="color: var(--subtle-text);">Subtle Text</span>
+            <span style="color: var(--subtle-text);">--subtle-text</span>
+            <span style="color: var(--subtle-text);">Subtle Text</span>
 
-          <span style="color: var(--muted-text);">--muted-text</span>
-          <span style="color: var(--muted-text);">Muted Text</span>
+            <span style="color: var(--muted-text);">--muted-text</span>
+            <span style="color: var(--muted-text);">Muted Text</span>
 
-          <span>--border-color</span>
-          <span style="height: stretch; border: 1px solid var(--border-color)" />
+            <span>--border-color</span>
+            <span style="height: stretch; border: 1px solid var(--border-color)" />
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
+</article>
 <style>
   .variant-box {
     position: relative;

@@ -22,29 +22,30 @@ const shades = [
 ];
 ---
 
-<h2>Swatches</h2>
-<div data-variant="white-black" class="color-swatches">
-  {shades.toSpliced(11).map((shade) => (
-    <div class="color-swatch" data-shade={shade}>
-      <span>{shade}</span>
-      <span style="color: var(--subtle-text)">{shade}</span>
-      <span style="color: var(--muted-text)">{shade}</span>
-    </div>
-  ))}
-</div>
-
-{variants.map((variant) => (
-  <div data-variant={variant} class="color-swatches">
-    {shades.map((shade) => (
-      <div data-shade={shade} class="color-swatch">
+<article>
+  <h2>Swatches</h2>
+  <div data-variant="white-black" class="color-swatches">
+    {shades.toSpliced(11).map((shade) => (
+      <div class="color-swatch" data-shade={shade}>
         <span>{shade}</span>
         <span style="color: var(--subtle-text)">{shade}</span>
         <span style="color: var(--muted-text)">{shade}</span>
       </div>
     ))}
   </div>
-))}
 
+  {variants.map((variant) => (
+    <div data-variant={variant} class="color-swatches">
+      {shades.map((shade) => (
+        <div data-shade={shade} class="color-swatch">
+          <span>{shade}</span>
+          <span style="color: var(--subtle-text)">{shade}</span>
+          <span style="color: var(--muted-text)">{shade}</span>
+        </div>
+      ))}
+    </div>
+  ))}
+</article>
 <style>
   .color-swatches {
     display: grid;
