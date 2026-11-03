@@ -114,6 +114,10 @@ html {
   font-family: var(--font-family-mono), monospace;
 }
 
+:where(output, pre) {
+  font-size: 0.875em;
+}
+
 :where(code, kbd, samp) {
   font-size: 0.9em;
   padding: 0.2em 0.4em;

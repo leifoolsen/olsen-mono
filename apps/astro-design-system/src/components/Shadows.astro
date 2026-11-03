@@ -1,0 +1,140 @@
+---
+---
+
+<article
+  data-layout="ram"
+  style="
+    display: grid;
+    --layout-gap: var(--space-2xl);
+    --layout-grid-item-min: 18rem;
+  "
+>
+  <div class="shadow-demo" data-shadow="xs" data-border-radius="m" data-variant="primary">
+    <output>
+      --shadow-xs <br /> data-shadow="xs"
+    </output>
+  </div>
+
+  <div class="shadow-demo" data-shadow="s" data-border-radius="m" data-variant="primary">
+    <output>
+      --shadow-s <br /> data-shadow="s"
+    </output>
+  </div>
+
+  <div class="shadow-demo" data-shadow="m" data-border-radius="m" data-variant="primary">
+    <output>
+      --shadow-m <br /> data-shadow="m"
+    </output>
+  </div>
+
+  <div class="shadow-demo" data-shadow="l" data-border-radius="m" data-variant="primary">
+    <output>
+      --shadow-l <br /> data-shadow="l"
+    </output>
+  </div>
+
+  <div class="shadow-demo" data-shadow="xl" data-border-radius="m" data-variant="primary">
+    <output>
+      --shadow-xl <br /> data-shadow="xl"
+    </output>
+  </div>
+
+  <div class="shadow-demo" data-shadow="2xl" data-border-radius="m" data-variant="primary">
+    <output>
+      --shadow-2xl <br /> data-shadow="2xl"
+    </output>
+  </div>
+</article>
+
+<h2>Inset Shadows</h2>
+
+<article
+  data-layout="ram"
+  style="
+    display: grid;
+    --layout-gap: var(--space-2xl);
+    --layout-grid-item-min: 18rem;
+  "
+>
+  <div class="shadow-demo" data-inset-shadow="s" data-border-radius="m" data-variant="secondary">
+    <output>
+      --inset-shadow-s <br /> data-inset-shadow="s"
+    </output>
+  </div>
+
+  <div class="shadow-demo" data-inset-shadow="m" data-border-radius="m" data-variant="secondary">
+    <output>
+      --inset-shadow-m <br /> data-inset-shadow="m"
+    </output>
+  </div>
+
+  <div class="shadow-demo" data-inset-shadow="l" data-border-radius="m" data-variant="secondary">
+    <output>
+      --inset-shadow-l <br /> data-inset-shadow="l"
+    </output>
+  </div>
+</article>
+
+<h2>Shadow + Inset Shadow</h2>
+
+<p>
+  Use e.g. the <code>::after</code> pseudo class to apply an inset shadow. Combine with <code>data-shadow</code> to
+  apply the outer shadow.
+</p>
+
+<pre>
+&colon;&colon;after &lbrace;
+  box-shadow&colon; var&lpar;--inset-shadow-s&rpar;&semi;
+&rcub;
+
+</pre>
+
+<article
+  data-layout="ram"
+  style="
+    display: grid;
+    margin-block-end: var(--space-2xl);
+    --layout-gap: var(--space-2xl);
+    --layout-grid-item-min: 18rem;
+  "
+>
+  <div class="shadow-demo inset-shadow" data-shadow="s" data-border-radius="m" data-variant="tertiary">
+    <output>
+      --inset-shadow-s <br /> data-inset-shadow="s"
+    </output>
+  </div>
+
+  <div class="shadow-demo inset-shadow" data-shadow="l" data-border-radius="m" data-variant="tertiary">
+    <output>
+      --shadow-l <br /> data-shadow="l"
+    </output>
+  </div>
+
+  <div class="shadow-demo inset-shadow" data-shadow="2xl" data-border-radius="m" data-variant="tertiary">
+    <output>
+      --shadow-2xl <br /> data-shadow="2xl"
+    </output>
+  </div>
+</article>
+
+<style>
+  .shadow-demo {
+    position: relative;
+    height: 10rem;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    transition:
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
+
+    &.inset-shadow::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: var(--inset-shadow-s);
+      pointer-events: none;
+    }
+  }
+</style>

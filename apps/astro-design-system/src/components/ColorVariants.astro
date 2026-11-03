@@ -1,6 +1,4 @@
 ---
-import '@olsen-mono/css-foundation/color-tokens.css';
-
 const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warning', 'error', 'neutral', 'white-black'];
 ---
 
@@ -78,6 +76,7 @@ const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warnin
     </div>
   </div>
 </article>
+
 <style>
   .variant-box {
     position: relative;
@@ -92,8 +91,8 @@ const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warnin
     border-radius: var(--space-xs);
     box-shadow: var(--shadow-2xl);
     transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease;
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
 
     &::after {
       content: '';
@@ -102,6 +101,10 @@ const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warnin
       border-radius: inherit;
       box-shadow: var(--inset-shadow-s);
       pointer-events: none;
+    }
+
+    &:hover {
+      --swatch-color: var(--shade-400);
     }
   }
 </style>
