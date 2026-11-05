@@ -388,6 +388,10 @@ html[data-density="condensed"] {
   box-shadow: var(--shadow-2xl);
 }
 
+[data-shadow="3xl"] {
+  box-shadow: var(--shadow-3xl);
+}
+
 [data-inset-shadow="s"] {
   box-shadow: var(--inset-shadow-s);
 }

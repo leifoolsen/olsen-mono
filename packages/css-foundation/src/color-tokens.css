@@ -7,109 +7,125 @@
   --lightness-white-black-light: 1;
   --chroma-white-black: 0;
   --hue-white-black: 0;
+  --white-black-500: oklch(50% 0 0deg);
 
   --lightness-neutral-dark: 0.78;
   --lightness-neutral-light: 0.88;
-  --chroma-neutral: 0.02;
-  --hue-neutral: 250;
+  --chroma-neutral: 0.01;
+  --hue-neutral: 280;
+  --neutral-500: light-dark(
+    oklch(var(--lightness-neutral-light) var(--chroma-neutral) var(--hue-neutral)),
+    oklch(var(--lightness-neutral-dark) var(--chroma-neutral) var(--hue-neutral))
+  );
 
   --lightness-primary-dark: 0.51;
-  --lightness-primary-light: 0.67;
+  --lightness-primary-light: 0.63;
   --chroma-primary: 0.2;
   --hue-primary: 303.4;
+  --primary-500: light-dark(
+    oklch(var(--lightness-primary-light) var(--chroma-primary) var(--hue-primary)),
+    oklch(var(--lightness-primary-dark) var(--chroma-primary) var(--hue-primary))
+  );
 
   --lightness-secondary-dark: 0.56;
-  --lightness-secondary-light: 0.72;
+  --lightness-secondary-light: 0.66;
   --chroma-secondary: 0.15;
   --hue-secondary: 352;
+  --secondary-500: light-dark(
+    oklch(var(--lightness-secondary-light) var(--chroma-secondary) var(--hue-secondary)),
+    oklch(var(--lightness-secondary-dark) var(--chroma-secondary) var(--hue-secondary))
+  );
 
   --lightness-tertiary-dark: 0.7;
-  --lightness-tertiary-light: 0.8;
+  --lightness-tertiary-light: 0.74;
   --chroma-tertiary: 0.15;
   --hue-tertiary: 132;
+  --tertiary-500: light-dark(
+    oklch(var(--lightness-tertiary-light) var(--chroma-tertiary) var(--hue-tertiary)),
+    oklch(var(--lightness-tertiary-dark) var(--chroma-tertiary) var(--hue-tertiary))
+  );
 
   --lightness-success-dark: 0.35;
   --lightness-success-light: 0.45;
   --chroma-success: 0.25;
   --hue-success: 145; /* green */
+  --success-500: light-dark(
+    oklch(var(--lightness-success-light) var(--chroma-success) var(--hue-success)),
+    oklch(var(--lightness-success-dark) var(--chroma-success) var(--hue-success))
+  );
 
   --lightness-error-dark: 0.55;
-  --lightness-error-light: 0.61;
+  --lightness-error-light: 0.58;
   --chroma-error: 0.25;
   --hue-error: 29; /* red */
+  --error-500: light-dark(
+    oklch(var(--lightness-error-light) var(--chroma-error) var(--hue-error)),
+    oklch(var(--lightness-error-dark) var(--chroma-error) var(--hue-error))
+  );
 
-  --lightness-warning-dark: 0.68;
+  --lightness-warning-dark: 0.7;
   --lightness-warning-light: 0.74;
   --chroma-warning: 0.25;
   --hue-warning: 65; /* orange */
+  --warning-500: light-dark(
+    oklch(var(--lightness-warning-light) var(--chroma-warning) var(--hue-warning)),
+    oklch(var(--lightness-warning-dark) var(--chroma-warning) var(--hue-warning))
+  );
 
   --lightness-info-dark: 0.61;
   --lightness-info-light: 0.75;
   --chroma-info: 0.26;
   --hue-info: 210; /* cyan */
+  --info-500: light-dark(
+    oklch(var(--lightness-info-light) var(--chroma-info) var(--hue-info)),
+    oklch(var(--lightness-info-dark) var(--chroma-info) var(--hue-info))
+  );
+
+  /* Accent: A200 / A100 */
+  --accent-color: light-dark(
+    oklch(from var(--primary-500) calc(l - (l - 0.3) * 0.4) calc(c * 0.9) h),
+    oklch(from var(--primary-500) calc(l - (l - 0.4) * 0.2) calc(c * 0.9) h)
+  );
 
   --swatch-color: light-dark(oklch(95% 0 0deg), oklch(12% 0 0deg));
 }
 
 [data-variant="white-black"] {
-  --shade-500: oklch(50% 0 0deg);
+  --shade-500: var(--white-black-500);
 }
 
-[data-variant="neutral"] {
-  --shade-500: light-dark(
-    oklch(var(--lightness-neutral-light) var(--chroma-neutral) var(--hue-neutral)),
-    oklch(var(--lightness-neutral-dark) var(--chroma-neutral) var(--hue-neutral))
-  );
+[data-variant="neutral"],
+[data-variant="tertiary-surface"] {
+  --shade-500: var(--neutral-500);
 }
 
 [data-variant="primary"] {
-  --shade-500: light-dark(
-    oklch(var(--lightness-primary-light) var(--chroma-primary) var(--hue-primary)),
-    oklch(var(--lightness-primary-dark) var(--chroma-primary) var(--hue-primary))
-  );
+  --shade-500: var(--primary-500);
 }
 
 [data-variant="secondary"] {
-  --shade-500: light-dark(
-    oklch(var(--lightness-secondary-light) var(--chroma-secondary) var(--hue-secondary)),
-    oklch(var(--lightness-secondary-dark) var(--chroma-secondary) var(--hue-secondary))
-  );
+  --shade-500: var(--secondary-500);
 }
 
 [data-variant="tertiary"] {
-  --shade-500: light-dark(
-    oklch(var(--lightness-tertiary-light) var(--chroma-tertiary) var(--hue-tertiary)),
-    oklch(var(--lightness-tertiary-dark) var(--chroma-tertiary) var(--hue-tertiary))
-  );
+  --shade-500: var(--tertiary-500);
 }
 
 [data-variant="success"] {
-  --shade-500: light-dark(
-    oklch(var(--lightness-success-light) var(--chroma-success) var(--hue-success)),
-    oklch(var(--lightness-success-dark) var(--chroma-success) var(--hue-success))
-  );
+  --shade-500: var(--success-500);
 }
 
 [data-variant="danger"],
 [data-variant="error"] {
-  --shade-500: light-dark(
-    oklch(var(--lightness-error-light) var(--chroma-error) var(--hue-error)),
-    oklch(var(--lightness-error-dark) var(--chroma-error) var(--hue-error))
-  );
+  --shade-500: var(--error-500);
 }
 
 [data-variant="warning"] {
-  --shade-500: light-dark(
-    oklch(var(--lightness-warning-light) var(--chroma-warning) var(--hue-warning)),
-    oklch(var(--lightness-warning-dark) var(--chroma-warning) var(--hue-warning))
-  );
+  --shade-500: var(--warning-500);
 }
 
 [data-variant="info"] {
-  --shade-500: light-dark(
-    oklch(var(--lightness-info-light) var(--chroma-info) var(--hue-info)),
-    oklch(var(--lightness-info-dark) var(--chroma-info) var(--hue-info))
-  );
+  --shade-500: var(--info-500);
 }
 
 [data-variant] {
@@ -132,16 +148,18 @@
   --shade-950: oklch(from var(--shade-500) calc(l - (l - 0.2) * 0.74) calc(c * 0.6) h);
 
   /* These 4 grades feature higher saturation and brightness, designed to draw attention to interactive elements like floating action buttons, switches, and links. */
-  --shade-A100: oklch(from var(--shade-500) calc(l - (l - 0.7) * 0.95) calc(c * 0.7) h);
-  --shade-A200: oklch(from var(--shade-500) calc(l - (l - 0.6) * 0.85) calc(c * 0.8) h);
-  --shade-A400: oklch(from var(--shade-500) calc(l - (l - 0.2) * 0.65) calc(c * 0.6) h);
-  --shade-A700: oklch(from var(--shade-500) calc(l - (l - 0.1) * 0.7) calc(c * 0.5) h);
+  --shade-A100: oklch(from var(--shade-500) calc(l - (l - 0.4) * 0.2) calc(c * 0.9) h);
+  --shade-A200: oklch(from var(--shade-500) calc(l - (l - 0.3) * 0.4) calc(c * 0.9) h);
+  --shade-A400: oklch(from var(--shade-500) calc(l - (l - 0.2) * 0.6) calc(c * 0.9) h);
+  --shade-A700: oklch(from var(--shade-500) calc(l - (l - 0.15) * 0.7) calc(c * 0.9) h);
 
   /* Fallback to default shade if no shade is specified */
   --swatch-color: var(--shade-500);
 }
 
-[data-variant="white-black"] {
+[data-variant="white-black"],
+[data-variant="primary-surface"],
+[data-variant="secondary-surface"] {
   --shade-50: oklch(100% 0 0deg);
   --shade-100: oklch(95% 0 0deg);
   --shade-200: oklch(88% 0 0deg);
@@ -154,6 +172,18 @@
   --shade-900: oklch(12% 0 0deg);
   --shade-950: oklch(0% 0 0deg);
   --swatch-color: var(--shade-500);
+}
+
+[data-variant="primary-surface"] {
+  --swatch-color: light-dark(var(--shade-100), var(--shade-900));
+}
+
+[data-variant="secondary-surface"] {
+  --swatch-color: light-dark(var(--shade-200), var(--shade-800));
+}
+
+[data-variant="tertiary-surface"] {
+  --swatch-color: light-dark(var(--shade-500), var(--shade-950));
 }
 
 [data-shade="50"] {
@@ -220,14 +250,26 @@ body,
 [data-variant],
 [data-shade] {
   /* Contrast colors */
-  --_raw-contrast: contrast-color(var(--swatch-color));
-  --brand-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);
+  /*--_raw-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);*/
+
+  /* See: https://css-tricks.com/approximating-contrast-color-with-other-css-features/ */
+  --_raw-contrast: oklch(from var(--swatch-color) round(1.21 - l) 0 0deg);
+  --brand-color: rgb(
+    from
+      color-mix(
+        in srgb,
+        oklch(from contrast-color(var(--swatch-color)) l c h / 0.96),
+        oklch(from var(--accent-color) l c h / 0.96)
+      )
+      calc(2 * r) calc(2 * g) calc(2 * b)
+  );
+
   --normal-text: oklch(from var(--_raw-contrast) l c h / 0.96);
-  --subtle-text: oklch(from var(--_raw-contrast) l c h / 0.67);
-  --muted-text: oklch(from var(--_raw-contrast) l c h / 0.54);
+  --subtle-text: oklch(from var(--_raw-contrast) l c h / 0.69);
+  --muted-text: oklch(from var(--_raw-contrast) l c h / 0.58);
   --border-color: oklch(from var(--_raw-contrast) l c h / 0.6);
-  --subtle-border-color: oklch(from var(--_raw-contrast) l c h / 0.4);
-  --muted-border-color: oklch(from var(--_raw-contrast) l c h / 0.3);
+  --subtle-border-color: oklch(from var(--_raw-contrast) l c h / 0.45);
+  --muted-border-color: oklch(from var(--_raw-contrast) l c h / 0.35);
 
   /* Shadows */
   --_shadow-base: light-dark(
@@ -243,17 +285,23 @@ body,
   --shadow-xl:
     0 8px 16px oklch(from var(--_shadow-color) l c h / 30%), 0 24px 36px oklch(from var(--_shadow-color) l c h / 25%);
   --shadow-2xl:
-    0 16px 24px oklch(from var(--_shadow-color) l c h / 30%), 0 36px 54px oklch(from var(--_shadow-color) l c h / 25%);
+    0 16px 24px oklch(from var(--_shadow-color) l c h / 20%), 0 36px 54px oklch(from var(--_shadow-color) l c h / 30%);
+  --shadow-3xl:
+    0 24px 36px oklch(from var(--_shadow-color) l c h / 10%), 0 48px 63px oklch(from var(--_shadow-color) l c h / 35%);
 
-  --inset-shadow-s: inset 0 0 0 1px color-mix(in oklch, var(--brand-contrast) 70%, var(--swatch-color) 30%);
-  --inset-shadow-m: inset 0 0 0 2px color-mix(in oklch, var(--brand-contrast) 70%, var(--swatch-color) 30%);
-  --inset-shadow-l: inset 0 0 0 3px color-mix(in oklch, var(--brand-contrast) 70%, var(--swatch-color) 30%);
+  --inset-shadow-s: inset 0 0 0 1px color-mix(in oklch, var(--_raw-contrast) 70%, var(--swatch-color) 30%);
+  --inset-shadow-m: inset 0 0 0 2px color-mix(in oklch, var(--_raw-contrast) 70%, var(--swatch-color) 30%);
+  --inset-shadow-l: inset 0 0 0 3px color-mix(in oklch, var(--_raw-contrast) 70%, var(--swatch-color) 30%);
   --shadow-none: none;
 }
 
 :where(body, [data-shade], [data-variant]:not([data-shade])) {
   background-color: var(--swatch-color);
   color: var(--normal-text);
+}
+
+:where(body) {
+  accent-color: var(--accent-color);
 }
 
 /* --- Theme Switcher --- */

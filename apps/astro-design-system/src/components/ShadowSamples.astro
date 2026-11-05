@@ -100,7 +100,7 @@
 >
   <div class="shadow-demo inset-shadow" data-shadow="s" data-border-radius="m" data-variant="tertiary">
     <output>
-      --inset-shadow-s <br /> data-inset-shadow="s"
+      --shadow-s <br /> data-shadow="s"
     </output>
   </div>
 
@@ -135,6 +135,14 @@
       border-radius: inherit;
       box-shadow: var(--inset-shadow-s);
       pointer-events: none;
+    }
+
+    &:hover {
+      box-shadow: none;
+
+      &::after {
+        box-shadow: none;
+      }
     }
   }
 </style>

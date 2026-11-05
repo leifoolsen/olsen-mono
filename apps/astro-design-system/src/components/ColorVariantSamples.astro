@@ -1,5 +1,18 @@
 ---
-const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warning', 'error', 'neutral', 'white-black'];
+const variants = [
+  'primary',
+  'secondary',
+  'tertiary',
+  'success',
+  'info',
+  'warning',
+  'error',
+  'neutral',
+  'white-black',
+  'primary-surface',
+  'secondary-surface',
+  'tertiary-surface',
+];
 ---
 
 <article>
@@ -12,13 +25,12 @@ const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warnin
   >
     {variants.map((variant) => (
       <div data-variant={variant} class="variant-box">
-        <span style="color: var(--brand-contrast); grid-column: span 2;">Brand contrast ({variant})</span>
+        <span style="color: var(--brand-color); grid-column: span 2; font-size: var(--font-size-l)">
+          Brand color ({variant})
+        </span>
 
         <span>Normal text</span>
         <span>Normal text</span>
-
-        <span style="color: var(--brand-text-color);">--brand-text-color</span>
-        <span style="color: var(--brand-text-color);">Brand Text Color</span>
 
         <span style="color: var(--subtle-text);">--subtle-text</span>
         <span style="color: var(--subtle-text);">Subtle Text</span>
@@ -42,9 +54,6 @@ const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warnin
         <span>Normal text</span>
         <span>Normal text</span>
 
-        <span style="color: var(--brand-text-color);">--brand-text-color</span>
-        <span style="color: var(--brand-text-color);">Brand Text Color</span>
-
         <span style="color: var(--subtle-text);">--subtle-text</span>
         <span style="color: var(--subtle-text);">Subtle Text</span>
 
@@ -56,11 +65,11 @@ const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warnin
 
         <div style="grid-column: span 2;">
           <div data-variant="tertiary" class="variant-box">
+            <span style="color: var(--brand-color); grid-column: span 2; font-size: var(--font-size-l)">
+              Nested, data-variant="tertiary"
+            </span>
             <span>Normal text</span>
             <span>Normal text</span>
-
-            <span style="color: var(--brand-text-color);">--brand-text-color</span>
-            <span style="color: var(--brand-text-color);">Brand Text Color</span>
 
             <span style="color: var(--subtle-text);">--subtle-text</span>
             <span style="color: var(--subtle-text);">Subtle Text</span>
@@ -75,6 +84,20 @@ const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warnin
       </div>
     </div>
   </div>
+</article>
+
+<article>
+  <h2>Base Colors as Text</h2>
+  <div style="color: var(--accent-color); font-size: var(--font-size-2xl);">--accent-color</div>
+  <div style="color: var(--primary-500); font-size: var(--font-size-2xl);">--primary-500</div>
+  <div style="color: var(--secondary-500); font-size: var(--font-size-2xl);">--secondary-500</div>
+  <div style="color: var(--tertiary-500); font-size: var(--font-size-2xl);">--tertiary-500</div>
+  <div style="color: var(--success-500); font-size: var(--font-size-2xl);">--success-500</div>
+  <div style="color: var(--info-500); font-size: var(--font-size-2xl);">--info-500</div>
+  <div style="color: var(--warning-500); font-size: var(--font-size-2xl);">--warning-500</div>
+  <div style="color: var(--error-500); font-size: var(--font-size-2xl);">--error-500</div>
+  <div style="color: var(--neutral-500); font-size: var(--font-size-2xl);">--neutral-500</div>
+  <div style="color: var(--white-black-500); font-size: var(--font-size-2xl);">--white-black-500</div>
 </article>
 
 <style>
@@ -94,6 +117,10 @@ const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warnin
       box-shadow 0.2s ease,
       background-color 0.2s ease;
 
+    &:hover {
+      --swatch-color: var(--shade-400);
+    }
+
     &::after {
       content: '';
       position: absolute;
@@ -101,10 +128,6 @@ const variants = ['primary', 'secondary', 'tertiary', 'success', 'info', 'warnin
       border-radius: inherit;
       box-shadow: var(--inset-shadow-s);
       pointer-events: none;
-    }
-
-    &:hover {
-      --swatch-color: var(--shade-400);
     }
   }
 </style>
