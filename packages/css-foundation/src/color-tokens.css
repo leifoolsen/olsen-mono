@@ -3,14 +3,14 @@
   color-scheme: light dark;
 
   /* --- Base Colors --- */
-  --lightness-white-black-dark: 0;
   --lightness-white-black-light: 1;
+  --lightness-white-black-dark: 0;
   --chroma-white-black: 0;
   --hue-white-black: 0;
   --white-black-500: oklch(50% 0 0deg);
 
-  --lightness-neutral-dark: 0.78;
   --lightness-neutral-light: 0.88;
+  --lightness-neutral-dark: 0.78;
   --chroma-neutral: 0.01;
   --hue-neutral: 280;
   --neutral-500: light-dark(
@@ -18,35 +18,34 @@
     oklch(var(--lightness-neutral-dark) var(--chroma-neutral) var(--hue-neutral))
   );
 
-  --lightness-primary-dark: 0.51;
-  --lightness-primary-light: 0.63;
-  --chroma-primary: 0.2;
-  --hue-primary: 303.4;
+  --lightness-primary-light: 0.25;
+  --chroma-primary-light: 0.18;
+  --hue-primary-light: 261.31;
+  --lightness-primary-dark: 0.87;
+  --chroma-primary-dark: 0.14;
+  --hue-primary-dark: 195;
   --primary-500: light-dark(
-    oklch(var(--lightness-primary-light) var(--chroma-primary) var(--hue-primary)),
-    oklch(var(--lightness-primary-dark) var(--chroma-primary) var(--hue-primary))
+    oklch(var(--lightness-primary-light) var(--chroma-primary-light) var(--hue-primary-light)),
+    oklch(var(--lightness-primary-dark) var(--chroma-primary-dark) var(--hue-primary-dark))
   );
 
-  --lightness-secondary-dark: 0.56;
-  --lightness-secondary-light: 0.66;
-  --chroma-secondary: 0.15;
-  --hue-secondary: 352;
   --secondary-500: light-dark(
-    oklch(var(--lightness-secondary-light) var(--chroma-secondary) var(--hue-secondary)),
-    oklch(var(--lightness-secondary-dark) var(--chroma-secondary) var(--hue-secondary))
+    oklch(var(--lightness-primary-dark) var(--chroma-primary-dark) var(--hue-primary-dark)),
+    oklch(var(--lightness-primary-light) var(--chroma-primary-light) var(--hue-primary-light))
   );
 
-  --lightness-tertiary-dark: 0.7;
-  --lightness-tertiary-light: 0.74;
-  --chroma-tertiary: 0.15;
-  --hue-tertiary: 132;
+  /* Rebecca Purple */
+  --lightness-tertiary-light: 0.4403;
+  --lightness-tertiary-dark: 0.46;
+  --chroma-tertiary: 0.1603;
+  --hue-tertiary: 303.37;
   --tertiary-500: light-dark(
     oklch(var(--lightness-tertiary-light) var(--chroma-tertiary) var(--hue-tertiary)),
     oklch(var(--lightness-tertiary-dark) var(--chroma-tertiary) var(--hue-tertiary))
   );
 
-  --lightness-success-dark: 0.35;
   --lightness-success-light: 0.45;
+  --lightness-success-dark: 0.35;
   --chroma-success: 0.25;
   --hue-success: 145; /* green */
   --success-500: light-dark(
@@ -54,8 +53,8 @@
     oklch(var(--lightness-success-dark) var(--chroma-success) var(--hue-success))
   );
 
-  --lightness-error-dark: 0.55;
   --lightness-error-light: 0.58;
+  --lightness-error-dark: 0.55;
   --chroma-error: 0.25;
   --hue-error: 29; /* red */
   --error-500: light-dark(
@@ -63,8 +62,8 @@
     oklch(var(--lightness-error-dark) var(--chroma-error) var(--hue-error))
   );
 
-  --lightness-warning-dark: 0.7;
   --lightness-warning-light: 0.74;
+  --lightness-warning-dark: 0.7;
   --chroma-warning: 0.25;
   --hue-warning: 65; /* orange */
   --warning-500: light-dark(
@@ -72,8 +71,8 @@
     oklch(var(--lightness-warning-dark) var(--chroma-warning) var(--hue-warning))
   );
 
-  --lightness-info-dark: 0.61;
   --lightness-info-light: 0.75;
+  --lightness-info-dark: 0.61;
   --chroma-info: 0.26;
   --hue-info: 210; /* cyan */
   --info-500: light-dark(
@@ -87,15 +86,19 @@
     oklch(from var(--primary-500) calc(l - (l - 0.4) * 0.2) calc(c * 0.9) h)
   );
 
-  --swatch-color: light-dark(oklch(95% 0 0deg), oklch(12% 0 0deg));
+  /* Surfaces */
+  --primary-surface: light-dark(oklch(95% 0 0deg), oklch(0.1675 0.0738 261.31deg));
+  --secondary-surface: light-dark(oklch(94% 0 0deg), oklch(0.2 0.0738 261.31deg));
+  --tertiary-surface: light-dark(oklch(86% 0 0deg), oklch(0.28 0.0738 261.31deg));
+
+  --swatch-color: var(--primary-surface);
 }
 
 [data-variant="white-black"] {
   --shade-500: var(--white-black-500);
 }
 
-[data-variant="neutral"],
-[data-variant="tertiary-surface"] {
+[data-variant="neutral"] {
   --shade-500: var(--neutral-500);
 }
 
@@ -128,6 +131,18 @@
   --shade-500: var(--info-500);
 }
 
+[data-variant="primary-surface"] {
+  --shade-500: var(--primary-surface);
+}
+
+[data-variant="secondary-surface"] {
+  --shade-500: var(--secondary-surface);
+}
+
+[data-variant="tertiary-surface"] {
+  --shade-500: var(--tertiary-surface);
+}
+
 [data-variant] {
   /* Lightest tint, often used for backgrounds */
   --shade-50: oklch(from var(--shade-500) calc(l + (0.98 - l) * 0.94) calc(c * 0.2) h);
@@ -157,9 +172,7 @@
   --swatch-color: var(--shade-500);
 }
 
-[data-variant="white-black"],
-[data-variant="primary-surface"],
-[data-variant="secondary-surface"] {
+[data-variant="white-black"] {
   --shade-50: oklch(100% 0 0deg);
   --shade-100: oklch(95% 0 0deg);
   --shade-200: oklch(88% 0 0deg);
@@ -172,37 +185,7 @@
   --shade-900: oklch(12% 0 0deg);
   --shade-950: oklch(0% 0 0deg);
 
-  /*
-  --shade-50: oklch(100% 0 0deg);
-  --shade-100: oklch(92.86% 0 0deg);
-  --shade-200: oklch(85.71% 0 0deg);
-  --shade-300: oklch(78.57% 0 0deg);
-  --shade-400: oklch(71.43% 0 0deg);
-  --shade-500: oklch(64.29% 0 0deg);
-  --shade-600: oklch(57.14% 0 0deg);
-  --shade-700: oklch(50% 0 0deg);
-  --shade-800: oklch(42.86% 0 0deg);
-  --shade-900: oklch(35.71% 0 0deg);
-  --shade-950: oklch(28.57% 0 0deg);
-  --shade-A100: oklch(21.43% 0 0deg);
-  --shade-A200: oklch(14.29% 0 0deg);
-  --shade-A400: oklch(7.14% 0 0deg);
-  --shade-A700: oklch(0% 0 0deg);
-  */
-
   --swatch-color: var(--shade-500);
-}
-
-[data-variant="primary-surface"] {
-  --swatch-color: light-dark(var(--shade-100), var(--shade-900));
-}
-
-[data-variant="secondary-surface"] {
-  --swatch-color: light-dark(var(--shade-200), var(--shade-800));
-}
-
-[data-variant="tertiary-surface"] {
-  --swatch-color: light-dark(var(--shade-500), var(--shade-950));
 }
 
 [data-shade="50"] {
@@ -269,14 +252,14 @@ body,
 [data-variant],
 [data-shade] {
   /* Contrast colors */
-  /*--_raw-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);*/
 
-  /* See: https://css-tricks.com/approximating-contrast-color-with-other-css-features/ */
+  /* raw-contrast: See: https://css-tricks.com/approximating-contrast-color-with-other-css-features/ */
+  /*--_raw-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);*/
   --_raw-contrast: oklch(from var(--swatch-color) round(1.21 - l) 0 0deg);
   --brand-color: rgb(
     from
       color-mix(
-        in srgb,
+        in oklch,
         oklch(from contrast-color(var(--swatch-color)) l c h / 0.96),
         oklch(from var(--accent-color) l c h / 0.96)
       )
