@@ -72,7 +72,7 @@ export type DataDensity = 'condensed' | (string & {}) | boolean | undefined;
 export type DataContainerViewport = string | boolean | undefined;
 export type DataFontSize = '2xl' | '3xl' | '4xl' | '5xl' | 'l' | 'm' | 's' | 'xl' | 'xs' | (string & {}) | boolean | undefined;
 export type DataBorderRadius = '2xl' | '2xs' | '3xl' | '3xs' | '4xl' | '4xs' | '5xl' | 'infinity' | 'l' | 'm' | 's' | 'xl' | 'xs' | (string & {}) | boolean | undefined;
-export type DataShadow = '2xl' | 'l' | 'm' | 'none' | 's' | 'xl' | 'xs' | (string & {}) | boolean | undefined;
+export type DataShadow = '2xl' | '3xl' | 'l' | 'm' | 'none' | 's' | 'xl' | 'xs' | (string & {}) | boolean | undefined;
 export type DataInsetShadow = 'l' | 'm' | 's' | (string & {}) | boolean | undefined;
 export type CssDataAttributes = {
   'data-density': DataDensity;
