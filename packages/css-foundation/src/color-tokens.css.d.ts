@@ -1,7 +1,8 @@
 export type Css = never;
 export type CssVariables = 
+  | '--accent-color'
   | '--border-color'
-  | '--brand-contrast'
+  | '--brand-color'
   | '--chroma-error'
   | '--chroma-info'
   | '--chroma-neutral'
@@ -11,6 +12,7 @@ export type CssVariables =
   | '--chroma-tertiary'
   | '--chroma-warning'
   | '--chroma-white-black'
+  | '--error-500'
   | '--hue-error'
   | '--hue-info'
   | '--hue-neutral'
@@ -20,6 +22,7 @@ export type CssVariables =
   | '--hue-tertiary'
   | '--hue-warning'
   | '--hue-white-black'
+  | '--info-500'
   | '--inset-shadow-l'
   | '--inset-shadow-m'
   | '--inset-shadow-s'
@@ -43,7 +46,10 @@ export type CssVariables =
   | '--lightness-white-black-light'
   | '--muted-border-color'
   | '--muted-text'
+  | '--neutral-500'
   | '--normal-text'
+  | '--primary-500'
+  | '--secondary-500'
   | '--shade-100'
   | '--shade-200'
   | '--shade-300'
@@ -60,6 +66,7 @@ export type CssVariables =
   | '--shade-A400'
   | '--shade-A700'
   | '--shadow-2xl'
+  | '--shadow-3xl'
   | '--shadow-l'
   | '--shadow-m'
   | '--shadow-none'
@@ -68,8 +75,12 @@ export type CssVariables =
   | '--shadow-xs'
   | '--subtle-border-color'
   | '--subtle-text'
-  | '--swatch-color';
-export type DataVariant = 'danger' | 'error' | 'info' | 'neutral' | 'primary' | 'secondary' | 'success' | 'tertiary' | 'warning' | 'white-black' | (string & {}) | boolean | undefined;
+  | '--success-500'
+  | '--swatch-color'
+  | '--tertiary-500'
+  | '--warning-500'
+  | '--white-black-500';
+export type DataVariant = 'danger' | 'error' | 'info' | 'neutral' | 'primary' | 'primary-surface' | 'secondary' | 'secondary-surface' | 'success' | 'tertiary' | 'tertiary-surface' | 'warning' | 'white-black' | (string & {}) | boolean | undefined;
 export type DataShade = '100' | '200' | '300' | '400' | '50' | '500' | '600' | '700' | '800' | '900' | '950' | 'A100' | 'A200' | 'A400' | 'A700' | (string & {}) | boolean | undefined;
 export type DataTheme = 'dark' | 'light' | (string & {}) | boolean | undefined;
 export type CssDataAttributes = {

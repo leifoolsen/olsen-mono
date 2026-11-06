@@ -171,6 +171,25 @@
   --shade-800: oklch(20% 0 0deg);
   --shade-900: oklch(12% 0 0deg);
   --shade-950: oklch(0% 0 0deg);
+
+  /*
+  --shade-50: oklch(100% 0 0deg);
+  --shade-100: oklch(92.86% 0 0deg);
+  --shade-200: oklch(85.71% 0 0deg);
+  --shade-300: oklch(78.57% 0 0deg);
+  --shade-400: oklch(71.43% 0 0deg);
+  --shade-500: oklch(64.29% 0 0deg);
+  --shade-600: oklch(57.14% 0 0deg);
+  --shade-700: oklch(50% 0 0deg);
+  --shade-800: oklch(42.86% 0 0deg);
+  --shade-900: oklch(35.71% 0 0deg);
+  --shade-950: oklch(28.57% 0 0deg);
+  --shade-A100: oklch(21.43% 0 0deg);
+  --shade-A200: oklch(14.29% 0 0deg);
+  --shade-A400: oklch(7.14% 0 0deg);
+  --shade-A700: oklch(0% 0 0deg);
+  */
+
   --swatch-color: var(--shade-500);
 }
 
