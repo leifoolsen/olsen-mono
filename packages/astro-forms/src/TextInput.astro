@@ -11,8 +11,7 @@ import InputControl from './InputControl.astro';
 import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
 import SearchIcon from './SearchIcon.astro';
-import './forms.css';
-import { injectForAttribute } from './utils.ts';
+import { injectForAttribute } from './utils';
 
 type Props = HTMLAttributes<'input'> & {
   id: string;
@@ -115,3 +114,22 @@ if (!label && Astro.slots.has('label')) {
   setupInputFields();
   document.addEventListener('astro:after-swap', setupInputFields);
 </script>
+
+<style>
+  @layer components {
+    .form-text-input {
+      text-overflow: ellipsis;
+
+      &[type='search'] {
+        &::-webkit-search-decoration,
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-results-button,
+        &::-webkit-search-results-decoration {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+        }
+      }
+    }
+  }
+</style>

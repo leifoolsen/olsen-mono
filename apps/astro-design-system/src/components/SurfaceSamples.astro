@@ -1,0 +1,48 @@
+---
+const variants = ['primary-surface', 'secondary-surface', 'tertiary-surface'];
+
+const shades = ['400', '500', '600', '700'];
+---
+
+<article>
+  <h2>Surfaces</h2>
+
+  {variants.map((variant) => (
+    <div data-variant={variant} class="surfaces">
+      <span style="align-self: center; min-width: 17ch;">--{variant}</span>
+
+      {shades.map((shade) => (
+        <div data-shade={shade} class="surface">
+          <span>{shade}</span>
+        </div>
+      ))}
+
+      <div class="surface" style="background-color: var(--accent-color); color: contrast-color(var(--accent-color));">
+        <span>A</span>
+      </div>
+    </div>
+  ))}
+</article>
+
+<style>
+  .surfaces {
+    display: grid;
+    grid-template-columns: repeat(6, max-content);
+    background-color: transparent;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .surface {
+    display: grid;
+    font-size: var(--font-size-s);
+    padding-block: 0.25rem;
+    height: 5rem;
+    place-items: center;
+    text-align: center;
+    aspect-ratio: 1;
+    place-self: center;
+    border-radius: 100%;
+    border: 1px solid var(--muted-border-color);
+  }
+</style>

@@ -4,7 +4,6 @@ import type { HTMLAttributes } from 'astro/types';
 import InputControl from './InputControl.astro';
 import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
-import './forms.css';
 import { injectForAttribute } from './utils.ts';
 
 type Props = HTMLAttributes<'input'> & {
@@ -66,9 +65,148 @@ if (!label && Astro.slots.has('label')) {
 
   <InputControl>
     <label class="form-toggle-switch">
-      <input class="form-toggle-switch-input" id={id} role={role} type={type} {...rest}>
+      <input class="form-toggle-switch-input" id={id} role={role} type={type} {...rest} />
       {onIconHtml && <Fragment set:html={onIconHtml} />}
       {offIconHtml && <Fragment set:html={offIconHtml} />}
     </label>
   </InputControl>
 </InputGroup>
+
+<style>
+  @import './forms-tokens.css' layer(components);
+
+  @layer components {
+    .form-toggle-switch {
+      align-items: center;
+      border-radius: calc(infinity * 1px);
+      cursor: pointer;
+      block-size: var(--form-input-height);
+      display: inline-flex;
+      inline-size: var(--form-switch-width);
+      position: relative;
+
+      /* Slide area */
+      &::before {
+        background-color: var(--input-background-color);
+        border: 1px solid var(--border-color);
+        border-radius: calc(infinity * 1px);
+        box-sizing: content-box;
+        content: '';
+        position: absolute;
+        inset: 0;
+        transition:
+          border-color 0.2s,
+          background-color 0.2s ease,
+          outline-color 0.2s,
+          box-shadow 0.2s,
+          filter 0.2s;
+        z-index: 1;
+      }
+
+      /* Toggle Knob */
+      &::after {
+        background-color: var(--accent-color);
+        block-size: var(--form-switch-knob-size);
+        border-radius: 50%;
+        box-sizing: border-box;
+        content: '';
+        inline-size: var(--form-switch-knob-size);
+        position: absolute;
+        top: 50%;
+        transform: translate(var(--form-switch-gap), -50%);
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 3;
+      }
+
+      /* Optional on / off icon */
+      & .icon-on,
+      & .icon-off {
+        align-items: center;
+        block-size: var(--form-input-height);
+        box-sizing: border-box;
+        display: flex;
+        inline-size: var(--form-input-height);
+        justify-content: center;
+        line-height: 1;
+        pointer-events: none;
+        position: absolute;
+        transition: opacity 0.2s;
+        z-index: 2;
+      }
+
+      & .icon-on {
+        color: contrast-color(var(--secondary-500));
+        left: var(--form-switch-gap);
+        opacity: 0;
+      }
+
+      & .icon-off {
+        color: contrast-color(var(--input-background-color));
+        right: var(--form-switch-gap);
+        opacity: 1;
+      }
+
+      /* State */
+      &:has(:checked) {
+        /* Slide area */
+        &::before {
+          background-color: color-mix(in oklch, var(--secondary-500) 90%, transparent);
+        }
+
+        /* Toggle Knob */
+        &::after {
+          transform: translate(calc(var(--form-input-height) + var(--form-switch-gap)), -50%);
+        }
+
+        & .icon-on {
+          opacity: 1;
+        }
+
+        & .icon-off {
+          opacity: 0;
+        }
+      }
+
+      &:has(:focus-visible)::before {
+        outline: var(--outline-size) auto Highlight;
+        outline-offset: var(--outline-offset);
+        box-shadow: 0 0 12px 2px oklch(from Highlight l c h / 90%);
+        filter: drop-shadow(0 0 4px oklch(from -webkit-focus-ring-color l c h / 85%));
+      }
+
+      /* Webkit, Safari */
+      @supports (-webkit-backdrop-filter: blur(10px)) {
+        &:focus-within:has(:focus-visible) {
+          outline: var(--outline-size) auto -webkit-focus-ring-color;
+          outline-offset: 0;
+        }
+      }
+
+      &:has(:disabled) {
+        /* Slide area */
+        &::before {
+          cursor: not-allowed;
+          background-color: color-mix(in oklch, var(--swatch-color) 80%, transparent);
+          border-color: var(--muted-border-color);
+        }
+
+        /* Toggle Knob */
+        &::after {
+          cursor: not-allowed;
+          background-color: color-mix(in oklch, var(--accent-color) 65%, transparent);
+        }
+
+        & .icon-on,
+        & .icon-off {
+          color: oklch(from currentColor l c h / 0.66);
+        }
+      }
+
+      & input[type='checkbox'].form-toggle-switch-input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+    }
+  }
+</style>

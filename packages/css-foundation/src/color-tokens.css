@@ -1,4 +1,45 @@
 /* --- packages/css-foundation/src/color-tokens.css --- */
+
+@property --contrast {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: white;
+}
+
+@function --get-contrast(--surface <color>) returns <color> {
+  /* Contrast Formulas */
+  /*result: oklch(from var(--swatch-color) clamp(0, (l / var(--l-threshold, 0.623) - 1) * -infinity, 1) 0 h);*/
+  /*result: oklch(from var(--surface) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);*/
+  /*result: oklch(from var(--swatch-color) round(1.21 - l) 0 0deg);*/
+  result: contrast-color(var(--surface));
+}
+
+@function --get-adaptive-text(--base-color <color>, --surface <color>) returns <color> {
+  --contrast: --get-contrast(var(--surface));
+  --dir: if(style(--contrast: white): 1; else: -1);
+  --shift: if(style(--contrast: white): 0.06; else: 0.22);
+  --mix: if(style(--contrast: white): 85%; else: 75%);
+
+  result: color-mix(
+    in oklch,
+    oklch(from var(--base-color) clamp(0, calc(l + (var(--dir) * var(--shift))), 0.96) c h / 95%) var(--mix),
+    var(--contrast)
+  );
+}
+
+@function --get-branded-text(--surface <color>) returns <color> {
+  --contrast: --get-contrast(var(--surface));
+  --dir: if(style(--contrast: white): 1; else: -1);
+  --shift: if(style(--contrast: white): 0.65; else: 0.44);
+  --mix: if(style(--contrast: white): 75%; else: 80%);
+
+  result: color-mix(
+    in oklch,
+    oklch(from var(--surface) clamp(0, calc(l + (var(--dir) * var(--shift))), 0.96) c h / 95%) var(--mix),
+    var(--contrast)
+  );
+}
+
 :root {
   color-scheme: light dark;
 
@@ -9,7 +50,7 @@
   --hue-white-black: 0;
   --white-black-500: oklch(50% 0 0deg);
 
-  --lightness-neutral-light: 0.88;
+  --lightness-neutral-light: 0.92;
   --lightness-neutral-dark: 0.78;
   --chroma-neutral: 0.01;
   --hue-neutral: 280;
@@ -18,11 +59,11 @@
     oklch(var(--lightness-neutral-dark) var(--chroma-neutral) var(--hue-neutral))
   );
 
-  --lightness-primary-light: 0.25;
+  --lightness-primary-light: 0.38;
   --chroma-primary-light: 0.18;
-  --hue-primary-light: 261.31;
+  --hue-primary-light: 262;
   --lightness-primary-dark: 0.87;
-  --chroma-primary-dark: 0.14;
+  --chroma-primary-dark: 0.16;
   --hue-primary-dark: 195;
   --primary-500: light-dark(
     oklch(var(--lightness-primary-light) var(--chroma-primary-light) var(--hue-primary-light)),
@@ -53,10 +94,10 @@
     oklch(var(--lightness-success-dark) var(--chroma-success) var(--hue-success))
   );
 
-  --lightness-error-light: 0.58;
-  --lightness-error-dark: 0.55;
-  --chroma-error: 0.25;
-  --hue-error: 29; /* red */
+  --lightness-error-light: 0.628;
+  --lightness-error-dark: 0.628;
+  --chroma-error: 0.258;
+  --hue-error: 29.234; /* red */
   --error-500: light-dark(
     oklch(var(--lightness-error-light) var(--chroma-error) var(--hue-error)),
     oklch(var(--lightness-error-dark) var(--chroma-error) var(--hue-error))
@@ -72,7 +113,7 @@
   );
 
   --lightness-info-light: 0.75;
-  --lightness-info-dark: 0.61;
+  --lightness-info-dark: 0.71;
   --chroma-info: 0.26;
   --hue-info: 210; /* cyan */
   --info-500: light-dark(
@@ -80,17 +121,18 @@
     oklch(var(--lightness-info-dark) var(--chroma-info) var(--hue-info))
   );
 
-  /* Accent: A200 / A100 */
-  --accent-color: light-dark(
-    oklch(from var(--primary-500) calc(l - (l - 0.3) * 0.4) calc(c * 0.9) h),
-    oklch(from var(--primary-500) calc(l - (l - 0.4) * 0.2) calc(c * 0.9) h)
-  );
-
-  /* Surfaces */
-  --primary-surface: light-dark(oklch(95% 0 0deg), oklch(0.1675 0.0738 261.31deg));
+  /* Base Brand Surfaces (Locked Telenor values) */
+  --primary-surface: light-dark(oklch(95% 0 0deg), oklch(16.8% 0.0738 261.31deg));
   --secondary-surface: light-dark(oklch(94% 0 0deg), oklch(0.2 0.0738 261.31deg));
   --tertiary-surface: light-dark(oklch(86% 0 0deg), oklch(0.28 0.0738 261.31deg));
 
+  /* Accent color A700 / A100 */
+  --accent-color: light-dark(
+    oklch(from var(--primary-500) clamp(0.46, calc(l - 0.08), 0.58) calc(c * 1.35) h),
+    oklch(from var(--primary-500) clamp(0.76, calc(l + 0.18), 0.86) calc(c * 1.15) h)
+  );
+
+  /* Swatch color */
   --swatch-color: var(--primary-surface);
 }
 
@@ -104,6 +146,10 @@
 
 [data-variant="primary"] {
   --shade-500: var(--primary-500);
+  --accent-color: light-dark(
+    oklch(from var(--secondary-500) clamp(0.76, calc(l + 0.18), 0.86) calc(c * 1.15) h),
+    oklch(from var(--secondary-500) clamp(0.46, calc(l - 0.08), 0.58) calc(c * 1.35) h)
+  );
 }
 
 [data-variant="secondary"] {
@@ -145,28 +191,28 @@
 
 [data-variant] {
   /* Lightest tint, often used for backgrounds */
-  --shade-50: oklch(from var(--shade-500) calc(l + (0.98 - l) * 0.94) calc(c * 0.2) h);
+  --shade-50: oklch(from var(--shade-500) calc(l + (0.985 - l) * 0.93) calc(c * 0.08) h);
 
-  /* Light */
-  --shade-100: oklch(from var(--shade-500) calc(l + (0.98 - l) * 0.8) calc(c * 0.4) h);
-  --shade-200: oklch(from var(--shade-500) calc(l + (0.98 - l) * 0.6) calc(c * 0.65) h);
-  --shade-300: oklch(from var(--shade-500) calc(l + (0.98 - l) * 0.4) calc(c * 0.85) h);
-  --shade-400: oklch(from var(--shade-500) calc(l + (0.98 - l) * 0.2) calc(c * 0.95) h);
+  /* Light tints */
+  --shade-100: oklch(from var(--shade-500) calc(l + (0.985 - l) * 0.82) calc(c * 0.18) h);
+  --shade-200: oklch(from var(--shade-500) calc(l + (0.985 - l) * 0.65) calc(c * 0.38) h);
+  --shade-300: oklch(from var(--shade-500) calc(l + (0.985 - l) * 0.44) calc(c * 0.65) h);
+  --shade-400: oklch(from var(--shade-500) calc(l + (0.985 - l) * 0.22) calc(c * 0.88) h);
 
-  /* Dark */
-  --shade-600: oklch(from var(--shade-500) calc(l - (l - 0.12) * 0.2) calc(c * 0.95) h);
-  --shade-700: oklch(from var(--shade-500) calc(l - (l - 0.12) * 0.42) calc(c * 0.85) h);
-  --shade-800: oklch(from var(--shade-500) calc(l - (l - 0.2) * 0.56) calc(c * 0.7) h);
+  /* Dark shades */
+  --shade-600: oklch(from var(--shade-500) calc(l - (l - 0.14) * 0.22) calc(c * 0.82) h);
+  --shade-700: oklch(from var(--shade-500) calc(l - (l - 0.14) * 0.42) calc(c * 0.78) h);
+  --shade-800: oklch(from var(--shade-500) calc(l - (l - 0.14) * 0.62) calc(c * 0.58) h);
 
   /* Darkest shade, often used for high-contrast text or dark mode surfaces */
-  --shade-900: oklch(from var(--shade-500) calc(l - (l - 0.2) * 0.72) calc(c * 0.5) h);
-  --shade-950: oklch(from var(--shade-500) calc(l - (l - 0.2) * 0.74) calc(c * 0.6) h);
+  --shade-900: oklch(from var(--shade-500) calc(l - (l - 0.14) * 0.8) calc(c * 0.38) h);
+  --shade-950: oklch(from var(--shade-500) calc(l - (l - 0.14) * 0.92) calc(c * 0.24) h);
 
   /* These 4 grades feature higher saturation and brightness, designed to draw attention to interactive elements like floating action buttons, switches, and links. */
-  --shade-A100: oklch(from var(--shade-500) calc(l - (l - 0.4) * 0.2) calc(c * 0.9) h);
-  --shade-A200: oklch(from var(--shade-500) calc(l - (l - 0.3) * 0.4) calc(c * 0.9) h);
-  --shade-A400: oklch(from var(--shade-500) calc(l - (l - 0.2) * 0.6) calc(c * 0.9) h);
-  --shade-A700: oklch(from var(--shade-500) calc(l - (l - 0.15) * 0.7) calc(c * 0.9) h);
+  --shade-A100: oklch(from var(--shade-500) clamp(0.76, calc(l + 0.18), 0.86) calc(c * 1.15) h);
+  --shade-A200: oklch(from var(--shade-500) clamp(0.66, calc(l + 0.08), 0.78) calc(c * 1.25) h);
+  --shade-A400: oklch(from var(--shade-500) clamp(0.56, l, 0.68) calc(c * 1.25) h);
+  --shade-A700: oklch(from var(--shade-500) clamp(0.46, calc(l - 0.08), 0.58) calc(c * 1.35) h);
 
   /* Fallback to default shade if no shade is specified */
   --swatch-color: var(--shade-500);
@@ -184,6 +230,35 @@
   --shade-800: oklch(20% 0 0deg);
   --shade-900: oklch(12% 0 0deg);
   --shade-950: oklch(0% 0 0deg);
+
+  --swatch-color: var(--shade-500);
+}
+
+[data-variant$="-surface"] {
+  /* Recessed / Subtle Border (-4% in light, -3% in dark) */
+  --shade-400: light-dark(
+    oklch(from var(--shade-500) calc(l + 0.02) c h),
+    oklch(from var(--shade-500) calc(l - 0.03) calc(c * 0.9) h)
+  );
+  --shade-50: var(--shade-400);
+  --shade-100: var(--shade-400);
+  --shade-200: var(--shade-400);
+  --shade-300: var(--shade-400);
+
+  /* Elevated / Hover / Card (+3% in light, +4% in dark with gentle chroma cap) */
+  --shade-600: light-dark(
+    oklch(from var(--shade-500) calc(l - 0.03) c h),
+    oklch(from var(--shade-500) calc(l + 0.04) calc(c * 0.95) h)
+  );
+
+  /* High Elevation / Active / Popover (+5% in light, +8% in dark) */
+  --shade-700: light-dark(
+    oklch(from var(--shade-500) calc(l - 0.08) c h),
+    oklch(from var(--shade-500) calc(l + 0.09) calc(c * 0.9) h)
+  );
+  --shade-800: var(--shade-700);
+  --shade-900: var(--shade-700);
+  --shade-950: var(--shade-700);
 
   --swatch-color: var(--shade-500);
 }
@@ -248,37 +323,66 @@
   --swatch-color: var(--shade-A700);
 }
 
+/* Contrast colors */
 body,
 [data-variant],
 [data-shade] {
-  /* Contrast colors */
+  /* raw-contrast:
+    See: https://css-tricks.com/approximating-contrast-color-with-other-css-features/
+    See: https://daverupert.com/2026/01/contrast-color-with-custom-design-tokens/
+    See: https://daverupert.com/2026/01/algorithmic-hover-states-with-contrast-color/
+    See: https://lea.verou.me/blog/2024/contrast-color/
 
-  /* raw-contrast: See: https://css-tricks.com/approximating-contrast-color-with-other-css-features/ */
+    --l-threshold: Lightness value above which black text is guaranteed to be readable regardless of the chroma and hue,
+                   and below which white text is guaranteed to be readable regardless of the chroma and hue.
+                   - If passing WCAG is a requirement, the highest threshold we can use is 62.3%.
+                   - If actual readability is our only concern, we can safely ignore WCAG and pick a threshold somewhere
+                     between 68.7% and 71.6%, e.g. 70%
+   */
+
+  /* Contrast Formulas */
+  /*--_raw-contrast: oklch(from var(--swatch-color) round(1.21 - l) 0 0deg);*/
   /*--_raw-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);*/
-  --_raw-contrast: oklch(from var(--swatch-color) round(1.21 - l) 0 0deg);
-  --brand-color: rgb(
-    from
-      color-mix(
-        in oklch,
-        oklch(from contrast-color(var(--swatch-color)) l c h / 0.96),
-        oklch(from var(--accent-color) l c h / 0.96)
-      )
-      calc(2 * r) calc(2 * g) calc(2 * b)
-  );
+  /*--_raw-contrast: contrast-color(var(--swatch-color));*/
+  --_raw-contrast: oklch(from var(--swatch-color) clamp(0, (l / var(--l-threshold, 0.52) - 1) * -infinity, 1) 0 h);
 
   --normal-text: oklch(from var(--_raw-contrast) l c h / 0.96);
-  --subtle-text: oklch(from var(--_raw-contrast) l c h / 0.69);
-  --muted-text: oklch(from var(--_raw-contrast) l c h / 0.58);
-  --border-color: oklch(from var(--_raw-contrast) l c h / 0.6);
-  --subtle-border-color: oklch(from var(--_raw-contrast) l c h / 0.45);
+  --subtle-text: oklch(from var(--_raw-contrast) l c h / 0.74);
+  --muted-text: oklch(from var(--_raw-contrast) l c h / 0.66);
+  --border-color: oklch(from var(--_raw-contrast) l c h / 0.65);
+  --subtle-border-color: oklch(from var(--_raw-contrast) l c h / 0.5);
   --muted-border-color: oklch(from var(--_raw-contrast) l c h / 0.35);
+  --error-text: color-mix(in oklch, var(--error-500) 75%, var(--_raw-contrast));
+  --warning-text: color-mix(in oklch, var(--warning-500) 80%, var(--_raw-contrast));
+  --success-text: color-mix(in oklch, var(--success-500) 95%, var(--_raw-contrast));
+  --info-text: color-mix(in oklch, var(--info-500) 75%, var(--_raw-contrast));
+  --branded-text: color-mix(
+    in oklch,
+    oklch(from var(--swatch-color) calc(l + (sign(l - 0.623) * -1 * 0.65)) calc(c * 1.8) h / 90%) 85%,
+    oklch(from var(--_raw-contrast) calc(l + (sign(l - 0.623) * -1 * 0.05)) c h)
+  );
+
+  --input-background-color: color-mix(
+    in oklch,
+    oklch(from var(--swatch-color) clamp(0.08, l + sign(0.52 - l) * 0.045, 0.98) calc(c * 0.85) h) 88%,
+    var(--neutral-500)
+  );
+
+  --input-hover-background-color: color-mix(
+    in oklch,
+    oklch(from var(--swatch-color) clamp(0.08, l + sign(0.52 - l) * 0.075, 0.99) calc(c * 0.85) h) 85%,
+    var(--neutral-500)
+  );
+
+  --input-active-background-color: color-mix(
+    in oklch,
+    oklch(from var(--swatch-color) clamp(0.08, l + sign(0.52 - l) * 0.175, 0.99) calc(c * 0.85) h) 85%,
+    var(--neutral-500)
+  );
 
   /* Shadows */
-  --_shadow-base: light-dark(
-    oklch(from var(--swatch-color) calc(l * l * 0.25) calc(c * 1.4) h),
-    oklch(from var(--swatch-color) calc(l + 0.08) calc(c * 1.1) h)
-  );
-  --_shadow-color: color-mix(in oklch, var(--_shadow-base) 75%, var(--swatch-color) 25%);
+  --_shadow-base: oklch(from var(--swatch-color) calc(l + (sign(l - 0.623) * -1 * 0.15)) c h);
+  --_shadow-color: color-mix(in oklch, var(--_shadow-base) 75%, var(--_raw-contrast));
   --shadow-xs: 0 1px 2px var(--_shadow-color);
   --shadow-s: 0 0 4px var(--_shadow-color), 0 0 8px oklch(from var(--_shadow-color) l c h / 60%);
   --shadow-m: 0 0 6px var(--_shadow-color), 0 0 16px oklch(from var(--_shadow-color) l c h / 60%);
@@ -291,19 +395,25 @@ body,
   --shadow-3xl:
     0 24px 36px oklch(from var(--_shadow-color) l c h / 10%), 0 48px 63px oklch(from var(--_shadow-color) l c h / 35%);
 
-  --inset-shadow-s: inset 0 0 0 1px color-mix(in oklch, var(--_raw-contrast) 70%, var(--swatch-color) 30%);
-  --inset-shadow-m: inset 0 0 0 2px color-mix(in oklch, var(--_raw-contrast) 70%, var(--swatch-color) 30%);
-  --inset-shadow-l: inset 0 0 0 3px color-mix(in oklch, var(--_raw-contrast) 70%, var(--swatch-color) 30%);
+  --inset-shadow-s: inset 0 0 0 1px color-mix(in oklch, var(--_raw-contrast) 50%, var(--swatch-color));
+  --inset-shadow-m: inset 0 0 0 2px color-mix(in oklch, var(--_raw-contrast) 50%, var(--swatch-color));
+  --inset-shadow-l: inset 0 0 0 3px color-mix(in oklch, var(--_raw-contrast) 50%, var(--swatch-color));
   --shadow-none: none;
+
+  @supports (color: if(style(--a: 1): red; else: blue)) and (color: contrast-color(white)) {
+    --error-text: --get-adaptive-text(var(--error-500), var(--swatch-color));
+    --warning-text: --get-adaptive-text(var(--warning-500), var(--swatch-color));
+    --success-text: --get-adaptive-text(var(--success-500), var(--swatch-color));
+    --info-text: --get-adaptive-text(var(--info-500), var(--swatch-color));
+    --branded-text: --get-branded-text(var(--swatch-color));
+  }
 }
 
-:where(body, [data-shade], [data-variant]:not([data-shade])) {
+body,
+[data-shade],
+[data-variant]:not([data-shade]) {
   background-color: var(--swatch-color);
   color: var(--normal-text);
-}
-
-:where(body) {
-  accent-color: var(--accent-color);
 }
 
 /* --- Theme Switcher --- */

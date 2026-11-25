@@ -48,6 +48,7 @@ export type CssVariables =
   | '--major-third'
   | '--minor-second'
   | '--minor-third'
+  | '--outline-offset'
   | '--outline-size'
   | '--perfect-fifth'
   | '--perfect-fourth'

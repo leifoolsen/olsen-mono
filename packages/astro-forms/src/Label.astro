@@ -1,7 +1,6 @@
 ---
 // packages/astro-forms/src/Label.astro
 import type { HTMLAttributes } from 'astro/types';
-import './forms.css';
 
 type Props = HTMLAttributes<'label'> & {
   for?: string;
@@ -11,7 +10,25 @@ const { for: htmlFor, class: className, ...rest } = Astro.props;
 const classes = ['form-label', className].filter(Boolean).join(' ');
 ---
 
-<!-- biome-ignore lint/a11y/noLabelWithoutControl: This is correct for a component -->
 <label for={htmlFor} class={classes} {...rest}>
   <slot />
 </label>
+
+<style>
+  @layer components {
+    .form-label {
+      display: inline-flex;
+      gap: var(--space-xs);
+      flex-wrap: nowrap;
+      user-select: none;
+      line-height: 1;
+      font-size: var(--font-size-m);
+      font-weight: var(--font-weight-l);
+      width: fit-content;
+      white-space: nowrap;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+  }
+</style>

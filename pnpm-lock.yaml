@@ -210,21 +210,6 @@ importers:
         specifier: workspace:*
         version: link:../../tools/css-to-dts
 
-  packages/astro-button:
-    devDependencies:
-      '@olsen-mono/astro-test-utils':
-        specifier: workspace:*
-        version: link:../astro-test-utils
-      '@types/node':
-        specifier: 'catalog:'
-        version: 26.6.6
-      astro:
-        specifier: 'catalog:'
-        version: 7.4.4(@types/node@26.6.6)(esbuild@0.28.2)(yaml@2.9.1)
-      happy-dom:
-        specifier: 'catalog:'
-        version: 21.0.4
-
   packages/astro-forms:
     devDependencies:
       '@olsen-mono/astro-svg':

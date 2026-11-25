@@ -193,9 +193,11 @@ html {
     border-radius: 2px;
   }
 
-  &:hover {
-    color: light-dark(oklch(from currentcolor calc(l - 0.12) c h), oklch(from currentcolor calc(l + 0.12) c h));
-    text-decoration-color: currentcolor;
+  @media (hover: hover) {
+    &:hover {
+      color: light-dark(oklch(from currentcolor calc(l - 0.12) c h), oklch(from currentcolor calc(l + 0.12) c h));
+      text-decoration-color: currentcolor;
+    }
   }
 
   &:active {
@@ -208,22 +210,71 @@ html {
   scroll-padding-block-start: 2rem;
 }
 
-/* --- Scroll margin allowance below focused elements  to ensure they are clearly in view --- */
+/* ---
+  Scroll margin allowance below focused elements  to ensure they are clearly in view.
+  Note: A sticky header design requires a larger value. For a non sticky header use a value between 2 and 4.
+--- */
 :where(:focus) {
   scroll-padding-block-end: 8vh;
 }
 
 /* --- Default focus management for accessibility --- */
-:where(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]):focus-visible {
-  outline: var(--outline-size) solid var(--accent-color);
-  outline-offset: var(--outline-size);
-  border-radius: 2px;
-  box-shadow: none;
+:where(
+  button,
+  input,
+  textarea,
+  select,
+  details,
+  audio,
+  video,
+  object,
+  [contenteditable],
+  [tabindex],
+  [data-focus-ring]:not(:has(:is([type="checkbox"], [type="radio"])))
+):is(:focus-visible, :has(:focus-visible)) {
+  outline: var(--outline-size) auto Highlight;
+  outline-offset: var(--outline-offset);
+  box-shadow: 0 0 12px 2px oklch(from Highlight l c h / 90%);
+  transition:
+    border-color 0.2s,
+    background-color 0.2s ease,
+    outline-color 0.2s,
+    box-shadow 0.2s,
+    filter 0.2s;
+}
+
+/* Webkit / Safari */
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  :where(
+    button,
+    input,
+    textarea,
+    select,
+    details,
+    audio,
+    video,
+    object,
+    [contenteditable],
+    [tabindex],
+    [data-focus-ring]:not(:has(:is([type="checkbox"], [type="radio"])))
+  ):is(:focus-visible, :has(:focus-visible)) {
+    outline: var(--outline-size) auto -webkit-focus-ring-color;
+    filter: drop-shadow(0 0 4px oklch(from -webkit-focus-ring-color l c h / 85%));
+  }
+}
+
+/* Reset focus ring inside input control, exclusive checkbox and radio */
+:where([data-focus-ring]) {
+  & :is(input:not(:is([type="checkbox"], [type="radio"])), select, textarea, button):focus-visible {
+    outline: none;
+    box-shadow: none;
+    filter: none;
+  }
 }
 
 /* --- Anything that has been anchored to should have extra scroll margin --- */
-:target {
-  scroll-margin-block-start: 2rlh;
+:where(:target) {
+  scroll-margin-block-start: 4rlh;
 }
 
 /* --- Fluid Fonts --- */

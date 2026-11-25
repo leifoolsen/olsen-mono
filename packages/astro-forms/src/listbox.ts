@@ -17,7 +17,7 @@ export function createListbox(element: HTMLElement) {
       id: opt.id,
       name: opt.getAttribute('data-name') ?? '',
       value: opt.getAttribute('data-value') ?? '',
-      text: opt instanceof HTMLElement ? opt.textContent : '',
+      text: opt instanceof HTMLElement ? opt.textContent.replace(/\s+/g, ' ').trim() : '',
     }));
 
     element.dispatchEvent(
@@ -115,7 +115,13 @@ export function createListbox(element: HTMLElement) {
 
   const handleClick = (e: MouseEvent) => {
     const target = (e.target as HTMLElement).closest('[role="option"]');
-    if (!(target instanceof HTMLElement) || target.hasAttribute('disabled') || target.hidden) return;
+    if (
+      !(target instanceof HTMLElement) ||
+      target.hasAttribute('disabled') ||
+      target.hidden ||
+      target.getAttribute('aria-disabled') === 'true'
+    )
+      return;
 
     const options = getSelectableOptions();
     const targetIndex = options.indexOf(target);

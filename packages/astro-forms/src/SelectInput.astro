@@ -119,3 +119,19 @@ if (!label && Astro.slots.has('label')) {
   setupSelectFields();
   document.addEventListener('astro:after-swap', setupSelectFields);
 </script>
+
+<style>
+  @layer components {
+    .form-select-input {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      text-overflow: ellipsis;
+
+      & :is(option, optgroup) {
+        color: inherit;
+        background-color: inherit;
+      }
+    }
+  }
+</style>

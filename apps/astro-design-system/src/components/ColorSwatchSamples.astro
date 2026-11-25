@@ -1,5 +1,7 @@
 ---
 // src/components/ColorSwatches.astro
+const surfaces = ['white-black'];
+
 const variants = ['neutral', 'primary', 'secondary', 'tertiary', 'success', 'info', 'warning', 'error'];
 const shades = [
   '50',
@@ -22,15 +24,17 @@ const shades = [
 
 <article>
   <h2>Swatches</h2>
-  <div data-variant="white-black" class="color-swatches">
-    {shades.toSpliced(11).map((shade) => (
-      <div class="color-swatch" data-shade={shade}>
-        <span>{shade}</span>
-        <span style="color: var(--subtle-text)">{shade}</span>
-        <span style="color: var(--muted-text)">{shade}</span>
-      </div>
-    ))}
-  </div>
+  {surfaces.map((variant) => (
+    <div data-variant={variant} class="color-swatches">
+      {shades.toSpliced(11).map((shade) => (
+        <div data-shade={shade} class="color-swatch">
+          <span>{shade}</span>
+          <span style="color: var(--subtle-text)">{shade}</span>
+          <span style="color: var(--muted-text)">{shade}</span>
+        </div>
+      ))}
+    </div>
+  ))}
 
   {variants.map((variant) => (
     <div data-variant={variant} class="color-swatches">
@@ -52,6 +56,7 @@ const shades = [
   }
 
   .color-swatch {
+    background-color: var(--swatch-color);
     display: grid;
     align-items: center;
     text-align: center;

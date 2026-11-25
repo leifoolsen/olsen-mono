@@ -1,0 +1,125 @@
+@import "./forms-tokens.css" layer(components);
+
+@layer components {
+  .form-input-control {
+    box-sizing: border-box;
+    position: relative;
+    width: fit-content;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: var(--space-xs);
+    align-items: center;
+
+    & .form-picker-icon {
+      cursor: pointer;
+    }
+
+    &:has([readonly]:not([role="combobox"])) {
+      color: var(--subtle-text);
+    }
+
+    &:has(:disabled) {
+      color: var(--muted-text);
+    }
+
+    &:has([type="checkbox"]) {
+      border-radius: var(--space-2xs);
+    }
+
+    &:has(:is([type="radio"], [role="switch"])) {
+      border-radius: 50%;
+    }
+
+    &:has([type="range"]) {
+      border-radius: var(--space-2xs);
+      padding-inline: var(--space-3xs);
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:has(:disabled)) {
+        box-shadow: 0 0 12px 2px oklch(from Highlight l c h / 90%);
+      }
+    }
+  }
+
+  .form-input-control:not(:has(:is([type="checkbox"], [type="radio"], [type="range"]))) {
+    background-color: var(--input-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--space-2xs);
+    box-sizing: border-box;
+    padding-inline: var(--space-s);
+    position: relative;
+    width: 100%;
+
+    &:has(
+        input[aria-invalid="true"]:not(:placeholder-shown),
+        select[aria-invalid="true"] option:not([value=""]):checked
+      ) {
+      border-color: var(--error-500);
+    }
+
+    &:has(:disabled) {
+      border-color: var(--muted-border-color);
+    }
+
+    &:has(:is(:disabled, [readonly], input:placeholder-shown)),
+    &:has(select option[value=""]:checked),
+    &:has(select):not(:has(select option:checked)) {
+      & .form-clear-icon {
+        /* biome-ignore lint/complexity/noImportantStyles: The !important is due to another class name used in combination with this class. Will fix it later. */
+        display: none !important;
+      }
+    }
+
+    &:has([readonly]) {
+      border-style: dashed;
+    }
+
+    &:has(textarea) {
+      padding-inline: 0;
+    }
+  }
+
+  .form-input-control {
+    & :is(input:not(:is([type="checkbox"], [type="radio"])), select, textarea) {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-color: transparent;
+      border: none;
+      box-sizing: border-box;
+      color: inherit;
+      flex: 1;
+      font-family: inherit;
+      font-size: inherit;
+      margin: 0;
+      padding-block: var(--space-xs);
+      padding-inline: 0;
+      width: 100%;
+
+      &::placeholder {
+        color: var(--subtle-text);
+      }
+    }
+  }
+
+  .form-input-control:has([type="range"]) {
+    & :disabled[type="range"]::-webkit-slider-thumb {
+      background-color: oklch(from var(--swatch-color) calc(l + 0.05) c h / 95%);
+      border-color: var(--border-color);
+    }
+
+    & :focus[type="range"]::-webkit-slider-runnable-track {
+      border-color: var(--accent-color);
+    }
+
+    & :disabled[type="range"]::-moz-range-thumb {
+      background-color: oklch(from var(--swatch-color) calc(l + 0.05) c h / 95%);
+      border-color: var(--border-color);
+    }
+
+    & :focus[type="range"]::-moz-range-track {
+      border-color: var(--accent-color);
+    }
+  }
+}

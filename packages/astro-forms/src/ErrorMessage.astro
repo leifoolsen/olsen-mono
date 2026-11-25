@@ -13,3 +13,17 @@ const { class: className, text, id, ...rest } = Astro.props;
 <div id={id} class:list={['form-error-message', className]} role="alert" {...rest}>
   {text ? text : <slot />}
 </div>
+
+<style>
+  @import './forms-tokens.css' layer(components);
+
+  @layer components {
+    .form-error-message {
+      color: var(--error-text);
+      display: none;
+      font-size: var(--font-size-s);
+      user-select: none;
+      margin-block: calc(var(--space-xs) * -1) calc(var(--space-2xs) * -1);
+    }
+  }
+</style>

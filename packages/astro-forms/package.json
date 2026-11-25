@@ -11,7 +11,7 @@
     ".": {
       "types": {
         "development": "./src/index.ts",
-        "default": "./dist/index.d.ts"
+        "default": "./dist/index.d.mts"
       },
       "import": {
         "development": "./src/index.ts",
@@ -19,10 +19,10 @@
       },
       "default": "./dist/index.mjs"
     },
-    "./forms.css": {
-      "types": "./src/forms.css.d.ts",
-      "development": "./src/forms.css",
-      "default": "./src/forms.css"
+    "./forms-tokens.css": {
+      "types": "./src/forms-tokens.css.d.ts",
+      "development": "./src/forms-tokens.css",
+      "default": "./src/forms-tokens.css"
     },
     "./Checkbox.astro": "./src/Checkbox.astro",
     "./Combobox.astro": "./src/Combobox.astro",

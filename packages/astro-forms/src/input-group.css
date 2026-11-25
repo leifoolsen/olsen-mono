@@ -1,0 +1,145 @@
+@import "./forms-tokens.css" layer(components);
+
+@layer components {
+  .form-input-group {
+    display: grid;
+    align-items: center;
+    column-gap: var(--space-s);
+    width: 100%;
+
+    & > label {
+      grid-area: label;
+    }
+
+    & > [role="group"] {
+      grid-area: control;
+    }
+
+    & > [role="alert"] {
+      grid-area: error;
+    }
+
+    /* Layout: Label Before */
+    &.layout-before {
+      grid-template-areas: "label control";
+      grid-template-columns: max-content 1fr;
+      row-gap: 0;
+
+      &:not(:has(label:not([role="checkbox"]))) {
+        grid-template-areas: "control";
+        grid-template-columns: 1fr;
+      }
+
+      &:has([role="alert"]) {
+        grid-template-areas:
+          "label control"
+          ".     error";
+        row-gap: var(--space-s);
+
+        &:not(:has(label:not([role="checkbox"]))) {
+          grid-template-areas:
+            "control"
+            "error";
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+
+    /* Layout: Label After */
+    &.layout-after {
+      grid-template-areas: "control label";
+      grid-template-columns: max-content 1fr;
+      row-gap: 0;
+
+      &:not(:has(label:not([role="checkbox"]))) {
+        grid-template-areas: "control";
+        grid-template-columns: 1fr;
+      }
+
+      &:has([role="alert"]) {
+        grid-template-areas:
+          "control label"
+          ".       error";
+        row-gap: var(--space-xs);
+
+        &:not(:has(label:not([role="checkbox"]:checked))) {
+          grid-template-areas:
+            "control"
+            "error";
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+
+    /* Layout: Label Top */
+    &.layout-top {
+      grid-template-areas: "control";
+      grid-template-columns: 1fr;
+      row-gap: 0;
+
+      &:has(label:not([role="checkbox"])) {
+        grid-template-areas:
+          "label"
+          "control";
+        row-gap: var(--space-xs);
+      }
+
+      &:has([role="alert"]):not(:has(label:not([role="checkbox"]))) {
+        grid-template-areas:
+          "control"
+          "error";
+        row-gap: var(--space-xs);
+      }
+
+      &:has([role="alert"]):has(label:not([role="checkbox"])) {
+        grid-template-areas:
+          "label"
+          "control"
+          "error";
+        row-gap: var(--space-xs);
+      }
+    }
+
+    /* Child States */
+    &:has(:disabled) label {
+      color: var(--muted-text);
+      cursor: not-allowed;
+    }
+
+    &:has([role="group"]:focus-within) label {
+      color: var(--normal-text);
+    }
+
+    /* TODO: Add selector for <select> */
+    &:has(:required:placeholder-shown, [type="checkbox"]:required:not(:checked)) {
+      & > label::after {
+        content: "*";
+        transform: scale(1.3) translateY(20%);
+      }
+    }
+
+    &:has(
+        :not([type="checkbox"], select)[aria-invalid="true"]:not(:placeholder-shown),
+        [type="checkbox"][aria-invalid="true"]:checked,
+        textarea[aria-invalid="true"]:not(:placeholder-shown),
+        select[aria-invalid="true"] option:not([value=""]):checked
+      ) {
+      & > label::after {
+        background-color: var(--error-500);
+        content: "";
+        width: 1em;
+        transform: scale(1.3) translateY(-5%);
+        -webkit-mask-image: url("./raw-svg/warning.svg");
+        mask-image: url("./raw-svg/warning.svg");
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+      }
+
+      & > [role="alert"] {
+        display: block;
+      }
+    }
+  }
+}

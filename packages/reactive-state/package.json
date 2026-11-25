@@ -7,7 +7,7 @@
   "exports": {
     ".": {
       "types": {
-        "development": "./src/index.ts",
+        "development": "./src/index.mts",
         "default": "./dist/index.d.ts"
       },
       "import": {

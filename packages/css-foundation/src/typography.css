@@ -118,7 +118,7 @@
   --font-weight-xs: 200;
   --font-weight-s: 300;
   --font-weight-m: 400;
-  --font-weight-l: 500;
+  --font-weight-l: 600;
   --font-weight-xl: 600;
   --font-weight-2xl: 700;
   --font-weight-3xl: 700;
@@ -151,6 +151,7 @@
 
   /* --- Outline --- */
   --outline-size: max(2px, 0.15em);
+  --outline-offset: calc(var(--outline-size) * 1.25);
 }
 
 /** --- Condensed Font --- */
