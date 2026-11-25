@@ -3,13 +3,17 @@ import node from '@astrojs/node';
 import { defineConfig, fontProviders } from 'astro/config';
 
 // See: https://astro.build/config
-
-/** @type {import('astro/config').AstroUserConfig} */
 export default defineConfig({
   output: 'server',
   adapter: node({
     mode: 'standalone',
   }),
+  // vite: {
+  //   build: {
+  //     // Use esbuild until lightningcss natively supports modern at-rules, like @function
+  //     cssMinify: 'esbuild'
+  //   }
+  // },
   fonts: [
     {
       name: 'Titillium Web',
