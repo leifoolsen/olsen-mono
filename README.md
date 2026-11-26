@@ -581,7 +581,7 @@ shx rm -rf "packages/**/*.d.ts"
 
 ## Turbo
 
-Usefil turbo commands.
+Useful turbo commands.
 
 ```bash
 pnpm turbo run test-coverage --summarize
