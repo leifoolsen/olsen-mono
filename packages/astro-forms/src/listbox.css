@@ -63,7 +63,7 @@
 
     align-items: center;
     background-color: var(--_bg);
-    color: contrast-color(var(--bg));
+    color: contrast-color(var(--_bg));
     display: flex;
     font-weight: var(--font-weight-l);
     justify-content: space-between;
