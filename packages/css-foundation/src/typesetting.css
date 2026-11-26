@@ -170,7 +170,7 @@ html {
 
 /* --- A elements that don't have a class get default styles --- */
 :where(a:not([class])) {
-  color: var(--brand-contrast);
+  color: var(--accent-color);
   text-decoration-skip-ink: auto;
   text-decoration: underline;
   text-decoration-style: solid;
