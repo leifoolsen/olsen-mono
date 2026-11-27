@@ -205,7 +205,10 @@ html {
   }
 }
 
-/* --- Scroll margin allowance above anchor links --- */
+/* ---
+  Scroll margin allowance above anchor links.
+  Note: scroll-padding-top / scroll-padding-block-start MUST be if an application has a sticky header!
+--- */
 :target {
   scroll-padding-block-start: 2rem;
 }
