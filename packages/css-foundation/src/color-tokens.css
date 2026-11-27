@@ -43,6 +43,21 @@
 :root {
   color-scheme: light dark;
 
+  /*
+  --l-threshold:
+  Lightness value above which black text is guaranteed to be readable regardless of the chroma and hue,
+  and below which white text is guaranteed to be readable regardless of the chroma and hue.
+    - If passing WCAG is a requirement, the highest threshold we can use is 62.3%.
+    - If actual readability is our only concern, we can safely ignore WCAG and pick a threshold somewhere
+      between 68.7% and 71.6%, e.g. 70%
+
+    See: https://css-tricks.com/approximating-contrast-color-with-other-css-features/
+    See: https://daverupert.com/2026/01/contrast-color-with-custom-design-tokens/
+    See: https://daverupert.com/2026/01/algorithmic-hover-states-with-contrast-color/
+    See: https://lea.verou.me/blog/2024/contrast-color/
+*/
+  --l-threshold: 0.56;
+
   /* --- Base Colors --- */
   --lightness-white-black-light: 1;
   --lightness-white-black-dark: 0;
@@ -158,6 +173,7 @@
 
 [data-variant="tertiary"] {
   --shade-500: var(--tertiary-500);
+  --l-threshold: 0.58;
 }
 
 [data-variant="success"] {
@@ -344,7 +360,8 @@ body,
   /*--_raw-contrast: oklch(from var(--swatch-color) round(1.21 - l) 0 0deg);*/
   /*--_raw-contrast: oklch(from var(--swatch-color) calc((1 - sign(l - 0.72)) * 100%) 0 0deg);*/
   /*--_raw-contrast: contrast-color(var(--swatch-color));*/
-  --_raw-contrast: oklch(from var(--swatch-color) clamp(0, (l / var(--l-threshold, 0.52) - 1) * -infinity, 1) 0 h);
+  --l-threshold: 0.56;
+  --_raw-contrast: oklch(from var(--swatch-color) clamp(0, (l / var(--l-threshold, 0.62) - 1) * -infinity, 1) 0 h);
 
   --normal-text: oklch(from var(--_raw-contrast) l c h / 0.96);
   --subtle-text: oklch(from var(--_raw-contrast) l c h / 0.74);
