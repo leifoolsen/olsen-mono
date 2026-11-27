@@ -35,7 +35,8 @@
     "@olsen-mono/astro-svg": "workspace:*",
     "@olsen-mono/core-utils": "workspace:*",
     "@olsen-mono/css-foundation": "workspace:*",
-    "astro": "catalog:"
+    "astro": "catalog:",
+    "sanitize-html": "catalog:"
   },
   "devDependencies": {
     "@astrojs/check": "catalog:",

@@ -37,13 +37,13 @@ describe('svg-sanitizer', () => {
     it('removes inline on* event handler attributes', () => {
       const raw = '<svg><g onclick="alert(1)">X</g></svg>';
       const out = sanitizeSvg(raw);
-      expect(out).not.toContain(/onclick\s*=/i);
+      expect(out).not.toMatch(/onclick\s*=/i);
     });
 
     it('removes javascript: URIs in href and xlink:href', () => {
       const raw = '<svg><a href="javascript:alert(1)">bad</a><use xlink:href="javascript:alert(2)"></use><g/></svg>';
       const out = sanitizeSvg(raw);
-      expect(out).toContain('<a');
+      expect(out).not.toContain('<a');
       expect(out).not.toMatch(/href\s*=\s*['"]\s*javascript:/i);
       expect(out).not.toMatch(/xlink:href\s*=\s*['"]\s*javascript:/i);
       expect(out).toContain('<g');
@@ -67,7 +67,7 @@ describe('svg-sanitizer', () => {
     it('removes event handlers regardless of quote style and spacing', () => {
       const raw = "<svg><g ONCLICK = 'alert(1)'>X</g></svg>";
       const out = sanitizeSvg(raw);
-      expect(/onclick/i.test(out)).toBe(false);
+      expect(out).not.toMatch(/onclick\s*=/i);
     });
 
     it('removes attributes not allowed in svg', () => {
@@ -80,7 +80,7 @@ describe('svg-sanitizer', () => {
     it('removes event handlers embedded inside other attributes', () => {
       const raw = '<svg><g onmouseover=alert(1)>X</g></svg>';
       const out = sanitizeSvg(raw);
-      expect(out).not.toContain(/onmouseover\s*=/i);
+      expect(out).not.toMatch(/onmouseover\s*=/i);
     });
 
     it('removes unknown tags and attributes', () => {
@@ -123,6 +123,39 @@ describe('svg-sanitizer', () => {
       expect(out).toContain('data-svg="keep"');
       expect(out).toContain('data-test="keep"');
     });
+
+    it('accepts vector-effect="non-scaling-stroke"', () => {
+      const raw =
+        '<svg style="max-inline-size: unset;" height="1em" width="1em" stroke-width="2" aria-hidden="true" viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">' +
+        '  <line x1="4" y1="12" x2="20" y2="12" vector-effect="non-scaling-stroke"></line>' +
+        '</svg>';
+
+      const out = sanitizeSvg(raw);
+
+      expect(out).toContain('vector-effect="non-scaling-stroke"');
+    });
+
+    it('blocks external URLs in <use href> while keeping local #fragments', () => {
+      const raw =
+        '<svg>' +
+        '<use href="#valid-icon" />' +
+        '<use href="https://evil.com" />' +
+        '<use xlink:href="data:image/svg+xml;base64,PHN2Zy8+" />' +
+        '</svg>';
+
+      const out = sanitizeSvg(raw);
+      expect(out).toContain('href="#valid-icon"');
+      expect(out).not.toContain('evil.com');
+      expect(out).not.toContain('data:');
+    });
+
+    it('blocks external url() in fill/clip-path while allowing local #id', () => {
+      const raw = '<svg>' + '<rect fill="url(#local-grad)" clip-path="url(https://evil.com)" />' + '</svg>';
+
+      const out = sanitizeSvg(raw);
+      expect(out).toContain('fill="url(#local-grad)"');
+      expect(out).not.toContain('evil.com');
+    });
   });
 
   describe('sanitizeAttribute', () => {
@@ -135,6 +168,19 @@ describe('svg-sanitizer', () => {
       expect(() => {
         sanitizeAttribute(['name', '<script>alert("XSS")</script>']);
       }).toThrow('The "name" attribute value cannot contain HTML tags.');
+    });
+
+    it('blocks uppercase HREF/SRC dangerous schemes', () => {
+      expect(sanitizeAttribute(['HREF', 'javascript:alert(1)'])).toBeNull();
+      expect(sanitizeAttribute(['SRC', 'data:text/html,<script>alert(1)</script>'])).toBeNull();
+    });
+
+    it('blocks dangerous style attributes while keeping safe styles', () => {
+      expect(sanitizeAttribute(['style', 'background: url(javascript:alert(1))'])).toBeNull();
+      expect(sanitizeAttribute(['style', 'width: expression(alert(1))'])).toBeNull();
+      expect(sanitizeAttribute(['style', 'fill: url(#gradient); max-inline-size: unset;'])).toBe(
+        'style="fill: url(#gradient); max-inline-size: unset;"',
+      );
     });
   });
 
@@ -155,6 +201,14 @@ describe('svg-sanitizer', () => {
       const style = 'fill: white; stroke: green; stroke-width: 3; transform: translate(10, 10);';
       const formattedStyle = formatStyle(style);
       expect(formattedStyle).toBe(style);
+    });
+
+    it('supports CSS custom properties and rejects dangerous or injected values', () => {
+      expect(formatStyle({ '--stroke-color': 'currentColor', opacity: 0.8 })).toBe(
+        '--stroke-color: currentColor; opacity: 0.8;',
+      );
+      expect(formatStyle({ color: 'red; position: fixed' })).toBe('');
+      expect(formatStyle('background: url(https://evil.com)')).toBe('');
     });
   });
 

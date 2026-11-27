@@ -45,15 +45,15 @@
     "typecheck-tsc": "tsc --noEmit"
   },
   "peerDependencies": {
-    "astro": ">=7.0.0"
-  },
-  "dependencies": {
-    "isomorphic-dompurify": "catalog:"
+    "astro": ">=7.0.0",
+    "sanitize-html": ">= 2.0.0"
   },
   "devDependencies": {
     "@olsen-mono/astro-test-utils": "workspace:*",
     "@types/node": "catalog:",
+    "@types/sanitize-html": "catalog:",
     "astro": "catalog:",
-    "happy-dom": "catalog:"
+    "happy-dom": "catalog:",
+    "sanitize-html": "catalog:"
   }
 }
