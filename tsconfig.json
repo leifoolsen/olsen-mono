@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "composite": false,
+    "customConditions": ["development"],
     "declaration": true,
     "emitDeclarationOnly": true,
     "jsx": "preserve",
