@@ -20,6 +20,7 @@ const { airy, lines, size, ...rest } = Astro.props;
 
 const getRawSvg = () => {
   const scaledLines = scaleLines(lines, airy ? 0.75 : 1);
+
   const svgLines = scaledLines.map(
     (line) =>
       `<line x1="${line.x1}" y1="${line.y1}" x2="${line.x2}" y2="${line.y2}" vector-effect="non-scaling-stroke" />`,

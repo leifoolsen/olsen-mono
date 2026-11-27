@@ -1,5 +1,7 @@
 import type { LineSegment } from './types';
 
+const toFinite = (value: number, fallback: number): number => (Number.isFinite(value) ? value : fallback);
+
 /**
  * Adjusts the positions of line segments by scaling their coordinates towards or away from a central point in a
  * fixed svg coordinate system: 0 0 24 24.
@@ -12,11 +14,13 @@ import type { LineSegment } from './types';
  */
 export function scaleLines(lines: LineSegment[], factor = 0.75): LineSegment[] {
   const center = 12;
+  const safeFactor = Number.isFinite(factor) ? factor : 0.75;
+
   return lines.map((line) => ({
-    x1: center + (line.x1 - center) * factor,
-    y1: center + (line.y1 - center) * factor,
-    x2: center + (line.x2 - center) * factor,
-    y2: center + (line.y2 - center) * factor,
+    x1: center + (toFinite(line.x1, center) - center) * safeFactor,
+    y1: center + (toFinite(line.y1, center) - center) * safeFactor,
+    x2: center + (toFinite(line.x2, center) - center) * safeFactor,
+    y2: center + (toFinite(line.y2, center) - center) * safeFactor,
   }));
 }
 

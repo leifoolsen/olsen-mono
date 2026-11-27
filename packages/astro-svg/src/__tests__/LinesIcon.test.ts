@@ -78,5 +78,18 @@ describe('LinesIcon.astro', () => {
       expect(svg?.querySelectorAll('line')).toHaveLength(2);
       expect(svg?.getAttribute('stroke-width')).toBe('2');
     });
+
+    it('scales line coordinates when airy is true', async () => {
+      const { container } = await renderAstro(LinesIcon, {
+        lines: [{ x1: 4, y1: 12, x2: 20, y2: 12 }],
+        airy: true,
+      });
+
+      const line = container.querySelector('svg line');
+      expect(line?.getAttribute('x1')).toBe('6');
+      expect(line?.getAttribute('y1')).toBe('12');
+      expect(line?.getAttribute('x2')).toBe('18');
+      expect(line?.getAttribute('y2')).toBe('12');
+    });
   });
 });

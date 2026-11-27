@@ -26,6 +26,12 @@ describe('morph-lines-utils', () => {
     it('should leave lines unchanged with a factor of 1', () => {
       expect(scaleLines(tripleLines, 1)).toEqual(tripleLines);
     });
+
+    it('falls back safely when coordinates or factor are non-finite', () => {
+      expect(scaleLines([{ x1: Number.NaN, y1: 12, x2: Number.POSITIVE_INFINITY, y2: 12 }], Number.NaN)).toEqual([
+        { x1: 12, y1: 12, x2: 12, y2: 12 },
+      ]);
+    });
   });
 
   describe('padLines', () => {
