@@ -447,7 +447,6 @@ export const lineIcons = new Map<string, LineSegment[]>([
   ['arrowPointingRightLines', arrowPointingRightLines],
   ['arrowPointingUpRightLines', arrowPointingUpRightLines],
   ['arrowPointingUpLines', arrowPointingUpLines],
-  ['arrowPointingUpRightLines', arrowPointingUpRightLines],
   ['asteriskLines', asteriskLines],
   ['checkMarkLines', checkMarkLines],
   ['chevronPointingDownLines', chevronPointingDownLines],
