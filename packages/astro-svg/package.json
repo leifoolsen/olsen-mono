@@ -39,6 +39,7 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "compile": "tsdown",
+    "prepack": "pnpm run compile",
     "test": "vitest run",
     "test-coverage": "vitest run --coverage",
     "typecheck-astro": "astro check",
