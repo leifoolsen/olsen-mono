@@ -22,11 +22,11 @@
       "dependsOn": ["^compile", "compile"]
     },
     "test": {
-      "dependsOn": ["compile"],
+      "dependsOn": ["^compile", "compile"],
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.css", "!src/**/*.css.d.ts"]
     },
     "test-coverage": {
-      "dependsOn": ["compile"],
+      "dependsOn": ["^compile", "compile"],
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.css", "!src/**/*.css.d.ts"]
     },
     "build": {
