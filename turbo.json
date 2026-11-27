@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build",
-  "globalDependencies": ["vitest.config.ts"],
+  "globalDependencies": ["vitest.config.ts", "tsconfig.json", "tools/tooling/**/*"],
   "tasks": {
     "//#lint-biome": {},
     "//#lint-fix-biome": {
@@ -26,6 +26,7 @@
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.css", "!src/**/*.css.d.ts"]
     },
     "test-coverage": {
+      "cache": false,
       "dependsOn": ["compile"],
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/**/*.css", "!src/**/*.css.d.ts"]
     },
