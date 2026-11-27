@@ -35,7 +35,6 @@ const ariaHiddenFinal = explicitAriaHidden ? rest['aria-hidden'] : hasAccessible
 const svgAttributes: Record<string, unknown> = { ...rest };
 svgAttributes.class = className;
 svgAttributes.style = `max-inline-size: unset; ${style}`.trimEnd();
-svgAttributes.name = name;
 svgAttributes.height = finalHeight;
 svgAttributes.width = finalWidth;
 svgAttributes['stroke-width'] = finalStrokeWidth;
@@ -47,10 +46,13 @@ if (ariaHiddenFinal !== undefined) {
   svgAttributes['aria-hidden'] = ariaHiddenFinal;
 }
 
+/** Strip root-level attributes from <svg ...> that SvgIcon manages explicitly */
 const cleanedSvg = rawSvg
   .replace(/\bstroke-width=(?:"[^"]*"|'[^']*')/gi, '')
-  .replace(/\bwidth=(?:"[^"]*"|'[^']*')/gi, '')
-  .replace(/\bheight=(?:"[^"]*"|'[^']*')/gi, '');
+  .replace(/<svg\b([^>]*)>/i, (_, attrs: string) => {
+    const stripped = attrs.replace(/\b(?:width|height|class|style|role|aria-hidden)=(?:"[^"]*"|'[^']*')/gi, '').trim();
+    return stripped ? `<svg ${stripped}>` : '<svg>';
+  });
 
 const sanitizedRawSvg = sanitizeSvg(cleanedSvg);
 
@@ -59,7 +61,8 @@ const attributesString = Object.entries(svgAttributes)
   .filter((v): v is string => v != null)
   .join(' ');
 
-const svgWithAttributes = sanitizedRawSvg.replace(/<svg/i, `<svg ${attributesString}`.trim().replace(/\s+/g, ' '));
+const prefix = attributesString ? `<svg ${attributesString}` : '<svg';
+const svgWithAttributes = sanitizedRawSvg.replace(/<svg(?=[\s>/])/i, () => prefix);
 ---
 
 <Fragment set:html={svgWithAttributes} />

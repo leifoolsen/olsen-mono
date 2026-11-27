@@ -28,7 +28,6 @@ describe('LinesIcon.astro', () => {
       expect(svg?.outerHTML).toContain('stroke="currentColor"');
       expect(svg?.outerHTML).toContain('stroke-linecap="round"');
       expect(svg?.getAttribute('stroke-linejoin')).toBe('round');
-      expect(svg?.getAttribute('name')).toBe('asterisk-icon');
       expect(svg?.getAttribute('class')).toBe('my-svg-icon');
 
       const renderedLines = svg?.querySelectorAll('line');
