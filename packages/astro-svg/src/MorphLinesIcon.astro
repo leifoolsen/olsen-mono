@@ -127,20 +127,21 @@ const finalStrokeWidth = formatSize(typeof strokeWidth === 'number' ? `${strokeW
 <style>
   svg {
     --svg-rotate: 0deg;
+    --morph-duration: 0.2s;
+    --stagger-base: 0.04s;
 
     transition: transform var(--morph-duration) cubic-bezier(0.4, 0, 0.2, 1);
     transform: rotate(0deg) scale(1);
 
     & line {
       --origin: center;
-      --morph-duration: 0.2s;
-      --stagger-base: 0.04s;
       --line-index: 0;
       --start-opacity: 1;
       --target-transform: none;
       --target-opacity: 1;
 
       /* Initial state */
+      transform-box: view-box;
       transform-origin: var(--origin);
       transform: none;
       opacity: var(--start-opacity);
