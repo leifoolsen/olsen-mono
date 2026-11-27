@@ -175,6 +175,7 @@ const isLight = Astro.cookies.get('theme')?.value === 'light';
       toggleBtn?.addEventListener('click', () => {
         const isCollapsed = appContainer?.getAttribute('data-sidebar-collapsed') === 'true';
         appContainer?.setAttribute('data-sidebar-collapsed', isCollapsed ? 'false' : 'true');
+        toggleBtn.setAttribute('aria-expanded', Boolean(isCollapsed).toString());
         svg?.setAttribute('aria-checked', Boolean(isCollapsed).toString());
       });
     }
