@@ -34,6 +34,7 @@ export type CssVariables =
   | '--inset-shadow-l'
   | '--inset-shadow-m'
   | '--inset-shadow-s'
+  | '--l-threshold'
   | '--lightness-error-dark'
   | '--lightness-error-light'
   | '--lightness-info-dark'
