@@ -226,8 +226,8 @@ export function createListbox(element: HTMLElement) {
             (e) => {
               const re = new RegExp(`^${e.key}`, 'i');
               const target =
-                options.slice(currentIndex + 1).find((opt) => opt.textContent?.match(re)) ??
-                options.slice(0, currentIndex).find((opt) => opt.textContent?.match(re));
+                options.slice(currentIndex + 1).find((opt) => opt.textContent.replace(/\s+/g, ' ').trim().match(re)) ??
+                options.slice(0, currentIndex).find((opt) => opt.textContent.replace(/\s+/g, ' ').trim().match(re));
 
               return target ?? null;
             },
