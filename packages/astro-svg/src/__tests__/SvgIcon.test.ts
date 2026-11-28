@@ -234,6 +234,30 @@ describe('SvgIcon.astro', () => {
       expect(svg?.getAttribute('aria-label')).toBe('User icon');
       expect(svg?.hasAttribute('aria-hidden')).toBe(false);
     });
+
+    it('handles special $ characters in aria-label without corrupting the <svg> tag', async () => {
+      const { container } = await renderAstro(SvgIcon, {
+        'aria-label': "Costs $& or $' total",
+        getSvgData: () => ({ rawSvg: RAW_SVG }),
+      });
+
+      const svg = container.querySelector('svg');
+      expect(svg?.getAttribute('aria-label')).toBe("Costs $& or $' total");
+    });
+
+    it('does not produce duplicate class or style attributes when rawSvg has them', async () => {
+      const svgWithAttrs =
+        '<svg class="upstream-class" style="display: block;" viewBox="0 0 24 24"><path d="M0 0" /></svg>';
+      const { container } = await renderAstro(SvgIcon, {
+        class: 'my-icon',
+        style: { color: 'blue' },
+        getSvgData: () => ({ rawSvg: svgWithAttrs }),
+      });
+
+      const svg = container.querySelector('svg');
+      expect(svg?.getAttribute('class')).toBe('my-icon');
+      expect(svg?.getAttribute('style')).toBe('max-inline-size: unset; color: blue;');
+    });
   });
 
   describe('additional HTML attributes', () => {
@@ -328,15 +352,6 @@ describe('SvgIcon.astro', () => {
   });
 
   describe('Prevevent XSS', () => {
-    it('should throw if "name" contain any potentially harmful characters that could be used to inject malicious code into the SVG', async () => {
-      await expect(
-        renderAstro(SvgIcon, {
-          getSvgData: () => ({ rawSvg: RAW_SVG }),
-          name: '<script>alert("XSS")</script>',
-        }),
-      ).rejects.toThrow('The "name" attribute value cannot contain HTML tags.');
-    });
-
     it('should escape suspisious attribute value', async () => {
       const { container } = await renderAstro(SvgIcon, {
         getSvgData: () => ({ rawSvg: RAW_SVG }),

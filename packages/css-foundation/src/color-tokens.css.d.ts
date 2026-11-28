@@ -1,5 +1,5 @@
 export type Css = never;
-export type CssVariables =
+export type CssVariables = 
   | '--a'
   | '--accent-color'
   | '--border-color'

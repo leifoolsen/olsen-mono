@@ -12,10 +12,11 @@ catalog:
   '@astrojs/check': 0.9.12
   '@astrojs/node': 11.1.9
   '@types/node': 26.6.6
+  '@types/sanitize-html': 2.16.2
   astro: 7.4.5
   happy-dom: 21.0.4
   htmx.org: 2.0.10
-  isomorphic-dompurify: 4.6.0
+  sanitize-html: 2.18.2
   vite: 8.0.10
 
 engineStrict: true
