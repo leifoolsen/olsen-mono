@@ -7,8 +7,8 @@
   "exports": {
     ".": {
       "types": {
-        "development": "./src/index.mts",
-        "default": "./dist/index.d.ts"
+        "development": "./src/index.ts",
+        "default": "./dist/index.d.mts"
       },
       "import": {
         "development": "./src/index.ts",
