@@ -43,6 +43,21 @@
 :root {
   color-scheme: light dark;
 
+  /*
+  --l-threshold:
+  Lightness value above which black text is guaranteed to be readable regardless of the chroma and hue,
+  and below which white text is guaranteed to be readable regardless of the chroma and hue.
+    - If passing WCAG is a requirement, the highest threshold we can use is 62.3%.
+    - If actual readability is our only concern, we can safely ignore WCAG and pick a threshold somewhere
+      between 68.7% and 71.6%, e.g. 70%
+
+    See: https://css-tricks.com/approximating-contrast-color-with-other-css-features/
+    See: https://daverupert.com/2026/01/contrast-color-with-custom-design-tokens/
+    See: https://daverupert.com/2026/01/algorithmic-hover-states-with-contrast-color/
+    See: https://lea.verou.me/blog/2024/contrast-color/
+*/
+  --l-threshold: 0.56;
+
   /* --- Base Colors --- */
   --lightness-white-black-light: 1;
   --lightness-white-black-dark: 0;
@@ -158,6 +173,7 @@
 
 [data-variant="tertiary"] {
   --shade-500: var(--tertiary-500);
+  --l-threshold: 0.58;
 }
 
 [data-variant="success"] {
@@ -400,7 +416,10 @@ body,
   --inset-shadow-l: inset 0 0 0 3px color-mix(in oklch, var(--_raw-contrast) 50%, var(--swatch-color));
   --shadow-none: none;
 
-  @supports (color: if(style(--a: 1): red; else: blue)) and (color: contrast-color(white)) {
+  @supports (color: if(style(--a: 1): red; else: blue)) and
+    (color: contrast-color(white)) and
+    (color: --get-adaptive-text(red, white)) and
+    (color: --get-branded-text(white)) {
     --error-text: --get-adaptive-text(var(--error-500), var(--swatch-color));
     --warning-text: --get-adaptive-text(var(--warning-500), var(--swatch-color));
     --success-text: --get-adaptive-text(var(--success-500), var(--swatch-color));

@@ -161,12 +161,11 @@ html {
   }
 }
 
-/* --- Fill available space in inputs (but not buttons)
+/* --- Fill available space in inputs (but not buttons) --- */
 :where(textarea),
 :where(input:not(:where([type="submit"], [type="checkbox"], [type="radio"], [type="button"], [type="reset"]))) {
   inline-size: 100%;
 }
---- */
 
 /* --- A elements that don't have a class get default styles --- */
 :where(a:not([class])) {
@@ -205,7 +204,10 @@ html {
   }
 }
 
-/* --- Scroll margin allowance above anchor links --- */
+/* ---
+  Scroll margin allowance above anchor links.
+  Note: scroll-padding-top / scroll-padding-block-start MUST be if an application has a sticky header!
+--- */
 :target {
   scroll-padding-block-start: 2rem;
 }
@@ -263,7 +265,13 @@ html {
   }
 }
 
-/* Reset focus ring inside input control, exclusive checkbox and radio */
+/* ---
+  Reset focus ring inside input control, exclusive checkbox and radio.
+  Note: An input control is a container that takes control of focus management, e.g.
+    <div data-focus-ring>
+      <input /> <!-- This element vil not have it's own focus ring. -->
+    </div>
+--- */
 :where([data-focus-ring]) {
   & :is(input:not(:is([type="checkbox"], [type="radio"])), select, textarea, button):focus-visible {
     outline: none;

@@ -1,14 +1,14 @@
 {
   "name": "@olsen-mono/reactive-state",
   "description": "Reactive state factory",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": true,
   "type": "module",
   "exports": {
     ".": {
       "types": {
-        "development": "./src/index.mts",
-        "default": "./dist/index.d.ts"
+        "development": "./src/index.ts",
+        "default": "./dist/index.d.mts"
       },
       "import": {
         "development": "./src/index.ts",

@@ -52,7 +52,7 @@
     width: 100%;
 
     &:has(
-        input[aria-invalid="true"]:not(:placeholder-shown),
+        :is(input, textarea)[aria-invalid="true"]:not(:placeholder-shown),
         select[aria-invalid="true"] option:not([value=""]):checked
       ) {
       border-color: var(--error-500);

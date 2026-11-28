@@ -1,5 +1,5 @@
 export type Css = never;
-export type CssVariables = 
+export type CssVariables =
   | '--a'
   | '--accent-color'
   | '--border-color'
@@ -34,6 +34,7 @@ export type CssVariables =
   | '--inset-shadow-l'
   | '--inset-shadow-m'
   | '--inset-shadow-s'
+  | '--l-threshold'
   | '--lightness-error-dark'
   | '--lightness-error-light'
   | '--lightness-info-dark'
