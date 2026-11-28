@@ -417,7 +417,10 @@ body,
   --inset-shadow-l: inset 0 0 0 3px color-mix(in oklch, var(--_raw-contrast) 50%, var(--swatch-color));
   --shadow-none: none;
 
-  @supports (color: if(style(--a: 1): red; else: blue)) and (color: contrast-color(white)) {
+  @supports (color: if(style(--a: 1): red; else: blue)) and
+    (color: contrast-color(white)) and
+    (color: --get-adaptive-text(red, white)) and
+    (color: --get-branded-text(white)) {
     --error-text: --get-adaptive-text(var(--error-500), var(--swatch-color));
     --warning-text: --get-adaptive-text(var(--warning-500), var(--swatch-color));
     --success-text: --get-adaptive-text(var(--success-500), var(--swatch-color));
