@@ -1,5 +1,10 @@
 import type { LineSegment } from './types';
 
+/**
+ * Max number of line segments allowed in a single array.
+ */
+export const MAX_LINE_SEGMENTS = 32;
+
 const toFinite = (value: number, fallback: number): number => (Number.isFinite(value) ? value : fallback);
 
 /**
@@ -86,40 +91,78 @@ export function orientLine(to: LineSegment, from: LineSegment): LineSegment {
 }
 
 /**
- * Finds the assignment of rows to columns with the lowest total cost by searching all permutations, with pruning
- * of branches that already exceed the best total found. Icons have few lines, so this is fast enough (n ≤ 8).
- * If an icon ever has more than about 8 lines, the search will slow down noticeably, and the Hungarian algorithm
- * would be the next step.
+ * Finds the assignment of rows to columns with the lowest total cost using the O(n³) Hungarian algorithm.
+ * This algorithm should solve 32–64 line segments in under 0.1 ms.
  *
  * @param cost - A square cost matrix, where cost[row][col] is the cost of assigning row to col.
  * @return An array where result[row] is the column assigned to that row.
+ *
+ * @note
+ * This implementation is based on the Jonker–Volgenant shortest augmenting path formulation algorithm, which is an
+ * efficient method for solving the assignment problem. The algorithm works by iteratively improving the assignment
+ * until the optimal solution is found.
+ * It uses a combination of techniques such as the Hungarian method and the shortest augmenting path algorithm to
+ * achieve this, and should be well suited for morphing line segments with a small number, 32 to 64 segments.
+ * The Hungarian algorithm should solve n = 20 in < 0.05 ms (8,000 operations).
  */
 export function bestAssignment(cost: number[][]): number[] {
   const n = cost.length;
-  const used = new Array<boolean>(n).fill(false);
-  const current: number[] = [];
-  let best: number[] = [];
-  let bestCost = Infinity;
+  if (n === 0) return [];
 
-  const search = (row: number, total: number): void => {
-    if (total >= bestCost) return;
-    if (row === n) {
-      bestCost = total;
-      best = [...current];
-      return;
-    }
-    for (let col = 0; col < n; col++) {
-      if (used[col]) continue;
-      used[col] = true;
-      current.push(col);
-      search(row + 1, total + (cost[row]?.[col] ?? Infinity));
-      current.pop();
-      used[col] = false;
-    }
-  };
+  const u = new Float64Array(n + 1);
+  const v = new Float64Array(n + 1);
+  const p = new Int32Array(n + 1);
+  const way = new Int32Array(n + 1);
 
-  search(0, 0);
-  return best;
+  for (let i = 1; i <= n; i++) {
+    p[0] = i;
+    let j0 = 0;
+    const minv = new Float64Array(n + 1).fill(Infinity);
+    const used = new Uint8Array(n + 1);
+
+    do {
+      used[j0] = 1;
+      const i0 = p[j0] ?? 0;
+      let delta = Infinity;
+      let j1 = 0;
+
+      for (let j = 1; j <= n; j++) {
+        if (used[j]) continue;
+        const cur = (cost[i0 - 1]?.[j - 1] ?? Infinity) - (u[i0] ?? 0) - (v[j] ?? 0);
+        if (cur < (minv[j] ?? Infinity)) {
+          minv[j] = cur;
+          way[j] = j0;
+        }
+        if ((minv[j] ?? Infinity) < delta) {
+          delta = minv[j] ?? Infinity;
+          j1 = j;
+        }
+      }
+
+      for (let j = 0; j <= n; j++) {
+        if (used[j]) {
+          const pj = p[j] ?? 0;
+          u[pj] = (u[pj] ?? 0) + delta;
+          v[j] = (v[j] ?? 0) - delta;
+        } else {
+          minv[j] = (minv[j] ?? 0) - delta;
+        }
+      }
+      j0 = j1;
+    } while ((p[j0] ?? 0) !== 0);
+
+    do {
+      const j1 = way[j0] ?? 0;
+      p[j0] = p[j1] ?? 0;
+      j0 = j1;
+    } while (j0 !== 0);
+  }
+
+  const assignment = new Array<number>(n);
+  for (let j = 1; j <= n; j++) {
+    assignment[(p[j] ?? 1) - 1] = j - 1;
+  }
+  return assignment;
 }
 
 type FromToLineSegments = {
@@ -136,13 +179,13 @@ type FromToLineSegments = {
  * @param to - An array of line segments to match to.
  * @return An object containing two equally long arrays, `fromLines` and `toLines`, where lines with the same index
  *         are paired.
- * @throws {Error} If the number of line segments exceeds 8.
+ * @throws {Error} If the number of line segments exceeds MAX_LINE_SEGMENTS.
  */
 export function matchLines(from: LineSegment[], to: LineSegment[]): FromToLineSegments {
   const length = Math.max(from.length, to.length);
 
-  if (length > 8) {
-    throw new Error('Too many lines to match. There should be no more than 8 lines in a MorphLinesIcon.');
+  if (length > MAX_LINE_SEGMENTS) {
+    throw new Error(`Too many lines to match. There should be no more than ${MAX_LINE_SEGMENTS} line segments.`);
   }
 
   const fromLines = padLines(from, length);

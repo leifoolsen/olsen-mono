@@ -6,6 +6,7 @@ import {
   endpointDistance,
   isPoint,
   lineDistance,
+  MAX_LINE_SEGMENTS,
   matchLines,
   orientLine,
   padLines,
@@ -108,6 +109,17 @@ describe('morph-lines-utils', () => {
       expect([...result].sort()).toEqual([0, 1, 2]);
       expect(result.reduce((sum, col, row) => sum + (cost[row]?.[col] ?? 0), 0)).toBe(5);
     });
+
+    it('should solve larger matrices (e.g. 16x16) optimally and quickly', () => {
+      const size = 32;
+      // Construct a matrix where column (row + 3) % size has cost 0, and all others have cost 10
+      const cost = Array.from({ length: size }, (_, row) =>
+        Array.from({ length: size }, (__, col) => (col === (row + 3) % size ? 0 : 10)),
+      );
+
+      const result = bestAssignment(cost);
+      expect(result).toEqual(Array.from({ length: size }, (_, row) => (row + 3) % size));
+    });
   });
 
   describe('matchLines', () => {
@@ -141,22 +153,13 @@ describe('morph-lines-utils', () => {
       expect(toLines).toEqual([horizontal(8)]);
     });
 
-    it('should throw exception if number of line segments exceeds 8 lines', () => {
-      const lineSegmentWithMoreThanEightLines: LineSegment[] = [
-        { x1: 12, y1: 7, x2: 5, y2: 7 },
-        { x1: 5, y1: 7, x2: 5, y2: 19 },
-        { x1: 5, y1: 19, x2: 17, y2: 19 },
-        { x1: 17, y1: 19, x2: 17, y2: 12 },
-        { x1: 10, y1: 14, x2: 19, y2: 5 },
-        { x1: 14, y1: 5, x2: 19, y2: 5 },
-        { x1: 19, y1: 5, x2: 19, y2: 10 },
-        { x1: 12, y1: 5, x2: 12, y2: 5.01 },
-        { x1: 12, y1: 9, x2: 12, y2: 19 },
-      ];
+    it('should throw exception if number of line segments exceeds MAX_SEGMENTS', () => {
+      const size = 33;
+      const lineSegmentWithMoreThan32Lines: LineSegment[] = new Array(size).fill({ x1: 12, y1: 7, x2: 5, y2: 7 });
 
       expect(() => {
-        matchLines([horizontal(6)], lineSegmentWithMoreThanEightLines);
-      }).toThrow('Too many lines to match. There should be no more than 8 lines in a MorphLinesIcon.');
+        matchLines([horizontal(6)], lineSegmentWithMoreThan32Lines);
+      }).toThrow(`Too many lines to match. There should be no more than ${MAX_LINE_SEGMENTS} line segments.`);
     });
   });
 

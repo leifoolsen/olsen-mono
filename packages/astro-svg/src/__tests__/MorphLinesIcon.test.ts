@@ -35,12 +35,10 @@ describe('MorphLinesIcon.astro', () => {
     });
 
     it('pads shorter line arrays to match the longer array', async () => {
-      const { container, html } = await renderAstro(MorphLinesIcon, {
+      const { container } = await renderAstro(MorphLinesIcon, {
         fromLines: plusLines, // 2 lines
         toLines: tripleLines, // 3 lines
       });
-
-      console.log(html);
 
       const lines = container.querySelectorAll('svg line');
       expect(lines).toHaveLength(3);
