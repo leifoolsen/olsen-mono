@@ -1,31 +1,16 @@
 ---
+import { applicationMenuItems } from './application-menu';
 ---
 
 <ul
   class="app-sidebar-nav-list"
   style="margin-block-start: var(--space-m); display: flex; flex-direction: column; gap: var(--space-xs);"
 >
-  <li>
-    <a href="/typography">👉 Typography</a>
-  </li>
-  <li>
-    <a href="/colors">👉 Colors</a>
-  </li>
-  <li>
-    <a href="/sizes">👉 Sizes</a>
-  </li>
-  <li>
-    <a href="/shadows">👉 Shadows</a>
-  </li>
-  <li>
-    <a href="/form-elements">👉 Form Elements</a>
-  </li>
-  <li>
-    <a href="/morph-icons">👉 Morph Icons</a>
-  </li>
-  <li>
-    <a href="/html5-test-page">👉 HTML5 Test Page</a>
-  </li>
+  {applicationMenuItems.map(({ href, label }) => (
+    <li>
+      <a href={href}>👉 {label}</a>
+    </li>
+  ))}
 </ul>
 
 <style>
