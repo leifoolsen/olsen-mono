@@ -440,6 +440,109 @@ The architecture distinguishes between Pre-Merge Validation (**CI**) and Post-Me
 
 ---
 
+## Git Workflow: Updating & Merging Feature Branches
+
+To keep commit history clean and avoid recurring merge conflicts, follow this workflow when working on feature branches:
+
+### 1. Keep `main` up to date
+
+Always update your local `main` branch using fast-forward only:
+
+```bash
+git checkout main
+git pull --ff-only
+```
+
+### 2. Rebase your feature branch onto `main`
+
+Regularly replay your feature commits on top of the latest `main`. Avoid mixing `git merge` into a branch you intend to rebase.
+
+```bash
+git checkout <feature-branch>
+git rebase main
+```
+
+- **If conflicts occur:** Resolve them in your editor, stage the files with `git add <file>`, and run `git rebase --continue`. (Use `git rebase --abort` to cancel).
+
+### 3. Push updates to your remote branch
+
+Because rebasing rewrites branch history, update your remote feature branch safely using `--force-with-lease`:
+
+```bash
+git push --force-with-lease
+```
+
+### 4. Squash when merging into `main`
+
+Only squash commits once the feature is complete and ready to be merged into `main`:
+
+- **Via Pull Request:** Select the **Squash and merge** option.
+- **Via CLI:**
+  ```bash
+  git checkout main
+  git merge --squash <feature-branch>
+  git commit -m "feat: add concise description of feature"
+  ```
+
+---
+
+## Working with Multiple Feature Branches
+
+### Scenario 1: Independent Feature Branches
+
+If `feature-1` and `feature-2` both branch off `main` and do not depend on each other, follow the standard workflow:
+
+1. Squash-merge `feature-1` into `main`.
+2. Update your local `main` branch:
+   ```bash
+   git checkout main
+   git pull --ff-only
+   ```
+3. Rebase `feature-2` onto the updated `main`:
+   ```bash
+   git checkout feature-2
+   git rebase main
+   git push --force-with-lease
+   ```
+
+### Scenario 2: `feature-2` Needs Code from `feature-1`
+
+If both branches start from `main`, but `feature-2` needs changes from `feature-1` before `feature-1` is merged:
+
+1. **Sync `feature-2` with `feature-1` using rebase** (avoid `git pull` or `git merge`):
+   ```bash
+   git checkout feature-2
+   git rebase feature-1
+   ```
+2. **Once `feature-1` is squash-merged into `main`**, update `main` and use `--onto` so Git only replays `feature-2`'s commits onto `main` (skipping `feature-1`'s old commits to avoid duplicate conflicts):
+   ```bash
+   git checkout main
+   git pull --ff-only
+
+   git checkout feature-2
+   git rebase --onto main feature-1
+   git push --force-with-lease
+   ```
+
+---
+
+## Recommended Git Configuration
+
+Run these commands once to set helpful defaults for this workflow:
+
+```bash
+# Default to fast-forward only when running `git pull`
+git config --global pull.ff only
+
+# Remember how you resolved conflicts so Git can auto-resolve them if they reappear
+git config --global rerere.enabled true
+
+# Automatically clean up stale remote-tracking branches on fetch/pull
+git config --global fetch.prune true
+```
+
+---
+
 ## 📦 Create a new workspace package
 
 1. Create a new workspace package using the `turbo` template: `pnpm turbo`.
