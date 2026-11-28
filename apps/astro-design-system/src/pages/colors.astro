@@ -1,0 +1,21 @@
+---
+// src/pages/style-queries.astro
+
+import ColorSwatches from '@components/ColorSwatchSamples.astro';
+import ColorVariants from '@components/ColorVariantSamples.astro';
+import Surfaces from '@components/SurfaceSamples.astro';
+import AppLayout from '@layouts/AppLayout.astro';
+---
+
+<AppLayout title="Colors">
+  <section>
+    <header>
+      <h1>Colors</h1>
+    </header>
+    <ColorSwatches />
+    <br />
+    <Surfaces />
+    <br />
+    <ColorVariants />
+  </section>
+</AppLayout>

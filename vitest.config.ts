@@ -6,7 +6,7 @@ export default mergeConfig(
   baseConfig,
   defineConfig({
     test: {
-      projects: ['packages/*', '!packages/css-foundation', '!tools'],
+      projects: ['packages/*', 'apps/*', '!packages/css-foundation', '!tools'],
     },
   }),
 );

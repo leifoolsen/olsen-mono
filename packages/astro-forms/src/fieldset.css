@@ -1,0 +1,32 @@
+/* --- Fieldset --- */
+@layer components {
+  .form-fieldset {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+
+    & > legend {
+      display: block;
+      float: left;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    &.bordered {
+      border: 1px solid var(--muted-border-color);
+      border-radius: var(--space-2xs);
+      padding: var(--space-m) var(--space-l);
+
+      & > legend {
+        padding: 0 0 0 var(--space-xs);
+        margin: 0 0 0 calc(var(--space-xs) * -1);
+      }
+    }
+  }
+}

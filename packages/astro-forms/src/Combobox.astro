@@ -11,7 +11,6 @@ import InputControl from './InputControl.astro';
 import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
 import SearchIcon from './SearchIcon.astro';
-import './listbox.css';
 import { injectForAttribute } from './utils.ts';
 
 type Props = HTMLAttributes<'input'> & {
@@ -42,7 +41,7 @@ const {
 assertValidSlots(Astro.slots, ['label', 'options', 'description', 'error-message'], 'Combobox');
 
 const hasLabel = !!label || Astro.slots.has('label');
-const errorId = (invalid ?? ariaInvalid) && Astro.slots.has('error-message') ? `${id}-error` : undefined;
+const errorId = (invalid ?? ariaInvalid === 'true') && Astro.slots.has('error-message') ? `${id}-error` : undefined;
 const descriptionId = Astro.slots.has('description') ? `${id}-description` : undefined;
 const describedByList = [errorId, descriptionId, ariaDescribedBy].filter(Boolean).join(' ');
 const hasOptionsSlot = Astro.slots.has('options');
@@ -68,14 +67,14 @@ if (!label && Astro.slots.has('label')) {
       aria-invalid={invalid ?? ariaInvalid ?? undefined}
       aria-multiselectable="false"
       autocomplete={autocomplete}
-      class:list={['form-text-input', 'combobox-input']}
+      class="form-combobox-input"
       data-combobox-input
       id={id}
       readonly={readonly}
       role={role}
       type={type}
       {...rest}
-    >
+    />
 
     {type === 'search' && <SearchIcon data-search />}
 
@@ -100,7 +99,7 @@ if (!label && Astro.slots.has('label')) {
 
   {hasOptionsSlot && (
     <div
-      class="combobox-results-popover"
+      class="form-combobox-results-popover"
       data-combobox-popover
       id={resultsPopoverId}
       popover="auto"
@@ -112,19 +111,82 @@ if (!label && Astro.slots.has('label')) {
 </InputGroup>
 
 <script>
-import { createCombobox } from './combobox';
+  import { createCombobox } from './combobox';
 
-const setupComboboxes = () => {
-  const inputs = document.querySelectorAll<HTMLInputElement>('[data-combobox-input]');
+  const setupComboboxes = () => {
+    const inputs = document.querySelectorAll<HTMLInputElement>('[data-combobox-input]');
 
-  for (const input of inputs) {
-    if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
-    input.setAttribute('data-initialized', 'true');
+    for (const input of inputs) {
+      if (!(input instanceof HTMLInputElement) || input.hasAttribute('data-initialized')) continue;
+      input.setAttribute('data-initialized', 'true');
 
-    createCombobox(input);
-  }
-};
+      createCombobox(input);
+    }
+  };
 
-setupComboboxes();
-document.addEventListener('astro:after-swap', setupComboboxes);
+  setupComboboxes();
+  document.addEventListener('astro:after-swap', setupComboboxes);
 </script>
+
+<style>
+  @layer components {
+    [role='group'].combobox-control {
+      &:has([readonly]) {
+        border-style: solid;
+
+        &:has(:not(:disabled)) {
+          [data-picker] {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    input.form-combobox-input {
+      text-overflow: ellipsis;
+
+      &[type='search'] {
+        &::-webkit-search-decoration,
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-results-button,
+        &::-webkit-search-results-decoration {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+        }
+      }
+
+      &[readonly] {
+        color: inherit;
+        cursor: pointer;
+      }
+    }
+
+    .form-combobox-results-popover {
+      inset: auto;
+      margin: 0;
+      padding: 0 0 var(--space-xs) 0;
+      position: fixed;
+      border: 0;
+      border-radius: var(--space-xs);
+      color: inherit;
+      overflow: visible;
+      font-size: var(--font-size-s, 0.9em);
+      top: anchor(bottom);
+      left: anchor(left);
+      min-inline-size: anchor-size(width);
+      margin-block-start: var(--space-xs);
+      position-try-fallbacks: flip-block;
+      background-color: oklch(from var(--swatch-color) calc(l + (sign(l - 0.623) * -1 * 0.04)) c h / 0.9);
+
+      @supports (backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px)) {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+    }
+
+    .form-combobox-results-popover [role='listbox'] {
+      max-height: 15lh;
+    }
+  }
+</style>

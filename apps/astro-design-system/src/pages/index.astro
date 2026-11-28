@@ -1,30 +1,19 @@
 ---
-// src/pages/index.astro
-import AppLayout from '@layouts/app-layout.astro';
+import ApplicationMenu from '@components/ApplicationMenu.astro';
+import AppLayout from '@layouts/AppLayout.astro';
 ---
 
 <AppLayout title="@olsen-mono Design System">
   <section>
-    <h1 data-font-size="5xl">Welcome</h1>
+    <header>
+      <h1 data-font-size="5xl">Welcome</h1>
+    </header>
     <p data-font-size="xl" style="font-weight: normal">
       This app is an implementation of my data driven design system in Astro.
     </p>
   </section>
 
-  <section style="margin-block-start: var(--space-xl);">
-    <ul style="margin-block-start: var(--space-m); display: flex; flex-direction: column; gap: var(--space-xs);">
-      <li>
-        <a href="/html5-test-page">👉 HTML5 Test Page</a>
-      </li>
-      <li>
-        <a href="/design-system-test-page">👉 Designsystem Test Pagee</a>
-      </li>
-      <li>
-        <a href="/form-elements">👉 Form Elements</a>
-      </li>
-      <li>
-        <a href="/morph-icons">👉 Morph Icons</a>
-      </li>
-    </ul>
-  </section>
+  <nav style="margin-block-start: var(--space-xl);">
+    <ApplicationMenu />
+  </nav>
 </AppLayout>

@@ -17,7 +17,7 @@ import type { LineSegment } from '../types';
 const CENTER_POINT: LineSegment = { x1: 12, y1: 12, x2: 12, y2: 12 };
 const horizontal = (y: number): LineSegment => ({ x1: 4, y1: y, x2: 20, y2: y });
 
-describe('utils', () => {
+describe('morph-lines-utils', () => {
   describe('scaleLines', () => {
     it('should scale coordinates towards the center', () => {
       expect(scaleLines([{ x1: 4, y1: 12, x2: 20, y2: 12 }], 0.5)).toEqual([{ x1: 8, y1: 12, x2: 16, y2: 12 }]);

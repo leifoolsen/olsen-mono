@@ -65,6 +65,10 @@ html {
   font-family: var(--font-family-heading), sans-serif;
 }
 
+:is(p) {
+  margin-block-end: var(--space-s, 0.5rem);
+}
+
 :is(h1, h2, h3, h4, h5, h6):first-child {
   margin-block-start: 0;
 }
@@ -110,6 +114,10 @@ html {
   font-family: var(--font-family-mono), monospace;
 }
 
+:where(output, pre) {
+  font-size: 0.875em;
+}
+
 :where(code, kbd, samp) {
   font-size: 0.9em;
   padding: 0.2em 0.4em;
@@ -153,16 +161,15 @@ html {
   }
 }
 
-/* --- Fill available space in inputs (but not buttons)
+/* --- Fill available space in inputs (but not buttons) --- */
 :where(textarea),
 :where(input:not(:where([type="submit"], [type="checkbox"], [type="radio"], [type="button"], [type="reset"]))) {
   inline-size: 100%;
 }
---- */
 
 /* --- A elements that don't have a class get default styles --- */
 :where(a:not([class])) {
-  color: var(--brand-text-color, var(--system-brand-color));
+  color: var(--accent-color);
   text-decoration-skip-ink: auto;
   text-decoration: underline;
   text-decoration-style: solid;
@@ -185,9 +192,11 @@ html {
     border-radius: 2px;
   }
 
-  &:hover {
-    color: light-dark(oklch(from currentcolor calc(l - 0.12) c h), oklch(from currentcolor calc(l + 0.12) c h));
-    text-decoration-color: currentcolor;
+  @media (hover: hover) {
+    &:hover {
+      color: light-dark(oklch(from currentcolor calc(l - 0.12) c h), oklch(from currentcolor calc(l + 0.12) c h));
+      text-decoration-color: currentcolor;
+    }
   }
 
   &:active {
@@ -195,24 +204,168 @@ html {
   }
 }
 
-/* --- Scroll margin allowance above anchor links --- */
+/* ---
+  Scroll margin allowance above anchor links.
+  Note: scroll-padding-top / scroll-padding-block-start MUST be if an application has a sticky header!
+--- */
 :target {
   scroll-padding-block-start: 2rem;
 }
 
-/* --- Scroll margin allowance below focused elements  to ensure they are clearly in view --- */
+/* ---
+  Scroll margin allowance below focused elements  to ensure they are clearly in view.
+  Note: A sticky header design requires a larger value. For a non sticky header use a value between 2 and 4.
+--- */
 :where(:focus) {
   scroll-padding-block-end: 8vh;
 }
 
 /* --- Default focus management for accessibility --- */
-:where(button, input, textarea, select, details, audio, video, object, [contenteditable], [tabindex]):focus-visible {
-  outline: var(--outline-size) solid var(--brand-text-color);
-  outline-offset: var(--outline-size);
-  box-shadow: none;
+:where(
+  button,
+  input,
+  textarea,
+  select,
+  details,
+  audio,
+  video,
+  object,
+  [contenteditable],
+  [tabindex],
+  [data-focus-ring]:not(:has(:is([type="checkbox"], [type="radio"])))
+):is(:focus-visible, :has(:focus-visible)) {
+  outline: var(--outline-size) auto Highlight;
+  outline-offset: var(--outline-offset);
+  box-shadow: 0 0 12px 2px oklch(from Highlight l c h / 90%);
+  transition:
+    border-color 0.2s,
+    background-color 0.2s ease,
+    outline-color 0.2s,
+    box-shadow 0.2s,
+    filter 0.2s;
+}
+
+/* Webkit / Safari */
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  :where(
+    button,
+    input,
+    textarea,
+    select,
+    details,
+    audio,
+    video,
+    object,
+    [contenteditable],
+    [tabindex],
+    [data-focus-ring]:not(:has(:is([type="checkbox"], [type="radio"])))
+  ):is(:focus-visible, :has(:focus-visible)) {
+    outline: var(--outline-size) auto -webkit-focus-ring-color;
+    filter: drop-shadow(0 0 4px oklch(from -webkit-focus-ring-color l c h / 85%));
+  }
+}
+
+/* ---
+  Reset focus ring inside input control, exclusive checkbox and radio.
+  Note: An input control is a container that takes control of focus management, e.g.
+    <div data-focus-ring>
+      <input /> <!-- This element vil not have it's own focus ring. -->
+    </div>
+--- */
+:where([data-focus-ring]) {
+  & :is(input:not(:is([type="checkbox"], [type="radio"])), select, textarea, button):focus-visible {
+    outline: none;
+    box-shadow: none;
+    filter: none;
+  }
 }
 
 /* --- Anything that has been anchored to should have extra scroll margin --- */
-:target {
-  scroll-margin-block-start: 2rlh;
+:where(:target) {
+  scroll-margin-block-start: 4rlh;
+}
+
+/* --- Fluid Fonts --- */
+[data-font-size="xs"],
+[data-font-size="s"],
+[data-font-size="m"] {
+  font-family: var(--font-family-main), sans-serif;
+}
+
+[data-font-size="xs"] {
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-xs);
+  font-weight: var(--font-weight-xs);
+  line-height: var(--line-height-xs);
+}
+
+[data-font-size="s"] {
+  font-size: var(--font-size-s);
+  letter-spacing: var(--letter-spacing-s);
+  font-weight: var(--font-weight-s);
+  line-height: var(--line-height-s);
+}
+
+:where(h6),
+[data-font-size="m"] {
+  font-size: var(--font-size-m);
+  letter-spacing: var(--letter-spacing-m);
+  font-weight: var(--font-weight-m);
+  line-height: var(--line-height-m);
+}
+
+[data-font-size="l"],
+[data-font-size="xl"],
+[data-font-size="2xl"],
+[data-font-size="3xl"],
+[data-font-size="4xl"],
+[data-font-size="5xl"] {
+  font-family: var(--font-family-heading), sans-serif;
+}
+
+:where(h5),
+[data-font-size="l"] {
+  font-size: var(--font-size-l);
+  letter-spacing: var(--letter-spacing-l);
+  font-weight: var(--font-weight-l);
+  line-height: var(--line-height-l);
+}
+
+:where(h4),
+[data-font-size="xl"] {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-l);
+  letter-spacing: var(--letter-spacing-xl);
+  font-weight: var(--font-weight-xl);
+}
+
+:where(h3),
+[data-font-size="2xl"] {
+  font-size: var(--font-size-2xl);
+  letter-spacing: var(--letter-spacing-2xl);
+  font-weight: var(--font-weight-l);
+  line-height: var(--line-height-2xl);
+}
+
+:where(h2),
+[data-font-size="3xl"] {
+  font-size: var(--font-size-3xl);
+  letter-spacing: var(--letter-spacing-3xl);
+  font-weight: var(--font-weight-l);
+  line-height: var(--line-height-3xl);
+}
+
+:where(h1),
+[data-font-size="4xl"] {
+  font-size: var(--font-size-4xl);
+  letter-spacing: var(--letter-spacing-4xl);
+  font-weight: var(--font-weight-l);
+  line-height: var(--line-height-4xl);
+}
+
+[data-font-size="5xl"] {
+  font-size: var(--font-size-5xl);
+  letter-spacing: var(--letter-spacing-4xl);
+  font-weight: var(--font-weight-l);
+  line-height: var(--line-height-4xl);
 }

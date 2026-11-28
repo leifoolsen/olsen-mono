@@ -1,0 +1,68 @@
+---
+// src/components/ColorSwatches.astro
+const surfaces = ['white-black'];
+
+const variants = ['neutral', 'primary', 'secondary', 'tertiary', 'success', 'info', 'warning', 'error'];
+const shades = [
+  '50',
+  '100',
+  '200',
+  '300',
+  '400',
+  '500',
+  '600',
+  '700',
+  '800',
+  '900',
+  '950',
+  'A100',
+  'A200',
+  'A400',
+  'A700',
+];
+---
+
+<article>
+  <h2>Swatches</h2>
+  {surfaces.map((variant) => (
+    <div data-variant={variant} class="color-swatches">
+      {shades.toSpliced(11).map((shade) => (
+        <div data-shade={shade} class="color-swatch">
+          <span>{shade}</span>
+          <span style="color: var(--subtle-text)">{shade}</span>
+          <span style="color: var(--muted-text)">{shade}</span>
+        </div>
+      ))}
+    </div>
+  ))}
+
+  {variants.map((variant) => (
+    <div data-variant={variant} class="color-swatches">
+      {shades.map((shade) => (
+        <div data-shade={shade} class="color-swatch">
+          <span>{shade}</span>
+          <span style="color: var(--subtle-text)">{shade}</span>
+          <span style="color: var(--muted-text)">{shade}</span>
+        </div>
+      ))}
+    </div>
+  ))}
+</article>
+<style>
+  .color-swatches {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    background-color: transparent;
+  }
+
+  .color-swatch {
+    background-color: var(--swatch-color);
+    display: grid;
+    align-items: center;
+    text-align: center;
+    font-size: var(--font-size-s);
+    padding-block: 0.25rem;
+    min-height: 2rem;
+    text-overflow: fade;
+  }
+</style>

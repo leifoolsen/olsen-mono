@@ -62,5 +62,22 @@ describe('LinesIcon.astro', () => {
       expect(line).not.toBeNull();
       expect(line?.hasAttribute('stroke-width')).toBe(false);
     });
+
+    it('renders each line segment and keeps stroke behavior', async () => {
+      const lines = [
+        { x1: 4, y1: 12, x2: 20, y2: 12 },
+        { x1: 12, y1: 4, x2: 12, y2: 20 },
+      ];
+
+      const { container } = await renderAstro(LinesIcon, {
+        lines,
+        name: 'cross',
+      });
+
+      const svg = container.querySelector('svg');
+      expect(svg?.getAttribute('viewBox')).toBe('0 0 24 24');
+      expect(svg?.querySelectorAll('line')).toHaveLength(2);
+      expect(svg?.getAttribute('stroke-width')).toBe('2');
+    });
   });
 });

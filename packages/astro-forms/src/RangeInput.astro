@@ -6,7 +6,6 @@ import FormDescription from './FormDescription.astro';
 import InputControl from './InputControl.astro';
 import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
-import './forms.css';
 
 type Props = HTMLAttributes<'input'> & {
   id: string;
@@ -67,7 +66,7 @@ const numberInputId = `${id}-number`;
       id={numberInputId}
       min={min}
       max={max}
-      name={`${name}-number`}
+      name={name ? `${name}-number` : undefined}
       step={step}
       value={value}
       oninput={`document.getElementById('${id}').value = this.value`}
@@ -81,3 +80,83 @@ const numberInputId = `${id}-number`;
     )}
   </InputControl>
 </InputGroup>
+
+<style>
+  @import './forms-tokens.css' layer(components);
+
+  @layer components {
+    .form-range-input[type='range'] {
+      flex: 100%;
+    }
+
+    /* Webkit */
+    .form-range-input[type='range']::-webkit-slider-runnable-track {
+      width: 100%;
+      height: var(--form-range-track-height);
+      background-color: oklch(from var(--swatch-color) calc(l + 0.04) c h / 95%);
+      border: 1px solid var(--border-color);
+      border-radius: calc(infinity * 1px);
+      transition: border-color 0.2s;
+    }
+
+    .form-range-input[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin-top: calc((var(--form-slider-thumb-height) - var(--form-range-track-height) + 1px) / -2);
+      height: var(--form-slider-thumb-height);
+      width: var(--form-slider-thumb-height);
+      border-radius: 50%;
+      background-color: oklch(from var(--accent-color) l c h / 95%);
+      border: 1px solid var(--accent-color);
+      transition:
+        transform 0.1s ease,
+        background-color 0.2s;
+    }
+
+    @media (hover: hover) {
+      .form-range-input[type='range']::-webkit-slider-thumb:hover {
+        transform: scale(1.15);
+      }
+    }
+
+    /* Mozilla */
+    .form-range-input[type='range']::-moz-range-track {
+      width: 100%;
+      height: var(--form-range-track-height);
+      background-color: oklch(from var(--swatch-color) calc(l + 0.04) c h / 95%);
+      border: 1px solid var(--border-color);
+      border-radius: calc(infinity * 1px);
+    }
+
+    .form-range-input[type='range']::-moz-range-thumb {
+      height: var(--form-slider-thumb-height);
+      width: var(--form-slider-thumb-height);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      background-color: oklch(from var(--accent-color) l c h / 95%);
+      transition: transform 0.1s ease;
+    }
+
+    @media (hover: hover) {
+      .form-range-input[type='range']::-moz-range-thumb:hover {
+        transform: scale(1.15);
+      }
+    }
+
+    [type='number'].form-range-number-input {
+      background-color: transparent;
+      width: 12ch;
+      text-align: center;
+      appearance: textfield;
+      -webkit-appearance: textfield;
+      -moz-appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+  }
+</style>

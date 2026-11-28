@@ -51,6 +51,45 @@
   min-block-size: 4lh;
 }
 
+/* 2026 Cursor defaults */
+:where(
+  button,
+  label,
+  select,
+  option,
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="color"],
+  input[type="image"],
+  ::file-selector-button
+) {
+  cursor: pointer;
+}
+
+/* Stop buttons triggering zoom when they're double tapped. */
+:where(button) {
+  touch-action: manipulation;
+}
+
+:where(input[type="range"]) {
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+:where(:is(select, input, textarea, button, option):disabled, :disabled::file-selector-button) {
+  cursor: not-allowed;
+}
+
+:where(select[readonly], optgroup, input[readonly], textarea[readonly]) {
+  cursor: default;
+}
+
 /**
  * 1. Correct the height in Firefox.
  * 2. Add visible overflow in Edge and IE.

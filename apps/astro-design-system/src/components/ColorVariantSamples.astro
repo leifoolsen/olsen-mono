@@ -1,0 +1,158 @@
+---
+const variants = [
+  'primary-surface',
+  'secondary-surface',
+  'tertiary-surface',
+  'neutral',
+  'white-black',
+  'primary',
+  'secondary',
+  'tertiary',
+  'success',
+  'info',
+  'warning',
+  'error',
+];
+---
+
+<article>
+  <h2>Color Variants</h2>
+
+  <div
+    data-layout="ram"
+    data-container-viewport
+    style="--layout-gap: var(--space-2xl); --layout-grid-item-min: 30rem; margin-bottom: 3rem"
+  >
+    {variants.map((variant) => (
+      <div data-variant={variant} data-shade="500" class="variant-box">
+        <span style="color: var(--branded-text); grid-column: span 2; font-size: var(--font-size-xl)">
+          Data Variant: {variant}
+        </span>
+
+        <span>Normal text</span>
+        <span>Normal text</span>
+
+        <span style="color: var(--subtle-text);">--subtle-text</span>
+        <span style="color: var(--subtle-text);">Subtle Text</span>
+
+        <span style="color: var(--muted-text);">--muted-text</span>
+        <span style="color: var(--muted-text);">Muted Text</span>
+
+        <span>--accent-color</span>
+        <span style="color: var(--accent-color);">Accent Color</span>
+
+        <span>--error-text</span>
+        <span style="color: var(--error-text);">Error Text</span>
+
+        <span>--warning-text</span>
+        <span style="color: var(--warning-text);">Warning Text</span>
+
+        <span>--success-text</span>
+        <span style="color: var(--success-text);">Success Text</span>
+
+        <span>--info-text</span>
+        <span style="color: var(--info-text);">Info Text</span>
+
+        <span>--border-color</span>
+        <span style="height: stretch; border: 1px solid var(--border-color);" />
+
+        <span>--subtle-border-color</span>
+        <span style="height: stretch; border: 1px solid var(--subtle-border-color)" />
+
+        <span>--muted-border-color</span>
+        <span style="height: stretch; border: 1px solid var(--muted-border-color)" />
+
+        <span>--input-background-color</span>
+        <span style="height: stretch; background-color: var(--input-background-color);">Text</span>
+
+        <span>--input-hover-background-color</span>
+        <span style="height: stretch; background-color: var(--input-hover-background-color);">Text</span>
+
+        <span>--input-active-background-color</span>
+        <span style="height: stretch; background-color: var(--input-active-background-color);">Text</span>
+      </div>
+    ))}
+
+    <div>
+      <div data-variant="primary" class="variant-box">
+        <span>Normal text</span>
+        <span>Normal text</span>
+
+        <span style="color: var(--subtle-text);">--subtle-text</span>
+        <span style="color: var(--subtle-text);">Subtle Text</span>
+
+        <span style="color: var(--muted-text);">--muted-text</span>
+        <span style="color: var(--muted-text);">Muted Text</span>
+
+        <span>--border-color</span>
+        <span style="height: stretch; border: 1px solid var(--border-color)" />
+
+        <div style="grid-column: span 2;">
+          <div data-variant="tertiary" class="variant-box">
+            <span style="color: var(--branded-text); grid-column: span 2; font-size: var(--font-size-l)">
+              Nested, data-variant="tertiary"
+            </span>
+            <span>Normal text</span>
+            <span>Normal text</span>
+
+            <span style="color: var(--subtle-text);">--subtle-text</span>
+            <span style="color: var(--subtle-text);">Subtle Text</span>
+
+            <span style="color: var(--muted-text);">--muted-text</span>
+            <span style="color: var(--muted-text);">Muted Text</span>
+
+            <span>--border-color</span>
+            <span style="height: stretch; border: 1px solid var(--border-color)" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article>
+  <h2>Base Colors as Text</h2>
+  <div style="color: var(--branded-text); font-size: var(--font-size-2xl);">--branded-text</div>
+  <div style="color: var(--accent-color); font-size: var(--font-size-2xl);">--accent-color</div>
+  <div style="color: var(--primary-500); font-size: var(--font-size-2xl);">--primary-500</div>
+  <div style="color: var(--secondary-500); font-size: var(--font-size-2xl);">--secondary-500</div>
+  <div style="color: var(--tertiary-500); font-size: var(--font-size-2xl);">--tertiary-500</div>
+  <div style="color: var(--success-500); font-size: var(--font-size-2xl);">--success-500</div>
+  <div style="color: var(--info-500); font-size: var(--font-size-2xl);">--info-500</div>
+  <div style="color: var(--warning-500); font-size: var(--font-size-2xl);">--warning-500</div>
+  <div style="color: var(--error-500); font-size: var(--font-size-2xl);">--error-500</div>
+  <div style="color: var(--neutral-500); font-size: var(--font-size-2xl);">--neutral-500</div>
+  <div style="color: var(--white-black-500); font-size: var(--font-size-2xl);">--white-black-500</div>
+</article>
+
+<style>
+  .variant-box {
+    position: relative;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: fit-content(30ch) auto;
+    grid-auto-rows: min-content;
+    background-color: var(--swatch-color);
+    color: var(--normal-text);
+    padding-inline: var(--space-m);
+    padding-block: var(--space-m);
+    border-radius: var(--space-xs);
+    box-shadow: var(--shadow-2xl);
+    transition:
+      box-shadow 0.2s ease,
+      background-color 0.4s ease;
+
+    &:hover {
+      --swatch-color: var(--shade-800);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: var(--inset-shadow-s);
+      pointer-events: none;
+    }
+  }
+</style>

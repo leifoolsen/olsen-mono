@@ -12,10 +12,10 @@
       "development": "./src/main.css",
       "default": "./src/main.css"
     },
-    "./colors.css": {
-      "types": "./dist/colors.css.d.ts",
-      "development": "./src/colors.css",
-      "default": "./src/colors.css"
+    "./color-tokens.css": {
+      "types": "./dist/color-tokens.css.d.ts",
+      "development": "./src/color-tokens.css",
+      "default": "./src/color-tokens.css"
     },
     "./font-stacks.css": {
       "types": "./dist/font-stacks.css.d.ts",

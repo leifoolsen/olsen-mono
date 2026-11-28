@@ -7,7 +7,6 @@ import InputControl from './InputControl.astro';
 import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
 import { injectForAttribute } from './utils.ts';
-import './forms.css';
 
 type Props = HTMLAttributes<'textarea'> & {
   id: string;
@@ -64,3 +63,16 @@ if (!label && Astro.slots.has('label')) {
     </ErrorMessage>
   )}
 </InputGroup>
+
+<style>
+  @import './forms-tokens.css' layer(components);
+
+  @layer components {
+    textarea.form-textarea-input {
+      padding-inline: var(--space-s);
+      resize: vertical;
+      min-block-size: calc(var(--form-input-height) * 5 - var(--space-s));
+      max-block-size: 12.05lh;
+    }
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+import BorderRadiuses from '@components/BorderRadiusSamples.astro';
+import FontSizes from '@components/FontSizeSamples.astro';
+import Spacings from '@components/SpacingSamples.astro';
+import AppLayout from '@layouts/AppLayout.astro';
+---
+
+<AppLayout title="Sizes">
+  <section>
+    <header>
+      <h1>Font Sizes</h1>
+    </header>
+    <FontSizes />
+
+    <h2>Container Viewport</h2>
+    <div data-container-viewport>
+      <FontSizes />
+    </div>
+
+    <h1>Spacing</h1>
+    <Spacings />
+
+    <h1>Border Radiuses</h1>
+    <BorderRadiuses />
+  </section>
+</AppLayout>

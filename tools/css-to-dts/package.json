@@ -31,7 +31,7 @@
     "compile": "tsdown --clean",
     "test": "vitest run",
     "test-coverage": "vitest run --coverage",
-    "typecheck": "tsc --noEmit"
+    "typecheck-tsc": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/node": "catalog:"

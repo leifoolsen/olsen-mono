@@ -5,7 +5,8 @@ import type { HTMLAttributes } from 'astro/types';
 import InputControl from './InputControl.astro';
 import InputGroup from './InputGroup.astro';
 import Label from './Label.astro';
-import './forms.css';
+import './checkbox-radio.css';
+import { injectForAttribute } from './utils.ts';
 
 type Props = HTMLAttributes<'input'> & {
   id?: string;
@@ -18,12 +19,17 @@ const { class: className, id, label, labelPosition = 'after', type = 'radio', ..
 assertValidSlots(Astro.slots, ['label'], 'RadioButton');
 
 const hasLabel = !!label || Astro.slots.has('label');
+let labelContent = '';
+if (!label && Astro.slots.has('label')) {
+  const slotContent = await Astro.slots.render('label');
+  labelContent = injectForAttribute(slotContent, id ?? '');
+}
 ---
 
 <InputGroup layout={labelPosition} class={className}>
-  {hasLabel && <Label for={id}>{label ? label : <slot name="label" />}</Label>}
+  {hasLabel && label ? <Label for={id}>{label}</Label> : labelContent && <Fragment set:html={labelContent} />}
 
   <InputControl>
-    <input type={type} class="form-radio-input" id={id} {...rest}>
+    <input type={type} class="form-radio-input" id={id} {...rest} />
   </InputControl>
 </InputGroup>

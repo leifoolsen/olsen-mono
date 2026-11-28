@@ -1,8 +1,5 @@
 export type Css = 
   | 'bordered'
-  | 'comboboxControl'
-  | 'comboboxInput'
-  | 'comboboxResultsPopover'
   | 'isActive'
   | 'listbox'
   | 'listboxGroup'
